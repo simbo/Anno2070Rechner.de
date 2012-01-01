@@ -1,0 +1,507 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Anno2070Rechner.de\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-23 01:47+0100\n"
+"PO-Revision-Date: 2011-12-23 01:47+0100\n"
+"Last-Translator: Simon Lepel <simbo@simbo.de>\n"
+"Language-Team: Simon Lepel <simbo@simbo.de>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: ../../../.\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: tpl/.\n"
+
+#: tpl/./login.php:8
+msgid "Gib deinen Benutzernamen ein"
+msgstr "Enter your username"
+
+#: tpl/./login.php:10
+#: tpl/./register.php:53
+msgid "Ung&uuml;ltiger Benutzername"
+msgstr "Invalid username"
+
+#: tpl/./login.php:12
+msgid "Benutzername existiert nicht"
+msgstr "Username doesn't exist"
+
+#: tpl/./login.php:14
+msgid "Benutzerkonto ist nicht aktiviert"
+msgstr "User account is not active"
+
+#: tpl/./login.php:18
+#: tpl/./change-email.php:24
+msgid "Gib dein Passwort ein"
+msgstr "Enter your password"
+
+#: tpl/./login.php:20
+#: tpl/./change-email.php:26
+msgid "Ung&uuml;ltiges Passwort"
+msgstr "Invalid password"
+
+#: tpl/./login.php:22
+#: tpl/./change-email.php:28
+msgid "Falsches Passwort"
+msgstr "Wrong password"
+
+#: tpl/./login.php:38
+#: tpl/./resend-activation.php:35
+#: tpl/./register.php:103
+msgid "Benutzerkonto aktivieren"
+msgstr "Activate user account"
+
+#: tpl/./login.php:40
+msgid "Zugangsdaten vergessen?"
+msgstr "lost login data?"
+
+#: tpl/./login.php:52
+msgid "Anmeldung erfoglreich"
+msgstr "Login successful"
+
+#: tpl/./login.php:80
+#: tpl/./logout.php:24
+msgid "zur Startseite"
+msgstr "go to home"
+
+#: tpl/./login.php:86
+#: tpl/./register.php:143
+#: tpl/./change-email.php:78
+#: tpl/./password-lost.php:81
+msgid "Benutzername"
+msgstr "Username"
+
+#: tpl/./login.php:93
+#: tpl/./register.php:150
+#: tpl/./change-email.php:84
+msgid "Passwort"
+msgstr "Password"
+
+#: tpl/./login.php:100
+msgid "angemeldet bleiben"
+msgstr "remember me"
+
+#: tpl/./login.php:106
+#: tpl/./global-header.php:35
+msgid "Anmelden"
+msgstr "Login"
+
+#: tpl/./no-rights.php:4
+msgid "Zugriff verweigert"
+msgstr "Access denied"
+
+#: tpl/./no-rights.php:5
+msgid "Du hast leider nicht die notwendigen Rechte f&uuml;r das angeforderte Dokument."
+msgstr "Unfortunately you do not have the necessary rights for the requested document."
+
+#: tpl/./resend-activation.php:8
+#: tpl/./register.php:68
+#: tpl/./account.php:10
+#: tpl/./password-lost.php:115
+msgid "Gib deine E-Mailadresse ein"
+msgstr "Enter your e-mail address"
+
+#: tpl/./resend-activation.php:10
+#: tpl/./register.php:70
+#: tpl/./account.php:12
+#: tpl/./password-lost.php:117
+msgid "Ung&uuml;ltige E-Mailadresse"
+msgstr "Invalid e-mail address"
+
+#: tpl/./resend-activation.php:12
+#: tpl/./password-lost.php:119
+msgid "E-Mailadresse nicht registriert"
+msgstr "E-mail address not registered"
+
+#: tpl/./resend-activation.php:14
+msgid "Benutzerkonto ist bereits aktiv"
+msgstr "User account is already active"
+
+#: tpl/./resend-activation.php:36
+#: tpl/./register.php:104
+#, php-format
+msgid "Für die E-Mailadresse %s wurde ein Benutzerkonto auf \"%s\" erstellt."
+msgstr "A user account for the e-mail address %s was created on \"%s\"."
+
+#: tpl/./resend-activation.php:37
+#: tpl/./register.php:105
+msgid "Öffne die folgende URL in deinem Browser, um die E-Mailadresse zu bestätigen und das Benutzerkonto zu aktivieren."
+msgstr "Open the following url in your browser to approve the e-mail address and active the user account."
+
+#: tpl/./resend-activation.php:40
+#: tpl/./register.php:108
+#, php-format
+msgid "Es wurde eine E-Mail an <em>%s</em> gesendet um die E-Mailadresse zu best&auml;tigen und das Benutzerkonto zu aktivieren."
+msgstr "An e-mail was sent to <em>%s</em> to approve the e-mail address and activate the user account."
+
+#: tpl/./resend-activation.php:69
+#: tpl/./password-lost.php:174
+msgid "Deine E-Mail"
+msgstr "Your e-mail"
+
+#: tpl/./resend-activation.php:72
+#: tpl/./register.php:164
+#: tpl/./account.php:106
+#: tpl/./password-lost.php:177
+msgid "g&uuml;ltige E-mailadresse"
+msgstr "valid e-mail address"
+
+#: tpl/./resend-activation.php:76
+#: tpl/./password-lost.php:181
+msgid "Absenden"
+msgstr "Send"
+
+#: tpl/./rda-import.php:12
+msgid "Daten erfolgreich importiert."
+msgstr "Data successfully imported."
+
+#: tpl/./rda-import.php:13
+#, php-format
+msgid "%d Objekte in der Datenbank"
+msgstr "%d objects in the database"
+
+#: tpl/./rda-import.php:14
+#, php-format
+msgid "%d Waren, %d Geb&auml;ude (davon %d Produktionsgeb&auml;ude)"
+msgstr "%d goods, %d buildings (including %d production buildings)"
+
+#: tpl/./rda-import.php:17
+msgid "Daten konnten nicht importiert werden."
+msgstr "Data could not be imported."
+
+#: tpl/./rda-import.php:39
+msgid "Datei nicht lesbar"
+msgstr "File not readable"
+
+#: tpl/./rda-import.php:48
+msgid "Eine oder mehrere Dateien sind nicht vorhanden oder nicht lesbar."
+msgstr "One or more files don't exist or are not readable."
+
+#: tpl/./rda-import.php:48
+msgid "Alle Dateien sind lesbar."
+msgstr "All files are readable."
+
+#: tpl/./rda-import.php:51
+#: tpl/./global-header.php:42
+msgid "Daten importieren"
+msgstr "Import data"
+
+#: tpl/./register.php:16
+msgid "Aktivierung erfolgreich"
+msgstr "Activation successful"
+
+#: tpl/./register.php:17
+msgid "Die Aktivierung des Benutzerkontos war erfolgreich."
+msgstr "The activation of the user account was successful."
+
+#: tpl/./register.php:18
+#: tpl/./password-lost.php:51
+msgid "zur Anmeldung"
+msgstr "go to login"
+
+#: tpl/./register.php:23
+msgid "Aktivierung nicht m&ouml;glich"
+msgstr "Activation not possible"
+
+#: tpl/./register.php:24
+msgid "Das Benutzerkonto ist bereits aktiv."
+msgstr "User account is already active"
+
+#: tpl/./register.php:29
+msgid "Aktivierung fehlgeschlagen"
+msgstr "Activation failed"
+
+#: tpl/./register.php:30
+msgid "Die Aktivierung des Benutzerkontos war nicht m&ouml;glich."
+msgstr "The activation of the user account was not possible."
+
+#: tpl/./register.php:39
+msgid "Neue Benutzerregistrierungen sind derzeit nicht m&ouml;glich."
+msgstr "New user registrations are not possible at the moment."
+
+#: tpl/./register.php:51
+msgid "Gib einen Benutzernamen ein"
+msgstr "Enter a username"
+
+#: tpl/./register.php:55
+msgid "Benutzername bereits vergeben"
+msgstr "Username already in use"
+
+#: tpl/./register.php:58
+#: tpl/./account.php:18
+#: tpl/./password-lost.php:23
+msgid "Gib ein Passwort ein"
+msgstr "Enter a password"
+
+#: tpl/./register.php:60
+#: tpl/./account.php:20
+#: tpl/./password-lost.php:25
+msgid "Mindestens 8 Zeichen"
+msgstr "Minimum 8 characters"
+
+#: tpl/./register.php:63
+#: tpl/./account.php:23
+#: tpl/./password-lost.php:28
+msgid "Gib das Passwort nochmal ein"
+msgstr "Enter the password again"
+
+#: tpl/./register.php:65
+#: tpl/./account.php:25
+#: tpl/./password-lost.php:30
+msgid "Die Passw&ouml;rter stimmen nicht &uuml;berein"
+msgstr "Passwords do not match"
+
+#: tpl/./register.php:72
+#: tpl/./account.php:14
+msgid "E-Mailadresse bereits registriert"
+msgstr "E-mail address is already registered"
+
+#: tpl/./register.php:75
+msgid "Gib die beiden Worte im rechten Bild ein"
+msgstr "Enter the two words from the image"
+
+#: tpl/./register.php:82
+msgid "Deine Eingabe war nicht korrekt"
+msgstr "Your input was not correct"
+
+#: tpl/./register.php:129
+msgid "Als angemeldeter Benutzer kannst du die eingegebenen Daten deiner Spiele speichern und jederzeit wieder aufrufen."
+msgstr "As a logged in user you can save the entered data of your games and recall it at any time."
+
+#: tpl/./register.php:130
+msgid "Deine E-Mailadresse wird zur Freischaltung des Benutzerkontos ben&ouml;tigt und f&uuml;r den Fall, dass Du deine Zugangsdaten vergessen hast."
+msgstr "Your e-mail address is used to activate your account and in case you have lost your login data."
+
+#: tpl/./register.php:131
+msgid "Deine pers&ouml;nlichen Daten werden nicht an Dritte weitergegeben und du wirst von dieser Website keinen Spam erhalten."
+msgstr "Your personal data will not be disclosed to third parties and you will never receive spam from this website."
+
+#: tpl/./register.php:132
+msgid "Neues Bild laden"
+msgstr "Load new image"
+
+#: tpl/./register.php:146
+msgid "mind. 3 Zeichen"
+msgstr "min. 3 characters"
+
+#: tpl/./register.php:153
+#: tpl/./account.php:130
+#: tpl/./change-email.php:87
+#: tpl/./password-lost.php:90
+msgid "mind. 8 Zeichen"
+msgstr "min. 8 characters"
+
+#: tpl/./register.php:157
+#: tpl/./account.php:134
+#: tpl/./password-lost.php:94
+msgid "Passwort wiederholen"
+msgstr "Repeat password"
+
+#: tpl/./register.php:161
+msgid "E-Mail"
+msgstr "E-mail"
+
+#: tpl/./register.php:168
+msgid "Captcha"
+msgstr "Captcha"
+
+#: tpl/./register.php:172
+msgid "zwei Worte im rechten Bild"
+msgstr "two words from the image"
+
+#: tpl/./register.php:176
+#: tpl/./global-header.php:34
+msgid "Registrieren"
+msgstr "Register"
+
+#: tpl/./relations.php:13
+#: tpl/./database.php:43
+msgid "Geb&auml;ude"
+msgstr "Buildings"
+
+#: tpl/./relations.php:26
+msgid "Anzahl"
+msgstr "Count"
+
+#: tpl/./relations.php:32
+msgid "Berechnen"
+msgstr "Calculate"
+
+#: tpl/./account.php:52
+msgid "E-Mailadresse ändern"
+msgstr "Change e-mail address"
+
+#: tpl/./account.php:53
+#, php-format
+msgid "Der Benutzer %s auf \"%s\" möchte seine E-Mailadresse in %s ändern."
+msgstr "The user %s at \"%s\" wants to change his e-mail address to %s."
+
+#: tpl/./account.php:54
+msgid "Öffne die folgende URL in deinem Browser, um die E-Mailadresse zu bestätigen und die Änderung abzuschließen."
+msgstr "Open the following url in your browser to approve the e-mail address and apply the changes."
+
+#: tpl/./account.php:57
+#, php-format
+msgid "Es wurde eine E-mail an <em>%s</em> gesendet um die neue Adresse zu best&auml;tigen."
+msgstr "An e-mail was sent to <em>%s</em> to approve the new address."
+
+#: tpl/./account.php:62
+#: tpl/./password-lost.php:50
+msgid "Dein Passwort wurde ge&auml;ndert."
+msgstr "Your password was changed."
+
+#: tpl/./account.php:97
+msgid "Aktuelle E-Mail"
+msgstr "Current e-mail"
+
+#: tpl/./account.php:103
+#: tpl/./change-email.php:91
+msgid "Neue E-Mail"
+msgstr "New e-mail"
+
+#: tpl/./account.php:110
+#: tpl/./account.php:138
+#: tpl/./change-email.php:97
+#: tpl/./password-lost.php:98
+msgid "&Auml;ndern"
+msgstr "Change"
+
+#: tpl/./account.php:127
+#: tpl/./password-lost.php:87
+msgid "Neues Passwort"
+msgstr "New password"
+
+#: tpl/./account.php:147
+msgid "Registriert am %A, %e. %B %Y um %T"
+msgstr "Registered on %A, %B %e, %Y at %r"
+
+#: tpl/./account.php:148
+msgid "Letzte Authentifizierung am %A, %e. %B %Y um %T"
+msgstr "Last authentification on %A, %B %e, %Y at %r"
+
+#: tpl/./change-email.php:48
+#, php-format
+msgid "Deine E-Mailadresse wurde in <em>%s</em> ge&auml;ndert."
+msgstr "Your e-mail address was changed to <em>%s</em>."
+
+#: tpl/./change-email.php:109
+#: tpl/./404.php:4
+msgid "Oops, da ist etwas total schiefgelaufen&hellip;"
+msgstr "Oops, something went totally wrong here&hellip;"
+
+#: tpl/./global-header.php:23
+msgid "Startseite"
+msgstr "Home"
+
+#: tpl/./global-header.php:25
+msgid "angemeldet als"
+msgstr "logged in as"
+
+#: tpl/./global-header.php:25
+msgid "Du bist nicht angemeldet."
+msgstr "You are not logged in."
+
+#: tpl/./global-header.php:28
+msgid "Gespeicherte Daten"
+msgstr "Saved data"
+
+#: tpl/./global-header.php:31
+msgid "Benutzerkonto"
+msgstr "User account"
+
+#: tpl/./global-header.php:32
+msgid "Abmelden"
+msgstr "Logout"
+
+#: tpl/./global-header.php:39
+msgid "Warenbedarf"
+msgstr "Demands"
+
+#: tpl/./global-header.php:40
+msgid "Produktionsverh&auml;ltnisse"
+msgstr "Production relations"
+
+#: tpl/./global-header.php:41
+msgid "Datenbank"
+msgstr "Database"
+
+#: tpl/./database.php:48
+#: tpl/./database.php:63
+#: tpl/./database.php:82
+msgid "alle"
+msgstr "all"
+
+#: tpl/./database.php:58
+msgid "Produktionsgeb&auml;ude"
+msgstr "Production buildings"
+
+#: tpl/./database.php:64
+msgid "alle Fabriken"
+msgstr "all factories"
+
+#: tpl/./database.php:65
+msgid "alle Farmen"
+msgstr "all farms"
+
+#: tpl/./database.php:66
+msgid "alle Energie erzeugenden"
+msgstr "all energy producing"
+
+#: tpl/./database.php:67
+msgid "alle &Ouml;kobilanz erzeugenden"
+msgstr "all eco effect producing"
+
+#: tpl/./database.php:77
+msgid "Waren"
+msgstr "Goods"
+
+#: tpl/./database.php:98
+msgid "Suche nach"
+msgstr "Search for"
+
+#: tpl/./database.php:104
+msgid "Suchen"
+msgstr "Search"
+
+#: tpl/./password-lost.php:140
+msgid "Zugangsdaten wiederherstellen"
+msgstr "Restore login data"
+
+#: tpl/./password-lost.php:141
+#, php-format
+msgid "Die E-Mailadresse %s gehört zum Benutzer %s auf \"%s\"."
+msgstr "The e-mail address %s is associated with the user account %s at \"%s\"."
+
+#: tpl/./password-lost.php:142
+msgid "Öffne die folgende URL in deinem Browser, um ein neues Passwort für das Benutzerkonto festzulegen."
+msgstr "Open the following url in your browser to set a new password for the user account."
+
+#: tpl/./password-lost.php:145
+#, php-format
+msgid "Es wurde eine E-Mail an <em>%s</em> gesendet um die Wiederherstellung der Zugangsdaten zu best&auml;tigen."
+msgstr "An e-mail was sent to <em>%s</em> to restore the login data."
+
+#: tpl/./logout.php:23
+msgid "Abmeldung erfolgreich"
+msgstr "Logout successful"
+
+#: tpl/./logout.php:28
+msgid "Abmeldung fehlgeschlagen"
+msgstr "Logout failed"
+
+#: tpl/./404.php:5
+msgid "Das von dir angeforderte Dokument konnte nicht gefunden werden."
+msgstr "The document you requested could not be found."
+
+#~ msgid "Daten importeren"
+#~ msgstr "Import data"
+
+#~ msgid "Building"
+#~ msgstr "Geb&auml;ude"
+
+#~ msgid "Ein Test"
+#~ msgstr "A Test"
