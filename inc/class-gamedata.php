@@ -636,20 +636,37 @@ abstract class GameData {
 		return isset( self::$products[$guid] ) ? self::$products[$guid] : null;
 	}
 	
-	public static function getCommodityChain( $pb_guid, $count=1, $target_tpm=null ) {
+	public static function getCommodityChain( $pb_guid, $count=1, $target_tpm=null, $productivity=array(), $preferred=array() ) {
 		$pb = self::getProductionBuilding($pb_guid);
 		if( !is_a($pb,'ProductionBuilding') )
 			return false;
 		$count = intval($count);
-		$target_tpm = $target_tpm===null ? $pb->getProductionTonsPerMinute()*$count : $target_tpm;
-		$multiplier = $target_tpm / $pb->getProductionTonsPerMinute();
-		$chain = array( 'x' => $multiplier, '_' => $pb, 'raw1' => array(), 'raw2' => array() );
-		if( $pb->getRaw1() )
-			foreach( self::getProductionbuildingsForProduct( $pb->getRaw1()->getGuid() ) as $raw1_pb )
-				array_push( $chain['raw1'], self::getCommodityChain( $raw1_pb->getGuid(), 1, $pb->getRaw1NeedTonsPerMinute()*$multiplier ) );
-		if( $pb->getRaw2() )
-			foreach( self::getProductionbuildingsForProduct( $pb->getRaw2()->getGuid() ) as $raw2_pb )
-				array_push( $chain['raw2'], self::getCommodityChain( $raw2_pb->getGuid(), 1, $pb->getRaw2NeedTonsPerMinute()*$multiplier ) );
+		$pm = isset($productivity[$pb->getGuid()]) ? $productivity[$pb->getGuid()]/100 : 1;
+		$target_tpm = $target_tpm===null ? $pb->getProductionTonsPerMinute()*$pm*$count : $target_tpm;
+		$multiplier = $target_tpm / ($pb->getProductionTonsPerMinute()*$pm);
+		$chain = array( 'x' => $multiplier, 't' => $target_tpm, 'p' => $pm, '_' => $pb, 'raw1' => array(), 'raw2' => array() );
+		if( $pb->getRaw1() ) {
+			$pbs = self::getProductionbuildingsForProduct( $pb->getRaw1()->getGuid() );
+			foreach( $pbs as $i => $pref_pb )
+				if( in_array($pref_pb->getGuid(),$preferred) ) {
+					unset( $pbs[$i] );
+					array_unshift($pbs,$pref_pb);
+					break;
+				}
+			foreach( $pbs as $raw1_pb )
+				array_push( $chain['raw1'], self::getCommodityChain( $raw1_pb->getGuid(), 1, $pb->getRaw1NeedTonsPerMinute()*$multiplier, $productivity, $preferred ) );
+		}
+		if( $pb->getRaw2() ) {
+			$pbs = self::getProductionbuildingsForProduct( $pb->getRaw2()->getGuid() );
+			foreach( $pbs as $i => $pref_pb )
+				if( in_array($pref_pb->getGuid(),$preferred) ) {
+					unset( $pbs[$i] );
+					array_unshift($pbs,$pref_pb);
+					break;
+				}
+			foreach( $pbs as $raw2_pb )
+				array_push( $chain['raw2'], self::getCommodityChain( $raw2_pb->getGuid(), 1, $pb->getRaw2NeedTonsPerMinute()*$multiplier, $productivity, $preferred ) );
+		}
 		return $chain;
 	}
 	
@@ -658,7 +675,7 @@ abstract class GameData {
 		$raws = '';
 		$chain = $first ? array($chain) : $chain;
 		foreach( $chain as $i => $c ) {
-			$productions .= '<dd'.($i>0?' class="alt"':'').'>'.self::drawProduction($c['_'],$c['x']).'</dd>';
+			$productions .= '<dd'.($i>0?' class="alt"':'').'>'.self::drawProduction($c['_'],$c['x'],$c['p'],$c['t']).'</dd>';
 			if( !empty($c['raw1']) )
 				$raws .= self::drawCommodityChain( $c['raw1'], false );
 			if( !empty($c['raw2']) )
@@ -668,7 +685,6 @@ abstract class GameData {
 			.'<dl class="chain">'
 			.'<dt><div class="product">'
 			.'<span class="icon"><span style="background-image:url(\'img/icons/46/'.$chain[0]['_']->getProduct()->getIcon().'\');" title="'.$chain[0]['_']->getProduct()->getLocal().'"></span></span>'
-			//.'<span class="tpm">'.( $chain[0]['_']->getProductionTonsPerMinute() * ceil($chain[0]['x']) ).'</span>'
 			.'</div></dt>'
 			.$productions
 			.'</dl>'
@@ -678,7 +694,7 @@ abstract class GameData {
 		return $html;
 	}
 	
-	public static function drawProduction( $pb, $multiplier=1 ) {
+	public static function drawProduction( $pb, $multiplier=1, $productivity=1, $tpm=1 ) {
 		$efficiency = round( ($multiplier/ceil($multiplier))*100 );
 		if( $efficiency>80 )
 			$efficiency_class = 'green';
@@ -691,13 +707,18 @@ abstract class GameData {
 		else
 			$efficiency_class = 'red';
 		$count = ceil($multiplier);
-		$html = '<div class="production" data-guid="'.$pb->getGuid().'" data-multiplier="'.$multiplier.'" data-icon="'.$pb->getIcon().'">'
+		$html = '<div class="production" data-guid="'.$pb->getGuid().'" data-count="'.$count.'" data-multiplier="'.str_replace(',','.',$multiplier).'" data-icon="'.$pb->getIcon().'" data-tpm="'.str_replace(',','.',$pb->getProductionTonsPerMinute()).'" data-tpm-needed="'.str_replace(',','.',$tpm).'">'
 			.'<span class="alt-text">'.i18n::__('Alternatives Produktionsgebäude').'</span>'
 			.'<span class="icon-32"><span style="background-image:url(\'img/icons/32/'.$pb->getIcon().'\');" title="'.$pb->getLocal().'"></span></span>'
 			.'<span class="count">&times;'.$count.'</span>'
 			.'<span class="name">'.$pb->getLocal().'</span>'
-			.'<span class="efficiency '.$efficiency_class.'" title="'.i18n::__('Effizienz').'">'.$efficiency.'% <span>'.i18n::__('Effizienz').'</span></span>'
-			.'<span class="productivity" title="'.i18n::__('max. Produktivit&auml;t').'"><span>'.i18n::__('max. Produktivit&auml;t').'</span> 100%</span>'
+			.'<span class="efficiency '.$efficiency_class.'" title="'.i18n::__('Effizienz').'">'.$efficiency.'% <em>'.i18n::__('Effizienz').'</em></span>'
+			.'<span class="productivity" title="'.i18n::__('max. Produktivit&auml;t').'">'
+				.'<em>'.i18n::__('max. Produktivit&auml;t').'</em> '
+				.'<span>'.round($productivity*100).'%</span>'
+				.'<div class="slider-container"><div class="slider"></div></div>'
+				.'<input type="hidden" name="productivity_'.$pb->getGuid().'" value="'.round($productivity*100).'" />'
+			.'</span>'
 			.'<ul class="build-costs">'
 			.'<li class="credits" title="'.i18n::__('Credits').'">'.($pb->getBuildcostsCredits()*$count).'</li>';
 		foreach( $pb->getBuildcostsProducts() as $c )
@@ -712,6 +733,43 @@ abstract class GameData {
 			.'</div>';
 		return $html;
 	}
+
+	public static function drawBuilding( $b ) {
+		$html = '<div class="building">'
+			.'<span class="icon-32"><span style="background-image:url(\'img/icons/32/'.$b->getIcon().'\');" title="'.$b->getLocal().'"></span></span>'
+			.'<span class="name">'.$b->getLocal().'</span>';
+		if( is_a($b,'ProductionBuilding') )
+			$html .= '<span class="details">'.i18n::__('produziert').' <a href="database?product='.$b->getProduct()->getGuid().'">'.$b->getProduct()->getLocal().'</a></span>';
+		$html .= '<ul class="build-costs">'
+			.'<li class="credits" title="'.i18n::__('Credits').'">'.$b->getBuildcostsCredits().'</li>';
+		foreach( $b->getBuildcostsProducts() as $c )
+			$html .= '<li style="background-image:url(\'img/icons/16/'.$c[0]->getIcon().'\');" title="'.$c[0]->getLocal().'" data-guid="'.$c[0]->getGuid().'">'.round($c[1]/1000).'</li>';
+		$html .= '</ul>'
+			.'<ul class="maintenance-costs">'
+			.'<li class="credits" title="'.i18n::__('Bilanz').'">'.($b->getMaintenanceCost('active_cost')<0?'+':'').($b->getMaintenanceCost('active_cost')*-1).' / '.($b->getMaintenanceCost('inactive_cost')<0?'+':'').($b->getMaintenanceCost('inactive_cost')*-1).'</li>'
+			.'<li class="energy" title="'.i18n::__('Energie').'">'.($b->getMaintenanceCost('active_energy')<0?'+':'').round(($b->getMaintenanceCost('active_energy')/4096)*-1).' / '.($b->getMaintenanceCost('inactive_energy')<0?'+':'').round(($b->getMaintenanceCost('inactive_energy')/4096)*-1).'</li>'
+			.'<li class="eco" title="'.i18n::__('&Ouml;kobilanz').'">'.($b->getMaintenanceCost('active_eco')>0?'+':'').round($b->getMaintenanceCost('active_eco')/4096).' / '.($b->getMaintenanceCost('inactive_eco')>0?'+':'').round($b->getMaintenanceCost('inactive_eco')/4096).'</li>'
+			.'</ul>'
+			.'<div class="clear"></div>'
+			.'</div>';
+		return $html;
+	}
+
+	public static function drawProduct( $p ) {
+		$pbs = self::getProductionBuildingsForProduct($p->getGuid());
+		$html = '<div class="product">'
+			.'<span class="name">'.$p->getLocal().'</span>'
+			.'<span class="details">'.i18n::__('produziert von').' ';
+		foreach( $pbs as $i => $pb )
+			$html .= '<a href="database?productionbuilding='.$pb->getGuid().'">'.$pb->getLocal().'</a>'
+				.( $i<(count($pbs)-1) ? ', ' : '' );
+		$html .= '</span>'
+			.'<span class="icon-32"><span style="background-image:url(\'img/icons/32/'.$p->getIcon().'\');" title="'.$p->getLocal().'"></span></span>'
+			.'<div class="clear"></div>'
+			.'</div>';
+		return $html;
+	}
+
 	
 }
 

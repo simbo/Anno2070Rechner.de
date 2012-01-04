@@ -1,9 +1,9 @@
-Material
-Material/*
-Material/**/*
-img/*
-img/**/*
-*.mwb.bak
+/Material
+/Material/*
+/Material/**/*
+/img/*
+/img/**/*
+/*.mwb.bak
 /rda-data/assets.xml
 /rda-data/eng/guids.txt
 /rda-data/eng/icons.txt

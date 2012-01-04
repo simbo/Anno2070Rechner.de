@@ -15,7 +15,7 @@ if( isset($_POST['ajax']) && $_POST['ajax']==1 ) {
 }
 
 $page->addContent(
-	'<h2 class="'.$page->getIdSanitized().'">'.__($page->getTitle()).'</h2>'
+	'<h2 class="'.$page->getIdSanitized().'">'.__('Abmelden').'</h2>'
 );
 
 if( $success )

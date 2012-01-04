@@ -161,7 +161,7 @@ else {
 	}
 
 	$page->addContent(
-		'<h2 class="user">'.__($page->getTitle()).'</h2>',
+		'<h2 class="user">'.__('Zugangsdaten wiederherstellen').'</h2>',
 		'<form id="'.$page->getIdSanitized().'-form" action="'.i18n::url($page->getId()).'" method="post">',
 			'<fieldset class="blue">'
 	);

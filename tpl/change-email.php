@@ -64,7 +64,7 @@ if( isset($user) && $user && _::isValidEmail($new_email) && !User::checkEmailExi
 	}
 
 	$page->addContent(
-		'<h2 class="user">'.__($page->getTitle()).'</h2>',
+		'<h2 class="user">'.__('E-Mailadresse &auml;ndern').'</h2>',
 		'<form id="'.$page->getIdSanitized().'-form" action="'.i18n::url($page->getId()).'" method="post">',
 			'<fieldset class="blue">'
 	);

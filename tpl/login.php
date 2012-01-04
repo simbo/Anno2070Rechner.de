@@ -49,7 +49,7 @@ if( strtolower($_SERVER['REQUEST_METHOD'])=='post' ) {
 				$user->setLoginCookie();
 		}
 	
-		$success_msg = __('Anmeldung erfoglreich');
+		$success_msg = __('Anmeldung erfolgreich');
 		$redirect_to = i18n::url(BASEURL);
 
 		if( isset($_POST['ajax']) && $_POST['ajax']==1 ) {
@@ -70,7 +70,7 @@ if( strtolower($_SERVER['REQUEST_METHOD'])=='post' ) {
 }
 
 $page->addContent(
-	'<h2 class="'.$page->getIdSanitized().'">'.__($page->getTitle()).'</h2>',
+	'<h2 class="'.$page->getIdSanitized().'">'.__('Anmelden').'</h2>',
 		'<form id="'.$page->getIdSanitized().'-form" action="'.i18n::url($page->getId()).'" method="post">',
 			'<fieldset class="blue">'
 );

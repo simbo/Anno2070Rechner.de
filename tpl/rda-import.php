@@ -26,7 +26,7 @@ if( strtolower($_SERVER['REQUEST_METHOD'])=='post' ) {
 }	
 
 $page->addContent(
-	'<h2 class="rda-import">'.__($page->getTitle()).'</h2>',
+	'<h2 class="rda-import">'.__('Daten importieren').'</h2>',
 	'<ul class="checklist">'
 );
 

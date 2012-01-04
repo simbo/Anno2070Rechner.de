@@ -54,7 +54,7 @@ a:visited,
 a:hover,
 a:focus {
 	text-decoration:none;
-	color:#EEB907;
+	color:#FFDD66;
 }
 
 a:hover,
@@ -92,7 +92,6 @@ a:focus {
 
 em {
 	font-style:italic;
-	opacity:0.7;
 }
 
 #wrap {
@@ -259,6 +258,16 @@ footer section {
 	text-indent:55px;
 }
 
+#content h3 {
+	font-family:Prototype;
+	font-size:18px;
+	letter-spacing:1px;
+	line-height:34px;
+	opacity:0.8;
+	text-shadow: 0px 0px 2px #A1E7FF;
+	margin:20px 30px 15px 30px;
+}
+
 #content h2.rda-import {
 	background-image:url('../img/icons/46/icon_27_393.png');
 }
@@ -300,7 +309,8 @@ footer section {
 	background-image:url('../img/icons/46/icon_27_483.png');
 }
 
-#content p {
+#content p,
+#content address {
 	color:#fff;
 	margin:0 30px;
 	padding:0 0 15px 0;
@@ -421,6 +431,7 @@ fieldset.blue {
 	box-sizing:border-box;
 	-moz-box-sizing:border-box;
 	-webkit-box-sizing:border-box;
+	margin-bottom:30px;
 }
 
 label {
@@ -823,11 +834,70 @@ a.checkbox.checked:focus {
 	margin:15px 0 15px 20px;
 	width:78px;
 	border:1px solid #525b64;
-	border-color:rgba(238,238,255,0.2);
+	border-color:rgba(238,238,255,0.3);
 	background-color:rgba(0,0,34,0.2);
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius:2px;
+}
+
+span.productivity {
+	position:relative;
+}
+
+span.productivity span {
+	border:1px solid transparent;
+	border-bottom:none;
+	display:block;
+	line-height:20px;
+	position:absolute;
+	top:0;
+	left:0;
+	width:42px;
+	z-index:11;
+	cursor:pointer;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-topright: 10px;
+	-moz-border-radius-bottomright: 0px;
+	-moz-border-radius-bottomleft: 0px;
+	-webkit-border-radius: 10px 10px 0px 0px;
+	border-radius: 10px 10px 0px 0px;
+}
+
+span.productivity.active span {
+	border-color:rgba(238,238,255,0.3);
+	background:#0e1f29;
+	cursor:default;
+}
+
+span.productivity .slider-container {
+	position:absolute;
+	border:1px solid rgba(238,238,255,0.3);
+	background:#0e1f29;
+	top:20px;
+	left:-65px;
+	z-index:10;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	border-radius:10px;
+	display:none;
+}
+
+.commodity-chain span.productivity .slider-container {
+	top:17px;
+	left:-110px;
+}
+
+span.productivity.active .slider-container {
+	display:block;
+}
+ 
+span.productivity .ui-slider {
+	width:150px;
+	margin:10px 12px;
+}
+
+span.productivity.active .ui-slider {
 }
 
 .ui-slider .ui-slider-handle {
@@ -839,6 +909,7 @@ a.checkbox.checked:focus {
 	border:1px solid #525b64;
 	background:#0d1723 url('../img/bg-slider-handle.png') 0 0 no-repeat;
 	background-color:rgba(0,0,34,0.2);
+	background-color:rgb(0,0,34);
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius:10px;
@@ -847,12 +918,18 @@ a.checkbox.checked:focus {
 	box-shadow: 0px 0px 2px 0px #4e6a7f;
 }
 
+span.productivity.active .ui-slider .ui-slider-handle {
+	background-image:url('../img/bg-slider-handle2.png');
+}
+
 .ui-slider .ui-slider-handle.ui-state-hover,
 .ui-slider .ui-slider-handle.ui-state-focus {
 	background-color:#10293d;
 	border-color:#4e6a7f;
 	background-position:0 -18px;
 }
+
+
 
 .icon,
 .icon-32,
@@ -918,8 +995,12 @@ a.checkbox.checked:focus {
 }
 
 div.commodity-chain {
-	margin: 30px 0 0 30px;
+	margin: 0 0 0 30px;
 	clear:both;
+}
+
+body.population div.commodity-chain {
+	position:relative;
 }
 
 div.commodity-chain div.commodity-chain-inner {
@@ -950,6 +1031,10 @@ div.commodity-chain .summary {
 	right:35px;
 	line-height:24px;
 	font-weight:bold;
+}
+
+body.population div.commodity-chain .summary {
+	top:0;
 }
 
 div.commodity-chain .summary hr {
@@ -988,6 +1073,7 @@ div.commodity-chain .summary .build-costs {
 }
 
 div.product,
+div.building,
 div.production {
 	position:relative;
 	cursor:default;
@@ -1001,42 +1087,50 @@ div.production {
 	border-radius:5px;
 }
 
-div.product .name {
-	display:none;
-}
-
-div.product .tpm {
-	position:absolute;
-	top:36px;
-	left:0;
-	width:53px;
-	line-height:20px;
-	font-size:16px;
-	font-weight:bolder;
-	text-align:right;
-	text-shadow: 1px 1px 1px #000;
-}
-
-div.product .tpm-label {
-	font-size:10px;
-}
-
+div.product,
+div.building,
 div.production {
 	min-width:240px;
 }
 
+.results div.product,
+.results div.building,
+.results div.production {
+	width:350px;
+}
+
+div.building .icon-32,
 div.production .icon-32 {
 	position:absolute;
 	bottom:3px;
 	left:3px;
 }
 
+div.product .icon-32 {
+	clear:both;
+	float:left;
+}
+
+div.product .name,
+div.building .name,
 div.production .name {
 	float:left;
 	font-weight:bolder;
 	font-size:16px;
 	white-space:nowrap;
 	margin:0 8px 4px 0;
+}
+
+div.commodity-chain div.product {
+	min-width:0;
+}
+
+div.product .details,
+div.building .details,
+div.production .details {
+	clear:both;
+	display:block;
+	margin:0 0 6px 0;
 }
 
 div.production .efficiency {
@@ -1065,18 +1159,36 @@ div.production .efficiency.red {
 }
 
 div.production .productivity {
+	position:relative;
 	float:right;
-	text-align:right;
+	text-align:center;
 	margin:0 0 6px 0;
+	min-height:18px;
 }
 
-div.production .efficiency span,
 div.production .productivity span {
-	display:none;
+	left:auto;
+	right:0;
+	top:-3px;
 }
 
-div.production .efficiency:hover span,
-div.production .productivity:hover span {
+div.production .efficiency em,
+div.production .productivity em {
+	display:none;
+	font-style:normal;
+}
+
+div.production .productivity em {
+	position:absolute;
+	top:-1px;
+	right:48px;
+	line-height:20px;
+	white-space:nowrap;
+}
+
+div.production .efficiency:hover em,
+div.production .productivity.active em,
+div.production .productivity:hover em {
 	display:inline;
 }
 
@@ -1088,6 +1200,8 @@ div.production .count {
 	font-size:16px;
 }
 
+div.building .maintenance-costs,
+div.building .build-costs,
 div.production .maintenance-costs,
 div.production .build-costs {
 	clear:both;
@@ -1095,6 +1209,22 @@ div.production .build-costs {
 	padding:4px 0 0 0;
 	margin:0 0 0 50px;
 	font-size:11px;
+}
+
+.results {
+	margin:0 30px;
+}
+
+#content .results h3 {
+	margin-top:0;
+	margin-left:0;
+}
+
+.results .building,
+.results .production,
+.results .product {
+	float:left;
+	margin:0 20px 20px 0;
 }
 
 .alt div.production {
@@ -1400,6 +1530,19 @@ form #residences-fieldset dl dt.locked label {
 	text-align:center;
 }
 
+#population-form ol li .productivity {
+	display:block;
+	text-align:center;
+}
+
+#population-form #production-fieldset ol li .icon-32 {
+	margin-top:20px;
+}
+
+#population-form #hidden-fieldset {
+	margin:0;
+}
+
 #display-options {
 	position:absolute;
 	top:30px;
@@ -1456,3 +1599,8 @@ a.display-hide:hover {
 	opacity:1;
 }
 
+#under-development {
+	position:absolute;
+	top:80px;
+	left:180px;
+}

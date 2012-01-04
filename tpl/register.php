@@ -124,7 +124,7 @@ else {
 	}
 
 	$page->addContent(
-		'<h2 class="'.$page->getIdSanitized().'">'.__($page->getTitle()).'</h2>',
+		'<h2 class="'.$page->getIdSanitized().'">'.__('Registrieren').'</h2>',
 		'<div class="fright">',
 			'<p>'.__('Als angemeldeter Benutzer kannst du die eingegebenen Daten deiner Spiele speichern und jederzeit wieder aufrufen.').'</p>',
 			'<p>'.__('Deine E-Mailadresse wird zur Freischaltung des Benutzerkontos ben&ouml;tigt und f&uuml;r den Fall, dass Du deine Zugangsdaten vergessen hast.').'</p>',

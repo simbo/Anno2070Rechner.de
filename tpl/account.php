@@ -83,7 +83,7 @@ if( strtolower($_SERVER['REQUEST_METHOD'])=='post' ) {
 }
 
 $page->addContent(
-	'<h2 class="user">'.__($page->getTitle()).'</h2>',
+	'<h2 class="user">'.__('Benutzerkonto').'</h2>',
 	'<form id="'.$page->getIdSanitized().'-email-form" action="'.i18n::url($page->getId()).'" method="post" class="fright">',
 		'<fieldset class="blue">'
 );

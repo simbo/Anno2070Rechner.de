@@ -295,7 +295,7 @@ abstract class Helper {
 	public static function setCookie( $name, $value, $expiresInDays ) {
 		if( !is_string($name) || empty($value) || !is_int($expiresInDays) || $expiresInDays<=0 )
 			return false;
-		return setcookie( $name, $value, time()+(86400*$expiresInDays), BASEDIR, '.'.$_SERVER['HTTP_HOST'], false, true ) ? true : false;
+		return setcookie( $name, $value, time()+(86400*$expiresInDays), BASEDIR, $_SERVER['HTTP_HOST']=='localhost'?null:'.'.$_SERVER['HTTP_HOST'], false, true ) ? true : false;
 	}
 	
 	/**

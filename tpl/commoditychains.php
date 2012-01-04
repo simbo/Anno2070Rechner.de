@@ -34,12 +34,12 @@ $productionbuildings = GameData::getProductionBuildings();
 usort( $productionbuildings, 'GameData::compareLocals' );
 
 $page->addContent(
-	'<h2 class="'.$page->getIdSanitized().'">'.__($page->getTitle()).'</h2>',
+	'<h2 class="'.$page->getIdSanitized().'">'.__('Produktionsketten').'</h2>',
 	'<form id="'.$page->getIdSanitized().'-form" action="'.i18n::url($page->getId()).'" method="get">',
 		'<fieldset class="blue">',
 			'<dl>',
 				'<dt>',
-					'<label>'.__('Produktionsgebäude').'</label>',
+					'<label>'.__('Produktionsgeb&auml;ude').'</label>',
 				'</dt>',
 				'<dd>',
 					'<select name="productionbuilding" tabindex="1" class="full">'
