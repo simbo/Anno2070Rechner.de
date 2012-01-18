@@ -214,7 +214,7 @@ $(document).ready(function(){
 		$(this).selectmenu({
 			style:'popup',
 			handleWidth: 0
-		})
+		});
 	});
 
 	$('input[type=checkbox]').each(function(){
@@ -479,13 +479,15 @@ $(document).ready(function(){
 										if( lang=='de' )
 											text = text.replace(/\./,',');
 										$(this).find('span.count').text( text );
-										if( i==1 )
+										if( i==1 ) {
 											$(this).find('.productivity').find('span').text( data.productivity[guid]+'%' ).end().find('input').val(data.productivity[guid]);
+										}
 									}
 									else {
 										$(this).addClass('no-demand').attr('data-tpm-needed',0).find('span.count').empty();
-										if( i==1 )
+										if( i==1 ) {
 											$(this).find('.productivity').find('span').empty().end().find('input').val(data.productivity[guid]);
+										}
 									}
 								});
 							});

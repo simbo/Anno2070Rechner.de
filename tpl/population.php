@@ -77,6 +77,7 @@ foreach( $value_keys as $i => $k ) {
 		case 'techs-max-upgrade':
 			$default_value = 2;
 			break;
+		case 'show-residences':
 		case 'show-inhabitants':
 		case 'show-production':
 			$default_value = 1;
@@ -85,7 +86,7 @@ foreach( $value_keys as $i => $k ) {
 			$default_value = 0;
 			break;
 	}
-	$values[$k] = isset($_POST[$k]) ? intval($_POST[$k]) : ( isset($data[$i]) ? intval($data[$i]) : $default_value );
+	$values[$k] = strtolower($_SERVER['REQUEST_METHOD'])=='post' ? ( isset($_POST[$k]) ? intval($_POST[$k]) : $default_value ) : ( isset($data[$i]) ? intval($data[$i]) : $default_value );
 }
 
 _::setCookie( 'a2r'.( User::isLoggedIn() ? User::_()->getId() : 0 ).'popcalc', implode('.',$values), 90 );
@@ -125,7 +126,7 @@ if( isset($_POST['ajax']) && $_POST['ajax']==1 ) {
 $page->addContent(
 	'<h2 class="'.$page->getIdSanitized().'">'.__('Bev&ouml;lkerung').'</h2>',
 	'<form id="'.$page->getIdSanitized().'-form" method="post" action="'.i18n::url($page->getId()).'">',
-		'<fieldset class="blue" id="residences-fieldset">',
+		'<fieldset class="blue'.($values['show-residences']>0?'':' hidden').'" id="residences-fieldset">',
 			'<legend>'.__('Wohnh&auml;user').'</legend>',
 			'<dl class="ecos">',
 				'<dt class="ecos0"><label>'.__('insgesamt').'</label></dt>',
@@ -179,7 +180,7 @@ $page->addContent(
 			'<input type="submit" value="'.__('Berechnen').'" />',
 			'<div class="clear"></div>',
 		'</fieldset>',
-		'<fieldset class="blue" id="inhabitants-fieldset">',
+		'<fieldset class="blue'.($values['show-inhabitants']>0?'':' hidden').'" id="inhabitants-fieldset">',
 			'<legend>'.__('Einwohner').'</legend>',
 			'<dl class="ecos">',
 				'<dt class="ecos1"><label>'.__('Arbeiter').'</label></dt>',
@@ -215,7 +216,7 @@ $page->addContent(
 			'<input type="submit" value="'.__('Berechnen').'" />',
 			'<div class="clear"></div>',
 		'</fieldset>',
-		'<fieldset class="blue" id="demands-fieldset">',
+		'<fieldset class="blue'.($values['show-demands']>0?'':' hidden').'" id="demands-fieldset">',
 			'<legend>'.__('Bed&uuml;rfnisse').'<span>('.__('Tonnen pro Minute').')</span></legend>',
 			'<ol>'
 );
@@ -236,7 +237,7 @@ $page->addContent(
 			'<a href="#" class="display-hide"></a>',
 			'<div class="clear"></div>',
 		'</fieldset>',
-		'<fieldset class="blue" id="production-fieldset">',
+		'<fieldset class="blue'.($values['show-production']>0?'':' hidden').'" id="production-fieldset">',
 			'<legend>'.__('Produktionsgeb&auml;ude').'</legend>',
 			'<ol>'
 );
@@ -253,7 +254,7 @@ foreach( $productions as $production_guid => $count ) {
 						'<input type="hidden" name="productivity_'.$pb->getGuid().'" value="'.$values['productivity_'.$pb->getGuid()].'" />',
 					'</span>',
 					'<span class="icon-32"><span style="background-image:url(\'img/icons/32/'.$pb->getIcon().'\')" title="'.$pb->getLocal().'"></span></span>',
-					'<span class="count">'.($productions[$pb->getGuid()]>0?round($productions[$pb->getGuid()],1):'').'</span>',
+					'<span class="count">'.($productions[$pb->getGuid()]>0?round($productions[$pb->getGuid()]):'').'</span>',
 				'</li>'
 	);
 	$i++;

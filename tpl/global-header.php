@@ -9,17 +9,13 @@
 			'<meta name="viewport" content="width=device-width, initial-scale=1.0">',
 			'<title>'. $page->getTitle() .' &laquo; '. __($site->getTitle()) .'</title>',
 			'<link rel="shortcut icon" href="'.BASEURL.'favicon.ico" />',
-			'<link rel="stylesheet" href="css/base.css?v='.( $site->getOption('debug_mode') ? time() : $site->getOption('version') ).'" media="all" />',
-			'<link rel="stylesheet" href="css/styles.css?v='.( $site->getOption('debug_mode') ? time() : $site->getOption('version') ).'" media="all" />',
- 			'<script type="text/javascript" src="js/jquery-1.7.1'.( $site->getOption('debug_mode') ? '' : '-min' ).'.js"></script>',
- 			'<script type="text/javascript" src="js/jquery-ui-1.8.16-min.js"></script>',
- 			'<script type="text/javascript" src="js/jquery-ui-selectmenu.js"></script>',
-			'<script type="text/javascript" src="js/script.js?v='.( $site->getOption('debug_mode') ? time() : $site->getOption('version') ).'"></script>',
+			'<link rel="stylesheet" href="css/base.'.( $site->getOption('debug_mode') ? time() : $site->getOption('tpl_version') ).'.css" media="all" />',
+			'<link rel="stylesheet" href="css/styles.'.( $site->getOption('debug_mode') ? time() : $site->getOption('tpl_version') ).'.css" media="all" />',
 		'</head>',
 		'<body class="'.$page->getIdSanitized().' bg-eco">',
 			'<div id="wrap">',
-				'<header>',
-					'<section>',
+				'<div id="header">',
+					'<div class="section">',
 						'<a id="home-link" href="'.i18n::url(BASEURL).'" title="'. $site->getTitle() .' &raquo; '.__('Startseite').'"></a>',
 						'<h1 id="site-title">'. $site->getTitle() .'</h1>',
 						'<div id="user-info"'.( !User::isLoggedIn() ? ' class="hidden"' : '' ).'>'.( User::isLoggedIn() ? '<small>'.__('angemeldet als').'</small> '.User::_()->getLogin() : __('Du bist nicht angemeldet.') ).'</div>',
@@ -43,10 +39,10 @@
 							'<li class="'.( $page->getID()=='info'?'info':'' ).'"><a href="'.i18n::url('info').'" title="">'.__('Info').'</a></li>',
 						'</ul>',
 						'<img id="under-development" src="img/under-development-small.png" alt="" title="Under Development" />',
-					'</section>',
-				'</header>',
+					'</div>',
+				'</div>',
 				'<div id="content">',
-					'<section>'
+					'<div class="section">'
 	);
 
 ?>
