@@ -497,6 +497,8 @@ $(document).ready(function() {
 
 		// initialization calculation
 		$(this).trigger('calc');
+		
+		// console.debug(all_demands);
 
 	});
 

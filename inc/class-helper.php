@@ -308,7 +308,7 @@ abstract class Helper {
 	public static function unsetCookie( $name ) {
 		if( !is_string($name) )
 			return false;
-		return setcookie( $name, '', 1 ) ? true : false;
+		return setcookie( $name, '', time()-86400, BASEDIR, $_SERVER['HTTP_HOST']=='localhost'?null:'.'.$_SERVER['HTTP_HOST'], false, true ) ? true : false;
 	}
 
 	/**
@@ -336,7 +336,6 @@ abstract class Helper {
 		else
 			return false;
 	}
-
 
 }
 

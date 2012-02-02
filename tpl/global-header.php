@@ -1,15 +1,31 @@
 <?php
 
+	$is_facebook = !(stristr($_SERVER["HTTP_USER_AGENT"],'facebook')===false) ? true : false;
+
 	$page->addContent(
 		'<!doctype html>',
-		'<html lang="'.i18n::getShort().'">',
+		'<html lang="'.i18n::getShort().'"'.( $is_facebook ? ' xmlns:og="http://ogp.me/ns#" xmlns:fb="http://ogp.me/ns/fb#"' : '' ).'>',
 		'<head>',
 			'<base href="'.BASEURL.'" />',
 			'<meta charset="UTF-8">',
 			'<meta name="viewport" content="width=device-width, initial-scale=1.0">',
 			'<title>'. $page->getTitle() .' &laquo; '. $site->getTitle() .'</title>',
 			'<link rel="shortcut icon" href="'.BASEURL.'favicon.ico" />',
-			'<link rel="stylesheet" href="css/styles.'.( $site->getOption('debug_mode') ? time() : $site->getOption('tpl_version') ).'.css" media="all" />',
+			'<link rel="stylesheet" href="css/styles.'.( $site->getOption('debug_mode') ? time() : $site->getOption('tpl_version') ).'.css" media="all" />'
+	);
+	
+	if( $is_facebook )
+		$page->addContent(
+			'<meta property="og:title" content="'.$page->getTitle().' &laquo; '.$site->getTitle().'" />',
+			'<meta property="og:url" content="'.BASEURL.$page->getId().'" />',
+			'<meta property="og:description" content="'.__('Online Rechner- und Datenbank-Tool f&uuml;r Anno 2070').'" />',
+			'<meta property="og:locale" content="'.(i18n::getShort()=='en'?'en_US':'de_DE').'" />',
+			'<meta property="og:type" content="game" />',
+			'<meta property="og:image" content="'.BASEURL.'img/logo.png" />',
+			'<meta property="og:site_name" content="'.$site->getTitle().'" />'
+		);
+
+	$page->addContent(
 		'</head>',
 		'<body class="'.$page->getIdSanitized().' bg-eco">',
 			'<div id="wrap">',

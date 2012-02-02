@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Anno2070Rechner.de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-02 06:59+0100\n"
-"PO-Revision-Date: 2012-02-02 07:01+0100\n"
+"POT-Creation-Date: 2012-02-02 22:01+0100\n"
+"PO-Revision-Date: 2012-02-02 22:01+0100\n"
 "Last-Translator: Simon Lepel <simbo@simbo.de>\n"
 "Language-Team: Simon Lepel <simbo@simbo.de>\n"
 "Language: \n"
@@ -67,7 +67,7 @@ msgstr "Login successful"
 
 #: tpl/./login.php:73
 #: tpl/./login.php:106
-#: tpl/./global-header.php:30
+#: tpl/./global-header.php:46
 msgid "Anmelden"
 msgstr "Login"
 
@@ -93,7 +93,7 @@ msgid "angemeldet bleiben"
 msgstr "remember me"
 
 #: tpl/./commoditychains.php:16
-#: tpl/./global-header.php:35
+#: tpl/./global-header.php:51
 msgid "Produktionsketten"
 msgstr "Commodity chains"
 
@@ -106,7 +106,7 @@ msgid "Geb&auml;ude oder Ware"
 msgstr "Building or Product"
 
 #: tpl/./commoditychains.php:27
-#: tpl/./population.php:275
+#: tpl/./population.php:197
 #: tpl/./database.php:98
 #: tpl/./database.php:142
 msgid "Produktionsgeb&auml;ude"
@@ -133,7 +133,7 @@ msgid "Berechnen"
 msgstr "Calculate"
 
 #: tpl/./info.php:4
-#: tpl/./global-header.php:38
+#: tpl/./global-header.php:54
 msgid "Info"
 msgstr "Info"
 
@@ -195,120 +195,120 @@ msgstr "Access denied"
 msgid "Du hast leider nicht die notwendigen Rechte f&uuml;r das angeforderte Dokument."
 msgstr "Unfortunately you do not have the necessary rights for the requested document."
 
-#: tpl/./population.php:151
-#: tpl/./global-header.php:34
+#: tpl/./population.php:73
+#: tpl/./global-header.php:50
 msgid "Bev&ouml;lkerung"
 msgstr "Population"
 
-#: tpl/./population.php:154
+#: tpl/./population.php:76
 msgid "Wohnh&auml;user"
 msgstr "Residences"
 
-#: tpl/./population.php:156
-#: tpl/./population.php:177
-#: tpl/./population.php:197
-#: tpl/./population.php:228
-#: tpl/./population.php:239
-#: tpl/./population.php:246
+#: tpl/./population.php:78
+#: tpl/./population.php:99
+#: tpl/./population.php:119
+#: tpl/./population.php:150
+#: tpl/./population.php:161
+#: tpl/./population.php:168
 msgid "insgesamt"
 msgstr "total"
 
-#: tpl/./population.php:162
-#: tpl/./population.php:183
-#: tpl/./population.php:220
-#: tpl/./population.php:231
+#: tpl/./population.php:84
+#: tpl/./population.php:105
+#: tpl/./population.php:142
+#: tpl/./population.php:153
 msgid "Arbeiter"
 msgstr "Workers"
 
-#: tpl/./population.php:164
-#: tpl/./population.php:185
-#: tpl/./population.php:222
-#: tpl/./population.php:233
+#: tpl/./population.php:86
+#: tpl/./population.php:107
+#: tpl/./population.php:144
+#: tpl/./population.php:155
 msgid "Angestellte"
 msgstr "Employees"
 
-#: tpl/./population.php:166
-#: tpl/./population.php:187
-#: tpl/./population.php:224
-#: tpl/./population.php:235
+#: tpl/./population.php:88
+#: tpl/./population.php:109
+#: tpl/./population.php:146
+#: tpl/./population.php:157
 msgid "Ingenieure"
 msgstr "Engineers"
 
-#: tpl/./population.php:168
-#: tpl/./population.php:189
-#: tpl/./population.php:226
-#: tpl/./population.php:237
+#: tpl/./population.php:90
+#: tpl/./population.php:111
+#: tpl/./population.php:148
+#: tpl/./population.php:159
 msgid "Executives"
 msgstr "Executives"
 
-#: tpl/./population.php:170
-#: tpl/./population.php:191
-#: tpl/./population.php:207
+#: tpl/./population.php:92
+#: tpl/./population.php:113
+#: tpl/./population.php:129
 msgid "Information"
 msgstr "Information"
 
-#: tpl/./population.php:172
-#: tpl/./population.php:193
-#: tpl/./population.php:209
+#: tpl/./population.php:94
+#: tpl/./population.php:115
+#: tpl/./population.php:131
 msgid "Wohnraum"
 msgstr "Living space"
 
-#: tpl/./population.php:173
+#: tpl/./population.php:95
 msgid "Bedarf nach Lifestyleprodukten"
 msgstr "Need for lifestyle products"
 
-#: tpl/./population.php:203
-#: tpl/./population.php:242
+#: tpl/./population.php:125
+#: tpl/./population.php:164
 msgid "Laborgehilfen"
 msgstr "Assistants"
 
-#: tpl/./population.php:205
-#: tpl/./population.php:244
+#: tpl/./population.php:127
+#: tpl/./population.php:166
 msgid "Forscher"
 msgstr "Researchers"
 
-#: tpl/./population.php:214
-#: tpl/./population.php:250
+#: tpl/./population.php:136
+#: tpl/./population.php:172
 msgid "Zur&uuml;cksetzen"
 msgstr "Reset"
 
-#: tpl/./population.php:218
+#: tpl/./population.php:140
 msgid "Einwohner"
 msgstr "Inhabitants"
 
-#: tpl/./population.php:254
+#: tpl/./population.php:176
 msgid "Bed&uuml;rfnisse"
 msgstr "Demands"
 
-#: tpl/./population.php:254
+#: tpl/./population.php:176
 msgid "Tonnen pro Minute"
 msgstr "Tons per minute"
 
-#: tpl/./population.php:289
+#: tpl/./population.php:211
 msgid "max. Produktivit&auml;t"
 msgstr "max. Productivity"
 
-#: tpl/./population.php:294
+#: tpl/./population.php:216
 msgid "Anzahl der Produktionsgeb&auml;ude"
 msgstr "Production buildings count"
 
-#: tpl/./population.php:295
+#: tpl/./population.php:217
 msgid "Effizienz"
 msgstr "Efficiency"
 
-#: tpl/./population.php:314
+#: tpl/./population.php:236
 msgid "Wohnh&auml;user anzeigen"
 msgstr "Show residences"
 
-#: tpl/./population.php:315
+#: tpl/./population.php:237
 msgid "Einwohner anzeigen"
 msgstr "Show inhabitants"
 
-#: tpl/./population.php:316
+#: tpl/./population.php:238
 msgid "Bed&uuml;rfnisse anzeigen"
 msgstr "Show demands"
 
-#: tpl/./population.php:317
+#: tpl/./population.php:239
 msgid "Produktionsbetriebe anzeigen"
 msgstr "Show Productionbuildings"
 
@@ -389,7 +389,7 @@ msgstr "Data could not be imported."
 
 #: tpl/./rda-import.php:29
 #: tpl/./rda-import.php:51
-#: tpl/./global-header.php:37
+#: tpl/./global-header.php:53
 msgid "Daten importieren"
 msgstr "Import data"
 
@@ -485,7 +485,7 @@ msgstr "Your input was not correct"
 
 #: tpl/./register.php:127
 #: tpl/./register.php:176
-#: tpl/./global-header.php:29
+#: tpl/./global-header.php:45
 msgid "Registrieren"
 msgstr "Register"
 
@@ -558,7 +558,7 @@ msgid "Dein Passwort wurde ge&auml;ndert."
 msgstr "Your password was changed."
 
 #: tpl/./account.php:86
-#: tpl/./global-header.php:26
+#: tpl/./global-header.php:42
 msgid "Benutzerkonto"
 msgstr "User account"
 
@@ -604,27 +604,31 @@ msgstr "Change e-mail address"
 msgid "Oops, da ist etwas total schiefgelaufen&hellip;"
 msgstr "Oops, something went totally wrong here&hellip;"
 
-#: tpl/./global-header.php:18
+#: tpl/./global-header.php:21
+msgid "Online Rechner- und Datenbank-Tool f&uuml;r Anno 2070"
+msgstr "online calculation and database tool for Anno 2070"
+
+#: tpl/./global-header.php:34
 msgid "Startseite"
 msgstr "Home"
 
-#: tpl/./global-header.php:20
+#: tpl/./global-header.php:36
 msgid "angemeldet als"
 msgstr "logged in as"
 
-#: tpl/./global-header.php:20
+#: tpl/./global-header.php:36
 msgid "Du bist nicht angemeldet."
 msgstr "You are not logged in."
 
-#: tpl/./global-header.php:23
+#: tpl/./global-header.php:39
 msgid "Gespeicherte Daten"
 msgstr "Saved data"
 
-#: tpl/./global-header.php:27
+#: tpl/./global-header.php:43
 msgid "Abmelden"
 msgstr "Logout"
 
-#: tpl/./global-header.php:36
+#: tpl/./global-header.php:52
 #: tpl/./database.php:137
 msgid "Datenbank"
 msgstr "Database"
