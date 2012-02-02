@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Anno2070Rechner.de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-04 09:03+0100\n"
-"PO-Revision-Date: 2012-01-04 09:11+0100\n"
+"POT-Creation-Date: 2012-02-02 06:59+0100\n"
+"PO-Revision-Date: 2012-02-02 07:01+0100\n"
 "Last-Translator: Simon Lepel <simbo@simbo.de>\n"
 "Language-Team: Simon Lepel <simbo@simbo.de>\n"
 "Language: \n"
@@ -18,112 +18,392 @@ msgstr ""
 "X-Poedit-SearchPath-0: tpl/.\n"
 "X-Poedit-SearchPath-1: inc/.\n"
 
-#: tpl/./population.php:126
-#: tpl/./global-header.php:39
-msgid "Bev&ouml;lkerung"
-msgstr "Population"
+#: tpl/./login.php:8
+msgid "Gib deinen Benutzernamen ein"
+msgstr "Enter your username"
 
-#: tpl/./population.php:129
-msgid "Wohnh&auml;user"
-msgstr "Residences"
+#: tpl/./login.php:10
+#: tpl/./register.php:53
+msgid "Ung&uuml;ltiger Benutzername"
+msgstr "Invalid username"
 
-#: tpl/./population.php:131
-#: tpl/./population.php:148
-#: tpl/./population.php:165
-#: tpl/./population.php:193
-#: tpl/./population.php:204
-#: tpl/./population.php:211
-msgid "insgesamt"
-msgstr "total"
+#: tpl/./login.php:12
+msgid "Benutzername existiert nicht"
+msgstr "Username doesn't exist"
 
-#: tpl/./population.php:137
-#: tpl/./population.php:154
-#: tpl/./population.php:185
-#: tpl/./population.php:196
-msgid "Arbeiter"
-msgstr "Workers"
+#: tpl/./login.php:14
+msgid "Benutzerkonto ist nicht aktiviert"
+msgstr "User account is not active"
 
-#: tpl/./population.php:139
-#: tpl/./population.php:156
-#: tpl/./population.php:187
-#: tpl/./population.php:198
-msgid "Angestellte"
-msgstr "Employees"
+#: tpl/./login.php:18
+#: tpl/./change-email.php:24
+msgid "Gib dein Passwort ein"
+msgstr "Enter your password"
 
-#: tpl/./population.php:141
-#: tpl/./population.php:158
-#: tpl/./population.php:189
-#: tpl/./population.php:200
-msgid "Ingenieure"
-msgstr "Engineers"
+#: tpl/./login.php:20
+#: tpl/./change-email.php:26
+msgid "Ung&uuml;ltiges Passwort"
+msgstr "Invalid password"
 
-#: tpl/./population.php:143
-#: tpl/./population.php:160
-#: tpl/./population.php:191
-#: tpl/./population.php:202
-msgid "Executives"
-msgstr "Executives"
+#: tpl/./login.php:22
+#: tpl/./change-email.php:28
+msgid "Falsches Passwort"
+msgstr "Wrong password"
 
-#: tpl/./population.php:145
-#: tpl/./population.php:162
-#: tpl/./population.php:175
-msgid "Wohnraum"
-msgstr "Living space"
+#: tpl/./login.php:38
+#: tpl/./resend-activation.php:35
+#: tpl/./resend-activation.php:59
+#: tpl/./register.php:103
+msgid "Benutzerkonto aktivieren"
+msgstr "Activate user account"
 
-#: tpl/./population.php:171
-#: tpl/./population.php:207
-msgid "Laborgehilfen"
-msgstr "Assistants"
+#: tpl/./login.php:40
+msgid "Zugangsdaten vergessen?"
+msgstr "lost login data?"
 
-#: tpl/./population.php:173
-#: tpl/./population.php:209
-msgid "Forscher"
-msgstr "Researchers"
+#: tpl/./login.php:52
+msgid "Anmeldung erfolgreich"
+msgstr "Login successful"
 
-#: tpl/./population.php:179
-#: tpl/./population.php:215
-#: tpl/./commoditychains.php:70
-msgid "Berechnen"
-msgstr "Calculate"
+#: tpl/./login.php:73
+#: tpl/./login.php:106
+#: tpl/./global-header.php:30
+msgid "Anmelden"
+msgstr "Login"
 
-#: tpl/./population.php:183
-msgid "Einwohner"
-msgstr "Inhabitants"
+#: tpl/./login.php:80
+msgid "zur Startseite"
+msgstr "go to home"
 
-#: tpl/./population.php:219
-msgid "Bed&uuml;rfnisse"
-msgstr "Demands"
+#: tpl/./login.php:86
+#: tpl/./register.php:143
+#: tpl/./change-email.php:78
+#: tpl/./password-lost.php:81
+msgid "Benutzername"
+msgstr "Username"
 
-#: tpl/./population.php:219
-msgid "Tonnen pro Minute"
-msgstr "Tons per minute"
+#: tpl/./login.php:93
+#: tpl/./register.php:150
+#: tpl/./change-email.php:84
+msgid "Passwort"
+msgstr "Password"
 
-#: tpl/./population.php:240
-#: tpl/./commoditychains.php:42
+#: tpl/./login.php:100
+msgid "angemeldet bleiben"
+msgstr "remember me"
+
+#: tpl/./commoditychains.php:16
+#: tpl/./global-header.php:35
+msgid "Produktionsketten"
+msgstr "Commodity chains"
+
+#: tpl/./commoditychains.php:21
+msgid "Suche"
+msgstr "Search"
+
+#: tpl/./commoditychains.php:24
+msgid "Geb&auml;ude oder Ware"
+msgstr "Building or Product"
+
+#: tpl/./commoditychains.php:27
+#: tpl/./population.php:275
 #: tpl/./database.php:98
 #: tpl/./database.php:142
 msgid "Produktionsgeb&auml;ude"
 msgstr "Production buildings"
 
+#: tpl/./commoditychains.php:49
+msgid "Anzahl"
+msgstr "Count"
+
+#: tpl/./commoditychains.php:55
+msgid "Sollproduktion in Tonnen pro Minute"
+msgstr "Target production in tons per minute"
+
+#: tpl/./commoditychains.php:55
+msgid "Soll TPM"
+msgstr "Target TPM"
+
+#: tpl/./commoditychains.php:58
+msgid "automatisch"
+msgstr "automatic"
+
+#: tpl/./commoditychains.php:61
+msgid "Berechnen"
+msgstr "Calculate"
+
+#: tpl/./info.php:4
+#: tpl/./global-header.php:38
+msgid "Info"
+msgstr "Info"
+
+#: tpl/./info.php:7
+#, php-format
+msgid "Anno2070Rechner.de ist eine Fansite und ein Online-Tool f&uuml;r das Spiel <a href=\"%s\" title=\"Anno 2070\">Anno 2070</a> von <a href=\"%s\" title=\"Ubisoft\">Ubisoft</a>."
+msgstr "Anno2070Rechner.de is a fansite and a online tool for the game <a href=\"%s\" title=\"Anno 2070\">Anno 2070</a> by <a href=\"%s\" title=\"Ubisoft\">Ubisoft</a>."
+
+#: tpl/./info.php:12
+msgid "Die Website ist rein zum privaten Gebrauch und dient keinem kommerziellen Zweck."
+msgstr "The website is only for private use and does not serve any commercial purpose."
+
+#: tpl/./info.php:14
+#, php-format
+msgid "F&uuml;r volle Funktionalit&auml;t und beste Darstellung ist ein moderner Browser, wie <a href=\"%s\" title=\"Mozilla Firefox\">Mozilla Firefox</a> oder <a href=\"%s\" title=\"Google Chrome\">Google Chrome</a>, erforderlich."
+msgstr "For full functionality and best presentation, a modern browser like <a href=\"%s\" title=\"Mozilla Firefox\">Mozilla Firefox</a> or <a href=\"%s\" title=\"Google Chrome\">Google Chrome</a> is necessary."
+
+#: tpl/./info.php:19
+msgid "Support"
+msgstr "Support"
+
+#: tpl/./info.php:21
+msgid "Thema im deutschen Anno 2070 Forum"
+msgstr "Topic in the german Anno 2070 forums"
+
+#: tpl/./info.php:23
+msgid "Thema im englischen Anno 2070 Forum"
+msgstr "Topic in the english Anno 2070 forums"
+
+#: tpl/./info.php:25
+msgid "<em>Bitte</em> benutzt den Issue Tracker des Projekts auf Github um auf Fehler, Verbesserungsvorschl&auml;ge und &auml;hnliches aufmerksam zu machen:"
+msgstr "<em>Please</em> use the project's issue tracker on Github to report errors, suggestions or anything similar:"
+
+#: tpl/./info.php:27
+msgid "Issue Tracker von Anno2070Rechner.de auf Github"
+msgstr "Issue Tracker of Anno2070Rechner.de at Github"
+
+#: tpl/./info.php:29
+msgid "Quelltexte"
+msgstr "Sources"
+
+#: tpl/./info.php:31
+msgid "Alle Quelltexte stehen auf Github zur Verf&uuml;gung. Du bist herzlich eingeladen mitzuwirken."
+msgstr "All sources are available at Github. You are invited to contribute."
+
+#: tpl/./info.php:33
+msgid "Anno2070Rechner.de auf Github"
+msgstr "Anno2070Rechner.de at Github"
+
+#: tpl/./info.php:35
+msgid "Entwickler und Betreiber"
+msgstr "Developer and carrier"
+
+#: tpl/./no-rights.php:4
+msgid "Zugriff verweigert"
+msgstr "Access denied"
+
+#: tpl/./no-rights.php:5
+msgid "Du hast leider nicht die notwendigen Rechte f&uuml;r das angeforderte Dokument."
+msgstr "Unfortunately you do not have the necessary rights for the requested document."
+
+#: tpl/./population.php:151
+#: tpl/./global-header.php:34
+msgid "Bev&ouml;lkerung"
+msgstr "Population"
+
+#: tpl/./population.php:154
+msgid "Wohnh&auml;user"
+msgstr "Residences"
+
+#: tpl/./population.php:156
+#: tpl/./population.php:177
+#: tpl/./population.php:197
+#: tpl/./population.php:228
+#: tpl/./population.php:239
+#: tpl/./population.php:246
+msgid "insgesamt"
+msgstr "total"
+
+#: tpl/./population.php:162
+#: tpl/./population.php:183
+#: tpl/./population.php:220
+#: tpl/./population.php:231
+msgid "Arbeiter"
+msgstr "Workers"
+
+#: tpl/./population.php:164
+#: tpl/./population.php:185
+#: tpl/./population.php:222
+#: tpl/./population.php:233
+msgid "Angestellte"
+msgstr "Employees"
+
+#: tpl/./population.php:166
+#: tpl/./population.php:187
+#: tpl/./population.php:224
+#: tpl/./population.php:235
+msgid "Ingenieure"
+msgstr "Engineers"
+
+#: tpl/./population.php:168
+#: tpl/./population.php:189
+#: tpl/./population.php:226
+#: tpl/./population.php:237
+msgid "Executives"
+msgstr "Executives"
+
+#: tpl/./population.php:170
+#: tpl/./population.php:191
+#: tpl/./population.php:207
+msgid "Information"
+msgstr "Information"
+
+#: tpl/./population.php:172
+#: tpl/./population.php:193
+#: tpl/./population.php:209
+msgid "Wohnraum"
+msgstr "Living space"
+
+#: tpl/./population.php:173
+msgid "Bedarf nach Lifestyleprodukten"
+msgstr "Need for lifestyle products"
+
+#: tpl/./population.php:203
+#: tpl/./population.php:242
+msgid "Laborgehilfen"
+msgstr "Assistants"
+
+#: tpl/./population.php:205
+#: tpl/./population.php:244
+msgid "Forscher"
+msgstr "Researchers"
+
+#: tpl/./population.php:214
 #: tpl/./population.php:250
+msgid "Zur&uuml;cksetzen"
+msgstr "Reset"
+
+#: tpl/./population.php:218
+msgid "Einwohner"
+msgstr "Inhabitants"
+
+#: tpl/./population.php:254
+msgid "Bed&uuml;rfnisse"
+msgstr "Demands"
+
+#: tpl/./population.php:254
+msgid "Tonnen pro Minute"
+msgstr "Tons per minute"
+
+#: tpl/./population.php:289
 msgid "max. Produktivit&auml;t"
 msgstr "max. Productivity"
 
-#: tpl/./population.php:275
+#: tpl/./population.php:294
+msgid "Anzahl der Produktionsgeb&auml;ude"
+msgstr "Production buildings count"
+
+#: tpl/./population.php:295
+msgid "Effizienz"
+msgstr "Efficiency"
+
+#: tpl/./population.php:314
 msgid "Wohnh&auml;user anzeigen"
 msgstr "Show residences"
 
-#: tpl/./population.php:276
+#: tpl/./population.php:315
 msgid "Einwohner anzeigen"
 msgstr "Show inhabitants"
 
-#: tpl/./population.php:277
+#: tpl/./population.php:316
 msgid "Bed&uuml;rfnisse anzeigen"
 msgstr "Show demands"
 
-#: tpl/./population.php:278
+#: tpl/./population.php:317
 msgid "Produktionsbetriebe anzeigen"
 msgstr "Show Productionbuildings"
+
+#: tpl/./resend-activation.php:8
+#: tpl/./register.php:68
+#: tpl/./account.php:10
+#: tpl/./password-lost.php:115
+msgid "Gib deine E-Mailadresse ein"
+msgstr "Enter your e-mail address"
+
+#: tpl/./resend-activation.php:10
+#: tpl/./register.php:70
+#: tpl/./account.php:12
+#: tpl/./password-lost.php:117
+msgid "Ung&uuml;ltige E-Mailadresse"
+msgstr "Invalid e-mail address"
+
+#: tpl/./resend-activation.php:12
+#: tpl/./password-lost.php:119
+msgid "E-Mailadresse nicht registriert"
+msgstr "E-mail address not registered"
+
+#: tpl/./resend-activation.php:14
+msgid "Benutzerkonto ist bereits aktiv"
+msgstr "User account is already active"
+
+#: tpl/./resend-activation.php:36
+#: tpl/./register.php:104
+#, php-format
+msgid "Für die E-Mailadresse %s wurde ein Benutzerkonto auf \"%s\" erstellt."
+msgstr "A user account for the e-mail address %s was created on \"%s\"."
+
+#: tpl/./resend-activation.php:37
+#: tpl/./register.php:105
+msgid "Öffne die folgende URL in deinem Browser, um die E-Mailadresse zu bestätigen und das Benutzerkonto zu aktivieren."
+msgstr "Open the following url in your browser to approve the e-mail address and active the user account."
+
+#: tpl/./resend-activation.php:40
+#: tpl/./register.php:108
+#, php-format
+msgid "Es wurde eine E-Mail an <em>%s</em> gesendet um die E-Mailadresse zu best&auml;tigen und das Benutzerkonto zu aktivieren."
+msgstr "An e-mail was sent to <em>%s</em> to approve the e-mail address and activate the user account."
+
+#: tpl/./resend-activation.php:69
+#: tpl/./password-lost.php:174
+msgid "Deine E-Mail"
+msgstr "Your e-mail"
+
+#: tpl/./resend-activation.php:72
+#: tpl/./register.php:164
+#: tpl/./account.php:106
+#: tpl/./password-lost.php:177
+msgid "g&uuml;ltige E-mailadresse"
+msgstr "valid e-mail address"
+
+#: tpl/./resend-activation.php:76
+#: tpl/./password-lost.php:181
+msgid "Absenden"
+msgstr "Send"
+
+#: tpl/./rda-import.php:12
+msgid "Daten erfolgreich importiert."
+msgstr "Data successfully imported."
+
+#: tpl/./rda-import.php:13
+#, php-format
+msgid "%d Objekte in der Datenbank"
+msgstr "%d objects in the database"
+
+#: tpl/./rda-import.php:14
+#, php-format
+msgid "%d Waren, %d Geb&auml;ude (davon %d Produktionsgeb&auml;ude)"
+msgstr "%d goods, %d buildings (including %d production buildings)"
+
+#: tpl/./rda-import.php:17
+msgid "Daten konnten nicht importiert werden."
+msgstr "Data could not be imported."
+
+#: tpl/./rda-import.php:29
+#: tpl/./rda-import.php:51
+#: tpl/./global-header.php:37
+msgid "Daten importieren"
+msgstr "Import data"
+
+#: tpl/./rda-import.php:39
+msgid "Datei nicht lesbar"
+msgstr "File not readable"
+
+#: tpl/./rda-import.php:48
+msgid "Eine oder mehrere Dateien sind nicht vorhanden oder nicht lesbar."
+msgstr "One or more files don't exist or are not readable."
+
+#: tpl/./rda-import.php:48
+msgid "Alle Dateien sind lesbar."
+msgstr "All files are readable."
 
 #: tpl/./register.php:16
 msgid "Aktivierung erfolgreich"
@@ -162,52 +442,33 @@ msgstr "New user registrations are not possible at the moment."
 msgid "Gib einen Benutzernamen ein"
 msgstr "Enter a username"
 
-#: tpl/./register.php:53
-#: tpl/./login.php:10
-msgid "Ung&uuml;ltiger Benutzername"
-msgstr "Invalid username"
-
 #: tpl/./register.php:55
 msgid "Benutzername bereits vergeben"
 msgstr "Username already in use"
 
 #: tpl/./register.php:58
-#: tpl/./password-lost.php:23
 #: tpl/./account.php:18
+#: tpl/./password-lost.php:23
 msgid "Gib ein Passwort ein"
 msgstr "Enter a password"
 
 #: tpl/./register.php:60
-#: tpl/./password-lost.php:25
 #: tpl/./account.php:20
+#: tpl/./password-lost.php:25
 msgid "Mindestens 8 Zeichen"
 msgstr "Minimum 8 characters"
 
 #: tpl/./register.php:63
-#: tpl/./password-lost.php:28
 #: tpl/./account.php:23
+#: tpl/./password-lost.php:28
 msgid "Gib das Passwort nochmal ein"
 msgstr "Enter the password again"
 
 #: tpl/./register.php:65
-#: tpl/./password-lost.php:30
 #: tpl/./account.php:25
+#: tpl/./password-lost.php:30
 msgid "Die Passw&ouml;rter stimmen nicht &uuml;berein"
 msgstr "Passwords do not match"
-
-#: tpl/./register.php:68
-#: tpl/./resend-activation.php:8
-#: tpl/./password-lost.php:115
-#: tpl/./account.php:10
-msgid "Gib deine E-Mailadresse ein"
-msgstr "Enter your e-mail address"
-
-#: tpl/./register.php:70
-#: tpl/./resend-activation.php:10
-#: tpl/./password-lost.php:117
-#: tpl/./account.php:12
-msgid "Ung&uuml;ltige E-Mailadresse"
-msgstr "Invalid e-mail address"
 
 #: tpl/./register.php:72
 #: tpl/./account.php:14
@@ -222,33 +483,9 @@ msgstr "Enter the two words from the image"
 msgid "Deine Eingabe war nicht korrekt"
 msgstr "Your input was not correct"
 
-#: tpl/./register.php:103
-#: tpl/./resend-activation.php:35
-#: tpl/./resend-activation.php:59
-#: tpl/./login.php:38
-msgid "Benutzerkonto aktivieren"
-msgstr "Activate user account"
-
-#: tpl/./register.php:104
-#: tpl/./resend-activation.php:36
-#, php-format
-msgid "Für die E-Mailadresse %s wurde ein Benutzerkonto auf \"%s\" erstellt."
-msgstr "A user account for the e-mail address %s was created on \"%s\"."
-
-#: tpl/./register.php:105
-#: tpl/./resend-activation.php:37
-msgid "Öffne die folgende URL in deinem Browser, um die E-Mailadresse zu bestätigen und das Benutzerkonto zu aktivieren."
-msgstr "Open the following url in your browser to approve the e-mail address and active the user account."
-
-#: tpl/./register.php:108
-#: tpl/./resend-activation.php:40
-#, php-format
-msgid "Es wurde eine E-Mail an <em>%s</em> gesendet um die E-Mailadresse zu best&auml;tigen und das Benutzerkonto zu aktivieren."
-msgstr "An e-mail was sent to <em>%s</em> to approve the e-mail address and activate the user account."
-
 #: tpl/./register.php:127
 #: tpl/./register.php:176
-#: tpl/./global-header.php:34
+#: tpl/./global-header.php:29
 msgid "Registrieren"
 msgstr "Register"
 
@@ -268,43 +505,26 @@ msgstr "Your personal data will not be disclosed to third parties and you will n
 msgid "Neues Bild laden"
 msgstr "Load new image"
 
-#: tpl/./register.php:143
-#: tpl/./password-lost.php:81
-#: tpl/./login.php:86
-msgid "Benutzername"
-msgstr "Username"
-
 #: tpl/./register.php:146
 msgid "mind. 3 Zeichen"
 msgstr "min. 3 characters"
 
-#: tpl/./register.php:150
-#: tpl/./login.php:93
-msgid "Passwort"
-msgstr "Password"
-
 #: tpl/./register.php:153
-#: tpl/./password-lost.php:90
 #: tpl/./account.php:130
+#: tpl/./change-email.php:87
+#: tpl/./password-lost.php:90
 msgid "mind. 8 Zeichen"
 msgstr "min. 8 characters"
 
 #: tpl/./register.php:157
-#: tpl/./password-lost.php:94
 #: tpl/./account.php:134
+#: tpl/./password-lost.php:94
 msgid "Passwort wiederholen"
 msgstr "Repeat password"
 
 #: tpl/./register.php:161
 msgid "E-Mail"
 msgstr "E-mail"
-
-#: tpl/./register.php:164
-#: tpl/./resend-activation.php:72
-#: tpl/./password-lost.php:177
-#: tpl/./account.php:106
-msgid "g&uuml;ltige E-mailadresse"
-msgstr "valid e-mail address"
 
 #: tpl/./register.php:168
 msgid "Captcha"
@@ -313,115 +533,6 @@ msgstr "Captcha"
 #: tpl/./register.php:172
 msgid "zwei Worte im rechten Bild"
 msgstr "two words from the image"
-
-#: tpl/./resend-activation.php:12
-#: tpl/./password-lost.php:119
-msgid "E-Mailadresse nicht registriert"
-msgstr "E-mail address not registered"
-
-#: tpl/./resend-activation.php:14
-msgid "Benutzerkonto ist bereits aktiv"
-msgstr "User account is already active"
-
-#: tpl/./resend-activation.php:69
-#: tpl/./password-lost.php:174
-msgid "Deine E-Mail"
-msgstr "Your e-mail"
-
-#: tpl/./resend-activation.php:76
-#: tpl/./password-lost.php:181
-msgid "Absenden"
-msgstr "Send"
-
-#: tpl/./commoditychains.php:37
-#: tpl/./global-header.php:40
-msgid "Produktionsketten"
-msgstr "Commodity chains"
-
-#: tpl/./commoditychains.php:64
-msgid "Anzahl"
-msgstr "Count"
-
-#: tpl/./global-header.php:23
-msgid "Startseite"
-msgstr "Home"
-
-#: tpl/./global-header.php:25
-msgid "angemeldet als"
-msgstr "logged in as"
-
-#: tpl/./global-header.php:25
-msgid "Du bist nicht angemeldet."
-msgstr "You are not logged in."
-
-#: tpl/./global-header.php:28
-msgid "Gespeicherte Daten"
-msgstr "Saved data"
-
-#: tpl/./global-header.php:31
-#: tpl/./account.php:86
-msgid "Benutzerkonto"
-msgstr "User account"
-
-#: tpl/./global-header.php:32
-#: tpl/./logout.php:18
-msgid "Abmelden"
-msgstr "Logout"
-
-#: tpl/./global-header.php:35
-#: tpl/./login.php:73
-#: tpl/./login.php:106
-msgid "Anmelden"
-msgstr "Login"
-
-#: tpl/./global-header.php:41
-#: tpl/./database.php:137
-msgid "Datenbank"
-msgstr "Database"
-
-#: tpl/./global-header.php:42
-msgid "Daten importieren"
-msgstr "Import data"
-
-#: tpl/./global-header.php:43
-#: tpl/./info.php:4
-msgid "Info"
-msgstr "Info"
-
-#: tpl/./password-lost.php:50
-#: tpl/./account.php:62
-msgid "Dein Passwort wurde ge&auml;ndert."
-msgstr "Your password was changed."
-
-#: tpl/./password-lost.php:87
-#: tpl/./account.php:127
-msgid "Neues Passwort"
-msgstr "New password"
-
-#: tpl/./password-lost.php:98
-#: tpl/./account.php:110
-#: tpl/./account.php:138
-msgid "&Auml;ndern"
-msgstr "Change"
-
-#: tpl/./password-lost.php:140
-#: tpl/./password-lost.php:164
-msgid "Zugangsdaten wiederherstellen"
-msgstr "Restore login data"
-
-#: tpl/./password-lost.php:141
-#, php-format
-msgid "Die E-Mailadresse %s gehört zum Benutzer %s auf \"%s\"."
-msgstr "The e-mail address %s is associated with the user account %s at \"%s\"."
-
-#: tpl/./password-lost.php:142
-msgid "Öffne die folgende URL in deinem Browser, um ein neues Passwort für das Benutzerkonto festzulegen."
-msgstr "Open the following url in your browser to set a new password for the user account."
-
-#: tpl/./password-lost.php:145
-#, php-format
-msgid "Es wurde eine E-Mail an <em>%s</em> gesendet um die Wiederherstellung der Zugangsdaten zu best&auml;tigen."
-msgstr "An e-mail was sent to <em>%s</em> to restore the login data."
 
 #: tpl/./account.php:52
 msgid "E-Mailadresse ändern"
@@ -441,13 +552,36 @@ msgstr "Open the following url in your browser to approve the e-mail address and
 msgid "Es wurde eine E-mail an <em>%s</em> gesendet um die neue Adresse zu best&auml;tigen."
 msgstr "An e-mail was sent to <em>%s</em> to approve the new address."
 
+#: tpl/./account.php:62
+#: tpl/./password-lost.php:50
+msgid "Dein Passwort wurde ge&auml;ndert."
+msgstr "Your password was changed."
+
+#: tpl/./account.php:86
+#: tpl/./global-header.php:26
+msgid "Benutzerkonto"
+msgstr "User account"
+
 #: tpl/./account.php:97
 msgid "Aktuelle E-Mail"
 msgstr "Current e-mail"
 
 #: tpl/./account.php:103
+#: tpl/./change-email.php:91
 msgid "Neue E-Mail"
 msgstr "New e-mail"
+
+#: tpl/./account.php:110
+#: tpl/./account.php:138
+#: tpl/./change-email.php:97
+#: tpl/./password-lost.php:98
+msgid "&Auml;ndern"
+msgstr "Change"
+
+#: tpl/./account.php:127
+#: tpl/./password-lost.php:87
+msgid "Neues Passwort"
+msgstr "New password"
 
 #: tpl/./account.php:147
 msgid "Registriert am %A, %e. %B %Y um %T"
@@ -457,60 +591,43 @@ msgstr "Registered on %A, %B %e, %Y at %r"
 msgid "Letzte Authentifizierung am %A, %e. %B %Y um %T"
 msgstr "Last authentification on %A, %B %e, %Y at %r"
 
-#: tpl/./logout.php:23
-msgid "Abmeldung erfolgreich"
-msgstr "Logout successful"
-
-#: tpl/./logout.php:24
-#: tpl/./login.php:80
-msgid "zur Startseite"
-msgstr "go to home"
-
-#: tpl/./logout.php:28
-msgid "Abmeldung fehlgeschlagen"
-msgstr "Logout failed"
-
-#: tpl/./info.php:7
+#: tpl/./change-email.php:48
 #, php-format
-msgid "Anno2070Rechner.de ist eine Fansite und ein Online-Tool f&uuml;r das Spiel <a href=\"%s\" title=\"Anno 2070\">Anno 2070</a> von <a href=\"%s\" title=\"Ubisoft\">Ubisoft</a>."
-msgstr "Anno2070Rechner.de is a fansite and a online tool for the game <a href=\"%s\" title=\"Anno 2070\">Anno 2070</a> by <a href=\"%s\" title=\"Ubisoft\">Ubisoft</a>."
+msgid "Deine E-Mailadresse wurde in <em>%s</em> ge&auml;ndert."
+msgstr "Your e-mail address was changed to <em>%s</em>."
 
-#: tpl/./info.php:12
-msgid "Die Website ist rein zum privaten Gebrauch und dient keinem kommerziellen Zweck."
-msgstr "The website is only for private use and does not serve any commercial purpose."
+#: tpl/./change-email.php:67
+msgid "E-Mailadresse &auml;ndern"
+msgstr "Change e-mail address"
 
-#: tpl/./info.php:14
-#, php-format
-msgid "F&uuml;r volle Funktionalit&auml;t und beste Darstellung ist ein moderner Browser, wie <a href=\"%s\" title=\"Mozilla Firefox\">Mozilla Firefox</a> oder <a href=\"%s\" title=\"Google Chrome\">Google Chrome</a>, erforderlich."
-msgstr "For full functionality and best presentation, a modern browser like <a href=\"%s\" title=\"Mozilla Firefox\">Mozilla Firefox</a> or <a href=\"%s\" title=\"Google Chrome\">Google Chrome</a> is necessary."
+#: tpl/./change-email.php:109
+msgid "Oops, da ist etwas total schiefgelaufen&hellip;"
+msgstr "Oops, something went totally wrong here&hellip;"
 
-#: tpl/./info.php:19
-msgid "Support"
-msgstr "Support"
+#: tpl/./global-header.php:18
+msgid "Startseite"
+msgstr "Home"
 
-#: tpl/./info.php:21
-msgid "Thema im deutschen Anno 2070 Forum"
-msgstr "Topic in the german Anno 2070 forums"
+#: tpl/./global-header.php:20
+msgid "angemeldet als"
+msgstr "logged in as"
 
-#: tpl/./info.php:23
-msgid "Thema im englischen Anno 2070 Forum"
-msgstr "Topic in the english Anno 2070 forums"
+#: tpl/./global-header.php:20
+msgid "Du bist nicht angemeldet."
+msgstr "You are not logged in."
 
-#: tpl/./info.php:25
-msgid "Quelltexte"
-msgstr "Sources"
+#: tpl/./global-header.php:23
+msgid "Gespeicherte Daten"
+msgstr "Saved data"
 
-#: tpl/./info.php:27
-msgid "Alle Quelltexte stehen auf Github zur Verf&uuml;gung. Du bist herzlich eingeladen mitzuwirken."
-msgstr "All sources are available at Github. You are invited to contribute."
+#: tpl/./global-header.php:27
+msgid "Abmelden"
+msgstr "Logout"
 
-#: tpl/./info.php:29
-msgid "Anno2070Rechner.de auf Github"
-msgstr "Anno2070Rechner.de at Github"
-
-#: tpl/./info.php:31
-msgid "Entwickler und Betreiber"
-msgstr "Developer and carrier"
+#: tpl/./global-header.php:36
+#: tpl/./database.php:137
+msgid "Datenbank"
+msgstr "Database"
 
 #: tpl/./database.php:105
 #: tpl/./database.php:161
@@ -552,131 +669,72 @@ msgstr "Search for"
 msgid "Suchen"
 msgstr "Search"
 
-#: tpl/./404.php:4
-msgid "Oops, da ist etwas total schiefgelaufen&hellip;"
-msgstr "Oops, something went totally wrong here&hellip;"
+#: tpl/./password-lost.php:140
+#: tpl/./password-lost.php:164
+msgid "Zugangsdaten wiederherstellen"
+msgstr "Restore login data"
+
+#: tpl/./password-lost.php:141
+#, php-format
+msgid "Die E-Mailadresse %s gehört zum Benutzer %s auf \"%s\"."
+msgstr "The e-mail address %s is associated with the user account %s at \"%s\"."
+
+#: tpl/./password-lost.php:142
+msgid "Öffne die folgende URL in deinem Browser, um ein neues Passwort für das Benutzerkonto festzulegen."
+msgstr "Open the following url in your browser to set a new password for the user account."
+
+#: tpl/./password-lost.php:145
+#, php-format
+msgid "Es wurde eine E-Mail an <em>%s</em> gesendet um die Wiederherstellung der Zugangsdaten zu best&auml;tigen."
+msgstr "An e-mail was sent to <em>%s</em> to restore the login data."
+
+#: tpl/./logout.php:23
+msgid "Abmeldung erfolgreich"
+msgstr "Logout successful"
+
+#: tpl/./logout.php:28
+msgid "Abmeldung fehlgeschlagen"
+msgstr "Logout failed"
 
 #: tpl/./404.php:5
 msgid "Das von dir angeforderte Dokument konnte nicht gefunden werden."
 msgstr "The document you requested could not be found."
 
-#: tpl/./login.php:8
-msgid "Gib deinen Benutzernamen ein"
-msgstr "Enter your username"
-
-#: tpl/./login.php:12
-msgid "Benutzername existiert nicht"
-msgstr "Username doesn't exist"
-
-#: tpl/./login.php:14
-msgid "Benutzerkonto ist nicht aktiviert"
-msgstr "User account is not active"
-
-#: tpl/./login.php:18
-msgid "Gib dein Passwort ein"
-msgstr "Enter your password"
-
-#: tpl/./login.php:20
-msgid "Ung&uuml;ltiges Passwort"
-msgstr "Invalid password"
-
-#: tpl/./login.php:22
-msgid "Falsches Passwort"
-msgstr "Wrong password"
-
-#: tpl/./login.php:40
-msgid "Zugangsdaten vergessen?"
-msgstr "lost login data?"
-
-#: tpl/./login.php:52
-msgid "Anmeldung erfolgreich"
-msgstr "Login successful"
-
-#: tpl/./login.php:100
-msgid "angemeldet bleiben"
-msgstr "remember me"
-
-#: tpl/./no-rights.php:4
-msgid "Zugriff verweigert"
-msgstr "Access denied"
-
-#: tpl/./no-rights.php:5
-msgid "Du hast leider nicht die notwendigen Rechte f&uuml;r das angeforderte Dokument."
-msgstr "Unfortunately you do not have the necessary rights for the requested document."
-
-#: tpl/./rda-import.php:12
-msgid "Daten erfolgreich importiert."
-msgstr "Data successfully imported."
-
-#: tpl/./rda-import.php:13
-#, php-format
-msgid "%d Objekte in der Datenbank"
-msgstr "%d objects in the database"
-
-#: tpl/./rda-import.php:14
-#, php-format
-msgid "%d Waren, %d Geb&auml;ude (davon %d Produktionsgeb&auml;ude)"
-msgstr "%d goods, %d buildings (including %d production buildings)"
-
-#: tpl/./rda-import.php:17
-msgid "Daten konnten nicht importiert werden."
-msgstr "Data could not be imported."
-
-#: tpl/./rda-import.php:39
-msgid "Datei nicht lesbar"
-msgstr "File not readable"
-
-#: tpl/./rda-import.php:48
-msgid "Eine oder mehrere Dateien sind nicht vorhanden oder nicht lesbar."
-msgstr "One or more files don't exist or are not readable."
-
-#: tpl/./rda-import.php:48
-msgid "Alle Dateien sind lesbar."
-msgstr "All files are readable."
-
-#: tpl/./change-email.php:48
-#, php-format
-msgid "Deine E-Mailadresse wurde in <em>%s</em> ge&auml;ndert."
-msgstr "Your e-mail address was changed to <em>%s</em>."
-
-#: tpl/./change-email.php:67
-#, fuzzy
-msgid "E-Mailadresse &auml;ndern"
-msgstr "Change e-mail address"
-
-#: inc/./class-gamedata.php:711
-msgid "Alternatives Produktionsgebäude"
-msgstr "alternative production building"
-
-#: inc/./class-gamedata.php:715
-msgid "Effizienz"
-msgstr "Efficiency"
-
-#: inc/./class-gamedata.php:723
-#: inc/./class-gamedata.php:744
-msgid "Credits"
-msgstr "Credits"
-
-#: inc/./class-gamedata.php:728
-#: inc/./class-gamedata.php:749
-msgid "Bilanz"
-msgstr "Balance"
-
-#: inc/./class-gamedata.php:729
-#: inc/./class-gamedata.php:750
+#: inc/./class-gamedata.php:690
+#: inc/./class-gamedata.php:735
+#: inc/./class-gamedata.php:760
 msgid "Energie"
 msgstr "Energy"
 
-#: inc/./class-gamedata.php:730
-#: inc/./class-gamedata.php:751
+#: inc/./class-gamedata.php:692
+#: inc/./class-gamedata.php:736
+#: inc/./class-gamedata.php:761
 msgid "&Ouml;kobilanz"
 msgstr "eco effect"
 
-#: inc/./class-gamedata.php:742
+#: inc/./class-gamedata.php:718
+msgid "Alternatives Produktionsgebäude"
+msgstr "alternative production building"
+
+#: inc/./class-gamedata.php:729
+#: inc/./class-gamedata.php:754
+msgid "Credits"
+msgstr "Credits"
+
+#: inc/./class-gamedata.php:734
+#: inc/./class-gamedata.php:759
+msgid "Bilanz"
+msgstr "Balance"
+
+#: inc/./class-gamedata.php:749
 msgid "produziert"
 msgstr "produces"
 
-#: inc/./class-gamedata.php:762
+#: inc/./class-gamedata.php:751
+msgid "Produktionskette anzeigen"
+msgstr "Show commodity chain"
+
+#: inc/./class-gamedata.php:772
 msgid "produziert von"
 msgstr "produced by"
 

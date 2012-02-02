@@ -138,8 +138,8 @@ class Page {
 	 */
 	private function setTitle() {
 		// falls ein gültiger Titel vorhanden ist, Titel festlegen
-		if( isset($this->pagedata['title']) && is_string($this->pagedata['title']) && !empty($this->pagedata['title']) )
-			$this->title = $this->pagedata['title'];
+		if( isset($this->pagedata['title_'.i18n::getShort()]) && is_string($this->pagedata['title_'.i18n::getShort()]) && !empty($this->pagedata['title_'.i18n::getShort()]) )
+			$this->title = $this->pagedata['title_'.i18n::getShort()];
 	}
 	
 	

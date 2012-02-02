@@ -1,25 +1,24 @@
 <?php
 
-if( isset($_POST['p_guid']) ) {
-	$pb = GameData::getProductionBuildingsForProduct( intval($_POST['p_guid']) );
-	$_POST['pb_guid'] = $pb[0]->getGuid();
-	$_POST['productivity'] = 100;
-}
+if( isset($_POST['pb_guid']) && $pb = GameData::getProductionBuilding(intval($_POST['pb_guid'])) ) {
 
-if( isset($_POST['pb_guid']) && isset($_POST['tpm_needed']) && isset($_POST['productivity']) ) {
+	$count = isset($_POST['count']) ? intval($_POST['count']) : 1;
 
-	$tpm_needed = floatval($_POST['tpm_needed']);
-	$pb_guid = intval($_POST['pb_guid']);
+	$tpm_needed = isset($_POST['tpm_needed']) ? floatval(preg_replace('/,/','.',$_POST['tpm_needed'])) : 0;
+
+	$tpm_needed = $tpm_needed>0 ? $tpm_needed :  ( $pb->getProductionTonsPerMinute() * $count );
+
 	$productivity = array();
 	if( isset($_POST['productivity']) && is_array($_POST['productivity']) )
 		foreach($_POST['productivity'] as $i => $p)
 			$productivity[$i] = intval($p);
+
 	$preferred = array();
-	if( isset($_POST['preferred']) && isset($_POST['preferred']) )
+	if( isset($_POST['preferred']) && is_array($_POST['preferred']) )
 		foreach($_POST['preferred'] as $i => $p)
 			$preferred[$i] = intval($p);
 
-	$commodity_chain = GameData::getCommodityChain( $pb_guid, 1, $tpm_needed, $productivity, $preferred );
+	$commodity_chain = GameData::getCommodityChain( $pb, 1, $tpm_needed, $productivity, $preferred );
 
 	$commodity_chain_html = GameData::drawCommodityChain( $commodity_chain );
 	

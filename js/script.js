@@ -3,7 +3,6 @@ var baseurl, lang;
 
 function request( _options ) {
 	var options = $.extend({
-		url: '',
 		type: 'post',
 		dataType: 'json',
 		error: function(xhr,txt,err) {
@@ -13,6 +12,23 @@ function request( _options ) {
 	options.url = baseurl+options.url;
 	options.data = options.data+'&ajax=1';
 	return $.ajax(options);
+}
+
+function getGroup( el ) {
+	return $(el).hasClass('ecos') ? 'ecos' : ( $(el).hasClass('tycoons') ? 'tycoons' : 'techs' )
+}
+
+function filterNum( n ) {
+	if( n==undefined )
+		return 0;
+	n = parseInt( n.replace(/[^0-9-]/g,''), 10 );
+	return isNaN(n) ? 0 : n;
+}
+
+function getEfficiencyClass( percent ) {
+	classes = ['green','lightgreen','yellow','orange','red'];
+	percent = parseInt(percent)-1;
+	return classes[ 4-Math.floor( percent/20 ) ];
 }
 
 function processCommodityChain( c ) {
@@ -93,109 +109,137 @@ function processCommodityChain( c ) {
 	})
 }
 
-function getGroup( el ) {
-	return $(el).hasClass('ecos') ? 'ecos' : ( $(el).hasClass('tycoons') ? 'tycoons' : 'techs' )
-}
-
-function filterNum( n ) {
-	n = parseInt( n.replace(/[^0-9]/g,''), 10 );
-	return isNaN(n) ? 0 : n;
-}
-
 function setProductivityEvents( el ) {
+	
+	// window event to hide productivity slider
+	$(window).unbind('click.productivities').bind({
+		'click.productivities': function(){
+			var f = $('.production.active .productivity').find(':focus');
+			if( f.length<1 )
+				$('.production.active').trigger('deactivate');
+		}
+	});
+	
 	$(el).each(function(){
-		$(this).unbind('click').bind({
-			click: function() {
-				$('span.productivity').not(this).removeClass('active');
-				if( !$(this).closest('.production').hasClass('no-demand') )
-					$(this).addClass('active');
-				$(this).find('.ui-slider-handle').focus();
+
+		var production = $(this).closest('.production');
+	
+		production.bind({
+			activate: function() {
+				$(this).addClass('active')
+				$(this).closest('.commodity-chain').find('.production').not(this).trigger('deactivate');
+			},
+			deactivate: function() {
+				$(this).removeClass('active')
+				production.trigger('updateChildren');
+			},
+			update: function() {
+				var p = $(this),
+					tpm = parseFloat(p.attr('data-tpm')),
+					tpm_needed = parseFloat(p.attr('data-tpm-needed')),
+					productivity = filterNum($(this).find('input').val())/100
+					count = tpm_needed / ( tpm * productivity ),
+					original_count = parseInt(p.attr('data-count')),
+					efficiency = Math.round((count/Math.ceil(count))*100).toString(),
+					//actual_tpm = 0;
+				p.find('span.count').html( '&times;'+Math.ceil(count).toString() );
+				p.find('.efficiency').text( efficiency+'%' ).attr('class','efficiency '+getEfficiencyClass(efficiency));
+				count = Math.ceil(count);
+				/*
+				actual_tpm = ( Math.round( tpm*productivity*count*10 ) / 10 ).toString();
+				if( lang=='de' )
+					actual_tpm = actual_tpm.replace(/\./,',');
+				p.closest('dl').find('dt div.product:first').find('.tpm .actual').text(actual_tpm)
+				*/
+				if( original_count!=count ) {
+					p.find('.build-costs li').each(function(){
+						$(this).text( (parseInt($(this).text())/original_count)*count );
+					});
+					p.find('.maintenance-costs li').each(function(){
+						var v = $(this).text().split('/')
+						$(this).text( ((parseInt(v[0])/original_count)*count).toString()+' / '+((parseInt(v[1])/original_count)*count).toString() );
+					});
+					p.attr('data-count',count);
+					p.addClass('changed');
+				}
+			},
+			updateChildren: function() {
+				var chain = $(this).closest('.commodity-chain');
+				if( chain.length>0 && $(this).hasClass('changed') ) {
+					if( $(this).parent().closest('div').find('.commodity-chain-inner').length>0 ) {
+						var productions = chain.find('.production'),
+							productivity = [],
+							preferred = [];
+						productions.each(function(){
+							productivity.push( 'productivity['+$(this).attr('data-guid')+']='+$(this).find('.productivity input').val() );
+							if( !$(this).closest('dd').hasClass('alt') )
+								preferred.push( 'preferred[]='+$(this).attr('data-guid') );
+						});
+						first_production = productions.filter(':first');
+						request({
+							url: 'get-commoditychain'+(lang!='de'?'/'+lang:''),
+							data: 'pb_guid='+first_production.attr('data-guid')+'&tpm_needed='+first_production.attr('data-tpm-needed')+'&'+productivity.join('&')+'&'+preferred.join('&'),
+							success: function(data) {
+								var c = $(data.html),
+									speed = 400;
+								processCommodityChain(c);
+								if( $('div.commodity-chain').length>0 )
+									$('div.commodity-chain').replaceWith(c);
+								else
+									c.hide().appendTo( $('#commodity-chain-container') ).fadeIn(speed);
+								setProductivityEvents(c.find('span.productivity'));
+							}
+						});
+					}
+					else if( chain.find('.production').length>1 )
+						$('div.commodity-chain').trigger('summarize');
+				}
 			}
-		}).find('.slider').each(function(){
+		})
+		
+		$(this).bind({
+			click: function(ev) {
+				$(this).find('input').focus();
+				ev.stopPropagation();
+			}
+		});
+	
+		$(this).find('input').bind({
+			focus: function() {
+				$(this).select();
+				production.trigger('activate');
+			},
+			change: function() {
+				var v = Math.max(1,Math.min(999,filterNum($(this).val())))
+				$(this).val( v );
+				$(this).closest('.productivity').find('.slider').slider('value',v);
+				production.trigger('update');
+			},
+			keydown: function() {
+				$(this).attr('data-value',$(this).val());
+			},
+			keyup: function() {
+				if( $(this).val()!='' && $(this).attr('data-value')!=$(this).val() )
+					$(this).trigger('change');
+			}
+		});
+		
+		$(this).find('.slider').each(function(){
 			$(this).slider({
-				value: filterNum($(this).parent().next().val()),
-				min: 25,
-				max: 175,
+				value: filterNum($(this).parent().prev().prev().val()),
+				range: 'min',
+				min: 50,
+				max: 300,
 				step: 1,
 				stop: function() {
-					var chain = $(this).closest('.commodity-chain');
-					if( chain.length>0 && $(this).closest('.production').hasClass('changed') ) {
-						if( $(this).closest('.production').parent().closest('div').find('.commodity-chain-inner').length>0 ) {
-							var productions = chain.find('.production'),
-								productivity = [],
-								preferred = [];
-							productions.each(function(){
-								productivity.push( 'productivity['+$(this).attr('data-guid')+']='+$(this).find('.productivity input').val() );
-								if( !$(this).closest('dd').hasClass('alt') )
-									preferred.push( 'preferred[]='+$(this).attr('data-guid') );
-							});
-							first_production = productions.filter(':first');
-							
-							request({
-								url: 'get-commoditychain'+(lang!='de'?'/'+lang:''),
-								data: 'pb_guid='+first_production.attr('data-guid')+'&tpm_needed='+first_production.attr('data-tpm-needed')+'&'+productivity.join('&')+'&'+preferred.join('&'),
-								success: function(data) {
-									var c = $(data.html),
-										speed = 400;
-									processCommodityChain(c);
-									if( $('div.commodity-chain').length>0 )
-										$('div.commodity-chain').replaceWith(c);
-									else
-										c.hide().appendTo( $('#commodity-chain-container') ).fadeIn(speed);
-									setProductivityEvents(c.find('span.productivity'));
-								}
-							});
-						}
-						else if( chain.find('.production').length>1 )
-							$('div.commodity-chain').trigger('summarize');
-					}
-					else if( $('#commodity-chain-container div:first').length>0 )
-						$(this).closest('.production').find('.icon-32').trigger('click');
+					production.trigger('deactivate');
 				},
 				slide: function( ev, ui ) {
-					var p = $(this).closest('.production'),
-						tpm = parseFloat(p.attr('data-tpm')),
-						tpm_needed = parseFloat(p.attr('data-tpm-needed')),
-						count = Math.ceil((tpm_needed/(tpm*ui.value/100))*10)/10,
-						within_chain = $(this).closest('.commodity-chain').length>0 ? true : false;
-					$(this).parent().next().val( ui.value );
-					$(this).parent().prev().text( ui.value+'%' );
-					if( !within_chain && lang=='de' )
-						count = count.toString().replace(/\./,',');
-					p.find('span.count').html( within_chain?'&times;'+Math.ceil(count).toString():count );
-					if( within_chain ) {
-						var original_count = parseInt(p.attr('data-count')),
-							efficiency = Math.round((count/Math.ceil(count))*100).toString();
-						if( efficiency>80 )
-							efficiency_class = 'green';
-						else if( efficiency>60 )
-							efficiency_class = 'lightgreen';
-						else if( efficiency>40 )
-							efficiency_class = 'yellow';
-						else if( efficiency>20 )
-							efficiency_class = 'orange';
-						else
-							efficiency_class = 'red';
-						p.find('.efficiency').text( efficiency+'%' ).removeClass('green lightgreen yellow orange red').addClass(efficiency_class);
-						count = Math.ceil(count);
-						if( original_count!=count ) {
-							p.find('.build-costs li').each(function(){
-								$(this).text( (parseInt($(this).text())/original_count)*count );
-							});
-							p.find('.maintenance-costs li').each(function(){
-								var v = $(this).text().split('/')
-								$(this).text( ((parseInt(v[0])/original_count)*count).toString()+' / '+((parseInt(v[1])/original_count)*count).toString() );
-							});
-							p.attr('data-count',count);
-							p.addClass('changed');
-						}
-					}
+					$(this).parent().prev().prev().val( ui.value );
+					production.trigger('update')
 				}
 			});
 		}).find('.ui-slider-handle').unbind('blur').bind({
-			blur: function() {
-				$(this).closest('span.productivity').removeClass('active');
-			}
 		});
 	});
 }
@@ -207,6 +251,10 @@ $(document).ready(function(){
 	lang = $('html').attr('lang');
 
 	$('input.first-focus:first').focus();
+	
+	$('input[type=text],input[type=password]').focus(function(){
+		$(this).select();
+	});
 	
 	$('.hidden').hide().removeClass('hidden');
 
@@ -258,9 +306,9 @@ $(document).ready(function(){
 							location.href = data.redirect_to;
 						else
 							location.href = baseurl+$(this).attr('href');
-					},
-				});				
-			})
+					}
+				});
+			});
 		}).end().find('li.save').click(function(ev){
 			ev.preventDefault();
 			var hideTimer = null;
@@ -371,28 +419,67 @@ $(document).ready(function(){
 					form.submit();
 				},400);				
 			}
+		}).end().find('input[name=search]').each(function(){
+			var input = $(this);
+			input.autocomplete({
+				source: function( request, response ) {
+					autocomplete_request = $.ajax({
+						url: input.attr('data-autocomplete'),
+						dataType: 'json',
+						data: 'text='+request.term+'&type=production',
+						beforeSend: function() {
+							form.find('input[type=submit]').addClass('loading').blur();
+						},
+						complete: function() {
+							form.find('input[type=submit]').removeClass('loading');
+						},
+						success: function( data ) {
+							response( $.map(
+								data.results,
+								function( item ) {
+									return {
+										label: item[0],
+										guid: item[3]!=undefined ? item[3] : item[1],
+										value: item[2]!=undefined ? item[2] : item[0]
+									};
+								}
+							) );
+						}
+					});
+				},
+				minLength: 1,
+				open: function() {
+					$('.ui-autocomplete.ui-menu').css('width',$(this).outerWidth())
+				},
+				select: function(ev,ui) {
+					input.attr('data-guid',ui.item.guid);
+					form.trigger('submit');
+				}
+			})
 		}).end().submit(function(ev){
 			ev.preventDefault();
+			var s = form.find('input[name=search]');
+			if( s.attr('data-guid')!='' ) {
+				form.find('select').selectmenu( 'value', s.attr('data-guid') );
+				s.attr('data-guid','')
+			}
 			request({
 				url: form.attr('action'),
 				data: form.serialize(),
 				beforeSend: function() {
-					$('div.commodity-chain').fadeOut(speed);
+					form.find('input[type=submit]').addClass('loading').blur();
 				},
 				complete: function() {
+					form.find('input[type=submit]').removeClass('loading');
 				},
 				success: function(data) {
-					if( data.success ) {
-						var c = $(data.html).hide();
+					if( data.html ) {
+						var c = $(data.html);
 						processCommodityChain(c);
 						if( $('div.commodity-chain').length>0 )
-							$('div.commodity-chain').fadeOut(speed,function(){
-								$(this).replaceWith(c);
-								c.fadeIn(speed);
-							});
-						else {
-							c.appendTo( $('#commodity-chain-container') ).fadeIn(speed);
-						}
+							$('div.commodity-chain').replaceWith(c);
+						else
+							c.hide().appendTo( $('#commodity-chain-container') ).fadeIn(400);
 						setProductivityEvents(c.find('span.productivity'));
 					}
 				}
@@ -400,6 +487,10 @@ $(document).ready(function(){
 		}).submit();
 	});
 
+	$('div.commodity-chain').each(function(){
+		processCommodityChain(this);
+	});
+	
 	$('#rda-import-form').each(function(){
 		var form = $(this),
 			response = $('p#response').slideUp(0);
@@ -421,236 +512,6 @@ $(document).ready(function(){
 			});				
 		})
 	});
-	
-	$('div.commodity-chain').each(function(){
-		processCommodityChain(this);
-	});
-	
-	$('form#population-form').each(function(){
-		var form = $(this),
-			fieldsets = [
-				form.find('#residences-fieldset'),
-				form.find('#inhabitants-fieldset'),
-				form.find('#demands-fieldset'),
-				form.find('#production-fieldset')
-			]
-			display_options_buttons = $('#display-options').find('li a'),
-			residence_capacity = [ [ 8, 15, 25, 40 ], [ 5, 30 ] ];
-		display_options_buttons.each(function(i){
-			$(this).click(function(ev){
-				ev.preventDefault();
-				fieldsets[i].fadeToggle();
-				$(this).toggleClass('active');
-				$('#hidden-fieldset input:eq('+i+')').val( $(this).hasClass('active') ? '1' : '0' );
-				form.trigger('submit');
-			});
-			if( !$(this).hasClass('active') ) {
-				fieldsets[i].fadeOut(0);
-				$('#hidden-fieldset input:eq('+i+')').val('0');
-			}
-		});
-		form.find('a.display-hide').each(function(i){
-			$(this).click(function(ev){
-				ev.preventDefault();
-				$(display_options_buttons[i]).trigger('click');
-			});
-		}).end().bind({
-			submit: function(ev) {
-				ev.preventDefault();
-				request({
-					url: form.attr('action'),
-					data: form.serialize(),
-					beforeSend: function() {
-						form.find('input[type=submit]').addClass('loading').blur();
-					},
-					complete: function() {
-						form.find('input[type=submit]').removeClass('loading');
-					},
-					success: function(data) {
-						if( data.success ) {
-							var d = [ data.demands, data.productions ];
-							$('#demands-fieldset,#production-fieldset').each(function(i){
-								$(this).find('li').each(function(){
-									var guid = parseInt($(this).attr('data-guid')),
-										text = '';
-									if( d[i][guid]!=undefined && d[i][guid]>0 ) {
-										text = (Math.ceil(d[i][guid]*10)/10).toString();
-										$(this).removeClass('no-demand').attr('data-tpm-needed',text);
-										if( lang=='de' )
-											text = text.replace(/\./,',');
-										$(this).find('span.count').text( text );
-										if( i==1 ) {
-											$(this).find('.productivity').find('span').text( data.productivity[guid]+'%' ).end().find('input').val(data.productivity[guid]);
-										}
-									}
-									else {
-										$(this).addClass('no-demand').attr('data-tpm-needed',0).find('span.count').empty();
-										if( i==1 ) {
-											$(this).find('.productivity').find('span').empty().end().find('input').val(data.productivity[guid]);
-										}
-									}
-								});
-							});
-						}
-					}
-				});
-			}
-		});
-		$.each( fieldsets, function(i){
-			$(this).bind({
-				summarize: function(){
-					$(this).find('dl').each(function(){
-						var group = getGroup( this );
-							valTotal = 0;
-						for( var i=0; i<( group=='techs' ? 2 : 4 ); i++ )
-							valTotal += filterNum( $(this).find('dd.'+group+(i+1)+' input:first').val() );
-						$(this).find('dd.'+group+'0 input[type=text]').val( valTotal );
-					});
-				}
-			});
-			if( i==0 ) {
-				$(this).find('dl').each(function(){
-					$(this).find('.slider').each(function(){
-						$(this).slider({
-							value: filterNum($(this).next().val()),
-							min: 1,
-							max: $(this).closest('dl').hasClass('techs') ? 2 : 4,
-							step: 1,
-							slide: function( ev, ui ) {
-								var dl = $(this).closest('dl'),
-									group = getGroup( dl );
-								$(this).next().val( ui.value );
-								dl.find('dt,dd').removeClass('locked');
-								for( var i=( group=='techs' ? 2 : 4 ); i>ui.value; i-- )
-									dl.find('dd.'+group+i+':first,dt.'+group+i+':first').addClass('locked');
-								$(this).prev().trigger('change');
-							}
-						}).find('.ui-slider-handle').bind({
-							focus: function(){
-								var dl = $(this).closest('dl'),
-									group = getGroup( dl );
-								for( var i=( group=='techs' ? 2 : 4 ); i>filterNum($(this).parent().next().val()); i-- )
-									dl.find('dd.'+group+i+',dt.'+group+i).addClass('locked');
-							},
-							blur: function(){
-								$(this).closest('dl').find('dt,dd').removeClass('locked');
-							}
-						});
-					}).end().find('dd input[type=text]').filter(':first').each(function(){
-						$(this).bind({
-							change: function() {
-								var dl = $(this).closest('dl'),
-									group = getGroup( dl ),
-									valTotal = filterNum( $(this).val() ),
-									valUpgrade = filterNum( $(this).next().next().val() );
-								$(this).val( valTotal );
-								vals = [valTotal,0,0,0]
-								for( var l=1; l<valUpgrade; l++ ) {
-									vals[l] = Math.round( vals[l-1] * ( 0.2 * ((group=='techs'?4:5)-l) ) );
-									vals[l] = vals[l-1]<=vals[l] ? 0 : vals[l];
-									vals[l-1] -= vals[l];
-								}
-								for( var i=0; i<( group=='techs' ? 2 : 4 ); i++ )
-									dl.find('dd.'+group+(i+1)+' input').val( vals[i] );
-								fieldsets[1].trigger('updateByResidences');
-							}
-						});
-					}).end().each(function(){
-						$(this).bind({
-							keydown: function() {
-								$(this).attr('data-value',$(this).val());
-							},
-							keyup: function() {
-								if( $(this).val()!='' && $(this).attr('data-value')!=$(this).val() )
-									$(this).trigger('change');
-							}
-						});
-					}).not(':first').each(function(){
-						$(this).bind({
-							change: function() {
-								$(this).val( filterNum($(this).val()) );
-								fieldsets[0].trigger('summarize');
-								fieldsets[1].trigger('updateByResidences');
-							}
-						});
-					});
-				}).end().find('input[type=checkbox]').each(function(){
-					$(this).change(function(){
-						fieldsets[1].trigger('updateByResidences');
-					});
-				});
-			}
-			else if( i==1 ) {
-				$(this).each(function(){
-					$(this).bind({
-						updateByResidences: function() {
-							inhabitants = {};
-							fieldsets[0].find('dl').each(function(){
-								var group = getGroup( this ),
-									capacity = residence_capacity[ group=='techs' ? 1 : 0 ],
-									more_space = $(this).find('dd.'+group+'-ls input:first').is(':checked') ? 1.12 : 1;
-								inhabitants[group] = [];
-								for( var i=0; i<( group=='techs' ? 2 : 4 ); i++ )
-									inhabitants[group][i] = Math.round( filterNum( $(this).find('dd.'+group+(i+1)+' input').val() )*capacity[i]*more_space );
-							});
-							$(this).find('dl').each(function(){
-								var group = getGroup( this );
-								for( var i=0; i<( group=='techs' ? 2 : 4 ); i++ )
-									 $(this).find('dd.'+group+(i+1)+' input:first').val( inhabitants[group][i] )
-							});
-							$(this).trigger('summarize');
-						}
-					}).find('dd input[type=text]').not(':last').each(function(){
-						$(this).bind({
-							change: function() {
-								$(this).val( filterNum($(this).val()) );
-								fieldsets[1].trigger('summarize');
-							},
-							keydown: function() {
-								$(this).attr('data-value',$(this).val());
-							},
-							keyup: function() {
-								if( $(this).val()!='' && $(this).attr('data-value')!=$(this).val() )
-									$(this).trigger('change');
-							}
-						});
-					});
-
-				});
-			}
-			else if( i==2 || i == 3 ) {
-				$(this).find('.icon-32').bind({
-					click: function(){
-						var p = $(this).closest('li'),
-							guid = parseInt(p.attr('data-guid')),
-							tpm_needed = parseFloat(p.attr('data-tpm-needed')),
-							productivity = parseInt( p.find('span.productivity input').val() );
-						if( p.hasClass('no-demand') )
-							return;
-						request({
-							url: 'get-commoditychain'+(lang!='de'?'/'+lang:''),
-							data: (i==2?'p':'pb')+'_guid='+guid+'&tpm_needed='+tpm_needed+'&productivity['+guid+']='+productivity,
-							success: function(data) {
-								var c = $(data.html).hide(),
-									speed = 400;
-								processCommodityChain(c);
-								if( $('div.commodity-chain').length>0 )
-									$('div.commodity-chain').fadeOut(speed,function(){
-										$(this).replaceWith(c);
-										c.fadeIn(speed);
-									});
-								else
-									c.appendTo( $('#commodity-chain-container') ).fadeIn(speed);
-								setProductivityEvents(c.find('span.productivity'));
-							}
-						});
-					}
-				});
-			}
-		});
-	});
-	
-	setProductivityEvents($('span.productivity'));
 	
 	$('#database-search-form,#database-select-form').each(function(i){
 		var form = $(this);
@@ -698,7 +559,7 @@ $(document).ready(function(){
 					minLength: 1,
 					open: function() {
 						$('.ui-autocomplete.ui-menu').css('width',$(this).outerWidth())
-					},
+					}
 				})
 			});
 		}

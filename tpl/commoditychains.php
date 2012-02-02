@@ -1,33 +1,12 @@
 <?php
 
-$productionbuilding_guid = isset($_REQUEST['productionbuilding']) ? intval($_REQUEST['productionbuilding']) : 0;
-
-$productionbuilding = GameData::getProductionBuilding($productionbuilding_guid);
+$productionbuilding_guid = isset($_REQUEST['pb_guid']) ? intval($_REQUEST['pb_guid']) : 0;
 
 $count = isset($_REQUEST['count']) ? intval($_REQUEST['count']) : 0;
 
 $count = max(1,$count);
 
-if( $productionbuilding ) {
-
-	$target_tpm = $productionbuilding->getProductionTonsPerMinute()*$count;
-
-	$commodity_chain = GameData::getCommodityChain( $productionbuilding->getGuid(), $count );
-
-	$commodity_chain_html = $productionbuilding ? GameData::drawCommodityChain( $commodity_chain ) : '';
-
-}
-
-if( isset($_POST['ajax']) && $_POST['ajax']==1 ) {
-	$json = array(
-		'success' => $productionbuilding ? true : false,
-		'html' => isset( $commodity_chain_html ) ? $commodity_chain_html : ''
-	);
-	$page->clearContent();
-	$page->setType('json');
-	$page->addContent($json);
-	$site->output();
-}
+$tpm_needed = isset($_REQUEST['target_tpm']) ? floatval(preg_replace('/,/','.',$_REQUEST['target_tpm'])) : '';
 
 $productionbuildings = GameData::getProductionBuildings();
 
@@ -35,14 +14,20 @@ usort( $productionbuildings, 'GameData::compareLocals' );
 
 $page->addContent(
 	'<h2 class="'.$page->getIdSanitized().'">'.__('Produktionsketten').'</h2>',
-	'<form id="'.$page->getIdSanitized().'-form" action="'.i18n::url($page->getId()).'" method="get">',
+	'<form id="'.$page->getIdSanitized().'-form" action="'.i18n::url('get-commoditychain').'" method="post">',
 		'<fieldset class="blue">',
 			'<dl>',
+				'<dt>',
+					'<label>'.__('Suche').'</label>',
+				'</dt>',
+				'<dd>',
+					'<input type="text" name="search" value="" tabindex="1" data-guid="" data-autocomplete="'.i18n::url('search-autocomplete').'" placeholder="'.__('Geb&auml;ude oder Ware').'" />',
+				'</dd>',
 				'<dt>',
 					'<label>'.__('Produktionsgeb&auml;ude').'</label>',
 				'</dt>',
 				'<dd>',
-					'<select name="productionbuilding" tabindex="1" class="full">'
+					'<select name="pb_guid" tabindex="1" class="full">'
 );
 foreach( $productionbuildings as $b )
 	if( $b->getRaw1() || $b->getRaw2() )
@@ -66,13 +51,19 @@ $page->addContent(
 				'<dd>',
 					'<input type="text" class="full" name="count" value="'.$count.'" tabindex="2" />',
 				'</dd>',
+				'<dt>',
+					'<label title="'.__('Sollproduktion in Tonnen pro Minute').'">'.__('Soll TPM').'</label>',
+				'</dt>',
+				'<dd>',
+					'<input type="text" class="full" name="tpm_needed" value="'.$tpm_needed.'" tabindex="2" placeholder="('.__('automatisch').')" />',
+				'</dd>',
 				'<dd>',
 					'<input type="submit" value="'.__('Berechnen').'" tabindex="3" class="full" />',
 				'</dd>',
 			'</dl>',
 		'</fieldset>',
 	'</form>',
-	'<div id="commodity-chain-container">'.( $productionbuilding ? $commodity_chain_html : '' ).'</div>',
+	'<div id="commodity-chain-container"></div>',
 	'<div class="clear"></div>'
 );
 

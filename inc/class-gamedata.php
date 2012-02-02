@@ -623,7 +623,7 @@ abstract class GameData {
 
 	public static function getProductionBuildingsForProduct( $guid ) {
 		self::getProductionBuildingsByProduct();
-		return isset( self::$productionbuildings_by_product[$guid] ) ? self::$productionbuildings_by_product[$guid] : null;
+		return isset( self::$productionbuildings_by_product[$guid] ) ? self::$productionbuildings_by_product[$guid] : array();
 	}
 	
 	public static function getBuilding( $guid ) {
@@ -636,9 +636,9 @@ abstract class GameData {
 		return isset( self::$products[$guid] ) ? self::$products[$guid] : null;
 	}
 	
-	public static function getCommodityChain( $pb_guid, $count=1, $target_tpm=null, $productivity=array(), $preferred=array() ) {
-		$pb = self::getProductionBuilding($pb_guid);
-		if( !is_a($pb,'ProductionBuilding') )
+	public static function getCommodityChain( $pb, $count=1, $target_tpm=null, $productivity=array(), $preferred=array() ) {
+		$pb = is_a($pb,'ProductionBuilding') ? $pb : self::getProductionBuilding($pb);
+		if( !$pb )
 			return false;
 		$count = intval($count);
 		$pm = isset($productivity[$pb->getGuid()]) ? $productivity[$pb->getGuid()]/100 : 1;
@@ -684,8 +684,15 @@ abstract class GameData {
 		$html = '<div class="commodity-chain'.( !$first ? '-inner' : '' ).'">'
 			.'<dl class="chain">'
 			.'<dt><div class="product">'
-			.'<span class="icon"><span style="background-image:url(\'img/icons/46/'.$chain[0]['_']->getProduct()->getIcon().'\');" title="'.$chain[0]['_']->getProduct()->getLocal().'"></span></span>'
-			.'</div></dt>'
+			.'<span class="icon"><span style="background-image:url(\'img/icons/46/'.$chain[0]['_']->getProduct()->getIcon().'\');" title="'.$chain[0]['_']->getProduct()->getLocal().'"></span></span>';
+			//.'<span class="tpm" title="'.i18n::__('Ist / Soll Tonnen pro Minute').'"><span class="actual">'.round( ( $chain[0]['_']->getProductionTonsPerMinute()*$chain[0]['p']*ceil($chain[0]['x']) ) ,1 ).'</span> / <span class="target">'.round( $chain[0]['t'], 1 ).'</span><span class="tpm_unit">tpm</span></span>'
+		if( $chain[0]['_']->isEnergy() )
+			$html .= '<span class="tpm" title="'.i18n::__('Energie').'"><span class="target">'.round( $chain[0]['t'], 1 ).'</span><span class="tpm_unit">'.i18n::__('Energie').'</span></span>';
+		elseif( $chain[0]['_']->isEco() )
+			$html .= '<span class="tpm" title="'.i18n::__('&Ouml;kobilanz').'"><span class="target">'.$chain[0]['t'].'</span><span class="tpm_unit">'.i18n::__('&Ouml;kobilanz').'</span></span>';
+		else
+			$html .= '<span class="tpm" title="'.i18n::__('Tonnen pro Minute').'"><span class="target">'.round( $chain[0]['t'], 1 ).'</span><span class="tpm_unit">tpm</span></span>';
+		$html .= '</div></dt>'
 			.$productions
 			.'</dl>'
 			.'<div class="clear"></div>'
@@ -715,9 +722,8 @@ abstract class GameData {
 			.'<span class="efficiency '.$efficiency_class.'" title="'.i18n::__('Effizienz').'">'.$efficiency.'% <em>'.i18n::__('Effizienz').'</em></span>'
 			.'<span class="productivity" title="'.i18n::__('max. Produktivit&auml;t').'">'
 				.'<em>'.i18n::__('max. Produktivit&auml;t').'</em> '
-				.'<span>'.round($productivity*100).'%</span>'
+				.'<input type="text" name="productivity_'.$pb->getGuid().'" value="'.round($productivity*100).'" /><span class="percent">%</span>'
 				.'<div class="slider-container"><div class="slider"></div></div>'
-				.'<input type="hidden" name="productivity_'.$pb->getGuid().'" value="'.round($productivity*100).'" />'
 			.'</span>'
 			.'<ul class="build-costs">'
 			.'<li class="credits" title="'.i18n::__('Credits').'">'.($pb->getBuildcostsCredits()*$count).'</li>';
@@ -739,7 +745,11 @@ abstract class GameData {
 			.'<span class="icon-32"><span style="background-image:url(\'img/icons/32/'.$b->getIcon().'\');" title="'.$b->getLocal().'"></span></span>'
 			.'<span class="name">'.$b->getLocal().'</span>';
 		if( is_a($b,'ProductionBuilding') )
-			$html .= '<span class="details">'.i18n::__('produziert').' <a href="database?product='.$b->getProduct()->getGuid().'">'.$b->getProduct()->getLocal().'</a></span>';
+			$html .= '<span class="details">'
+				.i18n::__('produziert').' <a href="database'.(i18n::getLang()!='de'?'/'.i18n::getLang():'').'?product='.$b->getProduct()->getGuid().'">'.$b->getProduct()->getLocal().'</a>'
+				.'</span><span class="details">'
+				.'<a href="commoditychains'.(i18n::getLang()!='de'?'/'.i18n::getLang():'').'?pb_guid='.$b->getGuid().'">'.i18n::__('Produktionskette anzeigen').'</a><br/>'
+				.'</span>';
 		$html .= '<ul class="build-costs">'
 			.'<li class="credits" title="'.i18n::__('Credits').'">'.$b->getBuildcostsCredits().'</li>';
 		foreach( $b->getBuildcostsProducts() as $c )
@@ -761,7 +771,7 @@ abstract class GameData {
 			.'<span class="name">'.$p->getLocal().'</span>'
 			.'<span class="details">'.i18n::__('produziert von').' ';
 		foreach( $pbs as $i => $pb )
-			$html .= '<a href="database?productionbuilding='.$pb->getGuid().'">'.$pb->getLocal().'</a>'
+			$html .= '<a href="database'.(i18n::getLang()!='de'?'/'.i18n::getLang():'').'?productionbuilding='.$pb->getGuid().'">'.$pb->getLocal().'</a>'
 				.( $i<(count($pbs)-1) ? ', ' : '' );
 		$html .= '</span>'
 			.'<span class="icon-32"><span style="background-image:url(\'img/icons/32/'.$p->getIcon().'\');" title="'.$p->getLocal().'"></span></span>'

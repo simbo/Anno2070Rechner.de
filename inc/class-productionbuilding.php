@@ -173,7 +173,12 @@ class ProductionBuilding extends Building {
 	}
 	
 	public function getProductionTonsPerMinute() {
-		return ($this->production_count / 1000) * $this->getProductionTicksPerMinute();
+		if( $this->isEnergy() )
+			return $this->getMaintenanceCost('active_energy')/4096*-1;
+		elseif( $this->isEco() )
+			return $this->getMaintenanceCost('active_eco')/4096;
+		else
+			return ($this->production_count / 1000) * $this->getProductionTicksPerMinute();
 	}
 	
 	public function getRaw1NeedTonsPerMinute() {

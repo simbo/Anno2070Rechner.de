@@ -67,7 +67,7 @@ if( isset($user) && $user && $user->verificationKeyIsValid() && $user->getVerifi
 	}
 
 	$page->addContent(
-		'<h2 class="user">'.__($page->getTitle()).'</h2>',
+		'<h2 class="user">'.$page->getTitle().'</h2>',
 		'<form id="'.$page->getIdSanitized().'-change-form" action="'.i18n::url($page->getId()).'" method="post">',
 			'<fieldset class="blue">'
 	);

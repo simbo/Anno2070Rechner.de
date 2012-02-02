@@ -35,7 +35,7 @@ if( isset($_GET['activate']) ) {
 elseif( !$site->getOption('registrations') ) {
 
 	$page->addContent(
-		'<h2 class="'.$page->getIdSanitized().'">'.__($page->getTitle()).'</h2>',
+		'<h2 class="'.$page->getIdSanitized().'">'.$page->getTitle().'</h2>',
 		'<p>'.__('Neue Benutzerregistrierungen sind derzeit nicht m&ouml;glich.').'</p>'
 	);
 
@@ -182,7 +182,7 @@ else {
 		'</form>',
 		'<div class="clear"></div>',
 		'<script type="text/javascript" src="https://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>',
-		_::intoJavascript( 'recaptcha_public_key', $site->getOption('recaptcha_public') )
+		'<script type="text/javascript">/* <![CDATA[ */ var recaptcha_public_key=\''.$site->getOption('recaptcha_public').'\';/* ]]> */</script>'
 	);
 
 }
