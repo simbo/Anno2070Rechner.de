@@ -331,7 +331,7 @@ abstract class Helper {
 		foreach( $_headers as $k => $v )
 			$headers .= $k.": ".$v."\n";
 		$headers .= "\n".imap_8bit($message);
-		if(true ) // @mail( $to, $subject, '', $headers, ' -f '.$from ) )
+		if( @mail( $to, $subject, '', $headers, ' -f '.$from ) )
 			return true;
 		else
 			return false;

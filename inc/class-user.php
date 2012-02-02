@@ -256,13 +256,9 @@ final class User {
 	 */
 	private static function getLoginCookie() {
 		if( isset($_COOKIE['login']) ) {
-			$cookie = @unserialize($_COOKIE['login']);
-			if( isset($cookie['id'])
-				&& is_int($cookie['id'])
-				&& isset($cookie['hash'])
-				&& is_string($cookie['hash'])
-			)
-				return $cookie;
+			$cookie = explode(':',$_COOKIE['login']);
+			if( isset($cookie[0]) && isset($cookie[1]) )
+				return array( 'id'=>intval($cookie[0]), 'hash'=>$cookie[1] );
 		}
 		return false;
 	}
@@ -830,10 +826,7 @@ final class User {
 	 * @return bool
 	 */
 	public function setLoginCookie( $update=false ) {
-		$cookie = $update && self::getLoginCookie() ? $_COOKIE['login'] : serialize( array(
-			'id' => $this->id,
-			'hash' => $this->getLoginCookieHash()
-		) );
+		$cookie = $update && self::getLoginCookie() ? $_COOKIE['login'] : $this->id.':'.$this->getLoginCookieHash();
 		return _::setCookie( 'login', $cookie, 30 ) ? true : false;
 	}
 
