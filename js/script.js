@@ -412,13 +412,16 @@ $(document).ready(function(){
 		var form = $(this),
 			speed = 400;
 			selectTimer = null;
-		form.find('select').change(function(){
-			clearTimeout(selectTimer);
-			if( $(this).val()!='' ) {
-				selectTimer = window.setTimeout(function(){
-					form.submit();
-				},400);				
-			}
+		form.find('select').each(function(){
+			$(this).selectmenu('option','select',function(){
+				form.find('input[name="search"]').val('');
+				clearTimeout(selectTimer);
+				if( $(this).val()!='' ) {
+					selectTimer = window.setTimeout(function(){
+						form.submit();
+					},600);
+				}
+			});
 		}).end().find('input[name=search]').each(function(){
 			var input = $(this);
 			input.autocomplete({
@@ -527,7 +530,7 @@ $(document).ready(function(){
 					$('#database-search-form').find('input[type=submit]').removeClass('loading').end().find('input[type=text]').autocomplete('close');
 				},
 				success: function(data) {
-					$('.results').html(data.html);
+					$('#database-results').html(data.html).trigger('update');
 				}
 			})
 		});
@@ -564,11 +567,40 @@ $(document).ready(function(){
 			});
 		}
 		if( $(this).attr('id')=='database-select-form' ) {
-			form.find('select').change(function() {
-				form.find('select').not(this).selectmenu('value','');
-				form.trigger('submit');
-			})
+			form.find('select').each(function(){
+				$(this).selectmenu('option','select',function() {
+					form.find('select').not(this).selectmenu('value','');
+					form.trigger('submit');
+				})
+			});
 		}
+	});
+	
+	$('#database-results').each(function(){
+		$(this).bind({
+			update: function(){
+				$(this).find('.product,.building').each(function(){
+					$(this).find('a[rel=database]').unbind('click').bind('click',function(ev){
+						ev.preventDefault();
+						var post_data = $(this).attr('href');
+						post_data = post_data.substr(post_data.indexOf('?')+1);
+						request({
+							url: 'database',
+							data: post_data,
+							beforeSend: function() {
+								$('#database-search-form').find('input[type=submit]').addClass('loading').blur();
+							},
+							complete: function() {
+								$('#database-search-form').find('input[type=submit]').removeClass('loading').end().find('input[type=text]').autocomplete('close');
+							},
+							success: function(data) {
+								$('#database-results').html(data.html).trigger('update');
+							}
+						});
+					});
+				});
+			}
+		}).trigger('update');
 	});
 	
 });

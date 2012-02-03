@@ -73,7 +73,8 @@ abstract class GameData {
 			2500028, // pharmaceuticals
 			2500022, // functional food
 			2500025  // functional meal
-		);
+		),
+		$guid_blacklist = array(10239);	// exclude guids
 	
 	public static function getSrc() {
 		return self::$src;
@@ -83,6 +84,10 @@ abstract class GameData {
 		return self::$demands_order;
 	}
 	
+	public static function getGuidBlacklist() {
+		return self::$guid_blacklist;
+	}
+
 	public static function readFromXml() {
 		self::$icons_xml = simplexml_load_file( ABSPATH.self::$src['icons']['file'] );
 		self::$properties_xml = simplexml_load_file( ABSPATH.self::$src['properties']['file'] );
@@ -148,125 +153,131 @@ abstract class GameData {
 					foreach( $elements as $e ) :
 						$product = null;
 						$product_guid = null;
-						switch( $e->Template ) :
-							case 'FarmfieldLinkedObject':
-							case 'Ark':
-							case 'SimpleBlocking':
-							case 'SimpleObject':
-								// these buildings are ignored
-								break;
-							case 'PublicBuilding':
-							case 'SupportBuilding':
-							case 'PropagandaBuilding':
-							case 'AcademyBuilding':
-							case 'Warehouse':
-							case 'Markethouse':
-							case 'WarehouseWithGuns':
-							case 'WarehouseWithoutTrading':
-							case 'MobileMilitaryTurret':
-							case 'MobilePropagandaBuilding':	// shield generator
-							case 'MilitaryBuilding':
-							case 'Harbour':
-							case 'RepairHarbourBuilding':
-							case 'AirportBuilding':
-							case 'SpecialActionBuilding':		// missile launching plattform
-							case 'TaskBasedProductionBuilding':	// shipyards
-							case 'Monument':
-								$b = self::createBuildingFromXml( $e );
-								if( $b->isValid() )
-									self::$buildings[ $b->getGuid() ] = $b;
-								break;
-							case 'ResidenceBuilding':
-								$b = self::createBuildingFromXml( $e, 'ResidenceBuilding' );
-								if( property_exists( $e->Values, 'ResidenceBuilding' ) ) {
-									if( property_exists( $e->Values->ResidenceBuilding, 'MinResidentCount' ) )
-										$b->setMinResidents( $e->Values->ResidenceBuilding->MinResidentCount );
-									if( property_exists( $e->Values->ResidenceBuilding, 'MaxResidentCount' ) )
-										$b->setMaxResidents( $e->Values->ResidenceBuilding->MaxResidentCount );
-								}
-								if( $b->isValid() )
-									self::$residencebuildings[ $b->getGuid() ] = $b;
-								break;
-							case 'SimpleProductionBuilding':		// eco effect buildings
-							case 'LinkedObjectProductionBuilding':	// energy production
-							case 'FactoryBuilding':
-							case 'FarmBuilding':
-								$b = self::createBuildingFromXml( $e, 'ProductionBuilding' );
-								if( property_exists( $e->Values, 'WareProduction' ) && property_exists( $e->Values->WareProduction, 'Product' ) ) {
-									$b->setType( ( (string) $e->Template )=='FarmBuilding' ? 'farm' : 'factory' );
-									$product_guid = self::getProductGuid( $e->Values->WareProduction->Product );
-								}
-								elseif( property_exists( $e->Values, 'WareProduction' ) && property_exists( $e->Values->WareProduction, 'SpecialProductIcon' ) && ( (string)$e->Values->WareProduction->SpecialProductIcon=='Forest' ) ) {
-									$b->setType('forest');
-									$product_guid = 2503003; // Forest
-								}
-								elseif( property_exists( $e->Values->MaintenanceCost, 'ActiveEcoEffect' ) && intval($e->Values->MaintenanceCost->ActiveEcoEffect) > 0 ) {
-									$b->setType('eco');
-									$product_guid = 2600078; // Eco effect
+						if( !in_array(intval($e->Values->Standard->GUID),GameData::getGuidBlacklist()) ) :
+							switch( $e->Template ) :
+								case 'FarmfieldLinkedObject':
+								case 'Ark':
+								case 'SimpleBlocking':
+								case 'SimpleObject':
+									// these buildings are ignored
+									break;
+								case 'PublicBuilding':
+								case 'SupportBuilding':
+								case 'PropagandaBuilding':
+								case 'AcademyBuilding':
+								case 'Warehouse':
+								case 'Markethouse':
+								case 'WarehouseWithGuns':
+								case 'WarehouseWithoutTrading':
+								case 'MobileMilitaryTurret':
+								case 'MobilePropagandaBuilding':	// shield generator
+								case 'MilitaryBuilding':
+								case 'Harbour':
+								case 'RepairHarbourBuilding':
+								case 'AirportBuilding':
+								case 'SpecialActionBuilding':		// missile launching plattform
+								case 'TaskBasedProductionBuilding':	// shipyards
+								case 'Monument':
+									$b = self::createBuildingFromXml( $e );
+									if( $b->isValid() )
+										self::$buildings[ $b->getGuid() ] = $b;
+									break;
+								case 'ResidenceBuilding':
+									$b = self::createBuildingFromXml( $e, 'ResidenceBuilding' );
+									if( property_exists( $e->Values, 'ResidenceBuilding' ) ) {
+										if( property_exists( $e->Values->ResidenceBuilding, 'MinResidentCount' ) )
+											$b->setMinResidents( $e->Values->ResidenceBuilding->MinResidentCount );
+										if( property_exists( $e->Values->ResidenceBuilding, 'MaxResidentCount' ) )
+											$b->setMaxResidents( $e->Values->ResidenceBuilding->MaxResidentCount );
+									}
+									if( $b->isValid() )
+										self::$residencebuildings[ $b->getGuid() ] = $b;
+									break;
+								case 'SimpleProductionBuilding':		// eco effect buildings
+								case 'LinkedObjectProductionBuilding':	// energy production
+								case 'FactoryBuilding':
+								case 'FarmBuilding':
+									$b = self::createBuildingFromXml( $e, 'ProductionBuilding' );
+									if( property_exists( $e->Values, 'WareProduction' ) && property_exists( $e->Values->WareProduction, 'Product' ) ) {
+										$b->setType( ( (string) $e->Template )=='FarmBuilding' ? 'farm' : 'factory' );
+										$product_guid = self::getProductGuid( $e->Values->WareProduction->Product );
+									}
+									elseif( property_exists( $e->Values, 'WareProduction' ) && property_exists( $e->Values->WareProduction, 'SpecialProductIcon' ) && ( (string)$e->Values->WareProduction->SpecialProductIcon=='Forest' ) ) {
+										$b->setType('forest');
+										$product_guid = 2503003; // Forest
+									}
+									elseif( property_exists( $e->Values->MaintenanceCost, 'ActiveEcoEffect' ) && intval($e->Values->MaintenanceCost->ActiveEcoEffect) > 0 ) {
+										$b->setType('eco');
+										$product_guid = 2600078; // Eco effect
 									
-								}
-								elseif( property_exists( $e->Values->MaintenanceCost, 'ActiveEnergyProduction' ) && intval($e->Values->MaintenanceCost->ActiveEnergyProduction) > 0 ) {
-									$b->setType('energy');
-									$b->setMaintenanceCost( 'active_energy', intval($e->Values->MaintenanceCost->ActiveEnergyProduction)*-1 );
-									$product_guid = 2600012; // Energy
-								}
-								if( $product_guid>0 ) {
-									if( !isset( self::$products[$product_guid] ) ) {
-										$product = self::createProductFromGuid($product_guid);
-										if( $product->isValid() )
-											self::$products[$product_guid] = $product;
 									}
-									if( isset( self::$products[$product_guid] ) ) {
-										$b->setProduct( self::$products[$product_guid] );
-										if( property_exists( $e->Values, 'WareProduction' ) ) {
-											if( property_exists( $e->Values->WareProduction, 'ProductionTime' ) )
-												$b->setProductionTime( $e->Values->WareProduction->ProductionTime );
-											if( property_exists( $e->Values->WareProduction, 'ProductionCount' ) )
-												$b->setProductionCount( $e->Values->WareProduction->ProductionCount );
-										}
+									elseif( property_exists( $e->Values->MaintenanceCost, 'ActiveEnergyProduction' ) && intval($e->Values->MaintenanceCost->ActiveEnergyProduction) > 0 ) {
+										$b->setType('energy');
+										$b->setMaintenanceCost( 'active_energy', intval($e->Values->MaintenanceCost->ActiveEnergyProduction)*-1 );
+										$product_guid = 2600012; // Energy
 									}
-								}
-								if( property_exists( $e->Values, 'Factory') ) {
-									if( property_exists( $e->Values->Factory, 'RawMaterial1' ) ) {
-										$product_guid = self::getProductGuid( $e->Values->Factory->RawMaterial1 );
+									if( $product_guid>0 && !in_array($product_guid,GameData::getGuidBlacklist()) ) {
 										if( !isset( self::$products[$product_guid] ) ) {
 											$product = self::createProductFromGuid($product_guid);
 											if( $product->isValid() )
 												self::$products[$product_guid] = $product;
 										}
 										if( isset( self::$products[$product_guid] ) ) {
-											$b->setRaw1( self::$products[$product_guid] );
-											if( property_exists( $e->Values->Factory, 'RawNeeded1' ) )
-												$b->setRaw1Need( $e->Values->Factory->RawNeeded1 );
+											$b->setProduct( self::$products[$product_guid] );
+											if( property_exists( $e->Values, 'WareProduction' ) ) {
+												if( property_exists( $e->Values->WareProduction, 'ProductionTime' ) )
+													$b->setProductionTime( $e->Values->WareProduction->ProductionTime );
+												if( property_exists( $e->Values->WareProduction, 'ProductionCount' ) )
+													$b->setProductionCount( $e->Values->WareProduction->ProductionCount );
+											}
 										}
 									}
-									if( property_exists( $e->Values->Factory, 'RawMaterial2' ) ) {
-										$product_guid = self::getProductGuid( $e->Values->Factory->RawMaterial2 );
-										if( !isset( self::$products[$product_guid] ) ) {
-											$product = self::createProductFromGuid($product_guid);
-											if( $product->isValid() )
-												self::$products[$product_guid] = $product;
+									if( property_exists( $e->Values, 'Factory') ) {
+										if( property_exists( $e->Values->Factory, 'RawMaterial1' ) ) {
+											$product_guid = self::getProductGuid( $e->Values->Factory->RawMaterial1 );
+											if( !in_array($product_guid,GameData::getGuidBlacklist()) ) {
+												if( !isset( self::$products[$product_guid] ) ) {
+													$product = self::createProductFromGuid($product_guid);
+													if( $product->isValid() )
+														self::$products[$product_guid] = $product;
+												}
+												if( isset( self::$products[$product_guid] ) ) {
+													$b->setRaw1( self::$products[$product_guid] );
+													if( property_exists( $e->Values->Factory, 'RawNeeded1' ) )
+														$b->setRaw1Need( $e->Values->Factory->RawNeeded1 );
+												}
+											}
 										}
-										if( isset( self::$products[$product_guid] ) ) {
-											$b->setRaw2( self::$products[$product_guid] );
-											if( property_exists( $e->Values->Factory, 'RawNeeded2' ) )
-												$b->setRaw2Need( $e->Values->Factory->RawNeeded2 );
+										if( property_exists( $e->Values->Factory, 'RawMaterial2' ) ) {
+											$product_guid = self::getProductGuid( $e->Values->Factory->RawMaterial2 );
+											if( !in_array($product_guid,GameData::getGuidBlacklist()) ) {
+												if( !isset( self::$products[$product_guid] ) ) {
+													$product = self::createProductFromGuid($product_guid);
+													if( $product->isValid() )
+														self::$products[$product_guid] = $product;
+												}
+												if( isset( self::$products[$product_guid] ) ) {
+													$b->setRaw2( self::$products[$product_guid] );
+													if( property_exists( $e->Values->Factory, 'RawNeeded2' ) )
+														$b->setRaw2Need( $e->Values->Factory->RawNeeded2 );
+												}
+											}
 										}
 									}
-								}
-								if( $b->isValid() )
-									self::$productionbuildings[ $b->getGuid() ] = $b;
-								break;
-							default:
-								/*
-								header('Content-Type: text/plain;charset=utf-8');
-								echo $e->Template)."\n"
-								echo self::$locals_de[ (int) $e->Values->Standard->GUID ]."\n";
-								print_r($e->Values->Standard);
-								die();
-								*/
-								break;
-						endswitch;
+									if( $b->isValid() )
+										self::$productionbuildings[ $b->getGuid() ] = $b;
+									break;
+								default:
+									/*
+									header('Content-Type: text/plain;charset=utf-8');
+									echo $e->Template)."\n"
+									echo self::$locals_de[ (int) $e->Values->Standard->GUID ]."\n";
+									print_r($e->Values->Standard);
+									die();
+									*/
+									break;
+							endswitch;
+						endif;
 					endforeach;
 				endif;
 			endforeach;
@@ -741,24 +752,34 @@ abstract class GameData {
 	}
 
 	public static function drawBuilding( $b ) {
-		$html = '<div class="building">'
+		$html = '<div class="building'.( is_a($b,'ProductionBuilding')?' productionbuilding':'' ).'">'
 			.'<span class="icon-32"><span style="background-image:url(\'img/icons/32/'.$b->getIcon().'\');" title="'.$b->getLocal().'"></span></span>'
 			.'<span class="name">'.$b->getLocal().'</span>';
 		if( is_a($b,'ProductionBuilding') )
 			$html .= '<span class="details">'
-				.i18n::__('produziert').' <a href="database'.(i18n::getLang()!='de'?'/'.i18n::getLang():'').'?product='.$b->getProduct()->getGuid().'">'.$b->getProduct()->getLocal().'</a>'
-				.'</span><span class="details">'
-				.'<a href="commoditychains'.(i18n::getLang()!='de'?'/'.i18n::getLang():'').'?pb_guid='.$b->getGuid().'">'.i18n::__('Produktionskette anzeigen').'</a><br/>'
-				.'</span>';
+						.i18n::__('produziert').' <strong>'.round($b->getProductionTonsPerMinute(),2).( $b->isEnergy()||$b->isEco()?'':' tpm' ).'</strong> <a rel="database" href="database'.(i18n::getLang()!='de'?'/'.i18n::getLang():'').'?product='.$b->getProduct()->getGuid().'" title="'.$b->getProduct()->getLocal().'"><span class="icon-16"><span style="background-image:url(\'img/icons/16/'.$b->getProduct()->getIcon().'\');"></span></span></a><br/>'
+					.'</span>'
+					.( $b->getRaw1() || $b->getRaw2() ?
+						'<span class="details">'
+						.i18n::__('ben&ouml;tigt')
+						.( $b->getRaw1() ?
+							' <strong>'.round($b->getRaw1NeedTonsPerMinute(),2).' tpm</strong> <a rel="database" href="database'.(i18n::getLang()!='de'?'/'.i18n::getLang():'').'?product='.$b->getRaw1()->getGuid().'" title="'.$b->getRaw1()->getLocal().'"><span class="icon-16"><span style="background-image:url(\'img/icons/16/'.$b->getRaw1()->getIcon().'\');"></span></span></a>'
+						:'')
+						.( $b->getRaw2() ?
+							' <strong>'.round($b->getRaw2NeedTonsPerMinute(),2).' tpm</strong> <a rel="database" href="database'.(i18n::getLang()!='de'?'/'.i18n::getLang():'').'?product='.$b->getRaw2()->getGuid().'" title="'.$b->getRaw2()->getLocal().'"><span class="icon-16"><span style="background-image:url(\'img/icons/16/'.$b->getRaw2()->getIcon().'\');"></span></span></a>'
+						:'')
+						.'</span>'
+					:'')
+				.'<a class="show-cc" href="commoditychains'.(i18n::getLang()!='de'?'/'.i18n::getLang():'').'?pb_guid='.$b->getGuid().'" title="'.i18n::__('Produktionskette anzeigen').'"><img src="img/icons/24/icon_27_483.png" alt="'.i18n::__('Produktionskette anzeigen').'" /></a>';
 		$html .= '<ul class="build-costs">'
 			.'<li class="credits" title="'.i18n::__('Credits').'">'.$b->getBuildcostsCredits().'</li>';
 		foreach( $b->getBuildcostsProducts() as $c )
 			$html .= '<li style="background-image:url(\'img/icons/16/'.$c[0]->getIcon().'\');" title="'.$c[0]->getLocal().'" data-guid="'.$c[0]->getGuid().'">'.round($c[1]/1000).'</li>';
 		$html .= '</ul>'
 			.'<ul class="maintenance-costs">'
-			.'<li class="credits" title="'.i18n::__('Bilanz').'">'.($b->getMaintenanceCost('active_cost')<0?'+':'').($b->getMaintenanceCost('active_cost')*-1).' / '.($b->getMaintenanceCost('inactive_cost')<0?'+':'').($b->getMaintenanceCost('inactive_cost')*-1).'</li>'
-			.'<li class="energy" title="'.i18n::__('Energie').'">'.($b->getMaintenanceCost('active_energy')<0?'+':'').round(($b->getMaintenanceCost('active_energy')/4096)*-1).' / '.($b->getMaintenanceCost('inactive_energy')<0?'+':'').round(($b->getMaintenanceCost('inactive_energy')/4096)*-1).'</li>'
-			.'<li class="eco" title="'.i18n::__('&Ouml;kobilanz').'">'.($b->getMaintenanceCost('active_eco')>0?'+':'').round($b->getMaintenanceCost('active_eco')/4096).' / '.($b->getMaintenanceCost('inactive_eco')>0?'+':'').round($b->getMaintenanceCost('inactive_eco')/4096).'</li>'
+				.'<li class="credits" title="'.i18n::__('Bilanz').'">'.($b->getMaintenanceCost('active_cost')<0?'+':'').($b->getMaintenanceCost('active_cost')*-1).' / '.($b->getMaintenanceCost('inactive_cost')<0?'+':'').($b->getMaintenanceCost('inactive_cost')*-1).'</li>'
+				.'<li class="energy" title="'.i18n::__('Energie').'">'.($b->getMaintenanceCost('active_energy')<0?'+':'').round(($b->getMaintenanceCost('active_energy')/4096)*-1).' / '.($b->getMaintenanceCost('inactive_energy')<0?'+':'').round(($b->getMaintenanceCost('inactive_energy')/4096)*-1).'</li>'
+				.'<li class="eco" title="'.i18n::__('&Ouml;kobilanz').'">'.($b->getMaintenanceCost('active_eco')>0?'+':'').round($b->getMaintenanceCost('active_eco')/4096).' / '.($b->getMaintenanceCost('inactive_eco')>0?'+':'').round($b->getMaintenanceCost('inactive_eco')/4096).'</li>'
 			.'</ul>'
 			.'<div class="clear"></div>'
 			.'</div>';
@@ -771,8 +792,8 @@ abstract class GameData {
 			.'<span class="name">'.$p->getLocal().'</span>'
 			.'<span class="details">'.i18n::__('produziert von').' ';
 		foreach( $pbs as $i => $pb )
-			$html .= '<a href="database'.(i18n::getLang()!='de'?'/'.i18n::getLang():'').'?productionbuilding='.$pb->getGuid().'">'.$pb->getLocal().'</a>'
-				.( $i<(count($pbs)-1) ? ', ' : '' );
+			$html .= '<a rel="database" href="database'.(i18n::getLang()!='de'?'/'.i18n::getLang():'').'?productionbuilding='.$pb->getGuid().'" title="'.$pb->getLocal().'"><span class="icon-16"><span style="background-image:url(\'img/icons/16/'.$pb->getIcon().'\');"></span></span></a>'
+				.( $i<(count($pbs)-1) ? ' ' : '' );
 		$html .= '</span>'
 			.'<span class="icon-32"><span style="background-image:url(\'img/icons/32/'.$p->getIcon().'\');" title="'.$p->getLocal().'"></span></span>'
 			.'<div class="clear"></div>'

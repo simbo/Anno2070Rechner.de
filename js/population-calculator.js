@@ -12,6 +12,8 @@ $(document).ready(function() {
 			]
 			display_options_buttons = $('#display-options').find('li a'),
 			residence_capacity = [ [ 8, 15, 25, 40 ], [ 5, 30 ] ],
+			cc_target = form.find('#commodity-chain-target'),
+			selected_items = [],
 			inhabitants = {},
 			demands = {};
 
@@ -23,7 +25,11 @@ $(document).ready(function() {
 				fieldsets[i].fadeToggle();
 				$(this).toggleClass('active');
 				$('#hidden-fieldset input:eq('+i+')').val( $(this).hasClass('active') ? '1' : '0' );
-				form.trigger('submit');
+				if( i==3 && !$(this).hasClass('active') )
+					fieldsets[i].find('li').each(function(){
+						$(this).trigger('deselectItem')
+					}).end().trigger('updateSelection');
+				form.trigger('save');
 			});
 			if( !$(this).hasClass('active') ) {
 				fieldsets[i].fadeOut(0);
@@ -305,8 +311,7 @@ $(document).ready(function() {
 			else if( i == 3 ) {
 
 				var fs = $(this),
-					lis = $(this).find('li'),
-					selected_items = [];
+					lis = $(this).find('li');
 
 				$(this).bind({
 				
@@ -345,19 +350,22 @@ $(document).ready(function() {
 										product_guid = $(this).attr('data-product-guid'),
 										count = filterNum( $(this).find('.count span').text() ),
 										productivity = filterNum( $(this).find('.productivity input').val() ),
-										container = $('#commodity-chain-container');
-									if( production_guid!=container.attr('data-guid') || productivity!=container.attr('data-productivity') || count!=filterNum(container.attr('data-count')) ) {
+										container = $('#commodity-chain-container'),
+										cc_target_value = cc_target.find('select').val();
+									if( production_guid!=container.attr('data-guid') || productivity!=container.attr('data-productivity') || count!=filterNum(container.attr('data-count')) || cc_target_value!=container.attr('data-target') ) {
 										container.attr({
 											'data-guid': production_guid,
 											'data-productivity': productivity,
-											'data-count': count
+											'data-count': count,
+											'data-target': cc_target_value
 										});
 										request({
 											url: 'get-commoditychain'+(lang!='de'?'/'+lang:''),
-											data: 'pb_guid='+production_guid+'&tpm_needed='+demands[product_guid]+'&productivity['+production_guid+']='+productivity,
+											data: 'pb_guid='+production_guid+'&'+ ( cc_target_value=='0' ? 'tpm_needed='+demands[product_guid] : 'count='+count ) +'&productivity['+production_guid+']='+productivity,
 											success: function(data) {
 												var c = $(data.html);
 												processCommodityChain(c);
+												cc_target.fadeIn(400);
 												if( container.find('div.commodity-chain').length>0 )
 													container.find('div.commodity-chain').replaceWith(c);
 												else
@@ -369,7 +377,8 @@ $(document).ready(function() {
 								});
 							}
 							else {
-								if( $('div.commodity-chain').length>0 )
+								if( $('div.commodity-chain').length>0 ) {
+									cc_target.fadeOut(400);
 									$('div.commodity-chain').fadeOut(400,function(){
 										$('#commodity-chain-container').attr({
 											'data-guid': 0,
@@ -378,6 +387,7 @@ $(document).ready(function() {
 										});
 										$(this).remove()
 									});
+								}
 							}
 						}
 					}
@@ -494,9 +504,18 @@ $(document).ready(function() {
 				});
 			}
 		});
+		
+		// commodity chain target tpm
+		cc_target.find('select').each(function(){
+			$(this).selectmenu('option','select',function(){
+				selected_items = [];
+				fieldsets[3].trigger('updateSelection');
+				form.trigger('save');
+			});
+		});
 
 		// initialization calculation
-		$(this).trigger('calc');
+		form.trigger('calc');
 		
 		// console.debug(all_demands);
 

@@ -763,6 +763,9 @@ a.checkbox.checked:focus {
 	border-top-color:#2A4866;
 	border-left:6px solid #a31e1f;
 	background:#0e1f29 url('../img/bg-gradient-darkblue.png') 0 0 repeat-x;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
 }
 
 .ui-selectmenu-open {
@@ -788,6 +791,7 @@ a.checkbox.checked:focus {
 	background:transparent;
 	padding:4px 8px;
 	width:auto;
+	white-space:nowrap;
 }
 
 .ui-selectmenu-menu li a:hover,
@@ -802,6 +806,7 @@ a.checkbox.checked:focus {
 
 .ui-selectmenu-status {
 	border-left-width:12px;
+	background:#0b1d29 url('../img/bg-gradient-darkblue-short.png') 0 0 repeat-x;
 }
 
 .ui-state-active .ui-selectmenu-status {
@@ -810,10 +815,6 @@ a.checkbox.checked:focus {
 
 .ui-state-active .ui-selectmenu-icon {
 	display:none;
-}
-
-.ui-selectmenu-status {
-	background:#0b1d29 url('../img/bg-gradient-darkblue-short.png') 0 0 repeat-x;
 }
 
 .ui-selectmenu-menu li.ui-state-hover a,
@@ -843,9 +844,6 @@ a.checkbox.checked:focus {
 	position: absolute;
 	top:0;
 	left:0;
-}
-
-.ui-selectmenu-status {
 }
 
 .ui-selectmenu-open li.ui-selectmenu-item-focus a {
@@ -983,7 +981,7 @@ div.slider, .ui-slider {
 .icon,
 .icon-32,
 .icon-16 {
-	display:block;
+	display:inline-block;
 	width:60px;
 	height:60px;
 	background:transparent url('../img/bg-icon.png') center center no-repeat;
@@ -1238,24 +1236,42 @@ div.product,
 div.building,
 div.production {
 	min-width:280px;
+	height:105px;
 }
 
 .results div.product,
 .results div.building,
 .results div.production {
 	width:350px;
+	padding:5px 5px 45px 5px;
+}
+
+.results div.product,
+.results div.building,
+.results div.production {
+	height:80px;
+}
+
+.results div.product {
+	height:102px;
+}
+
+.results div.building.productionbuilding {
+	height:125px;
+}
+
+.results div.building.productionbuilding .show-cc {
+	position:absolute;
+	top:2px;
+	right:2px;
 }
 
 div.building .icon-32,
-div.production .icon-32 {
+div.production .icon-32,
+div.product .icon-32 {
 	position:absolute;
 	bottom:3px;
 	left:3px;
-}
-
-div.product .icon-32 {
-	clear:both;
-	float:left;
 }
 
 div.product .name,
@@ -1300,8 +1316,15 @@ div.building .details,
 div.production .details {
 	clear:both;
 	display:block;
-	margin:0 0 6px 0;
-	font-size:10px;
+	line-height:22px;
+	color:#BEE2FF;
+	margin:0 0 2px 0;
+}
+
+div.product .details .icon-16,
+div.building .details .icon-16,
+div.production .details .icon-16 {
+	vertical-align:middle;
 }
 
 div.production .efficiency {
@@ -1369,11 +1392,15 @@ div.building .maintenance-costs,
 div.building .build-costs,
 div.production .maintenance-costs,
 div.production .build-costs {
-	clear:both;
-	float:right;
-	padding:4px 0 0 0;
-	margin:0 0 0 50px;
+	position:absolute;
+	bottom:4px;
+	right:8px;
 	font-size:11px;
+}
+
+div.building .build-costs,
+div.production .build-costs {
+	bottom:24px;
 }
 
 .results {
@@ -1395,6 +1422,7 @@ div.production .build-costs {
 .alt div.production {
 	opacity:0.5;
 	cursor:pointer;
+	height:auto;
 }
 
 .alt div.production:hover {
@@ -1759,6 +1787,28 @@ form #residences-fieldset dl dt.locked label {
 	margin:0;
 }
 
+#population-form #commodity-chain-target {
+}
+
+#population-form #commodity-chain-target dl {
+	padding:0 0 15px 0;
+}
+
+#population-form #commodity-chain-target dt {
+	width:210px;
+	font-weight:bold;
+}
+
+#population-form #commodity-chain-target dt label {
+	line-height:26px;
+}
+
+#population-form #commodity-chain-target dd {
+}
+
+#population-form #commodity-chain-target select {
+	width:240px;
+}
 
 #display-options {
 	position:absolute;

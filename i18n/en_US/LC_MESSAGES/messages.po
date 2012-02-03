@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Anno2070Rechner.de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-02 22:01+0100\n"
-"PO-Revision-Date: 2012-02-02 22:01+0100\n"
+"POT-Creation-Date: 2012-02-03 22:15+0100\n"
+"PO-Revision-Date: 2012-02-03 22:17+0100\n"
 "Last-Translator: Simon Lepel <simbo@simbo.de>\n"
 "Language-Team: Simon Lepel <simbo@simbo.de>\n"
 "Language: \n"
@@ -106,7 +106,7 @@ msgid "Geb&auml;ude oder Ware"
 msgstr "Building or Product"
 
 #: tpl/./commoditychains.php:27
-#: tpl/./population.php:197
+#: tpl/./population.php:205
 #: tpl/./database.php:98
 #: tpl/./database.php:142
 msgid "Produktionsgeb&auml;ude"
@@ -195,120 +195,132 @@ msgstr "Access denied"
 msgid "Du hast leider nicht die notwendigen Rechte f&uuml;r das angeforderte Dokument."
 msgstr "Unfortunately you do not have the necessary rights for the requested document."
 
-#: tpl/./population.php:73
+#: tpl/./population.php:81
 #: tpl/./global-header.php:50
 msgid "Bev&ouml;lkerung"
 msgstr "Population"
 
-#: tpl/./population.php:76
+#: tpl/./population.php:84
 msgid "Wohnh&auml;user"
 msgstr "Residences"
 
-#: tpl/./population.php:78
-#: tpl/./population.php:99
-#: tpl/./population.php:119
-#: tpl/./population.php:150
-#: tpl/./population.php:161
-#: tpl/./population.php:168
+#: tpl/./population.php:86
+#: tpl/./population.php:107
+#: tpl/./population.php:127
+#: tpl/./population.php:158
+#: tpl/./population.php:169
+#: tpl/./population.php:176
 msgid "insgesamt"
 msgstr "total"
 
-#: tpl/./population.php:84
-#: tpl/./population.php:105
-#: tpl/./population.php:142
-#: tpl/./population.php:153
+#: tpl/./population.php:92
+#: tpl/./population.php:113
+#: tpl/./population.php:150
+#: tpl/./population.php:161
 msgid "Arbeiter"
 msgstr "Workers"
 
-#: tpl/./population.php:86
-#: tpl/./population.php:107
-#: tpl/./population.php:144
-#: tpl/./population.php:155
+#: tpl/./population.php:94
+#: tpl/./population.php:115
+#: tpl/./population.php:152
+#: tpl/./population.php:163
 msgid "Angestellte"
 msgstr "Employees"
 
-#: tpl/./population.php:88
-#: tpl/./population.php:109
-#: tpl/./population.php:146
-#: tpl/./population.php:157
+#: tpl/./population.php:96
+#: tpl/./population.php:117
+#: tpl/./population.php:154
+#: tpl/./population.php:165
 msgid "Ingenieure"
 msgstr "Engineers"
 
-#: tpl/./population.php:90
-#: tpl/./population.php:111
-#: tpl/./population.php:148
-#: tpl/./population.php:159
+#: tpl/./population.php:98
+#: tpl/./population.php:119
+#: tpl/./population.php:156
+#: tpl/./population.php:167
 msgid "Executives"
 msgstr "Executives"
 
-#: tpl/./population.php:92
-#: tpl/./population.php:113
-#: tpl/./population.php:129
+#: tpl/./population.php:100
+#: tpl/./population.php:121
+#: tpl/./population.php:137
 msgid "Information"
 msgstr "Information"
 
-#: tpl/./population.php:94
-#: tpl/./population.php:115
-#: tpl/./population.php:131
+#: tpl/./population.php:102
+#: tpl/./population.php:123
+#: tpl/./population.php:139
 msgid "Wohnraum"
 msgstr "Living space"
 
-#: tpl/./population.php:95
+#: tpl/./population.php:103
 msgid "Bedarf nach Lifestyleprodukten"
 msgstr "Need for lifestyle products"
 
-#: tpl/./population.php:125
-#: tpl/./population.php:164
+#: tpl/./population.php:133
+#: tpl/./population.php:172
 msgid "Laborgehilfen"
 msgstr "Assistants"
 
-#: tpl/./population.php:127
-#: tpl/./population.php:166
+#: tpl/./population.php:135
+#: tpl/./population.php:174
 msgid "Forscher"
 msgstr "Researchers"
 
-#: tpl/./population.php:136
-#: tpl/./population.php:172
+#: tpl/./population.php:144
+#: tpl/./population.php:180
 msgid "Zur&uuml;cksetzen"
 msgstr "Reset"
 
-#: tpl/./population.php:140
+#: tpl/./population.php:148
 msgid "Einwohner"
 msgstr "Inhabitants"
 
-#: tpl/./population.php:176
+#: tpl/./population.php:184
 msgid "Bed&uuml;rfnisse"
 msgstr "Demands"
 
-#: tpl/./population.php:176
+#: tpl/./population.php:184
 msgid "Tonnen pro Minute"
 msgstr "Tons per minute"
 
-#: tpl/./population.php:211
+#: tpl/./population.php:219
 msgid "max. Produktivit&auml;t"
 msgstr "max. Productivity"
 
-#: tpl/./population.php:216
+#: tpl/./population.php:224
 msgid "Anzahl der Produktionsgeb&auml;ude"
 msgstr "Production buildings count"
 
-#: tpl/./population.php:217
+#: tpl/./population.php:225
 msgid "Effizienz"
 msgstr "Efficiency"
 
-#: tpl/./population.php:236
+#: tpl/./population.php:243
+msgid "Soll TPM der Produktionskette:"
+msgstr "Target TPM for commodity chain:"
+
+#: tpl/./population.php:245
+msgid "Bev&ouml;lkerungsbedarf"
+msgstr "Population demand"
+
+#: tpl/./population.php:246
+msgid "max. Produktion des Endprodukts"
+msgstr "max. production of final product"
+
+#: tpl/./population.php:253
 msgid "Wohnh&auml;user anzeigen"
 msgstr "Show residences"
 
-#: tpl/./population.php:237
+#: tpl/./population.php:254
 msgid "Einwohner anzeigen"
 msgstr "Show inhabitants"
 
-#: tpl/./population.php:238
+#: tpl/./population.php:255
 msgid "Bed&uuml;rfnisse anzeigen"
 msgstr "Show demands"
 
-#: tpl/./population.php:239
+#: tpl/./population.php:256
 msgid "Produktionsbetriebe anzeigen"
 msgstr "Show Productionbuildings"
 
@@ -704,41 +716,45 @@ msgstr "Logout failed"
 msgid "Das von dir angeforderte Dokument konnte nicht gefunden werden."
 msgstr "The document you requested could not be found."
 
-#: inc/./class-gamedata.php:690
-#: inc/./class-gamedata.php:735
-#: inc/./class-gamedata.php:760
+#: inc/./class-gamedata.php:701
+#: inc/./class-gamedata.php:746
+#: inc/./class-gamedata.php:781
 msgid "Energie"
 msgstr "Energy"
 
-#: inc/./class-gamedata.php:692
-#: inc/./class-gamedata.php:736
-#: inc/./class-gamedata.php:761
+#: inc/./class-gamedata.php:703
+#: inc/./class-gamedata.php:747
+#: inc/./class-gamedata.php:782
 msgid "&Ouml;kobilanz"
 msgstr "eco effect"
 
-#: inc/./class-gamedata.php:718
+#: inc/./class-gamedata.php:729
 msgid "Alternatives Produktionsgebäude"
 msgstr "alternative production building"
 
-#: inc/./class-gamedata.php:729
-#: inc/./class-gamedata.php:754
+#: inc/./class-gamedata.php:740
+#: inc/./class-gamedata.php:775
 msgid "Credits"
 msgstr "Credits"
 
-#: inc/./class-gamedata.php:734
-#: inc/./class-gamedata.php:759
+#: inc/./class-gamedata.php:745
+#: inc/./class-gamedata.php:780
 msgid "Bilanz"
 msgstr "Balance"
 
-#: inc/./class-gamedata.php:749
+#: inc/./class-gamedata.php:760
 msgid "produziert"
 msgstr "produces"
 
-#: inc/./class-gamedata.php:751
+#: inc/./class-gamedata.php:764
+msgid "ben&ouml;tigt"
+msgstr "needs"
+
+#: inc/./class-gamedata.php:773
 msgid "Produktionskette anzeigen"
 msgstr "Show commodity chain"
 
-#: inc/./class-gamedata.php:772
+#: inc/./class-gamedata.php:793
 msgid "produziert von"
 msgstr "produced by"
 

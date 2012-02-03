@@ -13,7 +13,7 @@
 	
 	if( !empty($text) ) {
 		if( $searchtype=='production' ) {
-			$sql = "SELECT o.guid,o.local_".i18n::getLang().",pb.building_guid,pb.product_guid FROM game_objects AS o, game_productionbuildings AS pb WHERE ( o.guid=pb.building_guid OR o.guid=pb.product_guid ) AND LCASE(local_".i18n::getLang().") LIKE BINARY ".Database::_()->strPrep($text.'%');
+			$sql = "SELECT o.guid,o.local_".i18n::getLang().",pb.building_guid,pb.product_guid FROM game_objects AS o, game_productionbuildings AS pb WHERE ( o.guid=pb.building_guid OR o.guid=pb.product_guid ) AND LCASE(local_".i18n::getLang().") LIKE BINARY ".Database::_()->strPrep('%'.$text.'%');
 			$result = Database::_()->query($sql);
 			while( $result && $row=$result->fetch_assoc() ) {
 				$str = utf8_encode($row['local_'.i18n::getLang()]);

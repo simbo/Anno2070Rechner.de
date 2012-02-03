@@ -16,7 +16,6 @@ class GameObject {
 		$icon = '',
 		$locals = array();
 
-
 	public function __construct( $guid=null, $icon=null, $locals=null ) {
 		$this->setGuid( $guid );
 		$this->setIcon( $icon );
@@ -26,7 +25,7 @@ class GameObject {
 	public function setGuid( $int ) {
 		if( $int!==null ) {
 			$int = intval($int);
-			if( $int>0 )
+			if( !in_array($int,GameData::getGuidBlacklist()) && $int>0 )
 				$this->guid = $int;
 		}
 	}

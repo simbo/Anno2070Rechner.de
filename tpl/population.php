@@ -9,13 +9,17 @@ $value_keys = array(
 	'techs0i','techs1i','techs2i',
 	'ecos_max_upgrade','tycoons_max_upgrade','techs_max_upgrade',
 	'show_residences','show_inhabitants','show_demands','show_production',
-	'productivity_10045','productivity_10046','productivity_10048','productivity_10152','productivity_10156','productivity_10158','productivity_10159','productivity_10163','productivity_10168','productivity_10176','productivity_10180','productivity_10185','productivity_10186','productivity_10187','productivity_10191','productivity_10194','productivity_10197'
+	'productivity_10045','productivity_10046','productivity_10048','productivity_10152','productivity_10156','productivity_10158','productivity_10159','productivity_10163','productivity_10168','productivity_10176','productivity_10180','productivity_10185','productivity_10186','productivity_10187','productivity_10191','productivity_10194','productivity_10197',
+	'cc_target'
 );
 
 $data = null;
 
-$cookie_name = 'a2070r_popcalc';
+$cookie_name = 'a2070r_popcalc_data';
 $data = isset( $_COOKIE[$cookie_name] ) ? explode('.',$_COOKIE[$cookie_name]) : array();
+if( is_array($data) )
+	foreach( $data as $i => $d )
+		$data[$i] = hexdec($d);
 
 $values = array();
 foreach( $value_keys as $i => $k ) {
@@ -34,6 +38,7 @@ foreach( $value_keys as $i => $k ) {
 //		case 'show_inhabitants':
 //		case 'show_demands':
 		case 'show_production':
+//		case 'cc_target':
 			$default_value = 1;
 			break;
 		default:
@@ -43,7 +48,10 @@ foreach( $value_keys as $i => $k ) {
 	$values[$k] = strtolower($_SERVER['REQUEST_METHOD'])=='post' ? ( isset($_POST[$k]) ? intval($_POST[$k]) : $default_value ) : ( isset($data[$i]) ? intval($data[$i]) : $default_value );
 }
 
-_::setCookie( 'a2070r_popcalc', implode('.',$values), 90 );
+$cookie_data = $values;
+foreach( $cookie_data as $i => $d )
+	$cookie_data[$i] = dechex($d);
+_::setCookie( $cookie_name, implode('.',$cookie_data), 90 );
 
 if( isset($_POST['ajax']) && $_POST['ajax']==1 ) {
 	$json = array('success' => $values);
@@ -230,6 +238,15 @@ $page->addContent(
 			'<input type="hidden" name="show_demands" value="'.$values['show_demands'].'" />',
 			'<input type="hidden" name="show_production" value="'.$values['show_production'].'" />',
 		'</fieldset>',
+		'<div id="commodity-chain-target" class="hidden">',
+			'<dl>',
+				'<dt><label>'.__('Soll TPM der Produktionskette:').'</label></dt>',
+				'<dd><select name="cc_target" class="full">',
+					'<option value="0"'.($values['cc_target']==0?' selected="selected"':'').'>'.__('Bev&ouml;lkerungsbedarf').'</option>',
+					'<option value="1"'.($values['cc_target']==1?' selected="selected"':'').'>'.__('max. Produktion des Endprodukts').'</option>',
+				'</select></dd>',
+			'</dl>',
+		'</div>',
 	'</form>',
 	'<div id="commodity-chain-container"></div>',
 	'<ul id="display-options">',

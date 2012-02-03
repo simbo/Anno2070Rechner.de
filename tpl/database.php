@@ -205,7 +205,7 @@ $page->addContent(
 			'</dl>',
 		'</fieldset>',
 	'</form>',
-	'<div class="results">'.$results.'</div>'
+	'<div id="database-results" class="results">'.$results.'</div>'
 );
 
 ?>
