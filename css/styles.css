@@ -107,27 +107,27 @@ body {
 	background:#000 url('../img/bg-body-eco1.jpg') no-repeat top center fixed;
 }
 
-body.eco2 {
+body.bg-eco2 {
 	background-image:url('../img/bg-body-eco2.jpg');
 }
 
-body.eco3 {
+body.bg-eco3 {
 	background-image:url('../img/bg-body-eco3.jpg');
 }
 
-body.eco4 {
+body.bg-eco4 {
 	background-image:url('../img/bg-body-eco4.jpg');
 }
 
-body.eco5 {
+body.bg-eco5 {
 	background-image:url('../img/bg-body-eco5.jpg');
 }
 
-body.tycoon1 {
+body.bg-tycoon1 {
 	background-image:url('../img/bg-body-tycoon1.jpg');
 }
 
-body.tycoon2 {
+body.bg-tycoon2 {
 	background-image:url('../img/bg-body-tycoon2.jpg');
 }
 

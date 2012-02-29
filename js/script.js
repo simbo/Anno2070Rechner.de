@@ -110,7 +110,7 @@ function processCommodityChain( c ) {
 }
 
 function setProductivityEvents( el ) {
-	
+
 	// window event to hide productivity slider
 	$(window).unbind('click.productivities').bind({
 		'click.productivities': function(){
@@ -142,9 +142,25 @@ function setProductivityEvents( el ) {
 					original_count = parseInt(p.attr('data-count')),
 					efficiency = Math.round((count/Math.ceil(count))*100).toString(),
 					//actual_tpm = 0;
+					first_production = p.closest('div.commodity-chain').find('.production:first'),
+					is_first_production = first_production.attr('data-guid')==p.attr('data-guid') ? true : false,
+					productionfieldset = $('#population-form #production-fieldset');
+				if( productionfieldset.length>0 && first_production.length>0 ) {
+					var productionfieldset_production = productionfieldset.find('li[data-guid='+first_production.attr('data-guid')+']');
+				}
+				else
+					production_fieldset = false;
 				p.find('span.count').html( '&times;'+Math.ceil(count).toString() );
 				p.find('.efficiency').text( efficiency+'%' ).attr('class','efficiency '+getEfficiencyClass(efficiency));
 				count = Math.ceil(count);
+				if( productionfieldset ) {
+					if( is_first_production ) {
+						productionfieldset_production.find('.productivity input:first').val(productivity*100);
+						productionfieldset_production.find('.count span').text( count );
+						productionfieldset_production.find('.efficiency').text( efficiency + '%' ).attr( 'class', 'efficiency '+getEfficiencyClass(efficiency) );
+					}
+					productionfieldset.closest('form').trigger('save');
+				}	
 				/*
 				actual_tpm = ( Math.round( tpm*productivity*count*10 ) / 10 ).toString();
 				if( lang=='de' )
@@ -231,7 +247,7 @@ function setProductivityEvents( el ) {
 				min: 50,
 				max: 300,
 				step: 1,
-				stop: function() {
+				stop: function( ev, ui) {
 					production.trigger('deactivate');
 				},
 				slide: function( ev, ui ) {
@@ -239,7 +255,6 @@ function setProductivityEvents( el ) {
 					production.trigger('update')
 				}
 			});
-		}).find('.ui-slider-handle').unbind('blur').bind({
 		});
 	});
 }

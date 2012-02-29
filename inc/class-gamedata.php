@@ -47,6 +47,7 @@ abstract class GameData {
 		$properties_xml,
 		$assets_xml,
 		$product_icon_xpath,
+		$vehicles,
 		$products,
 		$buildings,
 		$productionbuildings,
@@ -145,8 +146,39 @@ abstract class GameData {
 	private static function parseAssets() {
 		self::$productionbuildings = array();
 		self::$residencebuildings = array();
+		self::$vehicles = array();
 		self::$buildings = array();
 		self::$products = array();
+		if( $groups = self::$assets_xml->xpath('/AssetList/Groups[1]/Group[Name/text() = "Objects"]/Groups[1]/Group[Name/text() = "Vehicles"]/Groups[1]/Group') ) :
+			header('Content-Type: text/plain;charset=utf-8');
+			foreach( $groups as $group ) :
+				if( in_array( $group->Name, array('tycoons','ecos','techs','others','thirdparty') ) ) :
+					$elements = array( $group->xpath('Assets/Asset'),$group->xpath('Groups/Group/Assets/Asset') );
+					foreach( $elements as $_e ) :
+						if( $_e ) :
+							foreach( $_e as $e ) :
+								if( property_exists( $e->Values->BuildCost, 'ResourceCost' ) && !in_array(intval($e->Values->Standard->GUID),GameData::getGuidBlacklist()) ) :
+									switch( $e->Template ) :
+										case 'SimpleUnit':
+										case 'SimpleFlyingUnit':
+										case 'SimpleFlyingFeedbackUnit':
+										case 'SimpleTransporter':
+										case 'FeedbackShip':
+										case 'CargoLifter':
+											break;
+										default:
+											
+											echo $group->Name.' '.$e->Template.' '.$e->Values->Standard->Name."\n";
+											break;
+									endswitch;
+								endif;
+							endforeach;
+						endif;
+					endforeach;
+				endif;
+			endforeach;
+			die();
+		endif;
 		if( $groups = self::$assets_xml->xpath('/AssetList/Groups[1]/Group[Name/text() = "Objects"]/Groups[1]/Group[Name/text() = "Buildings"]/Groups[1]/Group') ) :
 			foreach( $groups as $group ) :
 				if( in_array( $group->Name, array('tycoons','ecos','techs','others') ) && $elements = $group->xpath('Groups/Group/Assets/Asset') ) :

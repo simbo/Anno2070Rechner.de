@@ -10,7 +10,8 @@ $value_keys = array(
 	'ecos_max_upgrade','tycoons_max_upgrade','techs_max_upgrade',
 	'show_residences','show_inhabitants','show_demands','show_production',
 	'productivity_10045','productivity_10046','productivity_10048','productivity_10152','productivity_10156','productivity_10158','productivity_10159','productivity_10163','productivity_10168','productivity_10176','productivity_10180','productivity_10185','productivity_10186','productivity_10187','productivity_10191','productivity_10194','productivity_10197',
-	'cc_target'
+	'cc_target',
+	'child_productivity_10045','child_productivity_10046','child_productivity_10048','child_productivity_10152','child_productivity_10156','child_productivity_10158','child_productivity_10159','child_productivity_10163','child_productivity_10168','child_productivity_10176','child_productivity_10180','child_productivity_10185','child_productivity_10186','child_productivity_10187','child_productivity_10191','child_productivity_10194','child_productivity_10197',
 );
 
 $data = null;
@@ -24,6 +25,8 @@ if( is_array($data) )
 $values = array();
 foreach( $value_keys as $i => $k ) {
 	switch( $k ) {
+		case substr($k,0,18)=='child_productivity':
+			$default_value = array();
 		case substr($k,0,12)=='productivity':
 			$default_value = 100;
 			break;
@@ -45,7 +48,12 @@ foreach( $value_keys as $i => $k ) {
 			$default_value = 0;
 			break;
 	}
-	$values[$k] = strtolower($_SERVER['REQUEST_METHOD'])=='post' ? ( isset($_POST[$k]) ? intval($_POST[$k]) : $default_value ) : ( isset($data[$i]) ? intval($data[$i]) : $default_value );
+	$v = strtolower($_SERVER['REQUEST_METHOD'])=='post' ) ? ( isset($_POST[$k]) ? $_POST[$k] : $default_value ) : ( isset($data[$i]) ? $default_value );
+	if( substr($k,0,18)=='child_productivity' && is_array($v) )
+		foreach( $v as $j => $cp )
+			$values[$k][$j] = intval($cp);
+	else		
+		$values[$k] = intval($v);
 }
 
 $cookie_data = $values;
@@ -54,7 +62,7 @@ foreach( $cookie_data as $i => $d )
 _::setCookie( $cookie_name, implode('.',$cookie_data), 90 );
 
 if( isset($_POST['ajax']) && $_POST['ajax']==1 ) {
-	$json = array('success' => $values);
+	$json = array('success' => true);
 	$page->clearContent();
 	$page->setType('json');
 	$page->addContent($json);

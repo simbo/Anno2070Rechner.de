@@ -113,9 +113,13 @@ $(document).ready(function() {
 				form_saveTimer = window.setTimeout(function(){
 					request({
 						url: form.attr('action'),
-						data: form.serialize()
+						data: form.serialize(),
+						beforeSend: function(){
+						},
+						complete: function(){
+						}
 					});
-				},3000);
+				},2000);
 			}
 
 		});
