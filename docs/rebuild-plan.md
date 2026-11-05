@@ -74,6 +74,8 @@ Each as a separate, traceable step:
 ### Later
 
 - Optimizations and modernization, see [Goals](#goals).
+- Credit the "Prototype" font and its authors visibly on the site, in the way
+  its `Prototype.txt` asks for.
 - Add analytics with the Umami instance on SRVKIST
   (`https://trk.srvkist.net/trk.js`, own website id).
 
@@ -158,9 +160,11 @@ reasons. They are static archive material and are kept in a private ZIP file.
   the new site uses.
 - Later, the icons can be optimized losslessly (about 4 KB per file today).
 
-The font "Prototype" (`fonts/`) is taken over unchanged in phase 1. According to
-its `Prototype.txt` it is free for personal use, and that file must accompany
-any redistribution, so it is always shipped with the font.
+The font "Prototype" (`fonts/`) is kept and taken over unchanged in phase 1. It
+is only used for headings. According to its `Prototype.txt` it is free for
+personal use, and that file must accompany any redistribution. This
+non-commercial fan site is treated as personal use, and `Prototype.txt` is
+always shipped with the font.
 
 
 Hosting on SRVKIST
