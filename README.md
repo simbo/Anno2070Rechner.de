@@ -14,3 +14,6 @@ The following files and folders are not included in this repository:
 
 How the game data was extracted from Anno 2070 is documented in
 [docs/game-data.md](docs/game-data.md).
+
+The site is being rebuilt as a static frontend; see
+[docs/rebuild-plan.md](docs/rebuild-plan.md).
