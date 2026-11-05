@@ -12,6 +12,8 @@ words:
   - Ubisoft
 
 ignoreWords:
+  # Misspelled English page title of the old site, kept on purpose.
+  - Commdity
   # Control character name in the game data documentation.
   - NUL
   # Parts of a double-encoded example name ("ErdÃ¶lraffinerie") from the old site.

@@ -32,8 +32,9 @@ Release and license
   history.
 - The work happens on the branch `static-rebuild` and is only pushed when the
   rebuild is finished.
-- Right before the release: set up SRVKIST and move the DNS records. Tidy up the
-  private image ZIP and store it in the cloud.
+- Hosting and deployment come last: phase 2 is done first. Right before the
+  release: set up SRVKIST and move the DNS records. Tidy up the private image
+  ZIP and store it in the cloud.
 
 Phases
 ---
@@ -54,7 +55,14 @@ layout, with these deliberate differences:
 - Facebook-only preview tags are replaced by general preview tags.
 - The old analytics script is removed.
 
-The target-TPM bug below is kept in this phase on purpose.
+The target-TPM bug below is kept in this phase on purpose, and so are these
+quirks of the live site, which can be reconsidered later:
+
+- The English page title "Commdity chains" (the menu says "Commodity chains").
+- The menu marks the info page with the class `info` instead of `current`.
+- "Reset" moves the upgrade sliders to the top but keeps the hidden upgrade
+  levels.
+- An efficiency of 0 % gets the class `undefined`.
 
 ### Phase 2: fixes and unfinished features
 
@@ -65,18 +73,29 @@ Each as a separate, traceable step:
    building's productivity. Example: 2 fisheries at 200 % show ×1 building and 4
    t/min instead of ×2 and 8 t/min. Fixed in commit `f78cae1`, which never ran
    live.
-2. **Saved productivities for chain links** (`child_productivity` in `f78cae1`).
+2. **Saved chain settings** (`child_productivity` in `f78cae1`). In the
+   population calculator, the productivities and chosen alternatives a visitor
+   sets in the chain of a production building are kept per building and restored
+   when its chain is shown again. They are saved in the browser with the other
+   inputs. `f78cae1` only planned the productivities; the alternatives were
+   added on purpose.
 3. **Sync between chain slider and production field** in the population
-   calculator (`f78cae1`).
-4. **Changing background images.** `img/bg-body-eco1-5.jpg` and
+   calculator (`f78cae1`): changing the productivity of the top building of the
+   chain updates the production field (input, count, efficiency) at once.
+4. **Background images.** `img/bg-body-eco1-5.jpg` and
    `img/bg-body-tycoon1-2.jpg` exist, but the live site only shows `eco1`.
-   `f78cae1` renamed the matching CSS classes. How the backgrounds are used is
-   still open, for example a random one per visit or a switch for the visitor.
-   The images should then also be served as WebP or AVIF.
+   `f78cae1` renamed the matching CSS classes to `bg-eco2` and so on, which is
+   taken over. The empty red area at the top right of the header gets the gear
+   icon that already exists in the old icon sprite (`img/user-menu.png`); it
+   lets the visitor fix a background. By default the background is random and
+   changes daily, never showing the same image as on the day before. The choice
+   is saved in the browser.
 
 ### Later
 
-- Optimizations and modernization, see [Goals](#goals).
+- Optimizations and modernization, see [Goals](#goals), for example serving the
+  background images as WebP or AVIF, or reducing the population page bundle
+  (about 32 KB with gzip, mostly zod).
 - Credit the "Prototype" font and its authors visibly on the site, in the way
   its `Prototype.txt` asks for.
 - Add analytics with the Umami instance on SRVKIST
@@ -226,3 +245,31 @@ Verification
 - The reference data and the comparison tooling are only needed for the rebuild
   and are kept outside this repository.
 - Phase 2 must change the expected values for the target-TPM bug deliberately.
+
+## Next steps
+
+Where the work stands and what follows, in this order:
+
+1. **Phase 2** (decided, not started). For the background chooser, the open
+   detail is its interface; proposal: clicking the gear opens a small list in
+   the style of the select menus with "random (changes daily)" and the seven
+   images, and pointing at an entry previews it. Phase 2 deliberately changes
+   the expected values for the target-TPM bug in the tests.
+2. **Optimizations and modernization**, see [Later](#later).
+3. **Release:** SRVKIST site block, deployment service with webhook and release
+   workflow, final image ZIP with a setup script, DNS move, push, `v2.0.0`, then
+   the Uberspace cleanup. The old PHP code is removed then. The reCAPTCHA key in
+   `conf/site.ini` is public in the Git history and should be revoked by the
+   author.
+
+Working material outside the repository:
+
+- `~/projects/private/Anno2070Rechner-export`: the Uberspace export (code,
+  images, database dump) and the current image ZIP; private.
+- `~/projects/private/Anno2070Rechner-verify`: recorded live reference data and
+  the comparison tooling (`capture.py`, `live-capture.mjs`, `compare.mjs`,
+  parity tests run with
+  `pnpm exec vitest run --config ../Anno2070Rechner-verify/vitest.config.ts`
+  from the repository). Throwaway once the rebuild is released.
+- `img/` in the repository is a local link to the exported images (ignored by
+  Git).
