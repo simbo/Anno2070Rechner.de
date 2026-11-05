@@ -220,5 +220,8 @@ Verification
   phase 2.
 - Screenshot comparisons between the live site and the rebuild cover the main
   views.
+- When the old behavior is unclear, the old PHP and JavaScript code in the Git
+  history and the live site (while it runs) decide. A difference is only called
+  a bug once it is substantiated there.
 - The reference data and the comparison tooling are only needed for the rebuild
   and are kept outside this repository.
