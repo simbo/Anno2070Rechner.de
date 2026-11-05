@@ -29,6 +29,10 @@ Release and license
   by the author.
 - The old PHP code is removed once it is no longer needed; it stays in the Git
   history.
+- The work happens on the branch `static-rebuild` and is only pushed when the
+  rebuild is finished.
+- Right before the release: set up SRVKIST and move the DNS records. Tidy up
+  the private image ZIP and store it in the cloud.
 
 
 Phases
@@ -86,7 +90,8 @@ Stack
 Modeled on the author's projects `etikettomat` (Vue setup) and `magawa`
 (tooling):
 
-- Vite, TypeScript, Vue 3, pnpm
+- Node 24 and pnpm 12, as in the author's other projects
+- Vite, TypeScript, Vue 3
 - Pinia for shared state, VueUse, zod for validating stored data
 - `vue-router` (see [Routing](#routing))
 - `@simbo/vite-plugin-nunjucks` and `@simbo/vite-plugin-html-minifier` for the
@@ -205,8 +210,10 @@ provides the build and the release artifact.
 Verification
 ---
 
-- The calculations get regular unit tests in this repository. They stay useful
-  after the rebuild.
+- Everything where a test makes sense is tested properly in this repository,
+  above all the calculations and the application logic. The goal is not a
+  coverage number but tests that keep important behavior from changing
+  unnoticed during later optimizations.
 - Before the PHP site is removed, its output is recorded as a reference: all
   commodity chains and a set of calculator cases. The new implementation is
   compared against it, with a documented exception for the target-TPM bug in

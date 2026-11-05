@@ -45,6 +45,11 @@
 - Preserve the shared `@simbo` configurations. Ask before changing ESLint or
   Prettier rules; parser and file coverage settings can be adjusted directly.
   Review new ignores and rule exceptions explicitly.
+- Test everything where a test makes sense, above all calculations and
+  application logic, with normal, boundary and realistic failure cases. Tests
+  must keep important behavior from changing unnoticed during later
+  optimizations. Do not chase coverage numbers or write tests that only mirror
+  the implementation.
 - Verify with `pnpm check`, `pnpm test` and `pnpm build`. Report checks that
   were not run.
 - Tooling that is only needed to compare the rebuild with the live site stays
