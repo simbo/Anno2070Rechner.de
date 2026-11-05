@@ -11,7 +11,10 @@
 			'<meta name="viewport" content="width=device-width, initial-scale=1.0">',
 			'<title>'. $page->getTitle() .' &laquo; '. $site->getTitle() .'</title>',
 			'<link rel="shortcut icon" href="'.BASEURL.'favicon.ico" />',
-			'<link rel="stylesheet" href="css/styles.'.( $site->getOption('debug_mode') ? time() : $site->getOption('tpl_version') ).'.css" media="all" />'
+			'<link rel="stylesheet" href="css/styles.'.( $site->getOption('debug_mode') ? time() : $site->getOption('tpl_version') ).'.css" media="all" />',
+			( $_SERVER['HTTP_HOST']!='localhost' && ( !User::isLoggedIn() || !User::_()->hasRight('admin') ) ?
+				'<script async src="https://trk.simbo.de/script.js" data-website-id="3a9151c3-b3c9-4c63-9635-5582b7021af5"></script>'
+			:''),
 	);
 	
 	if( $is_facebook )

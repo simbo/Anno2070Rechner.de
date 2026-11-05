@@ -22,7 +22,7 @@ abstract class Session {
 	 * @return void
 	 */
 	public static function init() {
-		if( @session_set_save_handler(
+		if( session_set_save_handler(
 			array('Session','callback_open'),
 			array('Session','callback_close'),
 			array('Session','callback_read'),
@@ -46,7 +46,7 @@ abstract class Session {
 	 * @return void
 	 */
 	public static function start() {
-		if( @session_start() )
+		if( session_start() )
 			return true;
 		else
 			Site::dieOnError('Session::start() failed');
@@ -121,7 +121,7 @@ abstract class Session {
 	public static function callback_read( $id ) {
 		$sql = "SELECT * FROM sessions WHERE id = '".$id."' LIMIT 0,1";
 		$query = Database::_()->query($sql);
-		return ($row=$query->fetch_assoc()) ? unserialize(stripslashes($row['data'])) : false;
+		return ($row=$query->fetch_assoc()) ? unserialize(stripslashes($row['data'])) : '';
 	}
 	
 	/**

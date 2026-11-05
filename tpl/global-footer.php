@@ -33,14 +33,6 @@ $page->addContent(
 			_::intoJavascript( 'all_demands', $all_demands, 'productions_by_product', $productions_by_product ).
 			'<script type="text/javascript" src="js/population-calculator.'.( $site->getOption('debug_mode') ? time() : $site->getOption('tpl_version') ).'.js"></script>'
 		:''),
-		( $_SERVER['HTTP_HOST']!='localhost' && ( !User::isLoggedIn() || !User::_()->hasRight('admin') ) ?
-			'<script type="text/javascript">'.
-				'var _gaq=[["_setAccount","UA-27609112-1"],["_trackPageview"]];'.
-				'(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;'.
-				'g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";'.
-				's.parentNode.insertBefore(g,s)}(document,"script"));'.
-			'</script>'
-		:''),
 	'</body>',
 	'</html>'
 );

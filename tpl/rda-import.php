@@ -5,7 +5,7 @@ $json = array(
 	'msg' => ''
 );
 
-if( true || strtolower($_SERVER['REQUEST_METHOD'])=='post' ) {
+if( strtolower($_SERVER['REQUEST_METHOD'])=='post' ) {
 
 	if( GameData::readFromXml() && GameData::saveToDb() ) {
 		$json['success'] = true;

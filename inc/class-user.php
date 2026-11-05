@@ -687,7 +687,7 @@ final class User {
 	 */
 	public function addRight( $right ) {
 		$right = $right=='login' ? null : $right;
-		if( in_array($right,parent::getAvailableRights()) && !in_array($right,$this->rights) )
+		if( in_array($right,User::getAvailableRights()) && !in_array($right,$this->rights) )
 			array_push($this->rights,$right);
 	}
 	
@@ -736,7 +736,7 @@ final class User {
 	 * @return void
 	 */
 	public function addAllRights() {
-		$this->rights = parent::getAvailableRights();
+		$this->rights = User::getAvailableRights();
 	}
 	
 	/**

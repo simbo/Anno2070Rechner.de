@@ -35,9 +35,6 @@ $page->addContent(
 	'<h3>'.__('Entwickler und Betreiber').'</h3>',
 	'<address>',
 		'Simon Lepel<br/>',
-		'Karl-Marx-Stra&szlig;e 39<br/>',
-		'54290 Trier<br/>',
-		'Germany<br/>',
 		'post [at] anno2070rechner [dot] de',
 	'</address>'
 );

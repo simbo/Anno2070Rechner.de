@@ -113,13 +113,9 @@ $(document).ready(function() {
 				form_saveTimer = window.setTimeout(function(){
 					request({
 						url: form.attr('action'),
-						data: form.serialize(),
-						beforeSend: function(){
-						},
-						complete: function(){
-						}
+						data: form.serialize()
 					});
-				},2000);
+				},3000);
 			}
 
 		});
@@ -253,7 +249,7 @@ $(document).ready(function() {
 								more_space = $(this).find('dd.'+group+'_info input:first').val()=='1' ? 1.12 : 1;
 							inhabitants[group] = [];
 							for( var i=0; i<( group=='techs' ? 2 : 4 ); i++ )
-								inhabitants[group][i] = Math.floor( filterNum( $(this).find('dd.'+group+(i+1)+' input').val() )*capacity[i]*more_space );
+								inhabitants[group][i] = filterNum( $(this).find('dd.'+group+(i+1)+' input').val() )* Math.floor( capacity[i]*more_space );
 						});
 						$(this).find('dl').each(function(){
 							var group = getGroup( this );
