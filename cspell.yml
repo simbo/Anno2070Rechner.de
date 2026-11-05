@@ -1,0 +1,19 @@
+import: '@simbo/cspell-config'
+
+ignorePaths:
+  # Third-party readme of the Prototype font, shipped unchanged.
+  - '**/Prototype.txt'
+
+words:
+  - productivities
+  - Rechner
+  - SRVKIST
+  - TPM
+  - Ubisoft
+
+ignoreWords:
+  # Control character name in the game data documentation.
+  - NUL
+  # Parts of a double-encoded example name ("ErdÃ¶lraffinerie") from the old site.
+  - Erd
+  - lraffinerie

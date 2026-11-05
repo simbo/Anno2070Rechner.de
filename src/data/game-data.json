@@ -1,0 +1,4777 @@
+{
+  "products": {
+    "2500000": "icon_27_0.png",
+    "2500001": "icon_27_1.png",
+    "2500002": "icon_27_2.png",
+    "2500003": "icon_27_3.png",
+    "2500004": "icon_27_4.png",
+    "2500005": "icon_27_5.png",
+    "2500006": "icon_27_19.png",
+    "2500007": "icon_27_20.png",
+    "2500008": "icon_27_17.png",
+    "2500009": "icon_27_29.png",
+    "2500010": "icon_27_34.png",
+    "2500011": "icon_27_22.png",
+    "2500012": "icon_27_30.png",
+    "2500013": "icon_27_31.png",
+    "2500014": "icon_27_211.png",
+    "2500015": "icon_27_89.png",
+    "2500016": "icon_27_151.png",
+    "2500017": "icon_27_73.png",
+    "2500018": "icon_27_137.png",
+    "2500019": "icon_27_134.png",
+    "2500020": "icon_27_203.png",
+    "2500021": "icon_27_156.png",
+    "2500022": "icon_27_171.png",
+    "2500023": "icon_27_140.png",
+    "2500024": "icon_27_158.png",
+    "2500025": "icon_27_173.png",
+    "2500026": "icon_27_160.png",
+    "2500027": "icon_27_163.png",
+    "2500028": "icon_27_167.png",
+    "2500029": "icon_27_141.png",
+    "2500030": "icon_27_142.png",
+    "2500031": "icon_27_145.png",
+    "2500032": "icon_27_182.png",
+    "2500033": "icon_27_61.png",
+    "2500034": "icon_27_63.png",
+    "2500035": "icon_27_124.png",
+    "2500036": "icon_27_51.png",
+    "2500037": "icon_27_183.png",
+    "2500038": "icon_27_181.png",
+    "2500039": "icon_27_184.png",
+    "2500041": "icon_27_186.png",
+    "2500042": "icon_27_153.png",
+    "2500044": "icon_27_56.png",
+    "2500045": "icon_27_154.png",
+    "2500046": "icon_27_155.png",
+    "2500047": "icon_27_157.png",
+    "2500048": "icon_27_161.png",
+    "2500049": "icon_27_162.png",
+    "2500050": "icon_27_164.png",
+    "2500051": "icon_27_165.png",
+    "2500053": "icon_27_194.png",
+    "2500054": "icon_27_138.png",
+    "2500055": "icon_27_139.png",
+    "2500056": "icon_27_135.png",
+    "2500057": "icon_27_136.png",
+    "2500058": "icon_27_143.png",
+    "2500059": "icon_27_144.png",
+    "2500060": "icon_27_172.png",
+    "2500061": "icon_27_47.png",
+    "2500062": "icon_27_53.png",
+    "2500063": "icon_27_55.png",
+    "2500064": "icon_27_54.png",
+    "2500065": "icon_27_210.png",
+    "2500066": "icon_27_212.png",
+    "2503003": "icon_27_9.png",
+    "2600012": "icon_27_413.png",
+    "2600078": "icon_27_461.png"
+  },
+  "productionBuildings": [
+    {
+      "guid": 10010,
+      "icon": "icon_27_85.png",
+      "credits": 1000,
+      "buildCosts": [
+        [
+          2500001,
+          5000
+        ],
+        [
+          2500014,
+          12000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 40,
+        "inactiveCost": 20,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": -102400,
+        "inactiveEnergy": 0
+      },
+      "type": "energy",
+      "product": 2600012,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10012,
+      "icon": "icon_27_2.png",
+      "credits": 200,
+      "buildCosts": [
+        [
+          2500000,
+          3000
+        ],
+        [
+          2500001,
+          2000
+        ],
+        [
+          2500014,
+          2000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 5,
+        "inactiveCost": 2,
+        "activeEco": -4096,
+        "inactiveEco": 0,
+        "activeEnergy": 4096,
+        "inactiveEnergy": 0
+      },
+      "type": "farm",
+      "product": 2500002,
+      "productionTime": 40000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10022,
+      "icon": "icon_27_3.png",
+      "credits": 100,
+      "buildCosts": [
+        [
+          2500001,
+          2000
+        ],
+        [
+          2500014,
+          1000
+        ],
+        [
+          2500016,
+          3000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 5,
+        "inactiveCost": 2,
+        "activeEco": -12288,
+        "inactiveEco": -4096,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      },
+      "type": "farm",
+      "product": 2500003,
+      "productionTime": 40000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10024,
+      "icon": "icon_27_5.png",
+      "credits": 50,
+      "buildCosts": [
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500014,
+          1000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 10,
+        "inactiveCost": 5,
+        "activeEco": -20480,
+        "inactiveEco": -8192,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      },
+      "type": "farm",
+      "product": 2500005,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10025,
+      "icon": "icon_27_12.png",
+      "credits": 350,
+      "buildCosts": [
+        [
+          2500001,
+          4000
+        ],
+        [
+          2500014,
+          1000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 10,
+        "inactiveCost": 5,
+        "activeEco": -61440,
+        "inactiveEco": -28672,
+        "activeEnergy": -245760,
+        "inactiveEnergy": 0
+      },
+      "type": "energy",
+      "product": 2600012,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500005,
+        "need": 1000
+      },
+      "raw2": null
+    },
+    {
+      "guid": 10027,
+      "icon": "icon_27_9.png",
+      "credits": 250,
+      "buildCosts": [
+        [
+          2500001,
+          4000
+        ],
+        [
+          2500014,
+          1000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 10,
+        "inactiveCost": 5,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      },
+      "type": "forest",
+      "product": 2503003,
+      "productionTime": 10000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10029,
+      "icon": "icon_27_83.png",
+      "credits": 120,
+      "buildCosts": [
+        [
+          2500001,
+          1000
+        ],
+        [
+          2500014,
+          1000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 25,
+        "inactiveCost": 12,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": -61440,
+        "inactiveEnergy": 0
+      },
+      "type": "energy",
+      "product": 2600012,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10031,
+      "icon": "icon_27_31.png",
+      "credits": 500,
+      "buildCosts": [
+        [
+          2500001,
+          2000
+        ],
+        [
+          2500014,
+          6000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 40,
+        "inactiveCost": 20,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 12288,
+        "inactiveEnergy": 4096
+      },
+      "type": "farm",
+      "product": 2500013,
+      "productionTime": 60000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10037,
+      "icon": "icon_27_0.png",
+      "credits": 400,
+      "buildCosts": [
+        [
+          2500001,
+          2000
+        ],
+        [
+          2500014,
+          1000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 5,
+        "inactiveCost": 0,
+        "activeEco": -12288,
+        "inactiveEco": -4096,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      },
+      "type": "farm",
+      "product": 2500000,
+      "productionTime": 45000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10045,
+      "icon": "icon_27_4.png",
+      "credits": 100,
+      "buildCosts": [
+        [
+          2500001,
+          2000
+        ],
+        [
+          2500014,
+          1000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 5,
+        "inactiveCost": 2,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 4096,
+        "inactiveEnergy": 0
+      },
+      "type": "farm",
+      "product": 2500004,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10046,
+      "icon": "icon_27_20.png",
+      "credits": 50,
+      "buildCosts": [
+        [
+          2500001,
+          1000
+        ],
+        [
+          2500014,
+          2000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 5,
+        "inactiveCost": 2,
+        "activeEco": -8192,
+        "inactiveEco": -4096,
+        "activeEnergy": 4096,
+        "inactiveEnergy": 0
+      },
+      "type": "farm",
+      "product": 2500007,
+      "productionTime": 40000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10048,
+      "icon": "icon_27_19.png",
+      "credits": 100,
+      "buildCosts": [
+        [
+          2500001,
+          1000
+        ],
+        [
+          2500014,
+          2000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 10,
+        "inactiveCost": 5,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 4096,
+        "inactiveEnergy": 0
+      },
+      "type": "farm",
+      "product": 2500006,
+      "productionTime": 40000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10050,
+      "icon": "icon_27_21.png",
+      "credits": 3000,
+      "buildCosts": [
+        [
+          2500001,
+          24000
+        ],
+        [
+          2500010,
+          36000
+        ],
+        [
+          2500014,
+          10000
+        ],
+        [
+          2500016,
+          30000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 100,
+        "inactiveCost": 50,
+        "activeEco": -40960,
+        "inactiveEco": -20480,
+        "activeEnergy": -2048000,
+        "inactiveEnergy": 0
+      },
+      "type": "energy",
+      "product": 2600012,
+      "productionTime": 120000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500012,
+        "need": 1000
+      },
+      "raw2": null
+    },
+    {
+      "guid": 10052,
+      "icon": "icon_27_22.png",
+      "credits": 1000,
+      "buildCosts": [
+        [
+          2500001,
+          12000
+        ],
+        [
+          2500010,
+          2000
+        ],
+        [
+          2500014,
+          7000
+        ],
+        [
+          2500016,
+          8000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 50,
+        "inactiveCost": 25,
+        "activeEco": -24576,
+        "inactiveEco": -12288,
+        "activeEnergy": 16384,
+        "inactiveEnergy": 8192
+      },
+      "type": "farm",
+      "product": 2500011,
+      "productionTime": 120000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10053,
+      "icon": "icon_27_30.png",
+      "credits": 600,
+      "buildCosts": [
+        [
+          2500001,
+          14000
+        ],
+        [
+          2500010,
+          8000
+        ],
+        [
+          2500014,
+          5000
+        ],
+        [
+          2500016,
+          4000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 60,
+        "inactiveCost": 30,
+        "activeEco": -24576,
+        "inactiveEco": -12288,
+        "activeEnergy": 16384,
+        "inactiveEnergy": 8192
+      },
+      "type": "factory",
+      "product": 2500012,
+      "productionTime": 120000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500011,
+        "need": 1000
+      },
+      "raw2": null
+    },
+    {
+      "guid": 10054,
+      "icon": "icon_27_17.png",
+      "credits": 600,
+      "buildCosts": [
+        [
+          2500001,
+          4000
+        ],
+        [
+          2500014,
+          2000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 10,
+        "inactiveCost": 5,
+        "activeEco": -8192,
+        "inactiveEco": -4096,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      },
+      "type": "farm",
+      "product": 2500008,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10055,
+      "icon": "icon_27_29.png",
+      "credits": 400,
+      "buildCosts": [
+        [
+          2500001,
+          4000
+        ],
+        [
+          2500014,
+          2000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 10,
+        "inactiveCost": 5,
+        "activeEco": -12288,
+        "inactiveEco": -4096,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      },
+      "type": "factory",
+      "product": 2500009,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500005,
+        "need": 1000
+      },
+      "raw2": {
+        "product": 2500008,
+        "need": 1000
+      }
+    },
+    {
+      "guid": 10056,
+      "icon": "icon_27_1.png",
+      "credits": 500,
+      "buildCosts": [
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500014,
+          2000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 10,
+        "inactiveCost": 5,
+        "activeEco": -16384,
+        "inactiveEco": -8192,
+        "activeEnergy": 12288,
+        "inactiveEnergy": 4096
+      },
+      "type": "factory",
+      "product": 2500001,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500009,
+        "need": 500
+      },
+      "raw2": null
+    },
+    {
+      "guid": 10057,
+      "icon": "icon_27_34.png",
+      "credits": 400,
+      "buildCosts": [
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500014,
+          6000
+        ],
+        [
+          2500016,
+          8000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 20,
+        "inactiveCost": 10,
+        "activeEco": -24576,
+        "inactiveEco": -12288,
+        "activeEnergy": 24576,
+        "inactiveEnergy": 12288
+      },
+      "type": "factory",
+      "product": 2500010,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500009,
+        "need": 2000
+      },
+      "raw2": null
+    },
+    {
+      "guid": 10061,
+      "icon": "icon_27_44.png",
+      "credits": 3000,
+      "buildCosts": [
+        [
+          2500000,
+          12000
+        ],
+        [
+          2500001,
+          30000
+        ],
+        [
+          2500014,
+          20000
+        ],
+        [
+          2500015,
+          20000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 120,
+        "inactiveCost": 60,
+        "activeEco": 409600,
+        "inactiveEco": 0,
+        "activeEnergy": 245760,
+        "inactiveEnergy": 122880
+      },
+      "type": "eco",
+      "product": 2600078,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10070,
+      "icon": "icon_27_48.png",
+      "credits": 2000,
+      "buildCosts": [
+        [
+          2500000,
+          30000
+        ],
+        [
+          2500001,
+          20000
+        ],
+        [
+          2500014,
+          15000
+        ],
+        [
+          2500015,
+          30000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 120,
+        "inactiveCost": 60,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": -491520,
+        "inactiveEnergy": 0
+      },
+      "type": "energy",
+      "product": 2600012,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10075,
+      "icon": "icon_27_124.png",
+      "credits": 3000,
+      "buildCosts": [
+        [
+          2500001,
+          12000
+        ],
+        [
+          2500014,
+          18000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 50,
+        "inactiveCost": 25,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 81920,
+        "inactiveEnergy": 40960
+      },
+      "type": "farm",
+      "product": 2500035,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10080,
+      "icon": "icon_27_63.png",
+      "credits": 200,
+      "buildCosts": [
+        [
+          2500001,
+          4000
+        ],
+        [
+          2500014,
+          2000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 20,
+        "inactiveCost": 10,
+        "activeEco": -8192,
+        "inactiveEco": -4096,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      },
+      "type": "farm",
+      "product": 2500034,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10081,
+      "icon": "icon_27_55.png",
+      "credits": 1000,
+      "buildCosts": [
+        [
+          2500001,
+          8000
+        ],
+        [
+          2500010,
+          12000
+        ],
+        [
+          2500014,
+          4000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 70,
+        "inactiveCost": 35,
+        "activeEco": -24576,
+        "inactiveEco": -12288,
+        "activeEnergy": 24576,
+        "inactiveEnergy": 12288
+      },
+      "type": "factory",
+      "product": 2500063,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500009,
+        "need": 2000
+      },
+      "raw2": {
+        "product": 2500044,
+        "need": 1000
+      }
+    },
+    {
+      "guid": 10082,
+      "icon": "icon_27_52.png",
+      "credits": 300,
+      "buildCosts": [
+        [
+          2500001,
+          4000
+        ],
+        [
+          2500014,
+          7000
+        ],
+        [
+          2500015,
+          4000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 50,
+        "inactiveCost": 25,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": -122880,
+        "inactiveEnergy": 0
+      },
+      "type": "energy",
+      "product": 2600012,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10083,
+      "icon": "icon_27_61.png",
+      "credits": 300,
+      "buildCosts": [
+        [
+          2500001,
+          4000
+        ],
+        [
+          2500014,
+          4000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 20,
+        "inactiveCost": 10,
+        "activeEco": -8192,
+        "inactiveEco": -4096,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      },
+      "type": "farm",
+      "product": 2500033,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10086,
+      "icon": "icon_27_47.png",
+      "credits": 500,
+      "buildCosts": [
+        [
+          2500001,
+          8000
+        ],
+        [
+          2500014,
+          12000
+        ],
+        [
+          2500017,
+          10000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 40,
+        "inactiveCost": 20,
+        "activeEco": -24576,
+        "inactiveEco": -12288,
+        "activeEnergy": 24576,
+        "inactiveEnergy": 12288
+      },
+      "type": "factory",
+      "product": 2500061,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500036,
+        "need": 1000
+      },
+      "raw2": null
+    },
+    {
+      "guid": 10087,
+      "icon": "icon_27_62.png",
+      "credits": 8000,
+      "buildCosts": [
+        [
+          2500001,
+          25000
+        ],
+        [
+          2500014,
+          30000
+        ],
+        [
+          2500017,
+          15000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 140,
+        "inactiveCost": 70,
+        "activeEco": -40960,
+        "inactiveEco": -20480,
+        "activeEnergy": -2048000,
+        "inactiveEnergy": 0
+      },
+      "type": "energy",
+      "product": 2600012,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10092,
+      "icon": "icon_27_51.png",
+      "credits": 400,
+      "buildCosts": [
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500014,
+          2000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 15,
+        "inactiveCost": 7,
+        "activeEco": -16384,
+        "inactiveEco": -8192,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      },
+      "type": "factory",
+      "product": 2500036,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500035,
+        "need": 1500
+      },
+      "raw2": null
+    },
+    {
+      "guid": 10093,
+      "icon": "icon_27_56.png",
+      "credits": 600,
+      "buildCosts": [
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500010,
+          5000
+        ],
+        [
+          2500016,
+          8000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 60,
+        "inactiveCost": 30,
+        "activeEco": -24576,
+        "inactiveEco": -12288,
+        "activeEnergy": 12288,
+        "inactiveEnergy": 4096
+      },
+      "type": "factory",
+      "product": 2500044,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500011,
+        "need": 500
+      },
+      "raw2": null
+    },
+    {
+      "guid": 10098,
+      "icon": "icon_27_5.png",
+      "credits": 600,
+      "buildCosts": [
+        [
+          2500001,
+          2000
+        ],
+        [
+          2500014,
+          2000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 15,
+        "inactiveCost": 7,
+        "activeEco": -8192,
+        "inactiveEco": -4096,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      },
+      "type": "farm",
+      "product": 2500005,
+      "productionTime": 15000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10100,
+      "icon": "icon_27_54.png",
+      "credits": 2000,
+      "buildCosts": [
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500014,
+          6000
+        ],
+        [
+          2500017,
+          6000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 50,
+        "inactiveCost": 25,
+        "activeEco": -32768,
+        "inactiveEco": -16384,
+        "activeEnergy": 32768,
+        "inactiveEnergy": 16384
+      },
+      "type": "factory",
+      "product": 2500064,
+      "productionTime": 45000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500009,
+        "need": 1500
+      },
+      "raw2": {
+        "product": 2500037,
+        "need": 3000
+      }
+    },
+    {
+      "guid": 10102,
+      "icon": "icon_27_212.png",
+      "credits": 100,
+      "buildCosts": [
+        [
+          2500001,
+          1000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 5,
+        "inactiveCost": 2,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 4096,
+        "inactiveEnergy": 0
+      },
+      "type": "farm",
+      "product": 2500066,
+      "productionTime": 40000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10108,
+      "icon": "icon_27_211.png",
+      "credits": 1000,
+      "buildCosts": [
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500017,
+          8000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 60,
+        "inactiveCost": 30,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 16384,
+        "inactiveEnergy": 8192
+      },
+      "type": "farm",
+      "product": 2500014,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10112,
+      "icon": "icon_27_73.png",
+      "credits": 1500,
+      "buildCosts": [
+        [
+          2500001,
+          5000
+        ],
+        [
+          2500014,
+          8000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 40,
+        "inactiveCost": 20,
+        "activeEco": -24576,
+        "inactiveEco": -12288,
+        "activeEnergy": 24576,
+        "inactiveEnergy": 12288
+      },
+      "type": "factory",
+      "product": 2500017,
+      "productionTime": 45000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500005,
+        "need": 1500
+      },
+      "raw2": {
+        "product": 2500036,
+        "need": 1500
+      }
+    },
+    {
+      "guid": 10114,
+      "icon": "icon_27_89.png",
+      "credits": 400,
+      "buildCosts": [
+        [
+          2500000,
+          5000
+        ],
+        [
+          2500001,
+          5000
+        ],
+        [
+          2500014,
+          4000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 60,
+        "inactiveCost": 30,
+        "activeEco": -24576,
+        "inactiveEco": -12288,
+        "activeEnergy": 12288,
+        "inactiveEnergy": 4096
+      },
+      "type": "factory",
+      "product": 2500015,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500034,
+        "need": 500
+      },
+      "raw2": {
+        "product": 2500033,
+        "need": 1000
+      }
+    },
+    {
+      "guid": 10120,
+      "icon": "icon_27_53.png",
+      "credits": 1000,
+      "buildCosts": [
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500014,
+          4000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 30,
+        "inactiveCost": 15,
+        "activeEco": -16384,
+        "inactiveEco": -8192,
+        "activeEnergy": 16384,
+        "inactiveEnergy": 8192
+      },
+      "type": "factory",
+      "product": 2500062,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500009,
+        "need": 1000
+      },
+      "raw2": null
+    },
+    {
+      "guid": 10123,
+      "icon": "icon_27_115.png",
+      "credits": 10000,
+      "buildCosts": [
+        [
+          2500000,
+          12000
+        ],
+        [
+          2500001,
+          2000
+        ],
+        [
+          2500015,
+          12000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 200,
+        "inactiveCost": 100,
+        "activeEco": 1228800,
+        "inactiveEco": 0,
+        "activeEnergy": 1024000,
+        "inactiveEnergy": 491520
+      },
+      "type": "eco",
+      "product": 2600078,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10148,
+      "icon": "icon_27_151.png",
+      "credits": 250,
+      "buildCosts": [
+        [
+          2500001,
+          4000
+        ],
+        [
+          2500014,
+          3000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 10,
+        "inactiveCost": 5,
+        "activeEco": -16384,
+        "inactiveEco": -8192,
+        "activeEnergy": 16384,
+        "inactiveEnergy": 8192
+      },
+      "type": "factory",
+      "product": 2500016,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500034,
+        "need": 500
+      },
+      "raw2": {
+        "product": 2500033,
+        "need": 1000
+      }
+    },
+    {
+      "guid": 10149,
+      "icon": "icon_27_124.png",
+      "credits": 150,
+      "buildCosts": [
+        [
+          2500001,
+          1000
+        ],
+        [
+          2500014,
+          1000
+        ],
+        [
+          2500016,
+          3000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 15,
+        "inactiveCost": 7,
+        "activeEco": -12288,
+        "inactiveEco": -4096,
+        "activeEnergy": 16384,
+        "inactiveEnergy": 8192
+      },
+      "type": "farm",
+      "product": 2500035,
+      "productionTime": 60000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10150,
+      "icon": "icon_27_153.png",
+      "credits": 150,
+      "buildCosts": [
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500014,
+          2000
+        ],
+        [
+          2500016,
+          5000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 10,
+        "inactiveCost": 5,
+        "activeEco": -8192,
+        "inactiveEco": -4096,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      },
+      "type": "farm",
+      "product": 2500042,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10152,
+      "icon": "icon_27_203.png",
+      "credits": 200,
+      "buildCosts": [
+        [
+          2500001,
+          4000
+        ],
+        [
+          2500014,
+          2000
+        ],
+        [
+          2500016,
+          7000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 15,
+        "inactiveCost": 7,
+        "activeEco": -12288,
+        "inactiveEco": -8192,
+        "activeEnergy": 16384,
+        "inactiveEnergy": 8192
+      },
+      "type": "factory",
+      "product": 2500020,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500003,
+        "need": 1000
+      },
+      "raw2": {
+        "product": 2500042,
+        "need": 1000
+      }
+    },
+    {
+      "guid": 10153,
+      "icon": "icon_27_154.png",
+      "credits": 300,
+      "buildCosts": [
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500010,
+          4000
+        ],
+        [
+          2500014,
+          5000
+        ],
+        [
+          2500016,
+          6000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 30,
+        "inactiveCost": 15,
+        "activeEco": -12288,
+        "inactiveEco": -4096,
+        "activeEnergy": 12288,
+        "inactiveEnergy": 4096
+      },
+      "type": "farm",
+      "product": 2500045,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10154,
+      "icon": "icon_27_155.png",
+      "credits": 200,
+      "buildCosts": [
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500010,
+          3000
+        ],
+        [
+          2500016,
+          8000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 15,
+        "inactiveCost": 7,
+        "activeEco": -8192,
+        "inactiveEco": -4096,
+        "activeEnergy": 12288,
+        "inactiveEnergy": 4096
+      },
+      "type": "farm",
+      "product": 2500046,
+      "productionTime": 80000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10156,
+      "icon": "icon_27_156.png",
+      "credits": 400,
+      "buildCosts": [
+        [
+          2500001,
+          4000
+        ],
+        [
+          2500010,
+          6000
+        ],
+        [
+          2500014,
+          8000
+        ],
+        [
+          2500016,
+          10000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 30,
+        "inactiveCost": 15,
+        "activeEco": -16384,
+        "inactiveEco": -8192,
+        "activeEnergy": 24576,
+        "inactiveEnergy": 12288
+      },
+      "type": "factory",
+      "product": 2500021,
+      "productionTime": 60000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500045,
+        "need": 1000
+      },
+      "raw2": {
+        "product": 2500046,
+        "need": 1500
+      }
+    },
+    {
+      "guid": 10157,
+      "icon": "icon_27_157.png",
+      "credits": 200,
+      "buildCosts": [
+        [
+          2500001,
+          4000
+        ],
+        [
+          2500010,
+          8000
+        ],
+        [
+          2500016,
+          7000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 15,
+        "inactiveCost": 7,
+        "activeEco": -8192,
+        "inactiveEco": -4096,
+        "activeEnergy": 12288,
+        "inactiveEnergy": 4096
+      },
+      "type": "farm",
+      "product": 2500047,
+      "productionTime": 96000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10158,
+      "icon": "icon_27_158.png",
+      "credits": 400,
+      "buildCosts": [
+        [
+          2500001,
+          8000
+        ],
+        [
+          2500010,
+          5000
+        ],
+        [
+          2500014,
+          7000
+        ],
+        [
+          2500016,
+          12000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 30,
+        "inactiveCost": 15,
+        "activeEco": -16384,
+        "inactiveEco": -8192,
+        "activeEnergy": 24576,
+        "inactiveEnergy": 12288
+      },
+      "type": "factory",
+      "product": 2500024,
+      "productionTime": 48000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500047,
+        "need": 1000
+      },
+      "raw2": {
+        "product": 2500038,
+        "need": 1000
+      }
+    },
+    {
+      "guid": 10159,
+      "icon": "icon_27_160.png",
+      "credits": 300,
+      "buildCosts": [
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500014,
+          2000
+        ],
+        [
+          2500016,
+          6000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 15,
+        "inactiveCost": 7,
+        "activeEco": -16384,
+        "inactiveEco": -8192,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      },
+      "type": "factory",
+      "product": 2500026,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500036,
+        "need": 1000
+      },
+      "raw2": null
+    },
+    {
+      "guid": 10161,
+      "icon": "icon_27_161.png",
+      "credits": 400,
+      "buildCosts": [
+        [
+          2500001,
+          12000
+        ],
+        [
+          2500010,
+          8000
+        ],
+        [
+          2500014,
+          7000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 30,
+        "inactiveCost": 15,
+        "activeEco": -24576,
+        "inactiveEco": -12288,
+        "activeEnergy": 16384,
+        "inactiveEnergy": 8192
+      },
+      "type": "farm",
+      "product": 2500048,
+      "productionTime": 45000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10162,
+      "icon": "icon_27_162.png",
+      "credits": 500,
+      "buildCosts": [
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500010,
+          6000
+        ],
+        [
+          2500014,
+          8000
+        ],
+        [
+          2500016,
+          15000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 30,
+        "inactiveCost": 15,
+        "activeEco": -20480,
+        "inactiveEco": -8192,
+        "activeEnergy": 16384,
+        "inactiveEnergy": 8192
+      },
+      "type": "factory",
+      "product": 2500049,
+      "productionTime": 45000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500048,
+        "need": 1000
+      },
+      "raw2": {
+        "product": 2500005,
+        "need": 1500
+      }
+    },
+    {
+      "guid": 10163,
+      "icon": "icon_27_163.png",
+      "credits": 600,
+      "buildCosts": [
+        [
+          2500001,
+          8000
+        ],
+        [
+          2500010,
+          8000
+        ],
+        [
+          2500014,
+          9000
+        ],
+        [
+          2500016,
+          18000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 40,
+        "inactiveCost": 20,
+        "activeEco": -20480,
+        "inactiveEco": -8192,
+        "activeEnergy": 32768,
+        "inactiveEnergy": 16384
+      },
+      "type": "factory",
+      "product": 2500027,
+      "productionTime": 45000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500049,
+        "need": 1000
+      },
+      "raw2": {
+        "product": 2500041,
+        "need": 1000
+      }
+    },
+    {
+      "guid": 10164,
+      "icon": "icon_27_164.png",
+      "credits": 100,
+      "buildCosts": [
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500010,
+          14000
+        ],
+        [
+          2500016,
+          12000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 10,
+        "inactiveCost": 5,
+        "activeEco": -16384,
+        "inactiveEco": -8192,
+        "activeEnergy": 12288,
+        "inactiveEnergy": 4096
+      },
+      "type": "farm",
+      "product": 2500050,
+      "productionTime": 120000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10166,
+      "icon": "icon_27_165.png",
+      "credits": 400,
+      "buildCosts": [
+        [
+          2500001,
+          20000
+        ],
+        [
+          2500010,
+          15000
+        ],
+        [
+          2500014,
+          12000
+        ],
+        [
+          2500016,
+          20000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 25,
+        "inactiveCost": 12,
+        "activeEco": -32768,
+        "inactiveEco": -16384,
+        "activeEnergy": 24576,
+        "inactiveEnergy": 12288
+      },
+      "type": "factory",
+      "product": 2500051,
+      "productionTime": 60000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500050,
+        "need": 1500
+      },
+      "raw2": {
+        "product": 2500013,
+        "need": 1000
+      }
+    },
+    {
+      "guid": 10168,
+      "icon": "icon_27_167.png",
+      "credits": 1000,
+      "buildCosts": [
+        [
+          2500001,
+          20000
+        ],
+        [
+          2500010,
+          20000
+        ],
+        [
+          2500014,
+          15000
+        ],
+        [
+          2500016,
+          25000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 80,
+        "inactiveCost": 40,
+        "activeEco": -32768,
+        "inactiveEco": -16384,
+        "activeEnergy": 61440,
+        "inactiveEnergy": 28672
+      },
+      "type": "factory",
+      "product": 2500028,
+      "productionTime": 60000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500051,
+        "need": 1000
+      },
+      "raw2": {
+        "product": 2500039,
+        "need": 1000
+      }
+    },
+    {
+      "guid": 10169,
+      "icon": "icon_27_169.png",
+      "credits": 5000,
+      "buildCosts": [
+        [
+          2500001,
+          20000
+        ],
+        [
+          2500010,
+          25000
+        ],
+        [
+          2500014,
+          30000
+        ],
+        [
+          2500016,
+          25000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 160,
+        "inactiveCost": 80,
+        "activeEco": 819200,
+        "inactiveEco": 0,
+        "activeEnergy": 450560,
+        "inactiveEnergy": 225280
+      },
+      "type": "eco",
+      "product": 2600078,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10170,
+      "icon": "icon_27_170.png",
+      "credits": 800,
+      "buildCosts": [
+        [
+          2500001,
+          5000
+        ],
+        [
+          2500014,
+          4000
+        ],
+        [
+          2500016,
+          12000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 40,
+        "inactiveCost": 20,
+        "activeEco": 204800,
+        "inactiveEco": 0,
+        "activeEnergy": 20480,
+        "inactiveEnergy": 8192
+      },
+      "type": "eco",
+      "product": 2600078,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10173,
+      "icon": "icon_27_74.png",
+      "credits": 300,
+      "buildCosts": [
+        [
+          2500000,
+          8000
+        ],
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500014,
+          6000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 65,
+        "inactiveCost": 32,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": -286720,
+        "inactiveEnergy": 0
+      },
+      "type": "energy",
+      "product": 2600012,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10174,
+      "icon": "icon_27_194.png",
+      "credits": 250,
+      "buildCosts": [
+        [
+          2500000,
+          2000
+        ],
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500014,
+          1000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 10,
+        "inactiveCost": 5,
+        "activeEco": -4096,
+        "inactiveEco": 0,
+        "activeEnergy": 4096,
+        "inactiveEnergy": 0
+      },
+      "type": "farm",
+      "product": 2500053,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10176,
+      "icon": "icon_27_134.png",
+      "credits": 300,
+      "buildCosts": [
+        [
+          2500000,
+          4000
+        ],
+        [
+          2500001,
+          2000
+        ],
+        [
+          2500014,
+          2000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 15,
+        "inactiveCost": 7,
+        "activeEco": -12288,
+        "inactiveEco": -4096,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      },
+      "type": "factory",
+      "product": 2500019,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500053,
+        "need": 1000
+      },
+      "raw2": {
+        "product": 2500002,
+        "need": 1000
+      }
+    },
+    {
+      "guid": 10177,
+      "icon": "icon_27_135.png",
+      "credits": 150,
+      "buildCosts": [
+        [
+          2500000,
+          3000
+        ],
+        [
+          2500001,
+          5000
+        ],
+        [
+          2500015,
+          4000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 15,
+        "inactiveCost": 7,
+        "activeEco": -8192,
+        "inactiveEco": -4096,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      },
+      "type": "farm",
+      "product": 2500056,
+      "productionTime": 90000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10179,
+      "icon": "icon_27_136.png",
+      "credits": 400,
+      "buildCosts": [
+        [
+          2500000,
+          2000
+        ],
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500014,
+          4000
+        ],
+        [
+          2500015,
+          6000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 25,
+        "inactiveCost": 12,
+        "activeEco": -20480,
+        "inactiveEco": -8192,
+        "activeEnergy": 16384,
+        "inactiveEnergy": 8192
+      },
+      "type": "factory",
+      "product": 2500057,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500056,
+        "need": 1000
+      },
+      "raw2": null
+    },
+    {
+      "guid": 10180,
+      "icon": "icon_27_137.png",
+      "credits": 300,
+      "buildCosts": [
+        [
+          2500000,
+          4000
+        ],
+        [
+          2500001,
+          4000
+        ],
+        [
+          2500014,
+          8000
+        ],
+        [
+          2500015,
+          10000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 20,
+        "inactiveCost": 10,
+        "activeEco": -16384,
+        "inactiveEco": -8192,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      },
+      "type": "factory",
+      "product": 2500018,
+      "productionTime": 60000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500057,
+        "need": 1000
+      },
+      "raw2": {
+        "product": 2500002,
+        "need": 1500
+      }
+    },
+    {
+      "guid": 10181,
+      "icon": "icon_27_138.png",
+      "credits": 300,
+      "buildCosts": [
+        [
+          2500000,
+          5000
+        ],
+        [
+          2500001,
+          5000
+        ],
+        [
+          2500015,
+          3000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 15,
+        "inactiveCost": 7,
+        "activeEco": -4096,
+        "inactiveEco": 0,
+        "activeEnergy": 4096,
+        "inactiveEnergy": 0
+      },
+      "type": "farm",
+      "product": 2500054,
+      "productionTime": 96000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10183,
+      "icon": "icon_27_139.png",
+      "credits": 400,
+      "buildCosts": [
+        [
+          2500000,
+          6000
+        ],
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500015,
+          4000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 20,
+        "inactiveCost": 10,
+        "activeEco": -16384,
+        "inactiveEco": -8192,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      },
+      "type": "farm",
+      "product": 2500055,
+      "productionTime": 48000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10185,
+      "icon": "icon_27_140.png",
+      "credits": 500,
+      "buildCosts": [
+        [
+          2500000,
+          6000
+        ],
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500014,
+          6000
+        ],
+        [
+          2500015,
+          8000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 30,
+        "inactiveCost": 15,
+        "activeEco": -16384,
+        "inactiveEco": -8192,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      },
+      "type": "factory",
+      "product": 2500023,
+      "productionTime": 48000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500054,
+        "need": 1000
+      },
+      "raw2": {
+        "product": 2500055,
+        "need": 1000
+      }
+    },
+    {
+      "guid": 10186,
+      "icon": "icon_27_141.png",
+      "credits": 300,
+      "buildCosts": [
+        [
+          2500000,
+          6000
+        ],
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500014,
+          1000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 20,
+        "inactiveCost": 10,
+        "activeEco": -16384,
+        "inactiveEco": -8192,
+        "activeEnergy": 16384,
+        "inactiveEnergy": 8192
+      },
+      "type": "factory",
+      "product": 2500029,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500037,
+        "need": 1000
+      },
+      "raw2": null
+    },
+    {
+      "guid": 10187,
+      "icon": "icon_27_142.png",
+      "credits": 700,
+      "buildCosts": [
+        [
+          2500000,
+          12000
+        ],
+        [
+          2500001,
+          10000
+        ],
+        [
+          2500014,
+          8000
+        ],
+        [
+          2500015,
+          8000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 50,
+        "inactiveCost": 25,
+        "activeEco": -49152,
+        "inactiveEco": -24576,
+        "activeEnergy": 102400,
+        "inactiveEnergy": 49152
+      },
+      "type": "factory",
+      "product": 2500030,
+      "productionTime": 40000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500039,
+        "need": 500
+      },
+      "raw2": {
+        "product": 2500041,
+        "need": 500
+      }
+    },
+    {
+      "guid": 10188,
+      "icon": "icon_27_143.png",
+      "credits": 500,
+      "buildCosts": [
+        [
+          2500000,
+          8000
+        ],
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500014,
+          4000
+        ],
+        [
+          2500015,
+          6000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 50,
+        "inactiveCost": 25,
+        "activeEco": -8192,
+        "inactiveEco": -4096,
+        "activeEnergy": 16384,
+        "inactiveEnergy": 8192
+      },
+      "type": "farm",
+      "product": 2500058,
+      "productionTime": 120000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10190,
+      "icon": "icon_27_144.png",
+      "credits": 1000,
+      "buildCosts": [
+        [
+          2500000,
+          12000
+        ],
+        [
+          2500001,
+          10000
+        ],
+        [
+          2500014,
+          8000
+        ],
+        [
+          2500015,
+          8000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 70,
+        "inactiveCost": 35,
+        "activeEco": -32768,
+        "inactiveEco": -16384,
+        "activeEnergy": 61440,
+        "inactiveEnergy": 28672
+      },
+      "type": "factory",
+      "product": 2500059,
+      "productionTime": 60000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500058,
+        "need": 1000
+      },
+      "raw2": {
+        "product": 2500013,
+        "need": 1000
+      }
+    },
+    {
+      "guid": 10191,
+      "icon": "icon_27_145.png",
+      "credits": 1200,
+      "buildCosts": [
+        [
+          2500000,
+          18000
+        ],
+        [
+          2500001,
+          12000
+        ],
+        [
+          2500014,
+          12000
+        ],
+        [
+          2500015,
+          16000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 90,
+        "inactiveCost": 45,
+        "activeEco": -32768,
+        "inactiveEco": -16384,
+        "activeEnergy": 102400,
+        "inactiveEnergy": 49152
+      },
+      "type": "factory",
+      "product": 2500031,
+      "productionTime": 60000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500037,
+        "need": 1000
+      },
+      "raw2": {
+        "product": 2500059,
+        "need": 1000
+      }
+    },
+    {
+      "guid": 10192,
+      "icon": "icon_27_149.png",
+      "credits": 1000,
+      "buildCosts": [
+        [
+          2500000,
+          10000
+        ],
+        [
+          2500001,
+          10000
+        ],
+        [
+          2500014,
+          6000
+        ],
+        [
+          2500015,
+          10000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 40,
+        "inactiveCost": 20,
+        "activeEco": 163840,
+        "inactiveEco": 0,
+        "activeEnergy": 102400,
+        "inactiveEnergy": 49152
+      },
+      "type": "eco",
+      "product": 2600078,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10193,
+      "icon": "icon_27_150.png",
+      "credits": 400,
+      "buildCosts": [
+        [
+          2500000,
+          2000
+        ],
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500014,
+          3000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 20,
+        "inactiveCost": 10,
+        "activeEco": 61440,
+        "inactiveEco": 0,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      },
+      "type": "eco",
+      "product": 2600078,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10194,
+      "icon": "icon_27_171.png",
+      "credits": 600,
+      "buildCosts": [
+        [
+          2500001,
+          4000
+        ],
+        [
+          2500014,
+          8000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 50,
+        "inactiveCost": 25,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 24576,
+        "inactiveEnergy": 12288
+      },
+      "type": "factory",
+      "product": 2500022,
+      "productionTime": 60000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500013,
+        "need": 1000
+      },
+      "raw2": null
+    },
+    {
+      "guid": 10195,
+      "icon": "icon_27_172.png",
+      "credits": 500,
+      "buildCosts": [
+        [
+          2500001,
+          4000
+        ],
+        [
+          2500014,
+          6000
+        ],
+        [
+          2500017,
+          3000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 70,
+        "inactiveCost": 35,
+        "activeEco": -12288,
+        "inactiveEco": -4096,
+        "activeEnergy": 12288,
+        "inactiveEnergy": 4096
+      },
+      "type": "farm",
+      "product": 2500060,
+      "productionTime": 48000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10197,
+      "icon": "icon_27_173.png",
+      "credits": 500,
+      "buildCosts": [
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500014,
+          8000
+        ],
+        [
+          2500017,
+          8000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 90,
+        "inactiveCost": 45,
+        "activeEco": -16384,
+        "inactiveEco": -8192,
+        "activeEnergy": 24576,
+        "inactiveEnergy": 12288
+      },
+      "type": "factory",
+      "product": 2500025,
+      "productionTime": 48000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500060,
+        "need": 1000
+      },
+      "raw2": {
+        "product": 2500038,
+        "need": 1000
+      }
+    },
+    {
+      "guid": 10198,
+      "icon": "icon_27_181.png",
+      "credits": 500,
+      "buildCosts": [
+        [
+          2500001,
+          8000
+        ],
+        [
+          2500014,
+          7000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 30,
+        "inactiveCost": 15,
+        "activeEco": -8192,
+        "inactiveEco": -4096,
+        "activeEnergy": 12288,
+        "inactiveEnergy": 4096
+      },
+      "type": "farm",
+      "product": 2500038,
+      "productionTime": 48000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10200,
+      "icon": "icon_27_182.png",
+      "credits": 750,
+      "buildCosts": [
+        [
+          2500001,
+          4000
+        ],
+        [
+          2500014,
+          1000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 15,
+        "inactiveCost": 7,
+        "activeEco": -8192,
+        "inactiveEco": -4096,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      },
+      "type": "farm",
+      "product": 2500032,
+      "productionTime": 15000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10201,
+      "icon": "icon_27_183.png",
+      "credits": 500,
+      "buildCosts": [
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500014,
+          1000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 10,
+        "inactiveCost": 5,
+        "activeEco": -16384,
+        "inactiveEco": -8192,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      },
+      "type": "factory",
+      "product": 2500037,
+      "productionTime": 30000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500034,
+        "need": 500
+      },
+      "raw2": {
+        "product": 2500032,
+        "need": 1000
+      }
+    },
+    {
+      "guid": 10202,
+      "icon": "icon_27_184.png",
+      "credits": 1500,
+      "buildCosts": [
+        [
+          2500001,
+          12000
+        ],
+        [
+          2500014,
+          15000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 60,
+        "inactiveCost": 30,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 28672,
+        "inactiveEnergy": 12288
+      },
+      "type": "factory",
+      "product": 2500039,
+      "productionTime": 90000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500065,
+        "need": 1000
+      },
+      "raw2": null
+    },
+    {
+      "guid": 10204,
+      "icon": "icon_27_186.png",
+      "credits": 2000,
+      "buildCosts": [
+        [
+          2500001,
+          12000
+        ],
+        [
+          2500014,
+          20000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 60,
+        "inactiveCost": 30,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 40960,
+        "inactiveEnergy": 20480
+      },
+      "type": "farm",
+      "product": 2500041,
+      "productionTime": 45000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10206,
+      "icon": "icon_27_187.png",
+      "credits": 4000,
+      "buildCosts": [
+        [
+          2500001,
+          30000
+        ],
+        [
+          2500014,
+          50000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 150,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 102400,
+        "inactiveEnergy": 49152
+      },
+      "type": "farm",
+      "product": 2500048,
+      "productionTime": 40000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10207,
+      "icon": "icon_27_187.png",
+      "credits": 4000,
+      "buildCosts": [
+        [
+          2500001,
+          30000
+        ],
+        [
+          2500014,
+          50000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 100,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 102400,
+        "inactiveEnergy": 49152
+      },
+      "type": "farm",
+      "product": 2500032,
+      "productionTime": 15000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10208,
+      "icon": "icon_27_187.png",
+      "credits": 4000,
+      "buildCosts": [
+        [
+          2500001,
+          30000
+        ],
+        [
+          2500014,
+          50000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 200,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 102400,
+        "inactiveEnergy": 49152
+      },
+      "type": "farm",
+      "product": 2500011,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10220,
+      "icon": "icon_27_210.png",
+      "credits": 1000,
+      "buildCosts": [
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500014,
+          12000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 40,
+        "inactiveCost": 20,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 32768,
+        "inactiveEnergy": 16384
+      },
+      "type": "farm",
+      "product": 2500065,
+      "productionTime": 45000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10261,
+      "icon": "icon_27_212.png",
+      "credits": 50,
+      "buildCosts": [
+        [
+          2500001,
+          1000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 5,
+        "inactiveCost": 2,
+        "activeEco": -16384,
+        "inactiveEco": -8192,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 0
+      },
+      "type": "farm",
+      "product": 2500066,
+      "productionTime": 40000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10262,
+      "icon": "icon_27_69.png",
+      "credits": 50,
+      "buildCosts": [
+        [
+          2500001,
+          2000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 5,
+        "inactiveCost": 2,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 4096,
+        "inactiveEnergy": 0
+      },
+      "type": "factory",
+      "product": 2500014,
+      "productionTime": 40000,
+      "productionCount": 1000,
+      "raw1": {
+        "product": 2500066,
+        "need": 1000
+      },
+      "raw2": null
+    },
+    {
+      "guid": 10267,
+      "icon": "icon_27_11.png",
+      "credits": 2000,
+      "buildCosts": [
+        [
+          2500001,
+          20000
+        ],
+        [
+          2500010,
+          10000
+        ],
+        [
+          2500014,
+          15000
+        ],
+        [
+          2500016,
+          15000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 80,
+        "inactiveCost": 40,
+        "activeEco": 368640,
+        "inactiveEco": 0,
+        "activeEnergy": 245760,
+        "inactiveEnergy": 122880
+      },
+      "type": "eco",
+      "product": 2600078,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    },
+    {
+      "guid": 10269,
+      "icon": "icon_27_187.png",
+      "credits": 4000,
+      "buildCosts": [
+        [
+          2500001,
+          30000
+        ],
+        [
+          2500014,
+          50000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 100,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 102400,
+        "inactiveEnergy": 49152
+      },
+      "type": "farm",
+      "product": 2500008,
+      "productionTime": 20000,
+      "productionCount": 1000,
+      "raw1": null,
+      "raw2": null
+    }
+  ],
+  "buildings": [
+    {
+      "guid": 10001,
+      "icon": "icon_27_10.png",
+      "credits": 300,
+      "buildCosts": [
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500014,
+          1000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 5,
+        "inactiveCost": 5,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 4096,
+        "inactiveEnergy": 4096
+      }
+    },
+    {
+      "guid": 10011,
+      "icon": "icon_27_70.png",
+      "credits": 0,
+      "buildCosts": [
+        [
+          2500014,
+          2000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 0,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10013,
+      "icon": "icon_27_70.png",
+      "credits": 0,
+      "buildCosts": [
+        [
+          2500001,
+          1000
+        ],
+        [
+          2500014,
+          2000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 0,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10021,
+      "icon": "icon_27_71.png",
+      "credits": 0,
+      "buildCosts": [
+        [
+          2500014,
+          2000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 0,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10026,
+      "icon": "icon_27_75.png",
+      "credits": 1200,
+      "buildCosts": [
+        [
+          2500001,
+          8000
+        ],
+        [
+          2500010,
+          15000
+        ],
+        [
+          2500014,
+          20000
+        ],
+        [
+          2500016,
+          30000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 50,
+        "inactiveCost": 25,
+        "activeEco": -36864,
+        "inactiveEco": 0,
+        "activeEnergy": 40960,
+        "inactiveEnergy": 20480
+      }
+    },
+    {
+      "guid": 10033,
+      "icon": "icon_27_25.png",
+      "credits": 400,
+      "buildCosts": [
+        [
+          2500001,
+          2000
+        ],
+        [
+          2500014,
+          3000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 60,
+        "inactiveCost": 30,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10035,
+      "icon": "icon_27_25.png",
+      "credits": 300,
+      "buildCosts": [
+        [
+          2500001,
+          2000
+        ],
+        [
+          2500014,
+          3000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 10,
+        "inactiveCost": 10,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10044,
+      "icon": "icon_27_45.png",
+      "credits": 5,
+      "buildCosts": [],
+      "maintenance": {
+        "activeCost": 0,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10051,
+      "icon": "icon_27_27.png",
+      "credits": 800,
+      "buildCosts": [
+        [
+          2500001,
+          12000
+        ],
+        [
+          2500014,
+          10000
+        ],
+        [
+          2500016,
+          20000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 30,
+        "inactiveCost": 15,
+        "activeEco": -24576,
+        "inactiveEco": 0,
+        "activeEnergy": 28672,
+        "inactiveEnergy": 12288
+      }
+    },
+    {
+      "guid": 10063,
+      "icon": "icon_27_25.png",
+      "credits": 500,
+      "buildCosts": [
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500014,
+          8000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 15,
+        "inactiveCost": 15,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10064,
+      "icon": "icon_27_25.png",
+      "credits": 1000,
+      "buildCosts": [
+        [
+          2500001,
+          12000
+        ],
+        [
+          2500014,
+          10000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 20,
+        "inactiveCost": 20,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10065,
+      "icon": "icon_27_10.png",
+      "credits": 400,
+      "buildCosts": [
+        [
+          2500001,
+          5000
+        ],
+        [
+          2500014,
+          2000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 20,
+        "inactiveCost": 20,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 4096,
+        "inactiveEnergy": 4096
+      }
+    },
+    {
+      "guid": 10066,
+      "icon": "icon_27_10.png",
+      "credits": 500,
+      "buildCosts": [
+        [
+          2500001,
+          10000
+        ],
+        [
+          2500014,
+          4000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 30,
+        "inactiveCost": 30,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 4096,
+        "inactiveEnergy": 4096
+      }
+    },
+    {
+      "guid": 10067,
+      "icon": "icon_27_25.png",
+      "credits": 600,
+      "buildCosts": [
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500014,
+          12000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 75,
+        "inactiveCost": 37,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10076,
+      "icon": "icon_27_71.png",
+      "credits": 0,
+      "buildCosts": [
+        [
+          2500001,
+          1000
+        ],
+        [
+          2500014,
+          2000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 0,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10077,
+      "icon": "icon_27_49.png",
+      "credits": 5000,
+      "buildCosts": [
+        [
+          2500001,
+          5000
+        ],
+        [
+          2500014,
+          5000
+        ],
+        [
+          2500017,
+          10000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 40,
+        "inactiveCost": 20,
+        "activeEco": -32768,
+        "inactiveEco": -16384,
+        "activeEnergy": 40960,
+        "inactiveEnergy": 20480
+      }
+    },
+    {
+      "guid": 10078,
+      "icon": "icon_27_50.png",
+      "credits": 10000,
+      "buildCosts": [
+        [
+          2500001,
+          12000
+        ],
+        [
+          2500014,
+          15000
+        ],
+        [
+          2500017,
+          20000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 100,
+        "inactiveCost": 50,
+        "activeEco": -49152,
+        "inactiveEco": -24576,
+        "activeEnergy": 28672,
+        "inactiveEnergy": 12288
+      }
+    },
+    {
+      "guid": 10079,
+      "icon": "icon_27_60.png",
+      "credits": 1000,
+      "buildCosts": [
+        [
+          2500001,
+          8000
+        ],
+        [
+          2500014,
+          10000
+        ],
+        [
+          2500017,
+          8000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 30,
+        "inactiveCost": 15,
+        "activeEco": -24576,
+        "inactiveEco": -12288,
+        "activeEnergy": 61440,
+        "inactiveEnergy": 28672
+      }
+    },
+    {
+      "guid": 10088,
+      "icon": "icon_27_72.png",
+      "credits": 0,
+      "buildCosts": [
+        [
+          2500001,
+          2000
+        ],
+        [
+          2500014,
+          3000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 0,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10089,
+      "icon": "icon_27_87.png",
+      "credits": 1000,
+      "buildCosts": [
+        [
+          2500000,
+          15000
+        ],
+        [
+          2500001,
+          5000
+        ],
+        [
+          2500015,
+          10000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 15,
+        "inactiveCost": 15,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 122880,
+        "inactiveEnergy": 61440
+      }
+    },
+    {
+      "guid": 10094,
+      "icon": "icon_27_59.png",
+      "credits": 800,
+      "buildCosts": [
+        [
+          2500000,
+          7000
+        ],
+        [
+          2500001,
+          5000
+        ],
+        [
+          2500014,
+          4000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 20,
+        "inactiveCost": 10,
+        "activeEco": -16384,
+        "inactiveEco": -8192,
+        "activeEnergy": 40960,
+        "inactiveEnergy": 20480
+      }
+    },
+    {
+      "guid": 10096,
+      "icon": "icon_27_58.png",
+      "credits": 400,
+      "buildCosts": [
+        [
+          2500001,
+          5000
+        ],
+        [
+          2500014,
+          3000
+        ],
+        [
+          2500016,
+          9000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 10,
+        "inactiveCost": 5,
+        "activeEco": -24576,
+        "inactiveEco": -12288,
+        "activeEnergy": 40960,
+        "inactiveEnergy": 20480
+      }
+    },
+    {
+      "guid": 10099,
+      "icon": "icon_27_114.png",
+      "credits": 700,
+      "buildCosts": [
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500014,
+          5000
+        ],
+        [
+          2500062,
+          6000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 20,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 40960,
+        "inactiveEnergy": 20480
+      }
+    },
+    {
+      "guid": 10101,
+      "icon": "icon_27_68.png",
+      "credits": 600,
+      "buildCosts": [
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500014,
+          2000
+        ],
+        [
+          2500062,
+          4000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 15,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 16384,
+        "inactiveEnergy": 8192
+      }
+    },
+    {
+      "guid": 10109,
+      "icon": "icon_27_178.png",
+      "credits": 2000,
+      "buildCosts": [
+        [
+          2500001,
+          10000
+        ],
+        [
+          2500014,
+          15000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 100,
+        "inactiveCost": 0,
+        "activeEco": -8192,
+        "inactiveEco": -4096,
+        "activeEnergy": 40960,
+        "inactiveEnergy": 20480
+      }
+    },
+    {
+      "guid": 10110,
+      "icon": "icon_27_91.png",
+      "credits": 1200,
+      "buildCosts": [
+        [
+          2500001,
+          10000
+        ],
+        [
+          2500014,
+          5000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 40,
+        "inactiveCost": 20,
+        "activeEco": -8192,
+        "inactiveEco": -4096,
+        "activeEnergy": 40960,
+        "inactiveEnergy": 20480
+      }
+    },
+    {
+      "guid": 10113,
+      "icon": "icon_27_88.png",
+      "credits": 20000,
+      "buildCosts": [
+        [
+          2500001,
+          35000
+        ],
+        [
+          2500010,
+          36000
+        ],
+        [
+          2500014,
+          50000
+        ],
+        [
+          2500016,
+          36000
+        ],
+        [
+          2500063,
+          20000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 500,
+        "inactiveCost": 500,
+        "activeEco": -204800,
+        "inactiveEco": -204800,
+        "activeEnergy": 204800,
+        "inactiveEnergy": 204800
+      }
+    },
+    {
+      "guid": 10116,
+      "icon": "icon_27_71.png",
+      "credits": 0,
+      "buildCosts": [
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500014,
+          4000
+        ],
+        [
+          2500016,
+          3000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 0,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10117,
+      "icon": "icon_27_70.png",
+      "credits": 0,
+      "buildCosts": [
+        [
+          2500000,
+          6000
+        ],
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500014,
+          5000
+        ],
+        [
+          2500015,
+          4000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 0,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10118,
+      "icon": "icon_27_71.png",
+      "credits": 0,
+      "buildCosts": [
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500010,
+          4000
+        ],
+        [
+          2500014,
+          5000
+        ],
+        [
+          2500016,
+          6000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 0,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10119,
+      "icon": "icon_27_70.png",
+      "credits": 0,
+      "buildCosts": [
+        [
+          2500000,
+          3000
+        ],
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500014,
+          4000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 0,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10121,
+      "icon": "icon_27_116.png",
+      "credits": 800,
+      "buildCosts": [
+        [
+          2500000,
+          10000
+        ],
+        [
+          2500001,
+          12000
+        ],
+        [
+          2500014,
+          10000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 30,
+        "inactiveCost": 15,
+        "activeEco": -20480,
+        "inactiveEco": 0,
+        "activeEnergy": 28672,
+        "inactiveEnergy": 12288
+      }
+    },
+    {
+      "guid": 10124,
+      "icon": "icon_27_175.png",
+      "credits": 2500,
+      "buildCosts": [
+        [
+          2500001,
+          4000
+        ],
+        [
+          2500017,
+          4000
+        ],
+        [
+          2500064,
+          4000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 40,
+        "inactiveCost": 20,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 61440,
+        "inactiveEnergy": 28672
+      }
+    },
+    {
+      "guid": 10125,
+      "icon": "icon_27_176.png",
+      "credits": 500,
+      "buildCosts": [
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500014,
+          8000
+        ],
+        [
+          2500017,
+          3000
+        ],
+        [
+          2500062,
+          3000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 40,
+        "inactiveCost": 20,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 16384,
+        "inactiveEnergy": 8192
+      }
+    },
+    {
+      "guid": 10126,
+      "icon": "icon_27_174.png",
+      "credits": 3000,
+      "buildCosts": [
+        [
+          2500001,
+          15000
+        ],
+        [
+          2500014,
+          10000
+        ],
+        [
+          2500017,
+          15000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 15,
+        "inactiveCost": 7,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 40960,
+        "inactiveEnergy": 20480
+      }
+    },
+    {
+      "guid": 10127,
+      "icon": "icon_27_177.png",
+      "credits": 1500,
+      "buildCosts": [
+        [
+          2500001,
+          12000
+        ],
+        [
+          2500014,
+          10000
+        ],
+        [
+          2500017,
+          12000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 60,
+        "inactiveCost": 30,
+        "activeEco": -40960,
+        "inactiveEco": -20480,
+        "activeEnergy": 40960,
+        "inactiveEnergy": 20480
+      }
+    },
+    {
+      "guid": 10128,
+      "icon": "icon_27_113.png",
+      "credits": 500,
+      "buildCosts": [
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500014,
+          7000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 40,
+        "inactiveCost": 20,
+        "activeEco": -16384,
+        "inactiveEco": 0,
+        "activeEnergy": 28672,
+        "inactiveEnergy": 16384
+      }
+    },
+    {
+      "guid": 10129,
+      "icon": "icon_27_112.png",
+      "credits": 1000,
+      "buildCosts": [
+        [
+          2500001,
+          10000
+        ],
+        [
+          2500014,
+          7000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 60,
+        "inactiveCost": 30,
+        "activeEco": -24576,
+        "inactiveEco": 0,
+        "activeEnergy": 61440,
+        "inactiveEnergy": 28672
+      }
+    },
+    {
+      "guid": 10130,
+      "icon": "icon_27_111.png",
+      "credits": 300,
+      "buildCosts": [
+        [
+          2500001,
+          8000
+        ],
+        [
+          2500014,
+          6000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 25,
+        "inactiveCost": 12,
+        "activeEco": -8192,
+        "inactiveEco": 0,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      }
+    },
+    {
+      "guid": 10131,
+      "icon": "icon_27_179.png",
+      "credits": 1000,
+      "buildCosts": [
+        [
+          2500001,
+          10000
+        ],
+        [
+          2500014,
+          10000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 30,
+        "inactiveCost": 0,
+        "activeEco": -16384,
+        "inactiveEco": -8192,
+        "activeEnergy": 8192,
+        "inactiveEnergy": 4096
+      }
+    },
+    {
+      "guid": 10132,
+      "icon": "icon_27_180.png",
+      "credits": 2000,
+      "buildCosts": [
+        [
+          2500001,
+          5000
+        ],
+        [
+          2500014,
+          3000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 25,
+        "inactiveCost": 12,
+        "activeEco": -8192,
+        "inactiveEco": -4096,
+        "activeEnergy": 40960,
+        "inactiveEnergy": 20480
+      }
+    },
+    {
+      "guid": 10147,
+      "icon": "icon_27_168.png",
+      "credits": 300,
+      "buildCosts": [
+        [
+          2500001,
+          4000
+        ],
+        [
+          2500014,
+          4000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 5,
+        "inactiveCost": 2,
+        "activeEco": -12288,
+        "inactiveEco": 0,
+        "activeEnergy": 20480,
+        "inactiveEnergy": 8192
+      }
+    },
+    {
+      "guid": 10171,
+      "icon": "icon_27_146.png",
+      "credits": 600,
+      "buildCosts": [
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500014,
+          4000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 5,
+        "inactiveCost": 2,
+        "activeEco": -8192,
+        "inactiveEco": 0,
+        "activeEnergy": 20480,
+        "inactiveEnergy": 8192
+      }
+    },
+    {
+      "guid": 10172,
+      "icon": "icon_27_148.png",
+      "credits": 1200,
+      "buildCosts": [
+        [
+          2500000,
+          15000
+        ],
+        [
+          2500001,
+          12000
+        ],
+        [
+          2500014,
+          15000
+        ],
+        [
+          2500015,
+          25000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 50,
+        "inactiveCost": 25,
+        "activeEco": -32768,
+        "inactiveEco": 0,
+        "activeEnergy": 40960,
+        "inactiveEnergy": 20480
+      }
+    },
+    {
+      "guid": 10209,
+      "icon": "icon_27_72.png",
+      "credits": 0,
+      "buildCosts": [
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500014,
+          4000
+        ],
+        [
+          2500017,
+          4000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 0,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10210,
+      "icon": "icon_27_213.png",
+      "credits": 50000,
+      "buildCosts": [
+        [
+          2500000,
+          24000
+        ],
+        [
+          2500001,
+          50000
+        ],
+        [
+          2500014,
+          80000
+        ],
+        [
+          2500015,
+          36000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 500,
+        "inactiveCost": 250,
+        "activeEco": -245760,
+        "inactiveEco": -122880,
+        "activeEnergy": 327680,
+        "inactiveEnergy": 163840
+      }
+    },
+    {
+      "guid": 10211,
+      "icon": "icon_27_213.png",
+      "credits": 50000,
+      "buildCosts": [
+        [
+          2500000,
+          24000
+        ],
+        [
+          2500001,
+          50000
+        ],
+        [
+          2500014,
+          80000
+        ],
+        [
+          2500015,
+          36000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 600,
+        "inactiveCost": 300,
+        "activeEco": -409600,
+        "inactiveEco": -204800,
+        "activeEnergy": 573440,
+        "inactiveEnergy": 286720
+      }
+    },
+    {
+      "guid": 10212,
+      "icon": "icon_27_213.png",
+      "credits": 50000,
+      "buildCosts": [
+        [
+          2500000,
+          24000
+        ],
+        [
+          2500001,
+          50000
+        ],
+        [
+          2500014,
+          80000
+        ],
+        [
+          2500015,
+          36000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 750,
+        "inactiveCost": 375,
+        "activeEco": -573440,
+        "inactiveEco": -286720,
+        "activeEnergy": 819200,
+        "inactiveEnergy": 409600
+      }
+    },
+    {
+      "guid": 10213,
+      "icon": "icon_27_213.png",
+      "credits": 50000,
+      "buildCosts": [
+        [
+          2500000,
+          24000
+        ],
+        [
+          2500001,
+          50000
+        ],
+        [
+          2500014,
+          80000
+        ],
+        [
+          2500015,
+          36000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 1000,
+        "inactiveCost": 500,
+        "activeEco": -163840,
+        "inactiveEco": -81920,
+        "activeEnergy": 1228800,
+        "inactiveEnergy": 614400
+      }
+    },
+    {
+      "guid": 10214,
+      "icon": "icon_27_214.png",
+      "credits": 50000,
+      "buildCosts": [
+        [
+          2500001,
+          50000
+        ],
+        [
+          2500010,
+          25000
+        ],
+        [
+          2500014,
+          80000
+        ],
+        [
+          2500016,
+          25000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 500,
+        "inactiveCost": 250,
+        "activeEco": -327680,
+        "inactiveEco": -163840,
+        "activeEnergy": 327680,
+        "inactiveEnergy": 163840
+      }
+    },
+    {
+      "guid": 10215,
+      "icon": "icon_27_214.png",
+      "credits": 50000,
+      "buildCosts": [
+        [
+          2500001,
+          50000
+        ],
+        [
+          2500010,
+          25000
+        ],
+        [
+          2500014,
+          80000
+        ],
+        [
+          2500016,
+          25000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 600,
+        "inactiveCost": 300,
+        "activeEco": -491520,
+        "inactiveEco": -245760,
+        "activeEnergy": 573440,
+        "inactiveEnergy": 286720
+      }
+    },
+    {
+      "guid": 10216,
+      "icon": "icon_27_214.png",
+      "credits": 50000,
+      "buildCosts": [
+        [
+          2500001,
+          50000
+        ],
+        [
+          2500010,
+          25000
+        ],
+        [
+          2500014,
+          80000
+        ],
+        [
+          2500016,
+          25000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 750,
+        "inactiveCost": 450,
+        "activeEco": -655360,
+        "inactiveEco": -286720,
+        "activeEnergy": 819200,
+        "inactiveEnergy": 409600
+      }
+    },
+    {
+      "guid": 10217,
+      "icon": "icon_27_214.png",
+      "credits": 50000,
+      "buildCosts": [
+        [
+          2500001,
+          50000
+        ],
+        [
+          2500010,
+          25000
+        ],
+        [
+          2500014,
+          80000
+        ],
+        [
+          2500016,
+          25000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 1000,
+        "inactiveCost": 500,
+        "activeEco": -245760,
+        "inactiveEco": -122880,
+        "activeEnergy": 1228800,
+        "inactiveEnergy": 614400
+      }
+    },
+    {
+      "guid": 10221,
+      "icon": "icon_27_71.png",
+      "credits": 0,
+      "buildCosts": [
+        [
+          2500014,
+          2000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 0,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10222,
+      "icon": "icon_27_70.png",
+      "credits": 0,
+      "buildCosts": [
+        [
+          2500014,
+          2000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 0,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10223,
+      "icon": "icon_27_72.png",
+      "credits": 0,
+      "buildCosts": [
+        [
+          2500001,
+          4000
+        ],
+        [
+          2500014,
+          3000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 0,
+        "inactiveCost": 0,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10229,
+      "icon": "icon_27_26.png",
+      "credits": 600,
+      "buildCosts": [
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500014,
+          5000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 10,
+        "inactiveCost": 10,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 4096,
+        "inactiveEnergy": 4096
+      }
+    },
+    {
+      "guid": 10237,
+      "icon": "icon_27_25.png",
+      "credits": 1000,
+      "buildCosts": [
+        [
+          2500001,
+          8000
+        ],
+        [
+          2500014,
+          14000
+        ],
+        [
+          2500017,
+          2000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 85,
+        "inactiveCost": 42,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10238,
+      "icon": "icon_27_24.png",
+      "credits": 500,
+      "buildCosts": [
+        [
+          2500001,
+          6000
+        ],
+        [
+          2500014,
+          12000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 40,
+        "inactiveCost": 20,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 0,
+        "inactiveEnergy": 0
+      }
+    },
+    {
+      "guid": 10256,
+      "icon": "icon_27_217.png",
+      "credits": 2000,
+      "buildCosts": [
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500014,
+          5000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 5,
+        "inactiveCost": 2,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 4096,
+        "inactiveEnergy": 4096
+      }
+    },
+    {
+      "guid": 10257,
+      "icon": "icon_27_216.png",
+      "credits": 300,
+      "buildCosts": [
+        [
+          2500001,
+          3000
+        ],
+        [
+          2500014,
+          5000
+        ]
+      ],
+      "maintenance": {
+        "activeCost": 10,
+        "inactiveCost": 10,
+        "activeEco": 0,
+        "inactiveEco": 0,
+        "activeEnergy": 4096,
+        "inactiveEnergy": 4096
+      }
+    }
+  ],
+  "demands": [
+    {
+      "product": 2500004,
+      "amounts": {
+        "ecos1": 800,
+        "ecos2": 550,
+        "ecos3": 350,
+        "ecos4": 250,
+        "techs1": 250,
+        "techs2": 250,
+        "tycoons1": 800,
+        "tycoons2": 550,
+        "tycoons3": 350,
+        "tycoons4": 250
+      }
+    },
+    {
+      "product": 2500006,
+      "amounts": {
+        "ecos1": 400,
+        "ecos2": 400,
+        "ecos3": 300,
+        "ecos4": 200
+      }
+    },
+    {
+      "product": 2500019,
+      "amounts": {
+        "ecos2": 450,
+        "ecos3": 350,
+        "ecos4": 300
+      }
+    },
+    {
+      "product": 2500029,
+      "amounts": {
+        "ecos2": 350,
+        "ecos3": 250,
+        "ecos4": 160
+      }
+    },
+    {
+      "product": 2500018,
+      "amounts": {
+        "ecos3": 200,
+        "ecos4": 125
+      }
+    },
+    {
+      "product": 2500023,
+      "amounts": {
+        "ecos3": 185,
+        "ecos4": 200
+      }
+    },
+    {
+      "product": 2500030,
+      "amounts": {
+        "ecos4": 200
+      }
+    },
+    {
+      "product": 2500031,
+      "amounts": {
+        "ecos4": 150
+      }
+    },
+    {
+      "product": 2500007,
+      "amounts": {
+        "tycoons1": 500,
+        "tycoons2": 450,
+        "tycoons3": 500,
+        "tycoons4": 200
+      }
+    },
+    {
+      "product": 2500020,
+      "amounts": {
+        "tycoons2": 520,
+        "tycoons3": 420,
+        "tycoons4": 350
+      }
+    },
+    {
+      "product": 2500026,
+      "amounts": {
+        "tycoons2": 350,
+        "tycoons3": 250,
+        "tycoons4": 160
+      }
+    },
+    {
+      "product": 2500021,
+      "amounts": {
+        "tycoons3": 130,
+        "tycoons4": 90
+      }
+    },
+    {
+      "product": 2500024,
+      "amounts": {
+        "tycoons3": 185,
+        "tycoons4": 125
+      }
+    },
+    {
+      "product": 2500027,
+      "amounts": {
+        "tycoons4": 250
+      }
+    },
+    {
+      "product": 2500028,
+      "amounts": {
+        "tycoons4": 200
+      }
+    },
+    {
+      "product": 2500022,
+      "amounts": {
+        "techs1": 335,
+        "techs2": 265
+      }
+    },
+    {
+      "product": 2500025,
+      "amounts": {
+        "techs1": 415,
+        "techs2": 340
+      }
+    }
+  ]
+}

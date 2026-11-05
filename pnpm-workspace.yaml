@@ -1,0 +1,10 @@
+engineStrict: true
+
+verifyDepsBeforeRun: warn
+
+minimumReleaseAge: 2880
+
+minimumReleaseAgeExclude:
+  - '@simbo/*'
+
+trustPolicy: no-downgrade

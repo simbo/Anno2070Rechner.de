@@ -1,0 +1,98 @@
+{
+  "menuservice-de": {
+    "language": "de",
+    "params": {
+      "pb_guid": "10156"
+    },
+    "lines": [
+      "dt icon_27_156.png Gourmetmenüs tpm 1",
+      "  dd 10156 count=1 mult=1 tpm=1 need=1 icon_27_156.png Menüservice eff=100/green prod=100 bc=400,2500001:icon_27_1.png:Werkzeug:4,2500010:icon_27_34.png:Stahl:6,2500014:icon_27_211.png:Bauzellen:8,2500016:icon_27_151.png:Beton:10 mc=-30 / -15|-6 / -3|-4 / -2",
+      "  dt icon_27_154.png Hummer tpm 1",
+      "    dd 10153 count=1 mult=0.5 tpm=2 need=1 icon_27_154.png Hummerzucht eff=50/yellow prod=100 bc=300,2500001:icon_27_1.png:Werkzeug:3,2500010:icon_27_34.png:Stahl:4,2500014:icon_27_211.png:Bauzellen:5,2500016:icon_27_151.png:Beton:6 mc=-30 / -15|-3 / -1|-3 / -1",
+      "  dt icon_27_155.png Trüffel tpm 1.5",
+      "    dd 10154 count=2 mult=2 tpm=0.75 need=1.5 icon_27_155.png Trüffelzucht eff=100/green prod=100 bc=400,2500001:icon_27_1.png:Werkzeug:6,2500010:icon_27_34.png:Stahl:6,2500016:icon_27_151.png:Beton:16 mc=-30 / -14|-6 / -2|-4 / -2"
+    ]
+  },
+  "fishery-count-productivity": {
+    "language": "de",
+    "params": {
+      "pb_guid": "10045",
+      "count": 2,
+      "productivity[10045]": 200
+    },
+    "lines": [
+      "dt icon_27_4.png Fisch tpm 4",
+      "  dd 10045 count=1 mult=1 tpm=2 need=4 icon_27_4.png Fischerei eff=100/green prod=200 bc=100,2500001:icon_27_1.png:Werkzeug:2,2500014:icon_27_211.png:Bauzellen:1 mc=-5 / -2|-1 / -0|0 / 0"
+    ]
+  },
+  "nuclear-plant-energy": {
+    "language": "de",
+    "params": {
+      "pb_guid": "10050"
+    },
+    "lines": [
+      "dt icon_27_413.png Energie energy 500",
+      "  dd 10050 count=1 mult=1 tpm=500 need=500 icon_27_21.png Atomkraftwerk eff=100/green prod=100 bc=3000,2500001:icon_27_1.png:Werkzeug:24,2500010:icon_27_34.png:Stahl:36,2500014:icon_27_211.png:Bauzellen:10,2500016:icon_27_151.png:Beton:30 mc=-100 / -50|+500 / -0|-10 / -5",
+      "  dt icon_27_30.png Brennstäbe tpm 0.5",
+      "    dd 10053 count=1 mult=1 tpm=0.5 need=0.5 icon_27_30.png Brennelementefabrik eff=100/green prod=100 bc=600,2500001:icon_27_1.png:Werkzeug:14,2500010:icon_27_34.png:Stahl:8,2500014:icon_27_211.png:Bauzellen:5,2500016:icon_27_151.png:Beton:4 mc=-60 / -30|-4 / -2|-6 / -3",
+      "    dt icon_27_22.png Uran tpm 0.5",
+      "      dd 10052 count=1 mult=1 tpm=0.5 need=0.5 icon_27_22.png Uranmine eff=100/green prod=100 bc=1000,2500001:icon_27_1.png:Werkzeug:12,2500010:icon_27_34.png:Stahl:2,2500014:icon_27_211.png:Bauzellen:7,2500016:icon_27_151.png:Beton:8 mc=-50 / -25|-4 / -2|-6 / -3",
+      "      dd 10208 count=1 mult=0.16666666666667 tpm=3 need=0.5 icon_27_187.png Black Smoker Uran-Sammelstelle eff=17/red prod=100 bc=4000,2500001:icon_27_1.png:Werkzeug:30,2500014:icon_27_211.png:Bauzellen:50 mc=-200 / -0|-25 / -12|0 / 0"
+    ]
+  },
+  "eco-building": {
+    "language": "de",
+    "params": {
+      "pb_guid": "10061"
+    },
+    "lines": [
+      "dt icon_27_461.png Ökobilanz eco 100",
+      "  dd 10061 count=1 mult=1 tpm=100 need=100 icon_27_44.png Ozonemaker-Station eff=100/green prod=100 bc=3000,2500000:icon_27_0.png:Holz:12,2500001:icon_27_1.png:Werkzeug:30,2500014:icon_27_211.png:Bauzellen:20,2500015:icon_27_89.png:Glas:20 mc=-120 / -60|-60 / -30|+100 / 0"
+    ]
+  },
+  "menuservice-all-productivities": {
+    "language": "de",
+    "params": {
+      "pb_guid": "10156",
+      "tpm_needed": 7,
+      "productivity": "50 + (guid * 7) % 251 for every production building"
+    },
+    "lines": [
+      "dt icon_27_156.png Gourmetmenüs tpm 7",
+      "  dd 10156 count=7 mult=6.4220183486239 tpm=1 need=7 icon_27_156.png Menüservice eff=92/green prod=109 bc=2800,2500001:icon_27_1.png:Werkzeug:28,2500010:icon_27_34.png:Stahl:42,2500014:icon_27_211.png:Bauzellen:56,2500016:icon_27_151.png:Beton:70 mc=-210 / -105|-42 / -21|-28 / -14",
+      "  dt icon_27_154.png Hummer tpm 6.4",
+      "    dd 10153 count=4 mult=3.6488740617181 tpm=2 need=6.4220183486239 icon_27_154.png Hummerzucht eff=91/green prod=88 bc=1200,2500001:icon_27_1.png:Werkzeug:12,2500010:icon_27_34.png:Stahl:16,2500014:icon_27_211.png:Bauzellen:20,2500016:icon_27_151.png:Beton:24 mc=-120 / -60|-12 / -4|-12 / -4",
+      "  dt icon_27_155.png Trüffel tpm 9.6",
+      "    dd 10154 count=14 mult=13.520038628682 tpm=0.75 need=9.6330275229358 icon_27_155.png Trüffelzucht eff=97/green prod=95 bc=2800,2500001:icon_27_1.png:Werkzeug:42,2500010:icon_27_34.png:Stahl:42,2500016:icon_27_151.png:Beton:112 mc=-210 / -98|-42 / -14|-28 / -14"
+    ]
+  },
+  "coal-plant-preferred": {
+    "language": "de",
+    "params": {
+      "pb_guid": "10025",
+      "count": 2,
+      "preferred[]": "10024"
+    },
+    "lines": [
+      "dt icon_27_413.png Energie energy 120",
+      "  dd 10025 count=2 mult=2 tpm=60 need=120 icon_27_12.png Kohlekraftwerk eff=100/green prod=100 bc=700,2500001:icon_27_1.png:Werkzeug:8,2500014:icon_27_211.png:Bauzellen:2 mc=-20 / -10|+120 / -0|-30 / -14",
+      "  dt icon_27_5.png Kohle tpm 4",
+      "    dd 10024 count=2 mult=2 tpm=2 need=4 icon_27_5.png Schaufelradbagger eff=100/green prod=100 bc=100,2500001:icon_27_1.png:Werkzeug:6,2500014:icon_27_211.png:Bauzellen:2 mc=-20 / -10|-0 / -0|-10 / -4",
+      "    dd 10098 count=1 mult=1 tpm=4 need=4 icon_27_5.png Kohlemine eff=100/green prod=100 bc=600,2500001:icon_27_1.png:Werkzeug:2,2500014:icon_27_211.png:Bauzellen:2 mc=-15 / -7|-2 / -1|-2 / -1"
+    ]
+  },
+  "menuservice-en": {
+    "language": "en",
+    "params": {
+      "pb_guid": "10156"
+    },
+    "lines": [
+      "dt icon_27_156.png Luxury meal tpm 1",
+      "  dd 10156 count=1 mult=1 tpm=1 need=1 icon_27_156.png Gourmet factory eff=100/green prod=100 bc=400,2500001:icon_27_1.png:Tools:4,2500010:icon_27_34.png:Iron:6,2500014:icon_27_211.png:Building modules:8,2500016:icon_27_151.png:Concrete:10 mc=-30 / -15|-6 / -3|-4 / -2",
+      "  dt icon_27_154.png Lobster tpm 1",
+      "    dd 10153 count=1 mult=0.5 tpm=2 need=1 icon_27_154.png Lobster farm eff=50/yellow prod=100 bc=300,2500001:icon_27_1.png:Tools:3,2500010:icon_27_34.png:Iron:4,2500014:icon_27_211.png:Building modules:5,2500016:icon_27_151.png:Concrete:6 mc=-30 / -15|-3 / -1|-3 / -1",
+      "  dt icon_27_155.png Trufle tpm 1.5",
+      "    dd 10154 count=2 mult=2 tpm=0.75 need=1.5 icon_27_155.png Truffle farm eff=100/green prod=100 bc=400,2500001:icon_27_1.png:Tools:6,2500010:icon_27_34.png:Iron:6,2500016:icon_27_151.png:Concrete:16 mc=-30 / -14|-6 / -2|-4 / -2"
+    ]
+  }
+}

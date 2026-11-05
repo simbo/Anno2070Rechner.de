@@ -1,8 +1,7 @@
 /Material
 /Material/*
 /Material/**/*
-/img/*
-/img/**/*
+/img
 /*.mwb.bak
 /rda-data/assets.xml
 /rda-data/eng/guids.txt
@@ -14,3 +13,11 @@
 /rda-data/templates.xml
 
 .DS_Store
+
+# Node.js tooling
+/node_modules
+/dist
+/coverage
+*.tsbuildinfo
+*.log
+

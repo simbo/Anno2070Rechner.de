@@ -29,7 +29,7 @@ tool, configuration or test can enforce to that tool.
 - Test everything where a test makes sense, above all calculations and
   application logic, so that important behavior cannot change unnoticed. Do not
   chase coverage numbers or mirror the implementation in tests.
-- Verify with `pnpm check`, `pnpm test` and `pnpm build`, and report checks
-  that were not run.
+- Verify with `pnpm check`, `pnpm test` and `pnpm build`, and report checks that
+  were not run.
 - Documentation, code comments and commit messages are in English. Document
   public functions and interfaces with valid JSDoc.
