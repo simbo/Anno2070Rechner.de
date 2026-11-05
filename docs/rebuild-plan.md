@@ -15,6 +15,20 @@ Goals
   texts, same calculations including their rounding.
 - Under the hood, use a current frontend setup consistent with the author's
   other projects.
+- Optimizations, layout changes and modernization (for example a responsive
+  layout, modern image and font formats, optimized icons) only follow once the
+  rebuild is verified to work exactly like the old site.
+
+
+Release and license
+---
+
+- Versioning with Changesets, as in the author's other projects. The release
+  with the rebuild is `v2.0.0`.
+- The license changes from GPL 3 to MIT with the rebuild. All commits so far are
+  by the author.
+- The old PHP code is removed once it is no longer needed; it stays in the Git
+  history.
 
 
 Phases
@@ -22,8 +36,8 @@ Phases
 
 ### Phase 1: exact rebuild
 
-Same appearance and behavior as the live site, with these deliberate
-differences:
+Same appearance and behavior as the live site, including the fixed 960 px
+layout, with these deliberate differences:
 
 - Login, registration and the account pages are removed.
 - The "Under Development" ring in the logo is removed.
@@ -59,6 +73,7 @@ Each as a separate, traceable step:
 
 ### Later
 
+- Optimizations and modernization, see [Goals](#goals).
 - Add analytics with the Umami instance on SRVKIST
   (`https://trk.srvkist.net/trk.js`, own website id).
 
@@ -141,7 +156,11 @@ reasons. They are static archive material and are kept in a private ZIP file.
   [Hosting](#hosting-on-srvkist)).
 - The ZIP is rebuilt once the rebuild is finished and contains exactly the images
   the new site uses.
-- The icons can be optimized losslessly (about 4 KB per file today).
+- Later, the icons can be optimized losslessly (about 4 KB per file today).
+
+The font "Prototype" (`fonts/`) is taken over unchanged in phase 1. According to
+its `Prototype.txt` it is free for personal use, and that file must accompany
+any redistribution, so it is always shipped with the font.
 
 
 Hosting on SRVKIST
