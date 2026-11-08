@@ -9,6 +9,8 @@ import { defaultLanguage, type Language } from './routes';
  */
 const english: Record<string, string> = {
   Startseite: 'Home',
+  Hintergrund: 'Background',
+  'Zufällig (wechselt täglich)': 'Random (changes daily)',
   Bevölkerung: 'Population',
   Produktionsketten: 'Commodity chains',
   Datenbank: 'Database',

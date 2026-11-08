@@ -3,12 +3,14 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 import AppLink from './components/app-link.vue';
+import BackgroundMenu from './components/background-menu.vue';
 import { useI18n } from './i18n';
 import { languages, pagePath, pages, siteTitle } from './routes';
 
 /**
- * Page frame of the old site: header with logo and navigation, content, footer and the
- * language selection. Login, registration and the "Under Development" badge are gone.
+ * Page frame of the old site: header with logo, background menu and navigation, content,
+ * footer and the language selection. Login, registration and the "Under Development" badge
+ * are gone.
  */
 const route = useRoute();
 const { language, t } = useI18n();
@@ -34,6 +36,7 @@ const languageLinks = computed(() =>
       <div class="section">
         <AppLink id="home-link" :to="pagePath('population', language)" :title="`${siteTitle} » ${t('Startseite')}`" />
         <h1 id="site-title">{{ siteTitle }}</h1>
+        <BackgroundMenu />
         <ul id="menu">
           <li v-for="page in pages" :key="page.id" :class="menuClass(page.id)">
             <AppLink :to="pagePath(page.id, language)" title="">{{ t(page.title.de) }}</AppLink>

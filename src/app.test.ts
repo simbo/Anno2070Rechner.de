@@ -15,7 +15,7 @@ describe('page frame', () => {
     const items = wrapper.findAll('#menu li');
     expect(items.map(item => item.text())).toEqual(['Bevölkerung', 'Produktionsketten', 'Datenbank', 'Info']);
     expect(items.map(item => item.classes())).toEqual([[], [], ['current'], []]);
-    expect(wrapper.find('#user-menu').exists()).toBe(false);
+    expect(wrapper.findAll('#user-menu li').map(item => item.classes())).toEqual([['background']]);
     expect(wrapper.find('#under-development').exists()).toBe(false);
   });
 
@@ -40,7 +40,7 @@ describe('page frame', () => {
     const { wrapper } = await mountPage('/missing/en');
     expect(wrapper.find('h2.error').text()).toBe('Oops, something went totally wrong here…');
     expect(wrapper.findAll('#lang-select a').map(link => link.attributes('href'))).toEqual(['/', '/en']);
-    expect(document.body.className).toBe('_404 bg-eco');
+    expect(document.body.className).toMatch(/^_404 bg-(eco|tycoon)\d$/);
     expect(document.title).toBe('Page not found « Anno 2070 Rechner');
   });
 
@@ -50,7 +50,7 @@ describe('page frame', () => {
     await new Promise(resolve => setTimeout(resolve, 0));
     expect(router.currentRoute.value.path).toBe('/database');
     expect(document.title).toBe('Datenbank « Anno 2070 Rechner');
-    expect(document.body.className).toBe('database bg-eco');
+    expect(document.body.className).toMatch(/^database bg-(eco|tycoon)\d$/);
     expect(document.documentElement.lang).toBe('de');
     expect(wrapper.find('h2.database').exists()).toBe(true);
   });

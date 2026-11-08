@@ -5,6 +5,7 @@ ignorePaths:
   - '**/Prototype.txt'
 
 words:
+  - Ecos
   - productivities
   - Rechner
   - SRVKIST

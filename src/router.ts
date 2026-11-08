@@ -79,7 +79,8 @@ export function updateDocument(to: RouteLocationNormalized): void {
   const title = page ? page.title[to.meta.language] : notFoundTitle[to.meta.language];
   document.title = documentTitle(title);
   document.documentElement.lang = to.meta.language;
-  document.body.setAttribute('class', `${to.meta.page ?? '_404'} bg-eco`);
+  const background = [...document.body.classList].filter(name => name.startsWith('bg-'));
+  document.body.setAttribute('class', [to.meta.page ?? '_404', ...background].join(' '));
 }
 
 /**

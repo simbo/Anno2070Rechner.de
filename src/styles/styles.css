@@ -182,30 +182,34 @@ body {
   color: #fff;
   text-align: center;
   text-shadow: 0px 0px 2px #0d1723;
-  background: #000 url('/img/bg-body-eco1.jpg') no-repeat top center fixed;
+  background: #000 no-repeat top center fixed;
 }
 
-body.eco2 {
+body.bg-eco1 {
+  background-image: url('/img/bg-body-eco1.jpg');
+}
+
+body.bg-eco2 {
   background-image: url('/img/bg-body-eco2.jpg');
 }
 
-body.eco3 {
+body.bg-eco3 {
   background-image: url('/img/bg-body-eco3.jpg');
 }
 
-body.eco4 {
+body.bg-eco4 {
   background-image: url('/img/bg-body-eco4.jpg');
 }
 
-body.eco5 {
+body.bg-eco5 {
   background-image: url('/img/bg-body-eco5.jpg');
 }
 
-body.tycoon1 {
+body.bg-tycoon1 {
   background-image: url('/img/bg-body-tycoon1.jpg');
 }
 
-body.tycoon2 {
+body.bg-tycoon2 {
   background-image: url('/img/bg-body-tycoon2.jpg');
 }
 
@@ -326,6 +330,19 @@ a:focus {
   opacity: 0.6;
 }
 
+#background-chooser {
+  position: absolute;
+  top: 20px;
+  right: 0;
+}
+
+#background-menu {
+  top: 32px;
+  right: 15px;
+  margin: 0;
+  z-index: 1000;
+}
+
 #user-menu {
   float: right;
   height: 30px;
@@ -372,6 +389,10 @@ a:focus {
 
 #user-menu li.logout a {
   background-position: -24px -24px;
+}
+
+#user-menu li.background a {
+  background-position: -48px -24px;
 }
 
 #menu {
