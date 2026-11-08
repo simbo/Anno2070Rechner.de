@@ -6,9 +6,9 @@ is rebuilt as a purely static frontend without any server-side code and moved to
 SRVKIST. This document records the agreed plan and its state.
 
 **State:** phases 1 and 2 are implemented and verified on the branch
-`static-rebuild` (see [Verification](#verification)). Remaining adjustments, the
-release automation, the image ZIP, `v2.0.0` and hosting on SRVKIST are still
-open, see [Next steps](#next-steps).
+`static-rebuild` (see [Verification](#verification)). Phase 3, the release
+automation, the image ZIP, `v2.0.0` and hosting on SRVKIST are still open, see
+[Next steps](#next-steps).
 
 Goals
 ---
@@ -117,19 +117,79 @@ Each as a separate, traceable step:
    over 80 px. Smaller windows get neither blur nor fade, so the image looks as
    before.
 
+### Phase 3: before `v2.0.0`
+
+Agreed on 2026-11-08 after the calculator comparison. Each as a separate,
+traceable step:
+
+1. **Game data** from `patch8.rda`, see
+   [Differences to the final game data](game-data.md#differences-to-the-final-game-data).
+2. **Game version in the header:** small text in a lighter gold (`#ecd07a`), to
+   the right of the logo: "für Spielversion 3.0.8051", "for Game Version
+   3.0.8051".
+3. **Search engines:** `robots.txt` allows everything and names the sitemap.
+   `sitemap.xml` lists the pages in both languages, generated from the route
+   table, without any query parameters.
+4. **Population boxes:** the last open box has no close button. Which boxes are
+   open is a general display setting, not part of a game, and reset leaves it
+   alone.
+5. **Reset** asks inline for confirmation if the game has inputs. It also sets
+   the chain target back to the demand.
+6. **Shareable pages:** commodity chains and database keep their whole state in
+   the URL. Old parameters keep their names and meaning; chains add `prod` and
+   `alt`. The population calculator stays at the plain `/population`, so that a
+   bookmark always opens the current state.
+7. **History:** a change inside a menu item in the same language replaces the
+   history entry. Changing the menu item or the language adds a new one.
+   Parameters survive a language change.
+8. **Saved games**, see [Saved games](#saved-games).
+
+### Saved games
+
+There is always exactly one current game, saved automatically in the browser.
+
+- A disk icon in the header shows the state on every page: without a mark for
+  default values, with a green check once inputs differ from them.
+- Its flyout has a short explanation and the list of games, most recently used
+  first. Games can be switched, renamed inline and deleted after an inline
+  confirmation. "New game" keeps the current one and starts an empty one.
+  Choosing a game on another page leads to the population calculator.
+- A game holds houses, residents, upgrade levels, information channels,
+  productivities, chain target and chain settings. Open boxes and selected
+  buildings are not part of it, and the background has its own setting.
+- A new game is called "Spiel vom 08.11.2026" or "Game from Nov 8, 2026", using
+  its start date, with "(2)" for a second game of a day. These names follow the
+  page language until the visitor renames the game.
+- Deleting the current game opens the most recently used one; deleting the only
+  game leaves an empty one.
+- Two small icons in the bottom right corner export the current game as text and
+  import such a text. Only the current game can be exported. Games have unique
+  ids: an import with an unknown id adds a game, the same id and content only
+  opens it, and the same id with other content asks whether to overwrite it, add
+  a copy or cancel. Invalid texts change nothing.
+- New interface elements and icons follow the style of the existing ones.
+
+### Browser support
+
+The hard lower limit is what Vue 3 needs: `Proxy`. That means Chrome 49, Edge
+12, Firefox from about 42, Safari 10 and Opera 36, listed in `.browserslistrc`.
+Older browsers get a short notice instead of an empty page.
+
+- `@vitejs/plugin-legacy` builds a separate bundle that only old browsers load.
+- The app's own code stays at ES2018, enforced by `lib` in
+  `tsconfig.browser.json`, so that the modern bundle needs almost no polyfills.
+  The ESLint rules asking for newer APIs are off for `src/`, with a comment.
+- The background works without CSS custom properties, `event.key` is normalized
+  for browsers with other key names, and the background fill sits behind
+  `@supports`.
+
 ### Later
 
-- Optimizations and modernization, see [Goals](#goals), for example serving the
-  background images as WebP or AVIF, or reducing the population page bundle
-  (about 32 KB with gzip, mostly zod).
-- Credit the "Prototype" font and its authors visibly on the site, in the way
-  its `Prototype.txt` asks for.
-- Look at browser support for older systems. The build target `es2022` and the
-  top-level `await` in `src/main.ts` need browsers from about 2021; older ones
-  probably show an empty page, while the old jQuery site still worked there.
-  Options are a lower build target or a notice instead of the empty page. If the
-  target gets much lower, the background fill needs `@supports`, because
-  browsers without `blur()` would show the scaled image without blur.
+- Optional proposals of the calculator comparison, none of them a fix: exact
+  fractions, a global productivity control, the senate ascension bonus, a total
+  across all chains.
+- Other optimizations and modernization, see [Goals](#goals), for example
+  serving the background images as WebP or AVIF.
 - Add analytics with the Umami instance on SRVKIST
   (`https://trk.srvkist.net/trk.js`, own website id).
 
@@ -318,37 +378,30 @@ Verification
 
 Where the work stands and what follows, in this order:
 
-1. **Cleanup and fixes before `v2.0.0`**, from the results in
-   [calculator-comparison.md](calculator-comparison.md), which is done up to the
-   check of the game data:
-   - **Update the game data** to `patch8.rda`: 12 demand values, 2 production
-     times, and maintenance and build costs. They are listed in
-     [game-data.md](game-data.md#differences-to-the-final-game-data). The data
-     is from before the first patch. This deliberately changes results against
-     the live site, so the recorded expected values and tests are adjusted with
-     it.
-   - **Name the game version** on the site.
-   - **Investigate in the game**, on the author's Windows PC, the correct raw
-     material need of chains below 100 % productivity, and whether eco and item
-     bonuses multiply. How to handle both is decided afterwards. The decision
-     that raw materials follow productivity bonuses stands, see
-     [Productivity and raw materials](calculator-comparison.md#productivity-and-raw-materials).
-   - **Decide on the optional proposals:** exact fractions, a global
-     productivity control, the senate ascension bonus, shareable links for the
-     population calculator or named presets, and a total across all chains.
-   - The remaining adjustments, including what is wanted from [Later](#later).
-     If possible, this step clears the missing support for older browsers, which
-     is not a condition for `v2.0.0`. Deep Ocean stays out of scope.
+1. **Phase 3**, see [Phase 3](#phase-3-before-v200), with the browser support
+   and the removal of the old PHP code. Deep Ocean stays out of scope.
 2. **Release automation**, prepared locally, see
    [Release automation](#release-automation).
-3. **Image ZIP:** tidy it up and have the author review it before `v2.0.0`. It
-   has to contain the new picture icon in `user-menu.png`. It gets a setup
-   script and is stored in the cloud.
-4. **`v2.0.0`**, when the author decides: remove the old PHP code, set up the
-   secrets and the GitHub App, merge `static-rebuild` into `main` locally as a
-   fast-forward and push `main`. After a successful release, activate the
-   remaining repository settings.
-5. **Hosting:** SRVKIST site block, deployment service with webhook and the
+3. **Image ZIP:** built outside the repository for the author to review. It
+   contains exactly the images the site uses, including the new icons in
+   `user-menu.png`. It gets a setup script and is stored in the cloud by the
+   author.
+4. **By the author, before `v2.0.0`:**
+   - **Info page:** a new text by the author, removing the dead links, and
+     crediting the "Prototype" font with a link to `Prototype.txt`. That file
+     only asks to be included with any redistribution, so the credit is a
+     courtesy.
+   - **Investigate in the game**, on the Windows PC, the correct raw material
+     need of chains below 100 % productivity, and whether eco and item bonuses
+     multiply, see [game-tests.md](game-tests.md). How to handle both is decided
+     afterwards. The decision that raw materials follow productivity bonuses
+     stands, see
+     [Productivity and raw materials](calculator-comparison.md#productivity-and-raw-materials).
+5. **`v2.0.0`**, when the author decides: set up the secrets and the GitHub App,
+   merge `static-rebuild` into `main` locally as a fast-forward and push `main`.
+   After a successful release, activate the remaining repository settings and
+   close issue #2 (broken umlauts).
+6. **Hosting:** SRVKIST site block, deployment service with webhook and the
    notification from `Publish 🚛`, DNS move, then the Uberspace cleanup. The
    reCAPTCHA key in `conf/site.ini` is public in the Git history and should be
    revoked by the author.
@@ -369,3 +422,5 @@ Working material outside the repository:
   Git). `user-menu.png` there now also holds the picture icon of the background
   menu and has to go into the final ZIP; the old file is kept as
   `user-menu.original.png` in the export folder.
+
+<!-- cspell:ignore für vom -->
