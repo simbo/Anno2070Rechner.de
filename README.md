@@ -23,9 +23,9 @@ pnpm run dev
 ```
 
 Interface images and game icons are not part of this repository for copyright
-reasons. For development, put them into `img/` in the repository root (ignored
-by Git); the development server serves them under `/img/`. Builds never contain
-them.
+reasons. For development, unpack the private image ZIP into `img/` in the
+repository root (ignored by Git) with `scripts/setup-images.sh <zip>`; the
+development server serves them under `/img/`. Builds never contain them.
 
 | Command          | Purpose                                              |
 | ---------------- | ---------------------------------------------------- |
@@ -40,6 +40,10 @@ them.
   application, hosting and open work
 - [docs/game-data.md](docs/game-data.md): where the game data comes from and how
   it was extracted from the game files
+- [docs/calculator-comparison.md](docs/calculator-comparison.md): comparison with
+  other Anno 2070 calculators and the final game data
+- [docs/game-tests.md](docs/game-tests.md): open questions to test in the running
+  game
 
 ## License
 
