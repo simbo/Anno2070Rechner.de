@@ -190,7 +190,8 @@ Game data
 - The game data is converted once from the export of the old MySQL database and
   stored as JSON in this repository. No extraction tooling is kept; how the data
   originally came from the game files is documented in
-  [game-data.md](game-data.md).
+  [game-data.md](game-data.md). It is from before the game's first patch and is
+  to be updated before the release, see [Next steps](#next-steps).
 - All values together are about 6 KB per language with gzip, so the data is not
   split by page:
   - `game-data.json`: language-independent values
@@ -317,10 +318,27 @@ Verification
 
 Where the work stands and what follows, in this order:
 
-1. **Remaining adjustments**, including what is wanted from [Later](#later). If
-   possible, this also clears the known limitations in the changeset: the
-   outdated game data and the missing support for older browsers. Neither is a
-   condition for `v2.0.0`, and Deep Ocean stays out of scope for it.
+1. **Cleanup and fixes before `v2.0.0`**, from the results in
+   [calculator-comparison.md](calculator-comparison.md), which is done up to the
+   check of the game data:
+   - **Update the game data** to `patch8.rda`: 12 demand values, 2 production
+     times, and maintenance and build costs. They are listed in
+     [game-data.md](game-data.md#differences-to-the-final-game-data). The data
+     is from before the first patch. This deliberately changes results against
+     the live site, so the recorded expected values and tests are adjusted with
+     it.
+   - **Name the game version** on the site.
+   - **Investigate in the game**, on the author's Windows PC, the correct raw
+     material need of chains below 100 % productivity, and whether eco and item
+     bonuses multiply. How to handle both is decided afterwards. The decision
+     that raw materials follow productivity bonuses stands, see
+     [Productivity and raw materials](calculator-comparison.md#productivity-and-raw-materials).
+   - **Decide on the optional proposals:** exact fractions, a global
+     productivity control, the senate ascension bonus, shareable links for the
+     population calculator or named presets, and a total across all chains.
+   - The remaining adjustments, including what is wanted from [Later](#later).
+     If possible, this step clears the missing support for older browsers, which
+     is not a condition for `v2.0.0`. Deep Ocean stays out of scope.
 2. **Release automation**, prepared locally, see
    [Release automation](#release-automation).
 3. **Image ZIP:** tidy it up and have the author review it before `v2.0.0`. It
@@ -338,12 +356,15 @@ Where the work stands and what follows, in this order:
 Working material outside the repository:
 
 - `~/projects/private/Anno2070Rechner-export`: the Uberspace export (code,
-  images, database dump) and the current image ZIP; private.
+  images, database dump) and the current image ZIP; private. `game-files-latest`
+  there holds the unpacked files of game version 3.0.8051.
 - `~/projects/private/Anno2070Rechner-verify`: recorded live reference data and
   the comparison tooling (`capture.py`, `live-capture.mjs`, `compare.mjs`,
   parity tests run with
   `pnpm exec vitest run --config ../Anno2070Rechner-verify/vitest.config.ts`
-  from the repository). Throwaway once the rebuild is released.
+  from the repository). `calculator-comparison` there holds the raw results and
+  scripts of the comparison with other calculators. Throwaway once the rebuild
+  is released.
 - `img/` in the repository is a local link to the exported images (ignored by
   Git). `user-menu.png` there now also holds the picture icon of the background
   menu and has to go into the final ZIP; the old file is kept as

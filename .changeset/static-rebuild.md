@@ -102,12 +102,12 @@ as before.
 
 #### Known limitations
 
-- **Game data from early 2012.** The data still comes from the game's first
-  patch, and later balance changes were never imported. A first check found 12
-  population demand values for 7 goods that are higher than in later game files,
-  so the calculator can suggest more buildings than needed for goods such as
-  jewelry or champagne. This has not been checked against the final game version
-  yet.
+- **Outdated game data.** The data is from before the game's first patch, as a
+  check against the final game version 3.0.8051 showed. 12 population demand
+  values for 7 goods are too high, so the calculator suggests up to 82 % more
+  buildings than needed for goods such as bio drinks, champagne or jewelry. Two
+  production times and some maintenance and build costs are outdated as well.
+  All other values match.
 - **No Deep Ocean.** The expansion, with its Geniuses and new goods, is still
   not supported.
 - **Current browsers only.** The site needs a browser from about 2021 or newer.
@@ -120,8 +120,8 @@ None of this is promised, and the site stays usable as it is without any of it:
 - Moving to a new server, which you should not notice. The old server and its
   database will then be deleted, including all accounts and their e-mail
   addresses.
-- A comparison with other calculators and with the final game version, which
-  could lead to updated game data.
+- Game data updated to the final game version, and the game version named on the
+  site.
 - Support for Deep Ocean.
 - Technical optimizations: modern image formats, optimized icons and a smaller
   download for the population page.

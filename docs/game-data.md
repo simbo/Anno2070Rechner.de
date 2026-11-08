@@ -13,9 +13,14 @@ Source files
 ---
 
 The data was extracted around December 2011 to February 2012 from the game files
-of Anno 2070 (Ubisoft / Related Designs) with patch 1 installed. The game stores
-its files in `.rda` archives, which were unpacked with a third-party RDA tool.
-Which tool was used is not recorded.
+of Anno 2070 (Ubisoft / Related Designs). The game stores its files in `.rda`
+archives, which were unpacked with a third-party RDA tool. Which tool was used
+is not recorded.
+
+The importer names `patch1.rda` as the source, but the values in use do not come
+from there. A comparison with the installed game in November 2026 showed that
+all our building values and demands equal `Data1.rda`, dated September 2011, the
+state before the first patch. The paths below are as the importer recorded them.
 
 | File in the archive                          | Used for                          |
 | -------------------------------------------- | --------------------------------- |
@@ -108,11 +113,108 @@ The icons were cut out of the game's icon atlases and saved in four sizes (16,
 24, 32 and 46 px) under `img/icons/<size>/`. How this was done is not recorded.
 The interface images in `img/` were made for the site, partly from game artwork.
 
+Later game versions
+---
+
+The final game version checked is 3.0.8051 (Ubisoft Connect). It was unpacked
+with RDA Explorer 1.4.0.0; the unpacked files are kept privately outside this
+repository, in `Anno2070Rechner-export/game-files-latest`.
+
+The game reads `Data1.rda` and then `patch1.rda` to `patch9.rda`, later archives
+overwriting earlier ones. `assets.xml` and `properties.xml` exist in `Data1.rda`
+and `patch1.rda` to `patch8.rda`, and `patch9.rda` only holds texts, so
+`patch8.rda` is the final state of the base game. Deep Ocean has its data in
+`addondata/config/balancing/addon_01_assets.xml` of `addon1.rda`. Downloadable
+content is in `data/config/dlc_01` to `dlc_04`.
+
+Item effects are in `data/config/features/items.xml`, and information channels
+in `data/config/features/features.xml`.
+
+Differences to the final game data
+---
+
+These are the values of our data that differ from `patch8.rda`. Raw material
+needs, all other production times, residents per house and ascension rates are
+the same. The base game has no additional production buildings. See
+[calculator-comparison.md](calculator-comparison.md#what-changed-between-versions)
+for the version in which each change was made. The data has not been updated
+yet.
+
+Demands in kilograms per 100 residents and minute:
+
+| Good            | Level    | Ours | Game |
+| --------------- | -------- | ---- | ---- |
+| ComfortFood     | Ecos3    | 200  | 150  |
+| ComfortFood     | Ecos4    | 125  | 110  |
+| HealthDrink     | Ecos3    | 185  | 150  |
+| HealthDrink     | Ecos4    | 200  | 110  |
+| Toys            | Tycoons2 | 350  | 300  |
+| Toys            | Tycoons3 | 250  | 200  |
+| Toys            | Tycoons4 | 160  | 120  |
+| LuxuryMeal      | Tycoons3 | 130  | 120  |
+| Champagne       | Tycoons3 | 185  | 120  |
+| Champagne       | Tycoons4 | 125  | 90   |
+| Jewelry         | Tycoons4 | 250  | 200  |
+| Pharmaceuticals | Tycoons4 | 200  | 175  |
+
+Buildings, in the units of the game files:
+
+| Building                           | GUID  | Value                             | Ours            | Game    |
+| ---------------------------------- | ----- | --------------------------------- | --------------- | ------- |
+| Sawmill                            | 10037 | Production time (ms)              | 45000           | 60000   |
+| River sewage treatment plant       | 10123 | Build cost: glass (kg)            | 12000           | 25000   |
+| River sewage treatment plant       | 10123 | Build cost: tools (kg)            | 2000            | 40000   |
+| River sewage treatment plant       | 10123 | Build cost: wood (kg)             | 12000           | 20000   |
+| Functional food factory            | 10194 | Active maintenance                | 50              | 40      |
+| Functional food factory            | 10194 | Inactive maintenance              | 25              | 20      |
+| Coffee plantation                  | 10195 | Active maintenance                | 70              | 40      |
+| Coffee plantation                  | 10195 | Inactive maintenance              | 35              | 20      |
+| Energy drink factory               | 10197 | Active maintenance                | 90              | 60      |
+| Energy drink factory               | 10197 | Inactive maintenance              | 45              | 30      |
+| Black Smoker Gold collection point | 10206 | Inactive maintenance              | None            | 75      |
+| Black smoker miner copper          | 10207 | Inactive maintenance              | None            | 50      |
+| Black smoker miner uranium         | 10208 | Inactive maintenance              | None            | 100     |
+| Black smoker miner uranium         | 10208 | Production time (ms)              | 20000 (default) | 60000   |
+| Black Smoker miner iron            | 10269 | Inactive maintenance              | None            | 50      |
+| Deep sea warehouse                 | 10033 | Build cost: building modules (kg) | 3000            | 8000    |
+| Deep sea warehouse                 | 10033 | Build cost: credits               | 400             | 600     |
+| Deep sea warehouse                 | 10033 | Build cost: tools (kg)            | 2000            | 4000    |
+| Warehouse                          | 10063 | Active maintenance                | 15              | 20      |
+| Warehouse                          | 10063 | Inactive maintenance              | 15              | 20      |
+| Warehouse                          | 10064 | Active maintenance                | 20              | 30      |
+| Warehouse                          | 10064 | Inactive maintenance              | 20              | 30      |
+| Depot                              | 10065 | Active maintenance                | 20              | 10      |
+| Depot                              | 10065 | Inactive maintenance              | 20              | 10      |
+| Depot                              | 10066 | Active maintenance                | 30              | 15      |
+| Depot                              | 10066 | Inactive maintenance              | 30              | 15      |
+| Deep sea warehouse                 | 10067 | Build cost: credits               | 600             | 800     |
+| Harbour defence turret             | 10101 | Build cost: building modules (kg) | 2000            | 8000    |
+| Harbour defence turret             | 10101 | Build cost: credits               | 600             | 800     |
+| Harbour defence turret             | 10101 | Build cost: tools (kg)            | 3000            | 5000    |
+| Harbour defence turret             | 10101 | Build cost: weapons (kg)          | 4000            | 5000    |
+| Clearance terminal                 | 10109 | Active maintenance                | 100             | 60      |
+| Clearance terminal                 | 10109 | Build cost: building modules (kg) | 15000           | 5000    |
+| Clearance terminal                 | 10109 | Build cost: credits               | 2000            | 1000    |
+| Harbor depot                       | 10131 | Active maintenance                | 30              | 20      |
+| Leisure center                     | 10213 | Inactive maintenance              | 500             | 1000    |
+| Leisure center                     | 10213 | Inactive eco effect               | -81920          | -163840 |
+| Leisure center                     | 10213 | Inactive energy cost              | 614400          | 1228800 |
+| Corporate headquarter              | 10217 | Inactive maintenance              | 500             | 1000    |
+| Corporate headquarter              | 10217 | Inactive eco effect               | -122880         | -245760 |
+| Corporate headquarter              | 10217 | Inactive energy cost              | 614400          | 1228800 |
+| Underwater warehouse               | 10238 | Active energy cost                | None            | 12288   |
+| Underwater warehouse               | 10238 | Build cost: building modules (kg) | 12000           | 8000    |
+| Underwater warehouse               | 10238 | Inactive energy cost              | None            | 4096    |
+| Underwater warehouse               | 10238 | Build cost: tools (kg)            | 6000            | 4000    |
+
 Getting the data again
 ---
 
-1. Install Anno 2070 and unpack the files listed above from the `.rda` archives.
-   Later patches and the expansions may have changed values and paths.
+1. Install Anno 2070 and unpack `data/config/game/assets.xml` and
+   `properties.xml` from the newest `patch*.rda` that holds them, see
+   [Later game versions](#later-game-versions).
 2. Read them as described in this document. The old importer in the Git history
    shows the exact XPath queries and special cases.
 3. Cut the icons out of the atlases and name them as described above.
+
+<!-- cspell:ignore defence -->
