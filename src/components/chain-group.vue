@@ -43,6 +43,7 @@ const outputLabels = { tpm: 'Tonnen pro Minute', energy: 'Energie', eco: 'Ökobi
         @click="index > 0 && controller.choose(group, production)"
         @activate="controller.activate(production)"
         @deactivate="controller.deactivate(group, production)"
+        @leave="controller.leave(production)"
         @productivity="controller.productivity(production, $event)"
       />
     </dd>

@@ -173,6 +173,21 @@ function onChainSettings(settings: ChainSettings): void {
 }
 
 /**
+ * Applies the productivity of the chain's top building to its production field. With the
+ * population demand as target, the chain already shows this productivity and does not have
+ * to reload. With the maximum production, its target depends on the productivity, so it
+ * reloads once the visitor is done, see `updateSelection`.
+ *
+ * @param text - The productivity in percent.
+ */
+function onChainRootProductivity(text: string): void {
+  inputs.productivity[String(container.guid)] = text;
+  if (container.target !== '0') return;
+  const count = productions.value.get(container.guid)?.count ?? 0;
+  container = { ...container, productivity: filterNum(text), count };
+}
+
+/**
  * Selects or deselects a building; Alt, Shift or Ctrl keep other selected buildings.
  *
  * @param guid - The building guid.
@@ -704,7 +719,14 @@ const ccTargetOptions = computed(() => [
   </form>
   <div id="commodity-chain-container">
     <Transition name="fade">
-      <CommodityChain v-if="chainRequest" :catalog="catalog" :request="chainRequest" @settings="onChainSettings" />
+      <CommodityChain
+        v-if="chainRequest"
+        :catalog="catalog"
+        :request="chainRequest"
+        @settings="onChainSettings"
+        @root-productivity="onChainRootProductivity"
+        @root-settled="updateSelection"
+      />
     </Transition>
   </div>
   <ul id="display-options">

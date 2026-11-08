@@ -9,6 +9,7 @@ export interface ChainController {
   choose: (group: GroupState, production: ProductionState) => void;
   activate: (production: ProductionState) => void;
   deactivate: (group: GroupState, production: ProductionState) => void;
+  leave: (production: ProductionState) => void;
   productivity: (production: ProductionState, text: string) => void;
 }
 

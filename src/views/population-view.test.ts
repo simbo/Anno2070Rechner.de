@@ -28,12 +28,51 @@ const demandTexts = (wrapper: VueWrapper): string[] =>
   wrapper.findAll('#demands-fieldset li .count').map(item => item.text());
 
 /**
+ * Types a productivity into a building box of the chain.
+ *
+ * @param wrapper - The mounted page.
+ * @param guid - The building guid.
+ * @param text - The productivity.
+ */
+async function typeInChain(wrapper: VueWrapper, guid: string, text: string): Promise<void> {
+  const input = wrapper.find(`#commodity-chain-container .production[data-guid="${guid}"] .productivity input`);
+  await input.setValue(text);
+  await input.trigger('change');
+  await flushPromises();
+}
+
+/**
  * Shows the chain of electronics, which has an alternative copper producer.
  *
  * @param wrapper - The mounted page.
  */
 async function selectElectronics(wrapper: VueWrapper): Promise<void> {
   await wrapper.find('#production-fieldset li[data-guid="10186"]').trigger('click');
+  await flushPromises();
+}
+
+/**
+ * Shows a building's chain with the maximum production as target.
+ *
+ * @param wrapper - The mounted page.
+ * @param guid - The building guid.
+ */
+async function selectForMaximum(wrapper: VueWrapper, guid: string): Promise<void> {
+  await wrapper.find(`#production-fieldset li[data-guid="${guid}"]`).trigger('click');
+  await flushPromises();
+  await wrapper.find('#commodity-chain-target a.ui-selectmenu').trigger('keydown', { key: 'ArrowDown' });
+  await flushPromises();
+}
+
+/**
+ * Opens the slider of a building in the chain, as focusing its input does.
+ *
+ * @param wrapper - The mounted page.
+ * @param guid - The building guid.
+ */
+async function openChainSlider(wrapper: VueWrapper, guid: string): Promise<void> {
+  const input = wrapper.find(`#commodity-chain-container .production[data-guid="${guid}"] .productivity input`);
+  await input.trigger('focus');
   await flushPromises();
 }
 
@@ -191,6 +230,139 @@ describe('population calculator', () => {
     await select.trigger('keydown', { key: 'ArrowDown' });
     await flushPromises();
     expect(target()).toBe('22');
+  });
+
+  describe('sync between chain and production field', () => {
+    it('updates input, count and efficiency of the field at once for the top building', async () => {
+      const { wrapper } = await mountPage('/population');
+      await enter(wrapper, 'ecos0r', '250');
+      const field = wrapper.find('#production-fieldset li[data-guid="10045"]');
+      await field.trigger('click');
+      await flushPromises();
+      expect(field.find('.count span').text()).toBe('11');
+      await typeInChain(wrapper, '10045', '200');
+      expect((field.find('.productivity input').element as HTMLInputElement).value).toBe('200');
+      expect(field.find('.count span').text()).toBe('6');
+      expect(field.find('.efficiency').text()).toBe('87%');
+      expect(wrapper.find('#commodity-chain-container .production .count').text()).toBe('×6');
+      const stored = JSON.parse(required(localStorage.getItem('anno2070rechner:population'))) as {
+        productivity: Record<string, string>;
+      };
+      expect(stored.productivity['10045']).toBe('200');
+    });
+
+    it('does not reload the chain for the synced productivity', async () => {
+      const { wrapper } = await mountPage('/population');
+      await enter(wrapper, 'ecos0r', '250');
+      await wrapper.find('#production-fieldset li[data-guid="10045"]').trigger('click');
+      await flushPromises();
+      await typeInChain(wrapper, '10045', '200');
+      const efficiency = wrapper.find('#commodity-chain-container .production .efficiency');
+      // A reloaded chain would label its efficiency again; an updated building does not.
+      expect(efficiency.find('em').exists()).toBe(false);
+      await wrapper.find('#production-fieldset li[data-guid="10045"] .productivity input').trigger('blur');
+      await flushPromises();
+      expect(wrapper.find('#commodity-chain-container .production .efficiency em').exists()).toBe(false);
+    });
+
+    it('leaves the field alone for buildings further down the chain', async () => {
+      const { wrapper } = await mountPage('/population');
+      await enter(wrapper, 'ecos0r', '2000');
+      const field = wrapper.find('#production-fieldset li[data-guid="10186"]');
+      await field.trigger('click');
+      await flushPromises();
+      const child = required(wrapper.findAll('#commodity-chain-container dl.chain dd .production').at(1));
+      await typeInChain(wrapper, required(child.attributes('data-guid')), '200');
+      expect((field.find('.productivity input').element as HTMLInputElement).value).toBe('100');
+    });
+
+    describe('with the maximum production as target', () => {
+      const chainCount = (wrapper: VueWrapper): string =>
+        wrapper.find('#commodity-chain-container .production .count').text();
+      const chainTarget = (wrapper: VueWrapper): string =>
+        wrapper.find('#commodity-chain-container dl.chain dt .target').text();
+      const fieldCount = (wrapper: VueWrapper, guid: string): string =>
+        wrapper.find(`#production-fieldset li[data-guid="${guid}"] .count span`).text();
+
+      it('keeps the target while typing and reloads after a click elsewhere', async () => {
+        const { wrapper } = await mountPage('/population');
+        await enter(wrapper, 'ecos0r', '250');
+        await selectForMaximum(wrapper, '10045');
+        expect(chainTarget(wrapper)).toBe('22');
+        await openChainSlider(wrapper, '10045');
+        await typeInChain(wrapper, '10045', '105');
+        // 22 t/min still need 11 buildings, while the demand of 20.9 t/min needs 10.
+        expect(chainTarget(wrapper)).toBe('22');
+        expect(chainCount(wrapper)).toBe('×11');
+        expect(fieldCount(wrapper, '10045')).toBe('10');
+        globalThis.dispatchEvent(new MouseEvent('click'));
+        await flushPromises();
+        expect(chainTarget(wrapper)).toBe('21');
+        expect(chainCount(wrapper)).toBe('×10');
+        expect(fieldCount(wrapper, '10045')).toBe('10');
+      });
+
+      it('reloads when the slider is released', async () => {
+        const { wrapper } = await mountPage('/population');
+        await enter(wrapper, 'ecos0r', '250');
+        await selectForMaximum(wrapper, '10045');
+        await openChainSlider(wrapper, '10045');
+        const handle = wrapper.find('#commodity-chain-container .production .ui-slider-handle');
+        await handle.trigger('keydown', { key: 'ArrowRight' });
+        expect(chainTarget(wrapper)).toBe('22');
+        await handle.trigger('keyup', { key: 'ArrowRight' });
+        await flushPromises();
+        expect(chainTarget(wrapper)).toBe('22.2');
+      });
+
+      it('reloads when the focus moves on from the input, but not to its own slider', async () => {
+        const { wrapper } = await mountPage('/population');
+        await enter(wrapper, 'ecos0r', '250');
+        await selectForMaximum(wrapper, '10045');
+        await openChainSlider(wrapper, '10045');
+        await typeInChain(wrapper, '10045', '105');
+        const input = wrapper.find('#commodity-chain-container .production .productivity input');
+        const handle = wrapper.find('#commodity-chain-container .production .ui-slider-handle');
+        await input.trigger('focusout', { relatedTarget: handle.element });
+        await flushPromises();
+        expect(chainTarget(wrapper)).toBe('22');
+        // Tab moves on from the input to the slider first, then out of the building.
+        await handle.trigger('focusout', { relatedTarget: wrapper.find('input[name=ecos0r]').element });
+        await flushPromises();
+        expect(chainTarget(wrapper)).toBe('21');
+      });
+
+      it('keeps chosen alternatives and productivities when reloading', async () => {
+        const { wrapper } = await mountPage('/population');
+        await enter(wrapper, 'ecos0r', '2000');
+        await selectForMaximum(wrapper, '10186');
+        const alternative = required(wrapper.findAll('#commodity-chain-container dd.alt .production').at(0));
+        const guid = required(alternative.attributes('data-guid'));
+        await alternative.trigger('click');
+        await typeInChain(wrapper, guid, '250');
+        await openChainSlider(wrapper, '10186');
+        await typeInChain(wrapper, '10186', '200');
+        globalThis.dispatchEvent(new MouseEvent('click'));
+        await flushPromises();
+        expect(chainCount(wrapper)).toBe(`×${fieldCount(wrapper, '10186')}`);
+        const active = wrapper.findAll('#commodity-chain-container dd:not(.alt) .production');
+        const restored = required(active.find(production => production.attributes('data-guid') === guid));
+        expect((restored.find('.productivity input').element as HTMLInputElement).value).toBe('250');
+      });
+    });
+
+    it('does not reload the chain after a click elsewhere with the population demand as target', async () => {
+      const { wrapper } = await mountPage('/population');
+      await enter(wrapper, 'ecos0r', '250');
+      await wrapper.find('#production-fieldset li[data-guid="10045"]').trigger('click');
+      await flushPromises();
+      await wrapper.find('#commodity-chain-container .production .productivity input').trigger('focus');
+      await typeInChain(wrapper, '10045', '200');
+      globalThis.dispatchEvent(new MouseEvent('click'));
+      await flushPromises();
+      expect(wrapper.find('#commodity-chain-container .production .efficiency em').exists()).toBe(false);
+      expect(wrapper.find('#commodity-chain-container dl.chain dt .target').text()).toBe('20.9');
+    });
   });
 
   describe('chain settings', () => {

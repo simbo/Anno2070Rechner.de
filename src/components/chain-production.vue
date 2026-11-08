@@ -16,6 +16,7 @@ const props = defineProps<{ production: ProductionState }>();
 const emit = defineEmits<{
   activate: [];
   deactivate: [];
+  leave: [];
   productivity: [text: string];
 }>();
 
@@ -68,6 +69,17 @@ function onKeyUp(event: KeyboardEvent): void {
   const input = event.target as HTMLInputElement;
   if (input.value !== '' && lastValue !== input.value) commit(input);
 }
+
+/**
+ * Reports that the focus moved on to something outside this building. A click on nothing
+ * focusable is left to the window click handler; it may also be the start of a slider drag.
+ *
+ * @param event - The focus event.
+ */
+function onFocusOut(event: FocusEvent): void {
+  const next = event.relatedTarget as Node | null;
+  if (next && !(event.currentTarget as HTMLElement).contains(next)) emit('leave');
+}
 </script>
 
 <template>
@@ -80,6 +92,7 @@ function onKeyUp(event: KeyboardEvent): void {
     :data-icon="view.icon"
     :data-tpm="view.tpm"
     :data-tpm-needed="view.tpmNeeded"
+    @focusout="onFocusOut"
   >
     <span class="alt-text">{{ t('Alternatives Produktionsgebäude') }}</span>
     <span class="icon-32"

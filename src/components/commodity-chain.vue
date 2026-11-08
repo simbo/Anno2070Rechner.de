@@ -33,6 +33,16 @@ const emit = defineEmits<{
    * The visitor changed a productivity or chose an alternative.
    */
   settings: [settings: ChainSettings];
+
+  /**
+   * The visitor changed the productivity of the top building.
+   */
+  rootProductivity: [text: string];
+
+  /**
+   * The visitor finished changing the productivity of the top building.
+   */
+  rootSettled: [];
 }>();
 
 const { t } = useI18n();
@@ -70,6 +80,7 @@ function deactivate(group: GroupState, production: ProductionState): void {
   const next = followUp(chain, group, production);
   if (next === 'recalculate') load(recalculationRequest(chain));
   else if (next === 'summarize') chain.summary = summarize(chain);
+  if (production === chain.root.productions[0]) emit('rootSettled');
 }
 
 /**
@@ -92,9 +103,14 @@ provide(chainControllerKey, {
     }
   },
   deactivate,
+  leave: production => {
+    if (production === state.value?.root.productions[0]) emit('rootSettled');
+  },
   productivity: (production, text) => {
     updateProductivity(production, text);
-    if (state.value) emit('settings', chainSettings(state.value));
+    if (!state.value) return;
+    emit('settings', chainSettings(state.value));
+    if (production === state.value.root.productions[0]) emit('rootProductivity', text);
   },
 });
 
