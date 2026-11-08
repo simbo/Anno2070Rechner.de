@@ -1,16 +1,4 @@
-/Material
-/Material/*
-/Material/**/*
 /img
-/*.mwb.bak
-/rda-data/assets.xml
-/rda-data/eng/guids.txt
-/rda-data/eng/icons.txt
-/rda-data/ger/guids.txt
-/rda-data/ger/icons.txt
-/rda-data/icons.xml
-/rda-data/properties.xml
-/rda-data/templates.xml
 
 .DS_Store
 

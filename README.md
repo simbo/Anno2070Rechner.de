@@ -40,10 +40,10 @@ development server serves them under `/img/`. Builds never contain them.
   application, hosting and open work
 - [docs/game-data.md](docs/game-data.md): where the game data comes from and how
   it was extracted from the game files
-- [docs/calculator-comparison.md](docs/calculator-comparison.md): comparison with
-  other Anno 2070 calculators and the final game data
-- [docs/game-tests.md](docs/game-tests.md): open questions to test in the running
-  game
+- [docs/calculator-comparison.md](docs/calculator-comparison.md): comparison
+  with other Anno 2070 calculators and the final game data
+- [docs/game-tests.md](docs/game-tests.md): open questions to test in the
+  running game
 
 ## License
 

@@ -2,16 +2,5 @@
 
 pnpm-lock.yaml
 
-# Old PHP application, kept unchanged until the rebuild replaces it
-/conf
-/css
-/fonts
-/i18n
-/inc
-/js
-/tpl
-/index.php
-/.htaccess
-
 # Generated game data
 src/data/*.json

@@ -8,10 +8,9 @@ import vueParser from 'vue-eslint-parser';
  * Applies the shared rules with type information from the matching TypeScript project.
  * Root tooling runs in Node; app and test files use the browser and test projects.
  * Component files need the Vue.js parser around the TypeScript parser.
- * The old PHP app and its JavaScript stay unlinted until they are removed.
  */
 export default defineConfig([
-  globalIgnores(['**/dist/', '**/coverage/', 'js/', 'css/', 'fonts/', 'inc/', 'tpl/', 'conf/', 'i18n/', 'img/']),
+  globalIgnores(['**/dist/', '**/coverage/', 'img/']),
   {
     files: ['*.ts'],
     extends: [configs.node.recommended],
