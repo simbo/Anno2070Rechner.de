@@ -88,6 +88,29 @@ const pagePaths = (page: (typeof pages)[number]): Record<Language, string> =>
   Object.fromEntries(languages.map(code => [code, pagePath(page.id, code)])) as Record<Language, string>;
 
 /**
+ * Renders the sitemap: every page in every language with its alternates, without parameters.
+ *
+ * @returns The XML text.
+ */
+export function renderSitemap(): string {
+  const urls = pages.map(page => {
+    const paths = pagePaths(page);
+    const alternates = languages
+      .map(code => `<xhtml:link rel="alternate" hreflang="${code}" href="${siteUrl}${paths[code]}"/>`)
+      .join('');
+    return languages.map(code => `<url><loc>${siteUrl}${paths[code]}</loc>${alternates}</url>`).join('');
+  });
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${urls.join('')}</urlset>\n`;
+}
+
+/**
+ * Renders `robots.txt`, which allows everything and names the sitemap.
+ *
+ * @returns The text.
+ */
+export const renderRobots = (): string => `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`;
+
+/**
  * Generates one HTML file per page and language from the built `index.html`, plus a
  * `404.html` per language, so every old URL has its own document with the right head.
  * The page content itself is rendered by the client app.
@@ -132,6 +155,8 @@ export function routePagesPlugin(): Plugin {
             buildPage(template, renderHead(notFoundTitle[language], language), language),
           );
         }
+        emit('sitemap.xml', renderSitemap());
+        emit('robots.txt', renderRobots());
         // The start page is a redirect on the server; keep a German population page as a fallback.
         index.source = buildPage(template, renderHead(pages[0].title.de, 'de', pagePaths(pages[0])), 'de');
       },

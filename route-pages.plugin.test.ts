@@ -2,7 +2,7 @@
 import type { Rollup } from 'vite';
 import { describe, expect, it, vi } from 'vitest';
 
-import { headMarker, renderHead, routePagesPlugin } from './route-pages.plugin.ts';
+import { headMarker, renderHead, renderRobots, renderSitemap, routePagesPlugin } from './route-pages.plugin.ts';
 import { required } from './src/tests/required.ts';
 
 describe('renderHead', () => {
@@ -19,6 +19,20 @@ describe('renderHead', () => {
     const head = renderHead('A & "B"', 'en');
     expect(head).not.toContain('canonical');
     expect(head).toContain('<title>A &amp; &quot;B&quot; « Anno 2070 Rechner</title>');
+  });
+});
+
+describe('search engine files', () => {
+  it('lists every page in both languages with alternates and without parameters', () => {
+    const sitemap = renderSitemap();
+    expect(sitemap.match(/<loc>/g)).toHaveLength(8);
+    expect(sitemap).toContain('<loc>https://anno2070rechner.de/database/en</loc>');
+    expect(sitemap).toContain('hreflang="de" href="https://anno2070rechner.de/database"');
+    expect(sitemap.slice(sitemap.indexOf('<urlset'))).not.toContain('?');
+  });
+
+  it('allows everything and names the sitemap', () => {
+    expect(renderRobots()).toBe('User-agent: *\nAllow: /\n\nSitemap: https://anno2070rechner.de/sitemap.xml\n');
   });
 });
 
@@ -61,6 +75,8 @@ describe('routePagesPlugin', () => {
       'info/index.html',
       'population/en/index.html',
       'population/index.html',
+      'robots.txt',
+      'sitemap.xml',
     ]);
     const english = required(emitted.find(file => file.fileName === 'database/en/index.html')).source;
     expect(english).toContain('<html lang="en"');
