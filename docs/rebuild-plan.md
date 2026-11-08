@@ -6,8 +6,9 @@ is rebuilt as a purely static frontend without any server-side code and moved to
 SRVKIST. This document records the agreed plan and its state.
 
 **State:** phases 1 and 2 are implemented and verified on the branch
-`static-rebuild` (see [Verification](#verification)). Optimizations, hosting on
-SRVKIST and the release are still open.
+`static-rebuild` (see [Verification](#verification)). Remaining adjustments, the
+release automation, the image ZIP, `v2.0.0` and hosting on SRVKIST are still
+open, see [Next steps](#next-steps).
 
 Goals
 ---
@@ -30,11 +31,13 @@ Release and license
   by the author.
 - The old PHP code is removed once it is no longer needed; it stays in the Git
   history.
-- The work happens on the branch `static-rebuild` and is only pushed when the
-  rebuild is finished.
-- Hosting and deployment come last: phase 2 is done first. Right before the
-  release: set up SRVKIST and move the DNS records. Tidy up the private image
-  ZIP and store it in the cloud.
+- The work happens on the branch `static-rebuild` and stays local. When the
+  author is satisfied with it, it is merged into `main` locally as a
+  fast-forward, so the history looks as if everything had happened on `main`,
+  and `main` is pushed. The workflows then create `v2.0.0`, which is meant to be
+  the final state of the rebuild. If that fails, the release and tag can be
+  deleted and the step repeated.
+- Hosting and deployment come after that, see [Next steps](#next-steps).
 
 Phases
 ---
@@ -79,7 +82,7 @@ Each as a separate, traceable step:
    chain updates the production field (input, count, efficiency) at once. The
    field always calculates from the demand. With the maximum production as
    target, the chain reloads with a new target when the slider is released or
-   the input is left, so chain and field agree again.
+   the building is left, so chain and field agree again.
 4. **Background images.** `img/bg-body-eco1-5.jpg` and
    `img/bg-body-tycoon1-2.jpg` exist, but the live site only shows `eco1`.
    `f78cae1` renamed the matching CSS classes to `bg-eco2` and so on, which is
@@ -232,11 +235,12 @@ provides the build and the release artifact.
 - **Deployment:** done properly from the start, following the plan in the
   SRVKIST roadmap:
   1. A release in this repository builds the site in GitHub Actions and attaches
-     the build (without images) and its checksum to the GitHub release.
+     the build (without images) to the GitHub release, which records its
+     checksum.
   2. The workflow notifies SRVKIST through an authenticated webhook at
      `hooks.srvkist.net` with the release version.
-  3. SRVKIST downloads the artifact, verifies the checksum, unpacks it into a
-     new release folder and switches `current`.
+  3. SRVKIST downloads the artifact, verifies the checksum from GitHub, unpacks
+     it into a new release folder and switches `current`.
 
   This depends on the deployment service in SRVKIST, which does not exist yet.
 
@@ -245,6 +249,35 @@ provides the build and the release artifact.
 - **Cleanup:** afterwards, `scripts/uberspace-cleanup.sh` removes the old site,
   database and domains from Uberspace. It refuses to run while the domain still
   points to Uberspace.
+
+Release automation
+---
+
+Releases run automatically like in the author's other projects, without an extra
+checksum file. The workflows are prepared and checked locally as far as
+possible; nothing runs remotely before `main` is pushed for `v2.0.0`. The
+workflows of `magawa` and `etikettomat` are taken over 1:1, including names,
+icons and the actions they use, and only adapted where this repository differs:
+
+- **`Checks 🧐`** (`checks.yml`) runs on every pull request and on `main`:
+  checks, tests and build; pull requests must have a changeset. The file exists
+  but has never run. Missing are the last two steps: on `main` with pending
+  changesets, it fetches the credentials of the GitHub App and dispatches
+  `workflow:release`.
+- **`Release 🏷️`** (`release.yml`) verifies that `main` is still the checked
+  commit, runs `changeset version`, and commits and tags `ci(release): vX.Y.Z`.
+- **`Publish 🚛`** (`publish.yml`) runs on the tag, builds, and creates the
+  GitHub release with the notes from `CHANGELOG.md` and `anno2070rechner.zip`.
+  The ZIP holds the build without images. The GitHub Pages step of the other
+  projects is left out; a notification of SRVKIST (see
+  [Hosting](#hosting-on-srvkist)) follows once its counterpart exists.
+- **Repository setup:** the secrets `SIMBO_GITHUB_APP_ID` and
+  `SIMBO_GITHUB_APP_PRIVATE_KEY` and the GitHub App installation are needed
+  before the push. The other settings of those projects follow once `v2.0.0` has
+  succeeded: the rulesets "Main Branch" and "Release Tags", squash merges only,
+  and deleting merged branches. Until then, a failed attempt can still be
+  undone: delete release and tag and, if a workflow has to change, also
+  force-push `main` back to before the release commit.
 
 Verification
 ---
@@ -281,12 +314,20 @@ Verification
 
 Where the work stands and what follows, in this order:
 
-1. **Optimizations and modernization**, see [Later](#later).
-2. **Release:** SRVKIST site block, deployment service with webhook and release
-   workflow, final image ZIP with a setup script, DNS move, push, `v2.0.0`, then
-   the Uberspace cleanup. The old PHP code is removed then. The reCAPTCHA key in
-   `conf/site.ini` is public in the Git history and should be revoked by the
-   author.
+1. **Remaining adjustments**, including what is wanted from [Later](#later).
+2. **Release automation**, prepared locally, see
+   [Release automation](#release-automation).
+3. **Image ZIP:** tidy it up and have the author review it before `v2.0.0`. It
+   has to contain the new picture icon in `user-menu.png`. It gets a setup
+   script and is stored in the cloud.
+4. **`v2.0.0`**, when the author decides: remove the old PHP code, set up the
+   secrets and the GitHub App, merge `static-rebuild` into `main` locally as a
+   fast-forward and push `main`. After a successful release, activate the
+   remaining repository settings.
+5. **Hosting:** SRVKIST site block, deployment service with webhook and the
+   notification from `Publish 🚛`, DNS move, then the Uberspace cleanup. The
+   reCAPTCHA key in `conf/site.ini` is public in the Git history and should be
+   revoked by the author.
 
 Working material outside the repository:
 
