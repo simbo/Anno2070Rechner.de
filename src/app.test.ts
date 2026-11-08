@@ -19,11 +19,16 @@ describe('page frame', () => {
     expect(wrapper.find('#under-development').exists()).toBe(false);
   });
 
-  it('marks the info page with the class "info", as the old site did', async () => {
+  it('marks the info page as current like every other page', async () => {
     const { wrapper } = await mountPage('/info/en');
-    expect(required(wrapper.findAll('#menu li').at(3)).classes()).toEqual(['info']);
+    expect(required(wrapper.findAll('#menu li').at(3)).classes()).toEqual(['current']);
     expect(wrapper.find('#menu').text()).toContain('Commodity chains');
     expect(wrapper.find('h2').text()).toBe('Info');
+  });
+
+  it('spells the English title of the commodity chains like the menu', async () => {
+    await mountPage('/commoditychains/en');
+    expect(document.title).toBe('Commodity chains « Anno 2070 Rechner');
   });
 
   it('links to the same page in both languages', async () => {

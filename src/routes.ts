@@ -33,12 +33,11 @@ export interface Page {
 }
 
 /**
- * All pages in navigation order. Titles are taken over unchanged from the old site,
- * including the spelling "Commdity chains".
+ * All pages in navigation order.
  */
 export const pages: readonly Page[] = [
   { id: 'population', title: { de: 'Bevölkerung', en: 'Population' } },
-  { id: 'commoditychains', title: { de: 'Produktionsketten', en: 'Commdity chains' } },
+  { id: 'commoditychains', title: { de: 'Produktionsketten', en: 'Commodity chains' } },
   { id: 'database', title: { de: 'Datenbank', en: 'Database' } },
   { id: 'info', title: { de: 'Info', en: 'Info' } },
 ];

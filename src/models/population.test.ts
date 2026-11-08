@@ -147,7 +147,7 @@ describe('calculateProduction', () => {
     expect(calculateProduction(fish, 55.1, '150')).toMatchObject({ count: 19, percent: 97 });
   });
 
-  it('produce the class "undefined" without demand, as live', () => {
-    expect(calculateProduction(rows[0], 0, '100')).toEqual({ count: 0, percent: 0, efficiencyClass: 'undefined' });
+  it('produce the class "red" without demand, unlike the live site', () => {
+    expect(calculateProduction(rows[0], 0, '100')).toEqual({ count: 0, percent: 0, efficiencyClass: 'red' });
   });
 });

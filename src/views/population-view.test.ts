@@ -126,7 +126,7 @@ describe('population calculator', () => {
     expect(demandTexts(wrapper)[0]).toMatch(/^\d+(\.\d)?$/);
   });
 
-  it('resets inputs but keeps the hidden upgrade levels, as the old reset did', async () => {
+  it('resets inputs and the upgrade levels, so new houses use all levels again', async () => {
     const { wrapper } = await mountPage('/population');
     await enter(wrapper, 'ecos0r', '137');
     await wrapper.find('#residences-fieldset dl.ecos .ui-slider-handle').trigger('keydown', { key: 'ArrowLeft' });
@@ -136,8 +136,10 @@ describe('population calculator', () => {
     await flushPromises();
     expect(value(wrapper, 'ecos0r')).toBe('0');
     expect(value(wrapper, 'ecos0i')).toBe('0');
-    expect(value(wrapper, 'ecos_max_upgrade')).toBe('3');
+    expect(value(wrapper, 'ecos_max_upgrade')).toBe('4');
     expect(wrapper.find('#residences-fieldset dl.ecos .ui-slider-handle').attributes('style')).toContain('left: 100%');
+    await enter(wrapper, 'ecos0r', '250');
+    expect(value(wrapper, 'ecos4r')).toBe('48');
   });
 
   it('shows the commodity chain of a selected building and its target select', async () => {

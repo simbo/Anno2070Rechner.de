@@ -17,8 +17,7 @@ const { language, t } = useI18n();
 
 const languageNames = { de: 'Deutsch (Deutschland)', en: 'English (US)' } as const;
 
-// The old site marked the current page with "current", except Info, which got "info".
-const menuClass = (id: string): string => (route.meta.page === id ? (id === 'info' ? 'info' : 'current') : '');
+const menuClass = (id: string): string => (route.meta.page === id ? 'current' : '');
 
 // Language links point to the same page; the 404 page links to the start page.
 const languageLinks = computed(() =>

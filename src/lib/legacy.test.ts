@@ -29,8 +29,10 @@ describe('efficiencyClass', () => {
     expect(efficiencyClass(1)).toBe('red');
   });
 
-  it('produces "undefined" outside 1 to 100, as the old site did', () => {
-    expect(efficiencyClass(0)).toBe('undefined');
-    expect(efficiencyClass(150)).toBe('undefined');
+  it('uses the nearest class outside 1 to 100, unlike the old site', () => {
+    expect(efficiencyClass(0)).toBe('red');
+    expect(efficiencyClass(-5)).toBe('red');
+    expect(efficiencyClass(150)).toBe('green');
+    expect(efficiencyClass('none')).toBe('red');
   });
 });

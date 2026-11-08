@@ -37,11 +37,6 @@ const { inputs } = usePopulationStore();
  */
 const MAX_PRODUCTIVITY = 999;
 
-/**
- * The old reset moved every upgrade slider to this level, also the shorter Techs slider.
- */
-const RESET_UPGRADE = 4;
-
 const levelNames: Record<Group, string[]> = {
   ecos: ['Arbeiter', 'Angestellte', 'Ingenieure', 'Executives'],
   tycoons: ['Arbeiter', 'Angestellte', 'Ingenieure', 'Executives'],
@@ -367,14 +362,14 @@ function toggleInfo(group: Group, value: string): void {
 }
 
 /**
- * Resets the inputs like the old reset: the sliders move to the top, but their hidden
- * fields keep their value.
+ * Resets the inputs, including the highest allowed levels.
  */
 function reset(): void {
   for (const row of rows.value) inputs.productivity[String(row.guid)] = '100';
   inputs.chains = {};
   for (const group of groups) {
-    inputs.upgradeSlider[group] = Math.min(RESET_UPGRADE, levelCount(group));
+    inputs.upgradeSlider[group] = levelCount(group);
+    inputs.maxUpgrade[group] = String(levelCount(group));
     inputs.residences[group] = inputs.residences[group].map(() => '0');
     inputs.info[group] = '0';
   }

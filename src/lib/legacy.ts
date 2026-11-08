@@ -36,14 +36,16 @@ const efficiencyClasses = ['green', 'lightgreen', 'yellow', 'orange', 'red'];
 const EFFICIENCY_STEP = 20;
 
 /**
- * CSS class for an efficiency percentage like the old `getEfficiencyClass()`.
- * Values outside 1 to 100 produce `undefined`, which ends up as a class name, as before.
+ * CSS class for an efficiency percentage like the old `getEfficiencyClass()`. Unlike
+ * there, values outside 1 to 100 get the class of the nearest step instead of `undefined`,
+ * and anything that is not a number counts as no efficiency.
  *
  * @param percent - The efficiency in percent, as number or text.
- * @returns The class name, or `"undefined"`.
+ * @returns The class name.
  */
 export function efficiencyClass(percent: number | string): string {
   const value = parseLeadingInt(String(percent)) - 1;
+  if (Number.isNaN(value)) return 'red';
   const index = efficiencyClasses.length - 1 - Math.floor(value / EFFICIENCY_STEP);
-  return index >= 0 && index < efficiencyClasses.length ? efficiencyClasses[index] : 'undefined';
+  return efficiencyClasses[Math.max(0, Math.min(efficiencyClasses.length - 1, index))];
 }
