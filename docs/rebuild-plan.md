@@ -367,12 +367,24 @@ Verification
   a bug once it is substantiated there.
 - The reference data and the comparison tooling are only needed for the rebuild
   and are kept outside this repository.
+- The screenshot comparison was repeated at the end of phase 3, hiding the
+  header icons and the game version and using the old background. What still
+  differs in the visible area are the fixed umlauts, the final game data, the
+  marked info page and the reset confirmation.
+- Old browsers: a real Firefox 52 ESR does not start on the author's current
+  macOS ("Minimum OS version requirement not met"), so no real old browser was
+  tested. Instead, a current browser ran both bundles with all newer APIs
+  removed, through the population calculator, the database and chains, without
+  errors. The syntax of the legacy bundle was checked to be ES2015. Differences
+  in browser engines themselves are not covered.
+- Phase 3 changes results deliberately through the final game data. Against the
+  recorded references, 174 more cases differ: 152 chains, all of which contain a
+  changed building, 8 population scenarios and 14 database views.
 - Phase 2 changes results deliberately. 176 of the 726 recorded chains differ
   from the live site, exactly those requesting a count without a target for a
   building whose productivity is not 100 %. 16 population scenarios differ only
   by the class `red` instead of `undefined`, which is hidden on buildings
-  without demand. All others still match. The screenshot comparison was not
-  repeated for phase 2.
+  without demand. All others still match.
 
 ## Next steps
 
@@ -419,8 +431,9 @@ Working material outside the repository:
   scripts of the comparison with other calculators. Throwaway once the rebuild
   is released.
 - `img/` in the repository is a local link to the exported images (ignored by
-  Git). `user-menu.png` there now also holds the picture icon of the background
-  menu and has to go into the final ZIP; the old file is kept as
-  `user-menu.original.png` in the export folder.
+  Git). `user-menu.png` there also holds the picture icon of the background
+  menu, and `save-menu.png` holds the icons of the save menu; both are in the
+  new `anno2070rechner-images.zip` in the export folder. The old `user-menu.png`
+  is kept there as `user-menu.original.png`.
 
 <!-- cspell:ignore für vom -->

@@ -13,9 +13,10 @@ from 2012. Even so, it still depended on PHP, a MySQL database and a user
 system, all of which need upkeep although the data behind them no longer
 changes.
 
-This release is not a new calculator. Its purpose is to preserve the existing
-one: as a set of plain files that any web server can deliver, with no runtime to
-update, no database to run and no user data to protect.
+Its main purpose is to preserve the existing calculator: as a set of plain files
+that any web server can deliver, with no runtime to update, no database to run
+and no user data on a server. While at it, the game data was brought up to date,
+and accounts were replaced by saved games in the browser.
 
 #### Before and now
 
@@ -25,19 +26,18 @@ update, no database to run and no user data to protect.
 | Game data   | MySQL database                                     | JSON files, converted once from that database             |
 | Chains      | Calculated on the server for every request         | Calculated in the browser                                 |
 | Controls    | jQuery and jQuery UI from 2011                     | Small Vue components with the same markup and class names |
-| Your inputs | Cookie                                             | Your browser's local storage                              |
+| Your inputs | Cookie, or an account                              | Saved games in your browser's local storage               |
 | Accounts    | Login and registration with reCAPTCHA              | None                                                      |
 | Third party | jQuery from Google, reCAPTCHA, an analytics script | Nothing is loaded from other servers                      |
 
 #### The same site, on purpose
 
-The design, the texts and the calculations are deliberately unchanged, including
-the fixed 960 px layout. There is no responsive or mobile layout and no
-modernized design: the site is kept the way it has always looked, and a redesign
-was never the goal.
+The design and the texts are deliberately unchanged, including the fixed 960 px
+layout. There is no responsive or mobile layout and no modernized design: the
+site is kept the way it has always looked, and a redesign was never the goal.
 
 To make sure of this, the rebuild was compared with recordings of the old site
-before any fixes went in, and it matched them exactly:
+before any fixes or data updates went in, and it matched them exactly:
 
 - all 726 recorded commodity chains, in both languages
 - 24 population calculator scenarios, in both languages
@@ -55,6 +55,10 @@ including shared links to commodity chains, keep working.
 - **Enter your inputs once more.** Inputs are now saved in your browser. Those
   saved by the old site cannot be taken over, because its cookie is not readable
   by the page.
+- **Reset asks first.** If there are inputs, the reset buttons ask for
+  confirmation. Reset now also sets the target of the commodity chain back.
+- **One box stays.** The last visible box of the population calculator can no
+  longer be closed.
 - **Faster navigation.** Pages and languages change without reloading the whole
   page.
 - **No tracking and no external requests.** The old analytics script is removed,
@@ -62,6 +66,39 @@ including shared links to commodity chains, keep working.
 - **Better link previews.** Facebook-only tags are replaced by general preview
   tags.
 - **Cleaner header.** The "Under Development" ring in the logo is removed.
+
+#### Saved games
+
+The disk icon from the old header is back, for everyone and without an account.
+There is always a current game, saved automatically in your browser. The icon
+shows a green check once it has inputs, and you do not have to care about
+anything else.
+
+If you want to, its menu lets you keep several games, switch between them,
+rename and delete them. Two small icons export the current game as text and
+import it in another browser. Importing another version of a game you already
+have asks whether to overwrite it or add a copy.
+
+#### Shareable pages
+
+Commodity chains and the database keep their whole state in the URL, including
+the productivities and alternatives set in a chain, so a link shows the same
+result elsewhere. All old links keep working. Changes inside a page do not fill
+up the back button: each menu item and language is one step.
+
+#### Final game data
+
+The data was from before the game's first patch, as a check against the final
+game version 3.0.8051 showed. Now it is from that version, which the header
+names.
+
+- 12 population demand values for 7 goods were too high, by up to 82 %, so the
+  calculator suggested too many buildings for goods such as bio drinks,
+  champagne or jewelry.
+- The sawmill and the uranium black smoker miner take longer per cycle, and some
+  maintenance and build costs were outdated.
+
+**This changes results compared with the old site.**
 
 #### Finished at last
 
@@ -100,18 +137,17 @@ as before.
 - **Small errors.** The misspelled English title of the commodity chains is
   corrected, and the menu marks the info page like any other page.
 
+#### Older browsers
+
+The site runs in browsers from about 2016, as far back as its Vue 3 framework
+goes: Chrome 49, Edge 12, Firefox 42, Safari 10 and Opera 36. Those old browsers
+load a separate bundle, so that current browsers do not pay for it. Older
+browsers get a short notice instead of an empty page.
+
 #### Known limitations
 
-- **Outdated game data.** The data is from before the game's first patch, as a
-  check against the final game version 3.0.8051 showed. 12 population demand
-  values for 7 goods are too high, so the calculator suggests up to 82 % more
-  buildings than needed for goods such as bio drinks, champagne or jewelry. Two
-  production times and some maintenance and build costs are outdated as well.
-  All other values match.
 - **No Deep Ocean.** The expansion, with its Geniuses and new goods, is still
-  not supported.
-- **Current browsers only.** The site needs a browser from about 2021 or newer.
-  Older ones probably show an empty page.
+  not supported. Its Tech demands differ from the base game.
 
 #### What may come
 
@@ -120,16 +156,12 @@ None of this is promised, and the site stays usable as it is without any of it:
 - Moving to a new server, which you should not notice. The old server and its
   database will then be deleted, including all accounts and their e-mail
   addresses.
-- Game data updated to the final game version, and the game version named on the
-  site.
 - Support for Deep Ocean.
-- Technical optimizations: modern image formats, optimized icons and a smaller
-  download for the population page.
+- Exact fractions of buildings, a global productivity control, the senate
+  ascension bonus, or a total across all chains.
+- Technical optimizations such as modern image formats.
 - A responsive layout and other modernization, once there is a reason to change
   a site that is meant to stay as it is.
-- Better behavior in old browsers, for example a notice instead of an empty
-  page.
-- Visible credit for the "Prototype" font.
 - Visitor statistics with a self-hosted Umami instance.
 
 #### For developers

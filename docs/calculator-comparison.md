@@ -381,20 +381,24 @@ Follows from the game files, to be done before `v2.0.0`:
 
 1. Update the 12 demand values, the two production times, and the maintenance
    and build costs to `patch8.rda`, and correct the source in
-   [game-data.md](game-data.md).
-2. Investigate the correct raw material need of chains below 100 % productivity.
-3. Name the game version on the site.
+   [game-data.md](game-data.md). Done.
+2. Investigate the correct raw material need of chains below 100 % productivity,
+   see [game-tests.md](game-tests.md).
+3. Name the game version on the site. Done.
 4. Test in the game whether eco and item bonuses multiply, then decide how to
-   handle it.
+   handle it, see [game-tests.md](game-tests.md).
 
-Worth considering independently of the data:
+Worth considering independently of the data, left for later in
+[rebuild-plan.md](rebuild-plan.md#later):
 
 5. Show exact fractions as well, for example in a tooltip.
 6. Add a global productivity control.
 7. Add the senate ascension bonus.
-8. Add shareable links for the population calculator, and possibly named
-   presets.
-9. Add a total across all chains.
+8. Add a total across all chains.
+
+The rebuild decided against shareable links for the population calculator, whose
+plain URL has to open the current state as a bookmark. Saved games in the
+browser took their place, with export and import.
 
 Not a proposal: Deep Ocean stays out of scope.
 
