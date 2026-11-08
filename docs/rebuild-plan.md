@@ -27,6 +27,9 @@ Release and license
 
 - Versioning with Changesets, as in the author's other projects. The release
   with the rebuild is `v2.0.0`.
+- `v2.0.0` has exactly one changeset, `.changeset/static-rebuild.md`. Further
+  changes before the release revise it instead of adding more, so it always
+  describes the whole release as it stands.
 - The license changes from GPL 3 to MIT with the rebuild. All commits so far are
   by the author.
 - The old PHP code is removed once it is no longer needed; it stays in the Git
@@ -314,7 +317,10 @@ Verification
 
 Where the work stands and what follows, in this order:
 
-1. **Remaining adjustments**, including what is wanted from [Later](#later).
+1. **Remaining adjustments**, including what is wanted from [Later](#later). If
+   possible, this also clears the known limitations in the changeset: the
+   outdated game data and the missing support for older browsers. Neither is a
+   condition for `v2.0.0`, and Deep Ocean stays out of scope for it.
 2. **Release automation**, prepared locally, see
    [Release automation](#release-automation).
 3. **Image ZIP:** tidy it up and have the author review it before `v2.0.0`. It
