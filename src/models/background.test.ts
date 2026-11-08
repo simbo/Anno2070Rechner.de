@@ -1,3 +1,6 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
 import { describe, expect, it } from 'vitest';
 
 import { backgrounds, dailyBackground } from './background';
@@ -9,6 +12,27 @@ import { backgrounds, dailyBackground } from './background';
  * @returns The date.
  */
 const dayAfterStart = (offset: number): Date => new Date(2026, 0, 1 + offset);
+
+describe('background styles', () => {
+  const styles = readFileSync(join(import.meta.dirname, '../styles/styles.css'), 'utf8');
+
+  it('fill and fade only in windows larger than the images', () => {
+    const large = styles.indexOf('@media (min-width: 1921px), (min-height: 1201px)');
+    expect(large).toBeGreaterThan(-1);
+    for (const effect of ['filter: blur(', 'mask-composite: intersect']) {
+      expect(styles.indexOf(effect)).toBeGreaterThan(large);
+    }
+    expect(styles.slice(0, large)).not.toMatch(/mask-|filter: blur\(/u);
+  });
+
+  it.each(backgrounds)('give %s its image and base color', background => {
+    const rule = new RegExp(
+      String.raw`body\.bg-${background} \{\s*--background-image: url\('/img/bg-body-${background}\.jpg'\);\s*--background-color: #[0-9a-f]{6};`,
+      'u',
+    );
+    expect(styles).toMatch(rule);
+  });
+});
 
 describe('dailyBackground', () => {
   const days = Array.from({ length: 5000 }, (_, offset) => dailyBackground(dayAfterStart(offset)));

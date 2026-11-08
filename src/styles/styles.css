@@ -182,35 +182,77 @@ body {
   color: #fff;
   text-align: center;
   text-shadow: 0px 0px 2px #0d1723;
-  background: #000 no-repeat top center fixed;
+  background-color: var(--background-color, #000);
+}
+
+/* The image itself, in its original size. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--background-image) no-repeat top center;
+}
+
+/* Fills what the image leaves empty in large windows; it reaches beyond the window because
+   a blurred area fades out towards its own edges. */
+@media (min-width: 1921px), (min-height: 1201px) {
+  body::before {
+    content: '';
+    position: fixed;
+    inset: -80px;
+    z-index: -1;
+    background: var(--background-image) no-repeat center / cover;
+    filter: blur(40px);
+  }
+
+  /* Fades the left, right and bottom edge of the image, which is 1920 × 1200 px, into the fill. */
+  body::after {
+    --fade-horizontal: linear-gradient(to right, transparent, #000 80px, #000 calc(100% - 80px), transparent);
+    --fade-bottom: linear-gradient(to bottom, #000 calc(100% - 80px), transparent);
+
+    mask-image: var(--fade-horizontal), var(--fade-bottom);
+    mask-position: top center;
+    mask-size: 1920px 1200px;
+    mask-repeat: no-repeat;
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in;
+  }
 }
 
 body.bg-eco1 {
-  background-image: url('/img/bg-body-eco1.jpg');
+  --background-image: url('/img/bg-body-eco1.jpg');
+  --background-color: #4a504c;
 }
 
 body.bg-eco2 {
-  background-image: url('/img/bg-body-eco2.jpg');
+  --background-image: url('/img/bg-body-eco2.jpg');
+  --background-color: #53544b;
 }
 
 body.bg-eco3 {
-  background-image: url('/img/bg-body-eco3.jpg');
+  --background-image: url('/img/bg-body-eco3.jpg');
+  --background-color: #605f57;
 }
 
 body.bg-eco4 {
-  background-image: url('/img/bg-body-eco4.jpg');
+  --background-image: url('/img/bg-body-eco4.jpg');
+  --background-color: #4f524a;
 }
 
 body.bg-eco5 {
-  background-image: url('/img/bg-body-eco5.jpg');
+  --background-image: url('/img/bg-body-eco5.jpg');
+  --background-color: #524b3f;
 }
 
 body.bg-tycoon1 {
-  background-image: url('/img/bg-body-tycoon1.jpg');
+  --background-image: url('/img/bg-body-tycoon1.jpg');
+  --background-color: #3a4044;
 }
 
 body.bg-tycoon2 {
-  background-image: url('/img/bg-body-tycoon2.jpg');
+  --background-image: url('/img/bg-body-tycoon2.jpg');
+  --background-color: #414c4b;
 }
 
 a,
