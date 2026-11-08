@@ -66,11 +66,36 @@ describe('commodity chains', () => {
     );
   });
 
-  it('keep the live behavior of ignoring productivity for a count without target', () => {
-    // Two fisheries at 200 % produce 8 t/min, but the old site requested only 4 t/min.
-    expect(render('de', { pbGuid: '10045', count: 2, productivity: { 10_045: 200 } })).toEqual(
-      liveChains['fishery-count-productivity'].lines,
-    );
+  it('use the productivity for a count without target, unlike the live site', () => {
+    // Two fisheries at 200 % produce 8 t/min; the old site requested only 4 t/min.
+    const lines = render('de', { pbGuid: '10045', count: 2, productivity: { 10_045: 200 } });
+    expect(lines).not.toEqual(liveChains['fishery-count-productivity'].lines);
+    expect(lines[0]).toContain(' tpm 8');
+    expect(lines[1]).toContain('count=2 mult=2 tpm=2 need=8 ');
+    expect(lines[1]).toContain('eff=100/green prod=200 ');
+    const withoutProductivity = render('de', { pbGuid: '10045', count: 2 });
+    expect(withoutProductivity[0]).toContain(' tpm 4');
+  });
+
+  it('need exactly the requested number of buildings at every productivity', () => {
+    for (let productivity = 50; productivity <= 300; productivity++) {
+      for (let count = 1; count <= 60; count++) {
+        const chain = required(
+          requestCommodityChain(catalogs.de, { pbGuid: '10045', count, productivity: { 10_045: productivity } }),
+        );
+        expect(productionView(catalogs.de, chain).count).toBe(String(count));
+      }
+    }
+  });
+
+  it('do not count a rounding error as a building', () => {
+    // 6 × 3.88 t/min divided by 3.88 t/min comes out as 6.000000000000001.
+    const request = { pbGuid: '10045', productivity: { 10_045: 194 } };
+    const fromCount = required(requestCommodityChain(catalogs.de, { ...request, count: 6 }));
+    const fromTarget = required(requestCommodityChain(catalogs.de, { ...request, tpmNeeded: '23.28' }));
+    for (const chain of [fromCount, fromTarget]) expect(productionView(catalogs.de, chain).count).toBe('6');
+    const view = productionView(catalogs.de, fromCount);
+    expect(adjustProduction(view, initialAdjustment(view), '194')).toMatchObject({ count: '6', efficiency: '100' });
   });
 
   it('show energy and eco output like the live site', () => {

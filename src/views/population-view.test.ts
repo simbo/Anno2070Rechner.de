@@ -182,4 +182,19 @@ describe('population calculator', () => {
     await flushPromises();
     expect(target()).toBe('22');
   });
+
+  it('uses the productivity for the maximum production of the needed buildings', async () => {
+    const { wrapper } = await mountPage('/population');
+    await enter(wrapper, 'ecos0r', '250');
+    const input = wrapper.find('#production-fieldset li[data-guid="10045"] .productivity input');
+    await input.setValue('200');
+    await input.trigger('change');
+    await wrapper.find('#production-fieldset li[data-guid="10045"]').trigger('click');
+    await flushPromises();
+    await wrapper.find('#commodity-chain-target a.ui-selectmenu').trigger('keydown', { key: 'ArrowDown' });
+    await flushPromises();
+    // Six fisheries at 200 % produce 24 t/min, not the 12 t/min the old site requested.
+    expect(wrapper.find('#commodity-chain-container dl.chain dt .target').text()).toBe('24');
+    expect(wrapper.find('#commodity-chain-container .production .count').text()).toBe('×6');
+  });
 });

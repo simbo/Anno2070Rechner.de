@@ -2,7 +2,7 @@ import { efficiencyClass, filterNum } from '../lib/legacy';
 import type { Language } from '../routes';
 
 import { tonsPerMinute, type Catalog } from './game-data';
-import { KILOGRAMS_PER_TON, PERCENT, RESIDENTS_PER_DEMAND } from './units';
+import { buildingCount, KILOGRAMS_PER_TON, PERCENT, RESIDENTS_PER_DEMAND } from './units';
 
 /**
  * The three factions of the game.
@@ -203,7 +203,7 @@ export interface ProductionResult {
 export function calculateProduction(row: ProductionRow, demand: number, productivityText: string): ProductionResult {
   const productivity = filterNum(productivityText) / PERCENT;
   const tpm = row.tpm * productivity;
-  const count = Math.ceil(demand / tpm);
+  const count = buildingCount(demand / tpm);
   const efficiency = demand / (Math.max(1, count) * tpm);
   const percent = Math.round(efficiency * PERCENT);
   return { count, percent, efficiencyClass: efficiencyClass(percent) };

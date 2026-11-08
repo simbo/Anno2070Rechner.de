@@ -3,7 +3,7 @@ import { phpFloatval, phpIntval, phpNumber, phpRound } from '../lib/php';
 
 import { buildCostItems, maintenanceTexts, type IconItem, type MaintenanceTexts } from './building-view';
 import { rawTonsPerMinute, tonsPerMinute, type Catalog, type ProductionBuilding } from './game-data';
-import { PERCENT } from './units';
+import { buildingCount, PERCENT } from './units';
 
 export type { IconItem } from './building-view';
 
@@ -110,8 +110,8 @@ export interface ChainRequest {
 
 /**
  * Answers a chain request like the old `tpl/get-commoditychain.php`. Without a target,
- * the output of `count` buildings is used without their productivity, which is the
- * behavior of the live site.
+ * the output of `count` buildings at their productivity is used. The live site ignored
+ * that productivity; this was fixed in commit `f78cae1`, which never ran live.
  *
  * @param catalog - The game data.
  * @param request - The request parameters.
@@ -127,7 +127,8 @@ export function requestCommodityChain(catalog: Catalog, request: ChainRequest): 
   }
   const preferred = (request.preferred ?? []).map(guid => phpIntval(guid));
   const requested = request.tpmNeeded === undefined ? 0 : phpFloatval(String(request.tpmNeeded).replaceAll(',', '.'));
-  const target = requested > 0 ? requested : tonsPerMinute(building) * count;
+  const output = tonsPerMinute(building) * ((productivity[building.guid] ?? PERCENT) / PERCENT) * count;
+  const target = requested > 0 ? requested : output;
   return getCommodityChain(catalog, building, 1, target, productivity, preferred);
 }
 
@@ -207,7 +208,7 @@ const phpEfficiencyClass = (efficiency: number): string =>
  */
 export function productionView(catalog: Catalog, node: ChainNode): ProductionView {
   const { building, multiplier, productivity, target } = node;
-  const count = Math.ceil(multiplier);
+  const count = buildingCount(multiplier);
   const efficiency = phpRound((multiplier / count) * PERCENT);
   return {
     guid: building.guid,
@@ -285,8 +286,8 @@ export function adjustProduction(
   const tpmNeeded = Number(view.tpmNeeded);
   const productivity = filterNum(productivityText) / PERCENT;
   const exact = tpmNeeded / (tpm * productivity);
-  const efficiency = Math.round((exact / Math.ceil(exact)) * PERCENT).toString();
-  const count = Math.ceil(exact);
+  const count = buildingCount(exact);
+  const efficiency = Math.round((exact / count) * PERCENT).toString();
   const originalCount = parseLeadingInt(current.count);
   const next: ProductionAdjustment = { ...current, count: count.toString(), efficiency };
   if (originalCount !== count) {
