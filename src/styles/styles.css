@@ -2161,6 +2161,7 @@ button.save-icon.import:focus {
 
 .save-menu-body input.save-menu-rename {
   display: block;
+  outline: none;
   box-sizing: border-box;
   width: 100%;
   margin: 0;
@@ -2230,5 +2231,5 @@ textarea.save-menu-text {
 
 .save-menu-body .save-menu-buttons input {
   width: auto;
-  margin: 0 0 0 4px;
+  margin: 2px 0 2px 4px;
 }

@@ -246,13 +246,16 @@ function onKeyDown(event: KeyboardEvent): void {
   else resetPanels();
 }
 
+// A clicked button can already be gone when its click reaches the window, because the menu
+// updates in between, so the menu notes clicks on their way up instead of looking them up.
+let clickedInside = false;
+
 /**
  * Closes the menu when the visitor clicks elsewhere.
- *
- * @param event - The click event.
  */
-function onWindowClick(event: MouseEvent): void {
-  if (isOpen.value && !root.value?.contains(event.target as Node)) close();
+function onWindowClick(): void {
+  if (!clickedInside && isOpen.value) close();
+  clickedInside = false;
 }
 onMounted(() => {
   globalThis.addEventListener('click', onWindowClick);
@@ -263,7 +266,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div id="save-chooser" ref="root" @keydown="onKeyDown">
+  <div id="save-chooser" ref="root" @click="clickedInside = true" @keydown="onKeyDown">
     <ul class="user-menu">
       <li class="save" :class="{ saved: games.hasInputs && games.storageWorks }">
         <a
