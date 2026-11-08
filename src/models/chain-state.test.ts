@@ -5,6 +5,7 @@ import { required } from '../tests/required';
 
 import {
   allGroups,
+  chainSettings,
   chooseAlternative,
   createChainState,
   followUp,
@@ -71,5 +72,30 @@ describe('chain state', () => {
     expect(required(request.productivity)['10186']).toBe('150');
     expect(request.preferred).toContain(group.productions[0].view.guid);
     expect(request.preferred).toHaveLength(allGroups(state.root).length);
+  });
+
+  it('collects chain settings without the top building and without default productivities', () => {
+    const state = menu();
+    expect(chainSettings(state).productivity).toEqual({});
+    const group = required(allGroups(state.root).find(entry => entry.productions.length > 1));
+    const alternative = group.productions[1];
+    chooseAlternative(state, group, alternative);
+    updateProductivity(state.root.productions[0], '150');
+    updateProductivity(alternative, '200');
+    const settings = chainSettings(state);
+    expect(settings.productivity).toEqual({ [alternative.view.guid]: '200' });
+    expect(settings.preferred).toContain(alternative.view.guid);
+  });
+
+  it('restores chain settings in a new chain', () => {
+    const state = menu();
+    const group = required(allGroups(state.root).find(entry => entry.productions.length > 1));
+    const alternative = group.productions[1];
+    chooseAlternative(state, group, alternative);
+    updateProductivity(alternative, '200');
+    const restored = required(createChainState(catalogs.de, { pbGuid: '10186', ...chainSettings(state) }));
+    const active = required(allGroups(restored.root).find(entry => entry.productions.length > 1)).productions[0];
+    expect(active.view.guid).toBe(alternative.view.guid);
+    expect(active.productivity).toBe('200');
   });
 });

@@ -27,6 +27,16 @@ async function enter(wrapper: VueWrapper, name: string, text: string): Promise<v
 const demandTexts = (wrapper: VueWrapper): string[] =>
   wrapper.findAll('#demands-fieldset li .count').map(item => item.text());
 
+/**
+ * Shows the chain of electronics, which has an alternative copper producer.
+ *
+ * @param wrapper - The mounted page.
+ */
+async function selectElectronics(wrapper: VueWrapper): Promise<void> {
+  await wrapper.find('#production-fieldset li[data-guid="10186"]').trigger('click');
+  await flushPromises();
+}
+
 describe('population calculator', () => {
   beforeEach(() => {
     localStorage.clear();
@@ -181,6 +191,57 @@ describe('population calculator', () => {
     await select.trigger('keydown', { key: 'ArrowDown' });
     await flushPromises();
     expect(target()).toBe('22');
+  });
+
+  describe('chain settings', () => {
+    const alternatives = (wrapper: VueWrapper): ReturnType<VueWrapper['findAll']> =>
+      wrapper.findAll('#commodity-chain-container dd.alt .production');
+    const activeGuids = (wrapper: VueWrapper): (string | undefined)[] =>
+      wrapper
+        .findAll('#commodity-chain-container dd:not(.alt) .production')
+        .map(production => production.attributes('data-guid'));
+
+    it('restores chosen alternatives and productivities when a chain is shown again', async () => {
+      const { wrapper } = await mountPage('/population');
+      await enter(wrapper, 'ecos0r', '2000');
+      await selectElectronics(wrapper);
+      const alternative = required(alternatives(wrapper).at(0));
+      const guid = required(alternative.attributes('data-guid'));
+      await alternative.trigger('click');
+      expect(activeGuids(wrapper)).toContain(guid);
+
+      const child = wrapper.find(`#commodity-chain-container .production[data-guid="${guid}"] .productivity input`);
+      await child.setValue('250');
+      await child.trigger('change');
+      await flushPromises();
+
+      await wrapper.find('#production-fieldset li[data-guid="10045"]').trigger('click');
+      await flushPromises();
+      expect(activeGuids(wrapper)).toEqual(['10045']);
+
+      await selectElectronics(wrapper);
+      expect(activeGuids(wrapper)).toContain(guid);
+      const restored = wrapper.find(`#commodity-chain-container .production[data-guid="${guid}"] .productivity input`);
+      expect((restored.element as HTMLInputElement).value).toBe('250');
+    });
+
+    it('keeps the settings of each building apart and forgets them on reset', async () => {
+      const { wrapper } = await mountPage('/population');
+      await enter(wrapper, 'ecos0r', '2000');
+      await selectElectronics(wrapper);
+      await required(alternatives(wrapper).at(0)).trigger('click');
+      await flushPromises();
+      const stored = (): Record<string, unknown> =>
+        (
+          JSON.parse(required(localStorage.getItem('anno2070rechner:population'))) as {
+            chains: Record<string, unknown>;
+          }
+        ).chains;
+      expect(Object.keys(stored())).toEqual(['10186']);
+      await wrapper.find('#residences-fieldset input.reset').trigger('click');
+      await flushPromises();
+      expect(stored()).toEqual({});
+    });
   });
 
   it('uses the productivity for the maximum production of the needed buildings', async () => {

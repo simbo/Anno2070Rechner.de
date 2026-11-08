@@ -2,6 +2,7 @@ import { useStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { z } from 'zod';
 
+import type { ChainSettings } from '../models/chain-state';
 import { groups, levelCount, type Group } from '../models/population';
 
 /**
@@ -48,6 +49,11 @@ export interface PopulationInputs {
    * Target of the commodity chain: "0" population demand, "1" maximum production.
    */
   ccTarget: string;
+
+  /**
+   * What the visitor set in a commodity chain, per production building guid.
+   */
+  chains: Record<string, ChainSettings>;
 }
 
 /**
@@ -81,12 +87,18 @@ export const defaultInputs = (): PopulationInputs => ({
   show: { residences: true, inhabitants: false, demands: false, production: true },
   productivity: {},
   ccTarget: '0',
+  chains: {},
 });
 
 const groupRecord = <T extends z.ZodType>(schema: T): z.ZodObject<Record<Group, T>> =>
   z.object({ ecos: schema, tycoons: schema, techs: schema });
 
 const levelTexts = z.object(perGroup(group => z.array(z.string()).length(levelCount(group) + 1)));
+
+const chainSettingsSchema = z.object({
+  productivity: z.record(z.string(), z.string()),
+  preferred: z.array(z.number()),
+});
 
 const storedSchema = z.object({
   residences: levelTexts,
@@ -97,6 +109,7 @@ const storedSchema = z.object({
   show: z.object({ residences: z.boolean(), inhabitants: z.boolean(), demands: z.boolean(), production: z.boolean() }),
   productivity: z.record(z.string(), z.string()),
   ccTarget: z.enum(['0', '1']),
+  chains: z.record(z.string(), chainSettingsSchema).default({}),
 });
 
 /**

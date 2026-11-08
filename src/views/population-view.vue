@@ -7,6 +7,7 @@ import UiSelectMenu from '../components/ui-select-menu.vue';
 import UiSlider from '../components/ui-slider.vue';
 import { useI18n } from '../i18n';
 import { filterNum } from '../lib/legacy';
+import type { ChainSettings } from '../models/chain-state';
 import type { ChainRequest } from '../models/commodity-chain';
 import {
   calculateDemands,
@@ -111,6 +112,24 @@ let container = { guid: 0, productivity: 0, count: 0, target: '' };
 const hasDemand = (guid: number): boolean => (productions.value.get(guid)?.count ?? 0) > 0;
 
 /**
+ * The saved settings of a building's chain as part of a chain request.
+ *
+ * @param guid - The building guid.
+ * @param productivity - The productivity of the building.
+ * @returns The request parameters.
+ */
+function savedChainSettings(
+  guid: number,
+  productivity: number,
+): Required<Pick<ChainRequest, 'productivity' | 'preferred'>> {
+  const saved = inputs.chains[String(guid)] as ChainSettings | undefined;
+  return {
+    productivity: { ...saved?.productivity, [guid]: productivity },
+    preferred: saved?.preferred ?? [],
+  };
+}
+
+/**
  * Shows the chain of the only selected building, like the old `updateSelection`. The chain
  * only reloads when building, productivity, count or target changed, as before.
  */
@@ -136,11 +155,21 @@ function updateSelection(): void {
     target === container.target;
   if (unchanged) return;
   container = { guid, productivity, count, target };
+  const settings = savedChainSettings(guid, productivity);
   chainRequest.value =
     target === '0'
-      ? { pbGuid: guid, tpmNeeded: String(demands.value.get(row.product)), productivity: { [guid]: productivity } }
-      : { pbGuid: guid, count: String(count), productivity: { [guid]: productivity } };
+      ? { pbGuid: guid, tpmNeeded: String(demands.value.get(row.product)), ...settings }
+      : { pbGuid: guid, count: String(count), ...settings };
   targetVisible.value = true;
+}
+
+/**
+ * Keeps what the visitor set in the shown chain.
+ *
+ * @param settings - The settings of the chain.
+ */
+function onChainSettings(settings: ChainSettings): void {
+  inputs.chains[String(container.guid)] = settings;
 }
 
 /**
@@ -328,6 +357,7 @@ function toggleInfo(group: Group, value: string): void {
  */
 function reset(): void {
   for (const row of rows.value) inputs.productivity[String(row.guid)] = '100';
+  inputs.chains = {};
   for (const group of groups) {
     inputs.upgradeSlider[group] = Math.min(RESET_UPGRADE, levelCount(group));
     inputs.residences[group] = inputs.residences[group].map(() => '0');
@@ -674,7 +704,7 @@ const ccTargetOptions = computed(() => [
   </form>
   <div id="commodity-chain-container">
     <Transition name="fade">
-      <CommodityChain v-if="chainRequest" :catalog="catalog" :request="chainRequest" />
+      <CommodityChain v-if="chainRequest" :catalog="catalog" :request="chainRequest" @settings="onChainSettings" />
     </Transition>
   </div>
   <ul id="display-options">

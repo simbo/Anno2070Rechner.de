@@ -4,12 +4,14 @@ import { onBeforeUnmount, onMounted, provide, reactive, ref, watch } from 'vue';
 import { useI18n } from '../i18n';
 import {
   allGroups,
+  chainSettings,
   chooseAlternative,
   createChainState,
   followUp,
   recalculationRequest,
   summarize,
   updateProductivity,
+  type ChainSettings,
   type ChainState,
   type GroupState,
   type ProductionState,
@@ -25,6 +27,13 @@ import ChainGroup from './chain-group.vue';
  * the old site loaded from `get-commoditychain` and enhanced with jQuery.
  */
 const props = defineProps<{ catalog: Catalog; request: ChainRequest }>();
+
+const emit = defineEmits<{
+  /**
+   * The visitor changed a productivity or chose an alternative.
+   */
+  settings: [settings: ChainSettings];
+}>();
 
 const { t } = useI18n();
 const state = ref<ChainState>();
@@ -72,7 +81,9 @@ const groups = (): GroupState[] => (state.value ? allGroups(state.value.root) : 
 
 provide(chainControllerKey, {
   choose: (group, production) => {
-    if (state.value) chooseAlternative(state.value, group, production);
+    if (!state.value) return;
+    chooseAlternative(state.value, group, production);
+    emit('settings', chainSettings(state.value));
   },
   activate: production => {
     production.active = true;
@@ -83,6 +94,7 @@ provide(chainControllerKey, {
   deactivate,
   productivity: (production, text) => {
     updateProductivity(production, text);
+    if (state.value) emit('settings', chainSettings(state.value));
   },
 });
 

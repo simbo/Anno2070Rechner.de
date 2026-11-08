@@ -1,3 +1,5 @@
+import { filterNum } from '../lib/legacy';
+
 import {
   adjustProduction,
   chainGroupView,
@@ -11,6 +13,7 @@ import {
   type ProductionView,
 } from './commodity-chain';
 import type { Catalog } from './game-data';
+import { PERCENT } from './units';
 
 /**
  * A displayed building of a chain with its visitor-editable state.
@@ -149,6 +152,41 @@ export function recalculationRequest(state: ChainState): ChainRequest {
   }
   const first = state.root.productions[0].view;
   return { pbGuid: first.guid, tpmNeeded: first.tpmNeeded, productivity, preferred };
+}
+
+/**
+ * What a visitor set in a chain, restored when the chain of the same building is shown
+ * again. The productivity of the top building is not part of it, because it has its own
+ * input in the population calculator.
+ */
+export interface ChainSettings {
+  /**
+   * Productivities that differ from 100 %, per building guid.
+   */
+  productivity: Record<string, string>;
+
+  /**
+   * The active building of every level.
+   */
+  preferred: number[];
+}
+
+/**
+ * Collects what a visitor set in a chain.
+ *
+ * @param state - The chain.
+ * @returns The settings.
+ */
+export function chainSettings(state: ChainState): ChainSettings {
+  const { pbGuid, productivity, preferred } = recalculationRequest(state);
+  return {
+    productivity: Object.fromEntries(
+      Object.entries(productivity ?? {}).flatMap(([guid, value]) =>
+        guid === String(pbGuid) || filterNum(String(value)) === PERCENT ? [] : [[guid, String(value)]],
+      ),
+    ),
+    preferred: (preferred ?? []).map(Number),
+  };
 }
 
 /**

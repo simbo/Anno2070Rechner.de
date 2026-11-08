@@ -22,7 +22,19 @@ describe('parseInputs', () => {
     inputs.residences.ecos = ['10', '2', '3', '4', '1'];
     inputs.info.ecos = '2';
     inputs.productivity['10045'] = '150';
+    inputs.chains['10186'] = { productivity: { '10024': '150' }, preferred: [10_186, 10_024] };
     expect(parseInputs(JSON.stringify(inputs))).toEqual(inputs);
+  });
+
+  it('keeps inputs that were saved before chains had settings', () => {
+    const { chains, ...older } = { ...defaultInputs(), ccTarget: '1' };
+    expect(chains).toEqual({});
+    expect(parseInputs(JSON.stringify(older))).toMatchObject({ ccTarget: '1', chains: {} });
+  });
+
+  it('rejects invalid chain settings', () => {
+    const inputs = { ...defaultInputs(), ccTarget: '1', chains: { '10186': { productivity: 'x', preferred: [] } } };
+    expect(parseInputs(JSON.stringify(inputs))).toEqual(defaultInputs());
   });
 
   it('rejects inputs with a wrong number of levels or unknown values', () => {
