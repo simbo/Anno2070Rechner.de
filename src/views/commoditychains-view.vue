@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onBeforeUnmount, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { useCatalog } from '../catalog';
@@ -9,6 +9,8 @@ import UiAutocomplete from '../components/ui-autocomplete.vue';
 import UiSelectMenu from '../components/ui-select-menu.vue';
 import { useI18n } from '../i18n';
 import { phpFloatval, phpIntval, phpNumber, phpStrnatcasecmp } from '../lib/php';
+import type { ChainSettings } from '../models/chain-state';
+import { formatAlternatives, formatProductivities, parseChainUrl } from '../models/chain-url';
 import type { ChainRequest } from '../models/commodity-chain';
 import { productionSuggestions } from '../models/database';
 import type { ProductionBuilding } from '../models/game-data';
@@ -16,7 +18,7 @@ import type { ProductionBuilding } from '../models/game-data';
 /**
  * The commodity chain page: choose or search a production building, set a count or a
  * target output, and see its chain. URL parameters `pb_guid`, `count` and `target_tpm`
- * preselect the form as on the old site.
+ * preselect the form as on the old site; `prod` and `alt` hold what was set in the chain.
  */
 const route = useRoute();
 const router = useRouter();
@@ -54,24 +56,58 @@ const options = computed(() => {
   ];
 });
 
-const initialGuid = String(phpIntval(query('pb_guid')));
-const knownGuid = options.value.some(entry => entry.value === initialGuid);
 const search = ref('');
 const searchGuid = ref('');
-const pbGuid = ref(knownGuid ? initialGuid : options.value[0].value);
-const initialCount = phpIntval(query('count'));
-const count = ref(String(Math.max(1, initialCount)));
-const targetTpm = query('target_tpm');
-// The old form showed the target as PHP printed the parsed number.
-const initialTarget = targetTpm === undefined ? undefined : phpFloatval(targetTpm.replace(/,/g, '.'));
-const tpmNeeded = ref(initialTarget === undefined ? '' : phpNumber(initialTarget));
+const pbGuid = ref('');
+const count = ref('1');
+const tpmNeeded = ref('');
+
+/**
+ * Productivities set in the chain, per building guid, and the chosen alternatives. They live
+ * in the URL too, so that a chain keeps them when reloaded or shared.
+ */
+const productivity = ref<Record<string, string>>({});
+const alternatives = ref<number[]>([]);
+
+/**
+ * The target the chain keeps after its top building's productivity changed. It stays out of
+ * the form, because the visitor did not enter it.
+ */
+const keptTarget = ref<string>();
 
 /**
  * Choosing in the list submits after this delay, in milliseconds, as on the old page.
  */
 const SELECT_DELAY = 600;
 
+/**
+ * Changes in the chain reach the URL after this delay, in milliseconds, so that moving a
+ * slider does not write every position.
+ */
+const URL_DELAY = 300;
+
 const request = ref<ChainRequest>();
+
+// The query this page wrote itself; any other query comes from a link and is applied.
+let writtenQuery = '';
+let urlTimer: ReturnType<typeof globalThis.setTimeout> | undefined;
+
+/**
+ * Keeps the state in the URL, with the parameter names of the old site where they exist.
+ */
+function writeUrl(): void {
+  globalThis.clearTimeout(urlTimer);
+  const urlQuery: Record<string, string> = { pb_guid: pbGuid.value };
+  if (count.value !== '1') urlQuery.count = count.value;
+  const target = tpmNeeded.value === '' ? keptTarget.value : tpmNeeded.value;
+  if (target !== undefined) urlQuery.target_tpm = target;
+  const prod = formatProductivities(productivity.value);
+  if (prod !== undefined) urlQuery.prod = prod;
+  const alt = formatAlternatives(catalog.value, alternatives.value);
+  if (alt !== undefined) urlQuery.alt = alt;
+  writtenQuery = JSON.stringify(urlQuery);
+  void router.replace({ query: urlQuery });
+}
 
 /**
  * Calculates the chain for the form values and keeps them in the URL.
@@ -81,14 +117,68 @@ function submit(): void {
     pbGuid.value = searchGuid.value;
     searchGuid.value = '';
   }
+  if (!catalog.value.productionBuildings.has(phpIntval(pbGuid.value))) return;
+  // Settings belong to the chain of one building.
+  if (request.value && String(request.value.pbGuid) !== pbGuid.value) {
+    productivity.value = {};
+    alternatives.value = [];
+  }
+  keptTarget.value = undefined;
   const next: ChainRequest = { pbGuid: pbGuid.value, count: count.value, tpmNeeded: tpmNeeded.value };
-  if (!catalog.value.productionBuildings.has(phpIntval(next.pbGuid))) return;
+  if (Object.keys(productivity.value).length > 0) next.productivity = { ...productivity.value };
+  if (alternatives.value.length > 0) next.preferred = [...alternatives.value];
   request.value = next;
-  // Keep the URL shareable, with the parameter names of the old site.
-  const urlQuery: Record<string, string> = { pb_guid: pbGuid.value };
-  if (count.value !== '1') urlQuery.count = count.value;
-  if (tpmNeeded.value !== '') urlQuery.target_tpm = tpmNeeded.value;
-  void router.replace({ query: urlQuery });
+  writeUrl();
+}
+
+/**
+ * Fills the form from the URL and shows the chain, as a link to this page expects.
+ */
+function applyQuery(): void {
+  const guid = String(phpIntval(query('pb_guid')));
+  pbGuid.value = options.value.some(entry => entry.value === guid) ? guid : options.value[0].value;
+  const buildings = Math.max(1, phpIntval(query('count')));
+  count.value = String(buildings);
+  const targetTpm = query('target_tpm');
+  // The old form showed the target as PHP printed the parsed number.
+  const target = targetTpm?.replace(/,/g, '.');
+  tpmNeeded.value = target === undefined ? '' : phpNumber(phpFloatval(target));
+  const settings = parseChainUrl(catalog.value, query('prod'), query('alt'));
+  productivity.value = settings.productivity;
+  alternatives.value = settings.preferred;
+  request.value = undefined;
+  submit();
+}
+
+/**
+ * Takes over what the visitor set in the chain.
+ *
+ * @param settings - The settings of the chain.
+ */
+function onChainSettings(settings: ChainSettings): void {
+  const root = pbGuid.value;
+  const rootProductivity = productivity.value[root] as string | undefined;
+  productivity.value = {
+    ...settings.productivity,
+    ...(rootProductivity !== undefined && { [root]: rootProductivity }),
+  };
+  alternatives.value = settings.preferred;
+  globalThis.clearTimeout(urlTimer);
+  urlTimer = globalThis.setTimeout(writeUrl, URL_DELAY);
+}
+
+/**
+ * Takes over the productivity of the top building. The chain keeps its target meanwhile, so
+ * that target has to be part of the URL for the chain to look the same when reloaded.
+ *
+ * @param text - The productivity in percent.
+ * @param target - The target of the chain in tons per minute.
+ */
+function onChainRootProductivity(text: string, target: string): void {
+  productivity.value = { ...productivity.value, [pbGuid.value]: text };
+  keptTarget.value = target;
+  globalThis.clearTimeout(urlTimer);
+  urlTimer = globalThis.setTimeout(writeUrl, URL_DELAY);
 }
 
 let selectTimer: ReturnType<typeof globalThis.setTimeout> | undefined;
@@ -130,7 +220,19 @@ const suggestions = (term: string): BuildingSuggestion[] =>
     guid: suggestion.guid,
   }));
 
-submit();
+applyQuery();
+
+watch(
+  () => route.query,
+  next => {
+    if (JSON.stringify(next) !== writtenQuery) applyQuery();
+  },
+);
+
+onBeforeUnmount(() => {
+  globalThis.clearTimeout(urlTimer);
+  globalThis.clearTimeout(selectTimer);
+});
 </script>
 
 <template>
@@ -193,7 +295,13 @@ submit();
   </form>
   <div id="commodity-chain-container">
     <Transition name="fade" appear>
-      <CommodityChain v-if="request" :catalog="catalog" :request="request" />
+      <CommodityChain
+        v-if="request"
+        :catalog="catalog"
+        :request="request"
+        @settings="onChainSettings"
+        @root-productivity="onChainRootProductivity"
+      />
     </Transition>
   </div>
   <div class="clear"></div>

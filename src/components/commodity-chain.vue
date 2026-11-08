@@ -37,7 +37,7 @@ const emit = defineEmits<{
   /**
    * The visitor changed the productivity of the top building.
    */
-  rootProductivity: [text: string];
+  rootProductivity: [text: string, target: string];
 
   /**
    * The visitor finished changing the productivity of the top building.
@@ -110,7 +110,9 @@ provide(chainControllerKey, {
     updateProductivity(production, text);
     if (!state.value) return;
     emit('settings', chainSettings(state.value));
-    if (production === state.value.root.productions[0]) emit('rootProductivity', text);
+    if (production === state.value.root.productions[0]) {
+      emit('rootProductivity', text, recalculationRequest(state.value).tpmNeeded as string);
+    }
   },
 });
 

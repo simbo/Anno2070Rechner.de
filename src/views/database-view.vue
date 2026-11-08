@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { useCatalog } from '../catalog';
@@ -66,8 +66,22 @@ const productOptions = computed(() => [
   ...options(catalog.value.products.values()),
 ]);
 
-const selected = ref({ productionbuilding: '', building: '', product: '' });
+const selected = ref({
+  productionbuilding: query.value.productionbuilding ?? '',
+  building: query.value.building ?? '',
+  product: query.value.product ?? '',
+});
 const search = ref(query.value.search ?? '');
+
+// The form follows the URL, also when the menu item is clicked again.
+watch(query, next => {
+  selected.value = {
+    productionbuilding: next.productionbuilding ?? '',
+    building: next.building ?? '',
+    product: next.product ?? '',
+  };
+  search.value = next.search ?? '';
+});
 const autocomplete = ref<{ close: () => void }>();
 
 /**

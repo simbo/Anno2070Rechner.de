@@ -1,4 +1,4 @@
-import { flushPromises } from '@vue/test-utils';
+import { flushPromises, type VueWrapper } from '@vue/test-utils';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { mountPage } from '../tests/mount-page';
@@ -10,6 +10,21 @@ afterEach(() => {
   vi.useRealTimers();
   document.body.replaceChildren();
 });
+
+/**
+ * Types a productivity into a building of the chain.
+ *
+ * @param wrapper - The page.
+ * @param guid - The building.
+ * @param text - The productivity.
+ */
+async function typeProductivity(wrapper: VueWrapper, guid: string, text: string): Promise<void> {
+  const input = wrapper.find(`#commodity-chain-container .production[data-guid="${guid}"] .productivity input`);
+  await input.trigger('focus');
+  await input.setValue(text);
+  await input.trigger('change');
+  await flushPromises();
+}
 
 describe('commodity chain page', () => {
   it('shows the chain of the building in the URL with count and target', async () => {
@@ -56,7 +71,7 @@ describe('commodity chain page', () => {
     expect(production.classes()).toContain('active');
     await input.trigger('keydown');
     await input.setValue('50');
-    await input.trigger('keyup');
+    await input.trigger('change');
     expect(production.find('.count').text()).toBe('×2');
     expect(production.find('.efficiency em').exists()).toBe(false);
     globalThis.dispatchEvent(new MouseEvent('click'));
@@ -79,5 +94,73 @@ describe('commodity chain page', () => {
     await flushPromises();
     expect((wrapper.find('select[name=pb_guid]').element as HTMLSelectElement).value).toBe('10045');
     expect(wrapper.find('.commodity-chain .production').attributes('data-guid')).toBe('10045');
+  });
+});
+
+describe('commodity chains in the URL', () => {
+  it('keep what was set in the chain, ready to be reloaded or shared', async () => {
+    const { wrapper, router } = await mountPage('/commoditychains?pb_guid=10186');
+    await flushPromises();
+    vi.useFakeTimers();
+    const guid = required(
+      required(wrapper.findAll('#commodity-chain-container .production').at(1)).attributes('data-guid'),
+    );
+    await typeProductivity(wrapper, guid, '150');
+    expect(router.currentRoute.value.query.prod).toBeUndefined();
+    vi.advanceTimersByTime(300);
+    vi.useRealTimers();
+    await flushPromises();
+    expect(router.currentRoute.value.query.prod).toBe(`${guid}:150`);
+    const url = router.currentRoute.value.fullPath;
+    wrapper.unmount();
+    const reloaded = await mountPage(url);
+    await flushPromises();
+    const input = reloaded.wrapper.find(`.production[data-guid="${guid}"] .productivity input`);
+    expect(input.element).toHaveProperty('value', '150');
+  });
+
+  it('keep the target when the top building changes its productivity', async () => {
+    const { wrapper, router } = await mountPage('/commoditychains?pb_guid=10045&count=2');
+    await flushPromises();
+    vi.useFakeTimers();
+    await typeProductivity(wrapper, '10045', '200');
+    vi.advanceTimersByTime(300);
+    vi.useRealTimers();
+    await flushPromises();
+    expect(router.currentRoute.value.query).toMatchObject({ prod: '10045:200', target_tpm: '4' });
+    expect(wrapper.find('input[name="tpm_needed"]').element).toHaveProperty('value', '');
+  });
+
+  it('show a shared chain with its productivities and alternatives', async () => {
+    const plain = await mountPage('/commoditychains?pb_guid=10025&count=2');
+    await flushPromises();
+    const plainText = plain.wrapper.find('#commodity-chain-container').text();
+    plain.wrapper.unmount();
+    const { wrapper, router } = await mountPage('/commoditychains?pb_guid=10025&count=2&prod=10024:200&alt=10098');
+    await flushPromises();
+    expect(wrapper.find('#commodity-chain-container').text()).not.toBe(plainText);
+    expect(router.currentRoute.value.query).toMatchObject({ prod: '10024:200', alt: '10098' });
+  });
+
+  it('ignore invalid parameters', async () => {
+    const { router } = await mountPage('/commoditychains?pb_guid=10025&prod=1:200,10024:x&alt=1');
+    await flushPromises();
+    expect(router.currentRoute.value.query).toEqual({ pb_guid: '10025' });
+  });
+
+  it('keep the old parameters unchanged', async () => {
+    const { wrapper, router } = await mountPage('/commoditychains?pb_guid=10045&count=3&target_tpm=8');
+    await flushPromises();
+    expect(router.currentRoute.value.query).toEqual({ pb_guid: '10045', count: '3', target_tpm: '8' });
+    expect(wrapper.find('input[name="tpm_needed"]').element).toHaveProperty('value', '8');
+  });
+
+  it('start over when the menu item is clicked again', async () => {
+    const { wrapper, router } = await mountPage('/commoditychains?pb_guid=10045&count=3');
+    await flushPromises();
+    await wrapper.find('#menu li:nth-child(2) a').trigger('click');
+    await flushPromises();
+    expect(wrapper.find('input[name="count"]').element).toHaveProperty('value', '1');
+    expect(router.currentRoute.value.query.count).toBeUndefined();
   });
 });

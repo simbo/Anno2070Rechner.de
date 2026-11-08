@@ -81,3 +81,18 @@ describe('database page', () => {
     ]);
   });
 });
+
+describe('database in the URL', () => {
+  it('shows the chosen list in its select box after a reload', async () => {
+    const { wrapper } = await mountPage('/database?productionbuilding=farm');
+    expect(wrapper.find('select[name="productionbuilding"]').element).toHaveProperty('value', 'farm');
+  });
+
+  it('clears the form when the menu item is clicked again', async () => {
+    const { wrapper } = await mountPage('/database?productionbuilding=farm');
+    await wrapper.find('#menu li:nth-child(3) a').trigger('click');
+    await flushPromises();
+    expect(wrapper.find('select[name="productionbuilding"]').element).toHaveProperty('value', '');
+    expect(wrapper.find('#database-results h3').exists()).toBe(false);
+  });
+});
