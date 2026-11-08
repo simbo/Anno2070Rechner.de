@@ -1,6 +1,8 @@
 <script setup lang="ts" generic="T extends AutocompleteItem">
 import { onBeforeUnmount, ref, shallowRef } from 'vue';
 
+import { keyName } from '../lib/keys';
+
 /**
  * A text input with suggestions that renders and behaves like the jQuery UI 1.8
  * autocomplete of the old site: suggestions appear after a short delay, arrow keys move
@@ -81,8 +83,7 @@ function search(): void {
  */
 function activate(index: number, byKeyboard: boolean): void {
   activeIndex.value = index;
-  const item = items.value.at(index);
-  if (byKeyboard && item) value.value = item.value;
+  if (byKeyboard && index >= 0 && index < items.value.length) value.value = items.value[index].value;
 }
 
 /**
@@ -112,7 +113,7 @@ function move(direction: 1 | -1): void {
  * @param index - The suggestion index.
  */
 function choose(index: number): void {
-  const item = index >= 0 ? items.value.at(index) : undefined;
+  const item = index >= 0 ? items.value[index] : undefined;
   if (!item) return;
   value.value = item.value;
   close();
@@ -183,7 +184,7 @@ const keys = new Map<string, (event: KeyboardEvent) => void>([
  * @param event - The keyboard event.
  */
 function onKeyDown(event: KeyboardEvent): void {
-  const action = keys.get(event.key);
+  const action = keys.get(keyName(event));
   if (action) {
     action(event);
     return;

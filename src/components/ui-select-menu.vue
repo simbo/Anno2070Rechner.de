@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, useId } from 'vue';
 
+import { keyName } from '../lib/keys';
+
 import type { SelectOption } from './select-option';
 
 /**
@@ -61,7 +63,7 @@ const selectedIndex = computed(() =>
     props.options.findIndex(option => option.value === value.value),
   ),
 );
-const selectedLabel = computed(() => props.options.at(selectedIndex.value)?.label ?? '');
+const selectedLabel = computed(() => props.options[selectedIndex.value]?.label ?? '');
 
 /**
  * The z-index like jQuery UI's `zIndex()`: the first positioned ancestor with one.
@@ -198,7 +200,7 @@ function toggle(retainFocus: boolean): void {
  * @param index - The entry index.
  */
 function choose(index: number): void {
-  const option = index >= 0 ? props.options.at(index) : undefined;
+  const option = index >= 0 ? props.options[index] : undefined;
   if (!option) return;
   value.value = option.value;
   emit('select', option.value);
@@ -259,7 +261,7 @@ function typeAhead(key: string, fromIndex: number): number | undefined {
   globalThis.clearTimeout(typedTimer);
   const character = key.toLowerCase();
   typed += character;
-  typedCycling = typed.length < 2 || (typedCycling && typed.slice(0, -1).at(-1) === character);
+  typedCycling = typed.length < 2 || (typedCycling && typed.slice(0, -1).slice(-1) === character);
   const match = typedCycling ? character : typed;
   let next: number | undefined;
   for (const [index, option] of props.options.entries()) {
@@ -308,7 +310,7 @@ const buttonKeys = new Map<string, (event: KeyboardEvent) => void>([
       moveSelection(1);
     },
   ],
-  ['Home', () => (value.value = props.options.at(0)?.value ?? '')],
+  ['Home', () => (value.value = props.options[0]?.value ?? '')],
 ]);
 
 /**
@@ -317,14 +319,14 @@ const buttonKeys = new Map<string, (event: KeyboardEvent) => void>([
  * @param event - The keyboard event.
  */
 function onButtonKeyDown(event: KeyboardEvent): void {
-  const action = buttonKeys.get(event.key);
+  const action = buttonKeys.get(keyName(event));
   if (action) {
     event.preventDefault();
     action(event);
     return;
   }
-  if (event.key.length !== 1) return;
-  const index = typeAhead(event.key, selectedIndex.value);
+  if (keyName(event).length !== 1) return;
+  const index = typeAhead(keyName(event), selectedIndex.value);
   if (index !== undefined) choose(index);
 }
 
@@ -417,19 +419,19 @@ const listKeys = new Map<string, (current: number, event: KeyboardEvent) => void
  */
 function onListKeyDown(event: KeyboardEvent): void {
   const current = Math.max(0, focusIndex.value);
-  const action = listKeys.get(event.key);
+  const action = listKeys.get(keyName(event));
   if (action) {
     event.preventDefault();
     action(current, event);
     return;
   }
   // Tab chooses the focused entry and moves on.
-  if (event.key === 'Tab') {
+  if (keyName(event) === 'Tab') {
     choose(current);
     return;
   }
-  if (event.key.length !== 1) return;
-  const index = typeAhead(event.key, current);
+  if (keyName(event).length !== 1) return;
+  const index = typeAhead(keyName(event), current);
   if (index !== undefined) moveFocus(index);
 }
 

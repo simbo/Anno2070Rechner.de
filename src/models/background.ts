@@ -69,7 +69,7 @@ export function dailyBackground(date: Date): Background {
   const day = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / MILLISECONDS_PER_DAY;
   const cycle = Math.floor(day / backgrounds.length);
   const order = shuffled(cycle);
-  if (order[0] === shuffled(cycle - 1).at(-1)) swap(order, 0, 1);
+  if (order[0] === shuffled(cycle - 1).slice(-1)[0]) swap(order, 0, 1);
   return order[day - cycle * backgrounds.length];
 }
 

@@ -1,7 +1,8 @@
 import { useStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
+import { fromEntries } from '../lib/compat';
 import type { ChainSettings } from '../models/chain-state';
 import { groups, levelCount, type Group } from '../models/population';
 
@@ -63,7 +64,7 @@ export interface PopulationInputs {
  * @returns The values by faction.
  */
 const perGroup = <T>(value: (group: Group) => T): Record<Group, T> =>
-  Object.fromEntries(groups.map(group => [group, value(group)])) as Record<Group, T>;
+  fromEntries(groups.map((group): [Group, T] => [group, value(group)]));
 
 /**
  * Input texts for the total and every level of a faction, all "0".
@@ -90,15 +91,19 @@ export const defaultInputs = (): PopulationInputs => ({
   chains: {},
 });
 
-const groupRecord = <T extends z.ZodType>(schema: T): z.ZodObject<Record<Group, T>> =>
+const groupRecord = <T extends z.ZodMiniType>(schema: T): z.ZodMiniObject<Record<Group, T>> =>
   z.object({ ecos: schema, tycoons: schema, techs: schema });
 
-const levelTexts = z.object(perGroup(group => z.array(z.string()).length(levelCount(group) + 1)));
+const texts = (length: number): z.ZodMiniArray<z.ZodMiniString> => z.array(z.string()).check(z.length(length));
+
+const levelTexts = z.object(perGroup(group => texts(levelCount(group) + 1)));
 
 const chainSettingsSchema = z.object({
   productivity: z.record(z.string(), z.string()),
   preferred: z.array(z.number()),
 });
+
+const chainsSchema = z._default(z.record(z.string(), chainSettingsSchema), {});
 
 const storedSchema = z.object({
   residences: levelTexts,
@@ -109,7 +114,7 @@ const storedSchema = z.object({
   show: z.object({ residences: z.boolean(), inhabitants: z.boolean(), demands: z.boolean(), production: z.boolean() }),
   productivity: z.record(z.string(), z.string()),
   ccTarget: z.enum(['0', '1']),
-  chains: z.record(z.string(), chainSettingsSchema).default({}),
+  chains: chainsSchema,
 });
 
 /**

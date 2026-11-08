@@ -1,6 +1,6 @@
 // @vitest-environment node
 import type { Rollup } from 'vite';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { headMarker, renderHead, routePagesPlugin } from './route-pages.plugin.ts';
 import { required } from './src/tests/required.ts';
@@ -69,14 +69,14 @@ describe('routePagesPlugin', () => {
     expect(index.source).toContain('<title>Bevölkerung « Anno 2070 Rechner</title>');
   });
 
-  it('fails without index.html or placeholder', () => {
+  it('fails without placeholder and skips outputs without index.html', () => {
     expect(() => run('<html lang="de"></html>')).toThrow(/lacks/);
     const plugin = routePagesPlugin();
     const hook = plugin.generateBundle as {
       handler: (this: unknown, options: unknown, bundle: Rollup.OutputBundle) => void;
     };
-    expect(() => {
-      hook.handler.call({ emitFile: () => {} }, {}, {});
-    }).toThrow(/did not produce/);
+    const emitFile = vi.fn();
+    hook.handler.call({ emitFile }, {}, {});
+    expect(emitFile).not.toHaveBeenCalled();
   });
 });

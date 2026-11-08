@@ -7,6 +7,7 @@ import DatabaseBuilding from '../components/database-building.vue';
 import UiAutocomplete from '../components/ui-autocomplete.vue';
 import UiSelectMenu from '../components/ui-select-menu.vue';
 import { useI18n } from '../i18n';
+import { fromEntries } from '../lib/compat';
 import { phpStrnatcasecmp } from '../lib/php';
 import { databaseResults, nameSuggestions, type DatabaseQuery } from '../models/database';
 import { pagePath } from '../routes';
@@ -42,7 +43,7 @@ const results = computed(() => databaseResults(catalog.value, query.value));
  */
 const options = (items: Iterable<{ guid: number; name: string }>): { value: string; label: string }[] =>
   [...items]
-    .toSorted((a, b) => phpStrnatcasecmp(a.name, b.name))
+    .sort((a, b) => phpStrnatcasecmp(a.name, b.name))
     .map(item => ({ value: String(item.guid), label: item.name }));
 
 const productionOptions = computed(() => [
@@ -89,7 +90,7 @@ function onSelect(key: keyof typeof selected.value): void {
     if (other !== key) selected.value[other] = '';
   }
   // Empty lists add nothing to the results, so they stay out of the URL.
-  show(Object.fromEntries(Object.entries(selected.value).filter(([, value]) => value !== '')));
+  show(fromEntries(Object.entries(selected.value).filter(([, value]) => value !== '')));
 }
 
 const suggestions = (term: string): { label: string; value: string }[] =>

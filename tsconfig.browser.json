@@ -5,7 +5,8 @@
   "exclude": ["src/**/*.test.ts", "src/tests/**"],
   "compilerOptions": {
     "noEmit": true,
-    "lib": ["ES2024", "DOM", "DOM.Iterable"],
+    // The app's own code stays at this level, see docs/rebuild-plan.md#browser-support.
+    "lib": ["ES2018", "DOM", "DOM.Iterable"],
     "resolveJsonModule": true,
     "jsx": "preserve",
     "types": ["vite/client"],

@@ -17,8 +17,9 @@ describe('background styles', () => {
   const styles = readFileSync(join(import.meta.dirname, '../styles/styles.css'), 'utf8');
 
   it('fill and fade only in windows larger than the images', () => {
-    const large = styles.indexOf('@media (min-width: 1921px), (min-height: 1201px)');
+    const large = styles.indexOf('@supports (filter: blur(1px))');
     expect(large).toBeGreaterThan(-1);
+    expect(styles.indexOf('@media (min-width: 1921px), (min-height: 1201px)')).toBeGreaterThan(large);
     for (const effect of ['filter: blur(', 'mask-composite: intersect']) {
       expect(styles.indexOf(effect)).toBeGreaterThan(large);
     }
@@ -26,8 +27,9 @@ describe('background styles', () => {
   });
 
   it.each(backgrounds)('give %s its image and base color', background => {
+    expect(styles).toMatch(new RegExp(String.raw`body\.bg-${background} \{\s*background-color: #[0-9a-f]{6};`, 'u'));
     const rule = new RegExp(
-      String.raw`body\.bg-${background} \{\s*--background-image: url\('/img/bg-body-${background}\.jpg'\);\s*--background-color: #[0-9a-f]{6};`,
+      String.raw`body\.bg-${background}::before,\s*body\.bg-${background}::after \{\s*background-image: url\('/img/bg-body-${background}\.jpg'\);`,
       'u',
     );
     expect(styles).toMatch(rule);

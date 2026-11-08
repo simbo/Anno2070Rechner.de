@@ -177,7 +177,7 @@ export interface ProductionRow {
  */
 export function productionRows(catalog: Catalog): ProductionRow[] {
   return catalog.demands.map(({ product }) => {
-    const building = catalog.productionBuildingsByProduct.get(product)?.at(0);
+    const building = catalog.productionBuildingsByProduct.get(product)?.[0];
     if (!building) throw new Error(`No production building for product ${product}`);
     return { guid: building.guid, product, tpm: tonsPerMinute(building) };
   });

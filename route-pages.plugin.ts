@@ -109,10 +109,9 @@ export function routePagesPlugin(): Plugin {
         _options,
         bundle,
       ) {
+        // The bundle for old browsers is a separate output without any HTML.
         const index = 'index.html' in bundle ? bundle['index.html'] : undefined;
-        if (index?.type !== 'asset' || typeof index.source !== 'string') {
-          throw new Error('route-pages: the build did not produce index.html');
-        }
+        if (index?.type !== 'asset' || typeof index.source !== 'string') return;
         const template = index.source;
         if (!template.includes(headMarker)) throw new Error(`route-pages: index.html lacks ${headMarker}`);
         const emit = (fileName: string, source: string): void => {

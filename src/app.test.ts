@@ -1,3 +1,6 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { mountPage } from './tests/mount-page';
@@ -58,5 +61,35 @@ describe('page frame', () => {
     expect(document.body.className).toMatch(/^database bg-(eco|tycoon)\d$/);
     expect(document.documentElement.lang).toBe('de');
     expect(wrapper.find('h2.database').exists()).toBe(true);
+  });
+});
+
+describe('notice for old browsers', () => {
+  const html = readFileSync(join(import.meta.dirname, 'index.html'), 'utf8');
+  const code = /<script>(?<code>[\s\S]*?)<\/script>/u.exec(html)?.groups?.code ?? '';
+
+  /**
+   * Runs the inline check of the page as a browser would.
+   *
+   * @param proxy - The global `Proxy`, undefined in old browsers.
+   * @param pathname - The page path.
+   * @returns The content of the app element.
+   */
+  function run(proxy: unknown, pathname: string): string {
+    const app = document.createElement('div');
+    const fake = { getElementById: () => app };
+    // eslint-disable-next-line @typescript-eslint/no-implied-eval -- The tested code is a plain inline script.
+    const script = new Function('Proxy', 'document', 'location', code) as (...values: unknown[]) => void;
+    script(proxy, fake, { pathname });
+    return app.textContent;
+  }
+
+  it('stays away where the app can run', () => {
+    expect(run(Proxy, '/population')).toBe('');
+  });
+
+  it('explains the problem in the language of the page', () => {
+    expect(run(undefined, '/population')).toContain('zu alt');
+    expect(run(undefined, '/population/en')).toContain('too old');
   });
 });

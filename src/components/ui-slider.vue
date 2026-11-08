@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
+import { keyName } from '../lib/keys';
+
 /**
  * A horizontal slider that renders and behaves like the jQuery UI 1.8 slider of the
  * old site (range "min"), so the existing styles apply unchanged.
@@ -149,7 +151,7 @@ let keySliding = false;
  * @param event - The keyboard event.
  */
 function onKeyDown(event: KeyboardEvent): void {
-  const move = keyMoves.get(event.key);
+  const move = keyMoves.get(keyName(event));
   if (!move) return;
   event.preventDefault();
   if (!keySliding) {

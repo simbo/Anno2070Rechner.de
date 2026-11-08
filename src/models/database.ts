@@ -30,10 +30,10 @@ export interface DatabaseResults {
  */
 export function searchText(text: string): string {
   return text
-    .replaceAll(/[A-Z]/g, letter => letter.toLowerCase())
-    .replaceAll('Ö', 'ö')
-    .replaceAll('Ä', 'ä')
-    .replaceAll('Ü', 'ü');
+    .replace(/[A-Z]/g, letter => letter.toLowerCase())
+    .replace(/Ö/g, 'ö')
+    .replace(/Ä/g, 'ä')
+    .replace(/Ü/g, 'ü');
 }
 
 /**
@@ -121,9 +121,9 @@ export function databaseResults(catalog: Catalog, query: DatabaseQuery): Databas
   if (query.building !== undefined) buildings = selectEntries(catalog.buildings, query.building, buildings);
   if (query.product !== undefined) products = selectEntries(catalog.products, query.product, products);
   return {
-    productionBuildings: productionBuildings.toSorted(byName),
-    buildings: buildings.toSorted(byName),
-    products: products.toSorted(byName),
+    productionBuildings: [...productionBuildings].sort(byName),
+    buildings: [...buildings].sort(byName),
+    products: [...products].sort(byName),
   };
 }
 
@@ -159,7 +159,7 @@ export function productionSuggestions(catalog: Catalog, input: string): Producti
       if (!results.has(producer.guid)) results.set(producer.guid, { name: producer.name, guid: producer.guid });
     }
   }
-  return [...results.values()].toSorted(byName);
+  return [...results.values()].sort(byName);
 }
 
 /**
@@ -175,5 +175,5 @@ export function nameSuggestions(catalog: Catalog, input: string): string[] {
   if (phpEmpty(text)) return [];
   const names = new Set<string>();
   for (const name of Object.values(catalog.names)) if (name.toLowerCase().startsWith(text)) names.add(name);
-  return [...names].toSorted(phpStrnatcasecmp);
+  return [...names].sort(phpStrnatcasecmp);
 }

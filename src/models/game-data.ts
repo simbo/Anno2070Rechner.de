@@ -162,7 +162,12 @@ export function createCatalog(data: GameData, names: Names, language: Language):
   const buildings = new Map<number, Building>(
     data.buildings.map(building => [building.guid, { ...building, name: name(building.guid) }]),
   );
-  const productionBuildingsByProduct = Map.groupBy(productionBuildings.values(), building => building.product);
+  const productionBuildingsByProduct = new Map<number, ProductionBuilding[]>();
+  for (const building of productionBuildings.values()) {
+    const producers = productionBuildingsByProduct.get(building.product);
+    if (producers) producers.push(building);
+    else productionBuildingsByProduct.set(building.product, [building]);
+  }
   return {
     language,
     names,

@@ -1,3 +1,4 @@
+import { flatten } from '../lib/compat';
 import { filterNum, parseLeadingInt } from '../lib/legacy';
 import { phpFloatval, phpIntval, phpNumber, phpRound } from '../lib/php';
 
@@ -126,7 +127,7 @@ export function requestCommodityChain(catalog: Catalog, request: ChainRequest): 
     for (const [guid, value] of Object.entries(request.productivity)) productivity[Number(guid)] = phpIntval(value);
   }
   const preferred = (request.preferred ?? []).map(guid => phpIntval(guid));
-  const requested = request.tpmNeeded === undefined ? 0 : phpFloatval(String(request.tpmNeeded).replaceAll(',', '.'));
+  const requested = request.tpmNeeded === undefined ? 0 : phpFloatval(String(request.tpmNeeded).replace(/,/g, '.'));
   const output = tonsPerMinute(building) * ((productivity[building.guid] ?? PERCENT) / PERCENT) * count;
   const target = requested > 0 ? requested : output;
   return getCommodityChain(catalog, building, 1, target, productivity, preferred);
@@ -242,10 +243,12 @@ export function chainGroupView(catalog: Catalog, nodes: readonly ChainNode[]): C
     product: { icon: product?.icon ?? '', name: product?.name ?? '' },
     output: { kind, value: phpNumber(kind === 'eco' ? first.target : phpRound(first.target, 1)) },
     productions: nodes.map(node => productionView(catalog, node)),
-    children: nodes.flatMap(node => [
-      ...(node.raw1.length > 0 ? [chainGroupView(catalog, node.raw1)] : []),
-      ...(node.raw2.length > 0 ? [chainGroupView(catalog, node.raw2)] : []),
-    ]),
+    children: flatten(
+      nodes.map(node => [
+        ...(node.raw1.length > 0 ? [chainGroupView(catalog, node.raw1)] : []),
+        ...(node.raw2.length > 0 ? [chainGroupView(catalog, node.raw2)] : []),
+      ]),
+    ),
   };
 }
 
@@ -372,8 +375,7 @@ export function summarizeChain(entries: readonly SummaryEntry[]): ChainSummary {
       maintenance[key][1] += filterNum(right.trim());
     }
   }
-  const byGuid = <T extends { guid: number }>(items: Iterable<T>): T[] =>
-    [...items].toSorted((a, b) => a.guid - b.guid);
+  const byGuid = <T extends { guid: number }>(items: Iterable<T>): T[] => [...items].sort((a, b) => a.guid - b.guid);
   return { productions: byGuid(productions.values()), credits, buildCosts: byGuid(products.values()), maintenance };
 }
 

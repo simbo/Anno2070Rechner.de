@@ -46,9 +46,7 @@ const hasRaw = (building: ProductionBuilding): boolean => building.raw1 !== null
 
 // Buildings with raw materials first, then the others after a dash, as on the old page.
 const options = computed(() => {
-  const buildings = [...catalog.value.productionBuildings.values()].toSorted((a, b) =>
-    phpStrnatcasecmp(a.name, b.name),
-  );
+  const buildings = [...catalog.value.productionBuildings.values()].sort((a, b) => phpStrnatcasecmp(a.name, b.name));
   return [
     ...buildings.filter(building => hasRaw(building)).map(building => option(building)),
     { value: '', label: '—' },
@@ -65,7 +63,7 @@ const initialCount = phpIntval(query('count'));
 const count = ref(String(Math.max(1, initialCount)));
 const targetTpm = query('target_tpm');
 // The old form showed the target as PHP printed the parsed number.
-const initialTarget = targetTpm === undefined ? undefined : phpFloatval(targetTpm.replaceAll(',', '.'));
+const initialTarget = targetTpm === undefined ? undefined : phpFloatval(targetTpm.replace(/,/g, '.'));
 const tpmNeeded = ref(initialTarget === undefined ? '' : phpNumber(initialTarget));
 
 /**

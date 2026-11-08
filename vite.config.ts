@@ -2,6 +2,7 @@ import { createReadStream, existsSync, statSync } from 'node:fs';
 import { extname, resolve, sep } from 'node:path';
 
 import htmlMinifierPlugin from '@simbo/vite-plugin-html-minifier';
+import legacy from '@vitejs/plugin-legacy';
 import vue from '@vitejs/plugin-vue';
 import { createLogger, defineConfig, type Connect, type Plugin } from 'vite';
 
@@ -65,12 +66,18 @@ export default defineConfig({
   publicDir: 'static',
   plugins: [
     vue({ template: { transformAssetUrls: { includeAbsolute: false } } }),
+    // Old browsers load a separate bundle; its targets are in .browserslistrc. The modern bundle
+    // reaches back further than some libraries, which only need these few additions.
+    legacy({
+      modernPolyfills: ['es.array.flat-map', 'es.global-this', 'es.object.from-entries', 'es.object.has-own'],
+    }),
     archiveImagesPlugin(),
     htmlMinifierPlugin(),
     routePagesPlugin(),
   ],
   build: {
-    target: 'es2022',
+    // The same browsers as in .browserslistrc, which only the legacy plugin reads.
+    cssTarget: ['chrome49', 'edge12', 'firefox42', 'opera36', 'safari10'],
     outDir: '../dist',
     emptyOutDir: true,
   },

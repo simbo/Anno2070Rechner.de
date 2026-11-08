@@ -2,6 +2,7 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 import { useI18n } from '../i18n';
+import { keyName } from '../lib/keys';
 import {
   backgroundClass,
   backgrounds,
@@ -137,7 +138,7 @@ function toggle(): void {
 function onKeyDown(event: KeyboardEvent): void {
   if (!isOpen.value) return;
   const start = cursor.value < 0 ? savedIndex.value : cursor.value;
-  switch (event.key) {
+  switch (keyName(event)) {
     case 'ArrowDown': {
       event.preventDefault();
       point(Math.min(choices.length - 1, start + 1));

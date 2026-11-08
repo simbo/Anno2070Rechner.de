@@ -1,3 +1,4 @@
+import { flatten, fromEntries } from '../lib/compat';
 import { filterNum } from '../lib/legacy';
 
 import {
@@ -79,7 +80,7 @@ const createGroup = (view: ChainGroupView): GroupState => ({
  * @returns The levels.
  */
 export function allGroups(group: GroupState): GroupState[] {
-  return [group, ...group.children.flatMap(child => allGroups(child))];
+  return [group, ...flatten(group.children.map(child => allGroups(child)))];
 }
 
 /**
@@ -180,10 +181,10 @@ export interface ChainSettings {
 export function chainSettings(state: ChainState): ChainSettings {
   const { pbGuid, productivity, preferred } = recalculationRequest(state);
   return {
-    productivity: Object.fromEntries(
-      Object.entries(productivity ?? {}).flatMap(([guid, value]) =>
-        guid === String(pbGuid) || filterNum(String(value)) === PERCENT ? [] : [[guid, String(value)]],
-      ),
+    productivity: fromEntries(
+      Object.entries(productivity ?? {})
+        .filter(([guid, value]) => guid !== String(pbGuid) && filterNum(String(value)) !== PERCENT)
+        .map(([guid, value]): [string, string] => [guid, String(value)]),
     ),
     preferred: (preferred ?? []).map(Number),
   };

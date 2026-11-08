@@ -322,7 +322,7 @@ function onNumberKeyDown(field: NumberField): void {
  * @param field - The number input.
  */
 function onNumberKeyUp(field: NumberField): void {
-  const digits = (field.list[field.index] ?? '').replaceAll(/[^0-9]/g, '');
+  const digits = (field.list[field.index] ?? '').replace(/[^0-9]/g, '');
   const value = digits === '' ? '' : String(Number(digits));
   if (field.list[field.index] !== value) field.list[field.index] = value;
   if (filterNum(lastValue[field.key]) !== filterNum(value)) field.change();

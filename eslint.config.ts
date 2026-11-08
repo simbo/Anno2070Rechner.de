@@ -34,6 +34,17 @@ export default defineConfig([
         extraFileExtensions: ['.vue'],
       },
     },
+    // The app supports old browsers, see docs/rebuild-plan.md#browser-support, and its code stays
+    // at ES2018. These rules ask for newer APIs, or for APIs the modern bundle would have to add.
+    rules: {
+      'unicorn/no-array-sort': 'off',
+      'unicorn/prefer-array-flat': 'off',
+      'unicorn/prefer-array-flat-map': 'off',
+      'unicorn/prefer-at': 'off',
+      'unicorn/prefer-object-from-entries': 'off',
+      'unicorn/prefer-string-replace-all': 'off',
+      'unicorn/prefer-top-level-await': 'off',
+    },
   },
   ...pluginVue.configs['flat/essential'],
   {

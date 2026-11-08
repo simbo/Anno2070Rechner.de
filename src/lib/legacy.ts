@@ -24,7 +24,7 @@ export function parseLeadingInt(text: string): number {
  */
 export function filterNum(text: string | undefined | null): number {
   if (text === undefined || text === null) return 0;
-  const value = parseLeadingInt(text.replaceAll(/[^0-9-]/g, ''));
+  const value = parseLeadingInt(text.replace(/[^0-9-]/g, ''));
   return Number.isNaN(value) ? 0 : value;
 }
 

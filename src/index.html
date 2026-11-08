@@ -7,7 +7,17 @@
     <link rel="shortcut icon" href="/favicon.ico" />
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <noscript>Bitte aktiviere JavaScript. / Please enable JavaScript.</noscript>
+    </div>
+    <!-- Browsers without Proxy cannot run the app, see docs/rebuild-plan.md#browser-support. -->
+    <script>
+      if (typeof Proxy === 'undefined') {
+        document.getElementById('app').innerHTML = /\/en$/.test(location.pathname)
+          ? 'This browser is too old for this site. Please use a newer one.'
+          : 'Dieser Browser ist zu alt für diese Seite. Bitte verwende einen neueren.';
+      }
+    </script>
     <script type="module" src="./main.ts"></script>
   </body>
 </html>

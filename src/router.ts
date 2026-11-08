@@ -8,6 +8,7 @@ import {
 } from 'vue-router';
 
 import { ensureCatalog } from './catalog';
+import { flatten } from './lib/compat';
 import {
   defaultLanguage,
   documentTitle,
@@ -33,13 +34,15 @@ const views: Record<PageId, RouteRecordSingleView['component']> = {
   info: async () => import('./views/info-view.vue'),
 };
 
-const pageRoutes: RouteRecordRaw[] = pages.flatMap(page =>
-  languages.map(language => ({
-    path: pagePath(page.id, language),
-    name: `${page.id}-${language}`,
-    component: views[page.id],
-    meta: { language, page: page.id },
-  })),
+const pageRoutes: RouteRecordRaw[] = flatten(
+  pages.map(page =>
+    languages.map(language => ({
+      path: pagePath(page.id, language),
+      name: `${page.id}-${language}`,
+      component: views[page.id],
+      meta: { language, page: page.id },
+    })),
+  ),
 );
 
 /**
@@ -97,7 +100,7 @@ export function createAppRouter(history: RouterHistory): Router {
   });
   router.afterEach((to, from) => {
     updateDocument(to);
-    if (to.path !== from.path) globalThis.scrollTo({ top: 0 });
+    if (to.path !== from.path) globalThis.scrollTo(0, 0);
   });
   return router;
 }

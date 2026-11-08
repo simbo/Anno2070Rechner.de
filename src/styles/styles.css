@@ -182,7 +182,7 @@ body {
   color: #fff;
   text-align: center;
   text-shadow: 0px 0px 2px #0d1723;
-  background-color: var(--background-color, #000);
+  background-color: #000;
 }
 
 /* The image itself, in its original size. */
@@ -191,68 +191,100 @@ body::after {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: var(--background-image) no-repeat top center;
+  background-repeat: no-repeat;
+  background-position: top center;
 }
 
 /* Fills what the image leaves empty in large windows; it reaches beyond the window because
-   a blurred area fades out towards its own edges. */
-@media (min-width: 1921px), (min-height: 1201px) {
-  body::before {
-    content: '';
-    position: fixed;
-    inset: -80px;
-    z-index: -1;
-    background: var(--background-image) no-repeat center / cover;
-    filter: blur(40px);
-  }
+   a blurred area fades out towards its own edges. Browsers without blur keep the plain image. */
+@supports (filter: blur(1px)) {
+  @media (min-width: 1921px), (min-height: 1201px) {
+    body::before {
+      content: '';
+      position: fixed;
+      inset: -80px;
+      z-index: -1;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      filter: blur(40px);
+    }
 
-  /* Fades the left, right and bottom edge of the image, which is 1920 × 1200 px, into the fill. */
-  body::after {
-    --fade-horizontal: linear-gradient(to right, transparent, #000 80px, #000 calc(100% - 80px), transparent);
-    --fade-bottom: linear-gradient(to bottom, #000 calc(100% - 80px), transparent);
-
-    mask-image: var(--fade-horizontal), var(--fade-bottom);
-    mask-position: top center;
-    mask-size: 1920px 1200px;
-    mask-repeat: no-repeat;
-    mask-composite: intersect;
-    -webkit-mask-composite: source-in;
+    /* Fades the left, right and bottom edge of the image, which is 1920 × 1200 px, into the fill. */
+    body::after {
+      mask-image:
+        linear-gradient(to right, transparent, #000 80px, #000 calc(100% - 80px), transparent),
+        linear-gradient(to bottom, #000 calc(100% - 80px), transparent);
+      mask-position: top center;
+      mask-size: 1920px 1200px;
+      mask-repeat: no-repeat;
+      mask-composite: intersect;
+      -webkit-mask-composite: source-in;
+    }
   }
 }
 
 body.bg-eco1 {
-  --background-image: url('/img/bg-body-eco1.jpg');
-  --background-color: #4a504c;
+  background-color: #4a504c;
+}
+
+body.bg-eco1::before,
+body.bg-eco1::after {
+  background-image: url('/img/bg-body-eco1.jpg');
 }
 
 body.bg-eco2 {
-  --background-image: url('/img/bg-body-eco2.jpg');
-  --background-color: #53544b;
+  background-color: #53544b;
+}
+
+body.bg-eco2::before,
+body.bg-eco2::after {
+  background-image: url('/img/bg-body-eco2.jpg');
 }
 
 body.bg-eco3 {
-  --background-image: url('/img/bg-body-eco3.jpg');
-  --background-color: #605f57;
+  background-color: #605f57;
+}
+
+body.bg-eco3::before,
+body.bg-eco3::after {
+  background-image: url('/img/bg-body-eco3.jpg');
 }
 
 body.bg-eco4 {
-  --background-image: url('/img/bg-body-eco4.jpg');
-  --background-color: #4f524a;
+  background-color: #4f524a;
+}
+
+body.bg-eco4::before,
+body.bg-eco4::after {
+  background-image: url('/img/bg-body-eco4.jpg');
 }
 
 body.bg-eco5 {
-  --background-image: url('/img/bg-body-eco5.jpg');
-  --background-color: #524b3f;
+  background-color: #524b3f;
+}
+
+body.bg-eco5::before,
+body.bg-eco5::after {
+  background-image: url('/img/bg-body-eco5.jpg');
 }
 
 body.bg-tycoon1 {
-  --background-image: url('/img/bg-body-tycoon1.jpg');
-  --background-color: #3a4044;
+  background-color: #3a4044;
+}
+
+body.bg-tycoon1::before,
+body.bg-tycoon1::after {
+  background-image: url('/img/bg-body-tycoon1.jpg');
 }
 
 body.bg-tycoon2 {
-  --background-image: url('/img/bg-body-tycoon2.jpg');
-  --background-color: #414c4b;
+  background-color: #414c4b;
+}
+
+body.bg-tycoon2::before,
+body.bg-tycoon2::after {
+  background-image: url('/img/bg-body-tycoon2.jpg');
 }
 
 a,

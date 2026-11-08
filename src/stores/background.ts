@@ -1,7 +1,7 @@
 import { useStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
-import { z } from 'zod';
+import { z } from 'zod/mini';
 
 import { backgrounds, dailyBackground, type Background, type BackgroundChoice } from '../models/background';
 
