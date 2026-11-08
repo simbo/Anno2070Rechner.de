@@ -1,6 +1,8 @@
 import { flushPromises, type VueWrapper } from '@vue/test-utils';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
+import { parseGames, type GameInputs } from '../models/games';
+import { useGamesStore } from '../stores/games';
 import { mountPage } from '../tests/mount-page';
 import { required } from '../tests/required';
 
@@ -76,6 +78,27 @@ async function openChainSlider(wrapper: VueWrapper, guid: string): Promise<void>
   await flushPromises();
 }
 
+/**
+ * The saved inputs of the current game.
+ *
+ * @returns The inputs.
+ */
+function storedInputs(): GameInputs {
+  const state = parseGames(localStorage.getItem('anno2070rechner:games'), new Date());
+  return required(state.games.find(game => game.id === state.currentId)).inputs;
+}
+
+/**
+ * Presses reset and confirms it.
+ *
+ * @param wrapper - The page.
+ */
+async function confirmReset(wrapper: VueWrapper): Promise<void> {
+  await wrapper.find('#residences-fieldset input.reset').trigger('click');
+  await wrapper.find('#residences-fieldset .reset-confirm input').trigger('click');
+  await flushPromises();
+}
+
 describe('population calculator', () => {
   beforeEach(() => {
     localStorage.clear();
@@ -132,14 +155,57 @@ describe('population calculator', () => {
     await wrapper.find('#residences-fieldset dl.ecos .ui-slider-handle').trigger('keydown', { key: 'ArrowLeft' });
     await wrapper.find('#residences-fieldset dl.ecos .ui-slider-handle').trigger('keyup', { key: 'ArrowLeft' });
     expect(value(wrapper, 'ecos_max_upgrade')).toBe('3');
-    await wrapper.find('#residences-fieldset input.reset').trigger('click');
-    await flushPromises();
+    await confirmReset(wrapper);
     expect(value(wrapper, 'ecos0r')).toBe('0');
     expect(value(wrapper, 'ecos0i')).toBe('0');
     expect(value(wrapper, 'ecos_max_upgrade')).toBe('4');
     expect(wrapper.find('#residences-fieldset dl.ecos .ui-slider-handle').attributes('style')).toContain('left: 100%');
     await enter(wrapper, 'ecos0r', '250');
     expect(value(wrapper, 'ecos4r')).toBe('48');
+  });
+
+  it('asks before a reset empties the game, unless it has no inputs', async () => {
+    const { wrapper } = await mountPage('/population');
+    await wrapper.find('#residences-fieldset input.reset').trigger('click');
+    expect(wrapper.find('.reset-confirm').exists()).toBe(false);
+    await enter(wrapper, 'ecos0r', '137');
+    await wrapper.find('#residences-fieldset input.reset').trigger('click');
+    const [, no] = wrapper.findAll('#residences-fieldset .reset-confirm input');
+    expect(value(wrapper, 'ecos0r')).toBe('137');
+    await no.trigger('click');
+    expect(wrapper.find('.reset-confirm').exists()).toBe(false);
+    expect(value(wrapper, 'ecos0r')).toBe('137');
+  });
+
+  it('sets the chain target back and keeps the visible boxes on reset', async () => {
+    const { wrapper } = await mountPage('/population');
+    const games = useGamesStore();
+    await enter(wrapper, 'ecos0r', '137');
+    games.current.inputs.ccTarget = '1';
+    await wrapper.find('#display-options .show_demands').trigger('click');
+    await confirmReset(wrapper);
+    expect(games.current.inputs.ccTarget).toBe('0');
+    expect(wrapper.find('#display-options .show_demands').classes()).toContain('active');
+  });
+
+  it('has no close button on the last visible box', async () => {
+    const { wrapper } = await mountPage('/population');
+    await wrapper.find('#display-options .show_demands').trigger('click');
+    expect(wrapper.findAll('a.display-hide').length).toBeGreaterThan(0);
+    await wrapper.find('#residences-fieldset a.display-hide').trigger('click');
+    await wrapper.find('#demands-fieldset a.display-hide').trigger('click');
+    expect(wrapper.find('a.display-hide').exists()).toBe(false);
+    await wrapper.find('#display-options .show_production').trigger('click');
+    expect(wrapper.find('#production-fieldset').isVisible()).toBe(true);
+    await wrapper.find('#display-options .show_demands').trigger('click');
+    expect(wrapper.find('a.display-hide').exists()).toBe(true);
+  });
+
+  it('shows the default boxes when none was saved as visible', async () => {
+    const none = { residences: false, inhabitants: false, demands: false, production: false };
+    localStorage.setItem('anno2070rechner:boxes', JSON.stringify(none));
+    const { wrapper } = await mountPage('/population');
+    expect(wrapper.find('#display-options .show_residences').classes()).toContain('active');
   });
 
   it('shows the commodity chain of a selected building and its target select', async () => {
@@ -163,12 +229,9 @@ describe('population calculator', () => {
     expect(wrapper.find('#display-options .show_demands').classes()).toContain('active');
     await enter(wrapper, 'techs0r', '5');
     await flushPromises();
-    const stored = JSON.parse(required(localStorage.getItem('anno2070rechner:population'))) as {
-      show: { demands: boolean };
-      residences: { techs: string[] };
-    };
-    expect(stored.show.demands).toBe(true);
-    expect(stored.residences.techs[0]).toBe('5');
+    const shown = JSON.parse(required(localStorage.getItem('anno2070rechner:boxes'))) as { demands: boolean };
+    expect(shown.demands).toBe(true);
+    expect(storedInputs().residences.techs[0]).toBe('5');
   });
 
   it('recalculates buildings from a typed productivity and reloads the chain after leaving the input', async () => {
@@ -247,10 +310,7 @@ describe('population calculator', () => {
       expect(field.find('.count span').text()).toBe('6');
       expect(field.find('.efficiency').text()).toBe('87%');
       expect(wrapper.find('#commodity-chain-container .production .count').text()).toBe('×6');
-      const stored = JSON.parse(required(localStorage.getItem('anno2070rechner:population'))) as {
-        productivity: Record<string, string>;
-      };
-      expect(stored.productivity['10045']).toBe('200');
+      expect(storedInputs().productivity['10045']).toBe('200');
     });
 
     it('does not reload the chain for the synced productivity', async () => {
@@ -405,16 +465,9 @@ describe('population calculator', () => {
       await selectElectronics(wrapper);
       await required(alternatives(wrapper).at(0)).trigger('click');
       await flushPromises();
-      const stored = (): Record<string, unknown> =>
-        (
-          JSON.parse(required(localStorage.getItem('anno2070rechner:population'))) as {
-            chains: Record<string, unknown>;
-          }
-        ).chains;
-      expect(Object.keys(stored())).toEqual(['10186']);
-      await wrapper.find('#residences-fieldset input.reset').trigger('click');
-      await flushPromises();
-      expect(stored()).toEqual({});
+      expect(Object.keys(storedInputs().chains)).toEqual(['10186']);
+      await confirmReset(wrapper);
+      expect(storedInputs().chains).toEqual({});
     });
   });
 

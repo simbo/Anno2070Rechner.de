@@ -410,6 +410,19 @@ a:focus {
   float: right;
 }
 
+#save-chooser {
+  position: relative;
+  float: right;
+}
+
+#game-version {
+  position: absolute;
+  top: 30px;
+  left: 222px;
+  color: #ecd07a;
+  white-space: nowrap;
+}
+
 #background-menu {
   top: 32px;
   right: 15px;
@@ -417,18 +430,18 @@ a:focus {
   z-index: 1000;
 }
 
-#user-menu {
+.user-menu {
   float: right;
   height: 30px;
   margin: 0 6px 0 0;
 }
 
-#user-menu li {
+.user-menu li {
   float: left;
   margin: 4px 9px 0 0;
 }
 
-#user-menu li a {
+.user-menu li a {
   display: block;
   width: 24px;
   height: 24px;
@@ -436,36 +449,36 @@ a:focus {
   opacity: 0.8;
 }
 
-#user-menu li a:hover,
-#user-menu li a:focus {
+.user-menu li a:hover,
+.user-menu li a:focus {
   text-decoration: none;
 }
 
-#user-menu li a:hover {
+.user-menu li a:hover {
   opacity: 1;
 }
 
-#user-menu li.login a {
+.user-menu li.login a {
   background-position: 0 0;
 }
 
-#user-menu li.register a {
+.user-menu li.register a {
   background-position: -24px 0;
 }
 
-#user-menu li.options a {
+.user-menu li.options a {
   background-position: -48px 0;
 }
 
-#user-menu li.save a {
+.user-menu li.save a {
   background-position: 0 -24px;
 }
 
-#user-menu li.logout a {
+.user-menu li.logout a {
   background-position: -24px -24px;
 }
 
-#user-menu li.background a {
+.user-menu li.background a {
   background-position: -48px -24px;
 }
 
@@ -1999,4 +2012,223 @@ a.display-hide:hover {
   position: absolute;
   top: 80px;
   left: 180px;
+}
+
+.user-menu li.save {
+  position: relative;
+}
+
+/* The green check on the disk icon once the current game has inputs. */
+.user-menu li.save.saved a::after {
+  content: '';
+  position: absolute;
+  right: -3px;
+  bottom: 0;
+  width: 14px;
+  height: 12px;
+  background: transparent url('/img/icon-valid.png') 0 0 / 18px 15px no-repeat;
+}
+
+.reset-confirm {
+  position: absolute;
+  right: 30px;
+  bottom: 15px;
+  white-space: nowrap;
+}
+
+.reset-confirm span {
+  margin-right: 6px;
+}
+
+#population-form fieldset .reset-confirm input {
+  width: auto;
+  margin-left: 4px;
+  padding: 4px 10px 4px 6px;
+}
+
+#save-menu {
+  top: 32px;
+  right: 15px;
+  z-index: 1000;
+  width: 300px;
+  margin: 0;
+}
+
+.save-menu-body {
+  border: 1px solid #1e3650;
+  border-top-color: #2a4866;
+  border-left: 6px solid #a31e1f;
+  background: #0e1f29 url('/img/bg-gradient-darkblue.png') 0 0 repeat-x;
+}
+
+.save-menu-body p {
+  margin: 0;
+  padding: 8px;
+  font-size: 85%;
+  line-height: 1.4;
+}
+
+.ui-selectmenu-menu .save-menu-body ul {
+  max-height: 240px;
+  border: none;
+  background: transparent;
+}
+
+.ui-selectmenu-menu .save-menu-body li {
+  display: block;
+  position: relative;
+  min-height: 25px;
+  border-top: 1px solid rgba(238, 238, 255, 0.08);
+}
+
+.ui-selectmenu-menu .save-menu-body li a {
+  overflow: hidden;
+  padding-right: 52px;
+  text-overflow: ellipsis;
+}
+
+.ui-selectmenu-menu .save-menu-body li:hover {
+  background: #13374d url('/img/bg-gradient-lightblue-short.png') 0 0 repeat-x;
+}
+
+.ui-selectmenu-menu .save-menu-body li.ui-selectmenu-item-selected {
+  background: #11334c url('/img/bg-gradient-dullblue-short.png') 0 0 repeat-x;
+}
+
+.ui-selectmenu-menu .save-menu-body li.ui-selectmenu-item-selected a {
+  padding-left: 26px;
+  background: transparent url('/img/icon-valid.png') 6px 6px / 15px 13px no-repeat;
+}
+
+.save-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: none;
+  background: transparent url('/img/save-menu.png') 0 0 no-repeat;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+button.save-icon:hover,
+button.save-icon:focus {
+  border: none;
+  background: transparent url('/img/save-menu.png') 0 0 no-repeat;
+  opacity: 1;
+}
+
+.save-icon.rename,
+button.save-icon.rename:hover,
+button.save-icon.rename:focus {
+  background-position: 0 0;
+}
+
+.save-icon.delete,
+button.save-icon.delete:hover,
+button.save-icon.delete:focus {
+  background-position: -16px 0;
+}
+
+.save-icon.export,
+button.save-icon.export:hover,
+button.save-icon.export:focus {
+  background-position: -32px 0;
+}
+
+.save-icon.import,
+button.save-icon.import:hover,
+button.save-icon.import:focus {
+  background-position: -48px 0;
+}
+
+.save-icon.add {
+  margin-right: 6px;
+  background-position: -64px 0;
+  vertical-align: top;
+}
+
+.save-menu-body li button.rename,
+.save-menu-body li button.delete {
+  position: absolute;
+  top: 4px;
+  right: 26px;
+}
+
+.save-menu-body li button.delete {
+  right: 6px;
+}
+
+.save-menu-body input.save-menu-rename {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+}
+
+.save-menu-confirm {
+  display: flex;
+  align-items: center;
+  padding: 3px 8px;
+}
+
+.save-menu-confirm span {
+  flex: 1;
+  white-space: nowrap;
+}
+
+.save-menu-body .save-menu-confirm input {
+  flex: none;
+  width: auto;
+  margin-left: 4px;
+  padding: 1px 8px 1px 5px;
+}
+
+.save-menu-footer {
+  display: flex;
+  align-items: center;
+  padding: 4px 6px 4px 0;
+  border-top: 2px solid rgba(238, 238, 255, 0.2);
+}
+
+.save-menu-footer a.save-menu-new {
+  flex: 1;
+  padding: 4px 8px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.save-menu-footer a.save-menu-new:hover .save-icon {
+  opacity: 1;
+}
+
+.save-menu-footer button {
+  margin-left: 6px;
+}
+
+textarea.save-menu-text {
+  display: block;
+  box-sizing: border-box;
+  width: calc(100% - 16px);
+  margin: 0 8px;
+  padding: 4px;
+  border: 1px solid #1e3650;
+  background: #0b1d29;
+  color: #fff;
+  font: 11px monospace;
+  resize: none;
+}
+
+.save-menu-message {
+  color: #ecd07a;
+}
+
+.save-menu-buttons {
+  padding: 8px;
+  text-align: right;
+}
+
+.save-menu-body .save-menu-buttons input {
+  width: auto;
+  margin: 0 0 0 4px;
 }

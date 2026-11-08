@@ -44,7 +44,7 @@ class FakeImage {
   }
 }
 
-const trigger = (wrapper: VueWrapper): ReturnType<VueWrapper['find']> => wrapper.find('#user-menu li.background a');
+const trigger = (wrapper: VueWrapper): ReturnType<VueWrapper['find']> => wrapper.find('.user-menu li.background a');
 const entries = (wrapper: VueWrapper): ReturnType<VueWrapper['findAll']> => wrapper.findAll('#background-menu li');
 const entry = (wrapper: VueWrapper, index: number): ReturnType<VueWrapper['find']> =>
   required(entries(wrapper).at(index));
@@ -218,6 +218,6 @@ describe('background menu', () => {
     await flushPromises();
     expect(document.body.classList.contains('database')).toBe(true);
     expect(shownImage()).toBe('eco4');
-    expect(wrapper.find('#user-menu').exists()).toBe(true);
+    expect(wrapper.find('.user-menu').exists()).toBe(true);
   });
 });

@@ -1,7 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { afterEach, describe, expect, it } from 'vitest';
+import { flushPromises } from '@vue/test-utils';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { mountPage } from './tests/mount-page';
 import { required } from './tests/required';
@@ -12,13 +13,30 @@ afterEach(() => {
   document.body.replaceChildren();
 });
 
+/**
+ * Clicks a link and tells how the router navigated.
+ *
+ * @param path - The page to start at.
+ * @param selector - The link.
+ * @returns The called router method.
+ */
+async function navigation(path: string, selector: string): Promise<string[]> {
+  const { wrapper, router } = await mountPage(path);
+  await flushPromises();
+  const push = vi.spyOn(router, 'push');
+  const replace = vi.spyOn(router, 'replace');
+  await wrapper.find(selector).trigger('click');
+  await flushPromises();
+  return [...(push.mock.calls.length > 0 ? ['push'] : []), ...(replace.mock.calls.length > 0 ? ['replace'] : [])];
+}
+
 describe('page frame', () => {
   it('shows the navigation with the current page like the old site', async () => {
     const { wrapper } = await mountPage('/database');
     const items = wrapper.findAll('#menu li');
     expect(items.map(item => item.text())).toEqual(['Bevölkerung', 'Produktionsketten', 'Datenbank', 'Info']);
     expect(items.map(item => item.classes())).toEqual([[], [], ['current'], []]);
-    expect(wrapper.findAll('#user-menu li').map(item => item.classes())).toEqual([['background']]);
+    expect(wrapper.findAll('.user-menu li').map(item => item.classes())).toEqual([['background'], ['save']]);
     expect(wrapper.find('#under-development').exists()).toBe(false);
   });
 
@@ -34,12 +52,39 @@ describe('page frame', () => {
     expect(document.title).toBe('Commodity chains « Anno 2070 Rechner');
   });
 
+  it('names the game version in both languages', async () => {
+    const german = await mountPage('/info');
+    expect(german.wrapper.find('small#game-version').text()).toBe('für Spielversion 3.0.8051');
+    const english = await mountPage('/info/en');
+    expect(english.wrapper.find('small#game-version').text()).toBe('for Game Version 3.0.8051');
+  });
+
+  it('keeps the parameters of a page when changing the language', async () => {
+    const { wrapper } = await mountPage('/commoditychains?pb_guid=10045&count=3');
+    await flushPromises();
+    expect(wrapper.find('#lang-select a.en').attributes('href')).toBe('/commoditychains/en?pb_guid=10045&count=3');
+  });
+
+  describe('history', () => {
+    it('adds an entry for another menu item', async () => {
+      expect(await navigation('/database', '#menu li:nth-child(4) a')).toEqual(['push']);
+    });
+
+    it('adds an entry for another language', async () => {
+      expect(await navigation('/database', '#lang-select a.en')).toEqual(['push']);
+    });
+
+    it('replaces the entry for the same menu item in the same language', async () => {
+      expect(await navigation('/database?search=a', '#menu li:nth-child(3) a')).toEqual(['replace']);
+    });
+  });
+
   it('links to the same page in both languages', async () => {
-    const { wrapper } = await mountPage('/commoditychains/en');
+    const { wrapper } = await mountPage('/info/en');
     const links = wrapper.findAll('#lang-select a');
     expect(links.map(link => [link.attributes('href'), link.classes()[0], link.attributes('title')])).toEqual([
-      ['/commoditychains', 'de', 'Deutsch (Deutschland)'],
-      ['/commoditychains/en', 'en', 'English (US)'],
+      ['/info', 'de', 'Deutsch (Deutschland)'],
+      ['/info/en', 'en', 'English (US)'],
     ]);
     expect(wrapper.find('#home-link').attributes('href')).toBe('/population/en');
   });

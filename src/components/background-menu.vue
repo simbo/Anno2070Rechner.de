@@ -183,7 +183,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div id="background-chooser" ref="root">
-    <ul id="user-menu">
+    <ul class="user-menu">
       <li class="background">
         <a
           href="#"

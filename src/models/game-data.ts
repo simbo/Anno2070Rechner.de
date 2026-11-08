@@ -3,6 +3,11 @@ import type { Language } from '../routes';
 import { KILOGRAMS_PER_TON, MILLISECONDS_PER_MINUTE, POINT_SCALE } from './units';
 
 /**
+ * The version of the game whose data this site uses.
+ */
+export const gameVersion = '3.0.8051';
+
+/**
  * Kind of a production building, as defined by the old importer.
  */
 export type ProductionType = 'farm' | 'factory' | 'eco' | 'energy' | 'forest';

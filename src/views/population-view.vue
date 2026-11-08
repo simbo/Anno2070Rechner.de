@@ -21,7 +21,8 @@ import {
   type Group,
   type Residents,
 } from '../models/population';
-import { usePopulationStore } from '../stores/population';
+import { useDisplayStore } from '../stores/display';
+import { useGamesStore } from '../stores/games';
 
 /**
  * The population calculator: houses or residents per faction lead to demands and the
@@ -30,7 +31,9 @@ import { usePopulationStore } from '../stores/population';
  */
 const catalog = useCatalog();
 const { language, t } = useI18n();
-const { inputs } = usePopulationStore();
+const games = useGamesStore();
+const { inputs } = games.current;
+const display = useDisplayStore();
 
 /**
  * Highest productivity the inputs accept, in percent.
@@ -362,9 +365,24 @@ function toggleInfo(group: Group, value: string): void {
 }
 
 /**
- * Resets the inputs, including the highest allowed levels.
+ * Whether the reset buttons wait for a confirmation.
+ */
+const confirmingReset = ref(false);
+
+/**
+ * Starts a reset: with inputs it asks first, because it empties the current game.
+ */
+function requestReset(): void {
+  if (games.hasInputs) confirmingReset.value = true;
+  else reset();
+}
+
+/**
+ * Resets the game, including the highest allowed levels and the chain target.
  */
 function reset(): void {
+  confirmingReset.value = false;
+  inputs.ccTarget = '0';
   for (const row of rows.value) inputs.productivity[String(row.guid)] = '100';
   inputs.chains = {};
   for (const group of groups) {
@@ -381,6 +399,12 @@ const isLocked = (group: Group, level: number): boolean => locked[group] !== und
 // --- Box visibility ---------------------------------------------------------------------
 
 const boxes = ['residences', 'inhabitants', 'demands', 'production'] as const;
+
+/**
+ * The last visible box stays, so that the page never ends up empty.
+ */
+const canHideBox = computed(() => boxes.filter(box => display.show[box]).length > 1);
+
 const boxTitles: Record<(typeof boxes)[number], string> = {
   residences: 'Wohnhäuser anzeigen',
   inhabitants: 'Einwohner anzeigen',
@@ -394,8 +418,9 @@ const boxTitles: Record<(typeof boxes)[number], string> = {
  * @param box - The box.
  */
 function toggleBox(box: (typeof boxes)[number]): void {
-  inputs.show[box] = !inputs.show[box];
-  if (box !== 'production' || inputs.show.production) return;
+  if (display.show[box] && !canHideBox.value) return;
+  display.show[box] = !display.show[box];
+  if (box !== 'production' || display.show.production) return;
   selected.clear();
   active.value = undefined;
   updateSelection();
@@ -479,7 +504,7 @@ const ccTargetOptions = computed(() => [
   <h2 class="population">{{ t('Bevölkerung') }}</h2>
   <form id="population-form" method="post" @submit.prevent>
     <Transition name="fade">
-      <fieldset v-show="inputs.show.residences" id="residences-fieldset" class="blue">
+      <fieldset v-show="display.show.residences" id="residences-fieldset" class="blue">
         <legend>{{ t('Wohnhäuser') }}</legend>
         <dl v-for="group in groups" :key="group" :class="group">
           <dt :class="`${group}0`">
@@ -558,13 +583,18 @@ const ccTargetOptions = computed(() => [
             />
           </dd>
         </dl>
-        <a href="#" class="display-hide" @click.prevent="toggleBox('residences')"></a>
-        <input type="button" class="reset" :value="t('Zurücksetzen')" @click="reset" />
+        <a v-if="canHideBox" href="#" class="display-hide" @click.prevent="toggleBox('residences')"></a>
+        <div v-if="confirmingReset" class="reset-confirm">
+          <span>{{ t('Wirklich zurücksetzen?') }}</span>
+          <input type="button" :value="t('Ja')" @click="reset" />
+          <input type="button" :value="t('Nein')" @click="confirmingReset = false" />
+        </div>
+        <input v-else type="button" class="reset" :value="t('Zurücksetzen')" @click="requestReset" />
         <div class="clear"></div>
       </fieldset>
     </Transition>
     <Transition name="fade">
-      <fieldset v-show="inputs.show.inhabitants" id="inhabitants-fieldset" class="blue">
+      <fieldset v-show="display.show.inhabitants" id="inhabitants-fieldset" class="blue">
         <legend>{{ t('Einwohner') }}</legend>
         <dl v-for="group in groups" :key="group" :class="group">
           <template v-for="level in levelCount(group)" :key="level">
@@ -593,13 +623,18 @@ const ccTargetOptions = computed(() => [
             <input type="text" :name="`${group}0i`" :ref="markReadonly" :value="inputs.inhabitants[group][0]" />
           </dd>
         </dl>
-        <a href="#" class="display-hide" @click.prevent="toggleBox('inhabitants')"></a>
-        <input type="button" class="reset" :value="t('Zurücksetzen')" @click="reset" />
+        <a v-if="canHideBox" href="#" class="display-hide" @click.prevent="toggleBox('inhabitants')"></a>
+        <div v-if="confirmingReset" class="reset-confirm">
+          <span>{{ t('Wirklich zurücksetzen?') }}</span>
+          <input type="button" :value="t('Ja')" @click="reset" />
+          <input type="button" :value="t('Nein')" @click="confirmingReset = false" />
+        </div>
+        <input v-else type="button" class="reset" :value="t('Zurücksetzen')" @click="requestReset" />
         <div class="clear"></div>
       </fieldset>
     </Transition>
     <Transition name="fade">
-      <fieldset v-show="inputs.show.demands" id="demands-fieldset" class="blue">
+      <fieldset v-show="display.show.demands" id="demands-fieldset" class="blue">
         <legend>
           {{ t('Bedürfnisse') }}<span>({{ t('Tonnen pro Minute') }})</span>
         </legend>
@@ -619,12 +654,12 @@ const ccTargetOptions = computed(() => [
             <span class="count">{{ demandTexts.get(demand.product) }}</span>
           </li>
         </ol>
-        <a href="#" class="display-hide" @click.prevent="toggleBox('demands')"></a>
+        <a v-if="canHideBox" href="#" class="display-hide" @click.prevent="toggleBox('demands')"></a>
         <div class="clear"></div>
       </fieldset>
     </Transition>
     <Transition name="fade">
-      <fieldset v-show="inputs.show.production" id="production-fieldset" ref="productionList" class="blue">
+      <fieldset v-show="display.show.production" id="production-fieldset" ref="productionList" class="blue">
         <legend>{{ t('Produktionsgebäude') }}</legend>
         <ol v-for="chunk in chunks(rows)" :key="chunk.group" :class="chunk.group || undefined">
           <li
@@ -680,7 +715,7 @@ const ccTargetOptions = computed(() => [
             >
           </li>
         </ol>
-        <a href="#" class="display-hide" @click.prevent="toggleBox('production')"></a>
+        <a v-if="canHideBox" href="#" class="display-hide" @click.prevent="toggleBox('production')"></a>
         <div class="clear"></div>
       </fieldset>
     </Transition>
@@ -690,7 +725,7 @@ const ccTargetOptions = computed(() => [
         :key="box"
         type="hidden"
         :name="`show_${box}`"
-        :value="inputs.show[box] ? '1' : '0'"
+        :value="display.show[box] ? '1' : '0'"
       />
     </fieldset>
     <Transition name="fade">
@@ -728,7 +763,7 @@ const ccTargetOptions = computed(() => [
     <li v-for="box in boxes" :key="box">
       <a
         href="#"
-        :class="[`show_${box}`, { active: inputs.show[box] }]"
+        :class="[`show_${box}`, { active: display.show[box] }]"
         :title="t(boxTitles[box])"
         @click.prevent="toggleBox(box)"
       ></a>
