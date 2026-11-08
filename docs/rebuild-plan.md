@@ -5,9 +5,9 @@ Anno2070Rechner.de currently runs as a PHP application with a MySQL database. It
 is rebuilt as a purely static frontend without any server-side code and moved to
 SRVKIST. This document records the agreed plan and its state.
 
-**State:** phase 1 is implemented and verified on the branch `static-rebuild`
-(see [Verification](#verification)). Hosting on SRVKIST, the release and phase 2
-are still open.
+**State:** phases 1 and 2 are implemented and verified on the branch
+`static-rebuild` (see [Verification](#verification)). Optimizations, hosting on
+SRVKIST and the release are still open.
 
 Goals
 ---
@@ -55,14 +55,8 @@ layout, with these deliberate differences:
 - Facebook-only preview tags are replaced by general preview tags.
 - The old analytics script is removed.
 
-The target-TPM bug below is kept in this phase on purpose, and so are these
-quirks of the live site, which can be reconsidered later:
-
-- The English page title "Commdity chains" (the menu says "Commodity chains").
-- The menu marks the info page with the class `info` instead of `current`.
-- "Reset" moves the upgrade sliders to the top but keeps the hidden upgrade
-  levels.
-- An efficiency of 0 % gets the class `undefined`.
+The target-TPM bug and the quirks listed in phase 2 are kept in this phase on
+purpose.
 
 ### Phase 2: fixes and unfinished features
 
@@ -72,7 +66,8 @@ Each as a separate, traceable step:
    number of buildings without an explicit target, the live site ignores the
    building's productivity. Example: 2 fisheries at 200 % show ×1 building and 4
    t/min instead of ×2 and 8 t/min. Fixed in commit `f78cae1`, which never ran
-   live.
+   live. Rounding errors are dropped before counting buildings; 23.28 t/min at
+   3.88 t/min per building are 6 buildings, not 7.
 2. **Saved chain settings** (`child_productivity` in `f78cae1`). In the
    population calculator, the productivities and chosen alternatives a visitor
    sets in the chain of a production building are kept per building and restored
@@ -81,15 +76,40 @@ Each as a separate, traceable step:
    added on purpose.
 3. **Sync between chain slider and production field** in the population
    calculator (`f78cae1`): changing the productivity of the top building of the
-   chain updates the production field (input, count, efficiency) at once.
+   chain updates the production field (input, count, efficiency) at once. The
+   field always calculates from the demand. With the maximum production as
+   target, the chain reloads with a new target when the slider is released or
+   the input is left, so chain and field agree again.
 4. **Background images.** `img/bg-body-eco1-5.jpg` and
    `img/bg-body-tycoon1-2.jpg` exist, but the live site only shows `eco1`.
    `f78cae1` renamed the matching CSS classes to `bg-eco2` and so on, which is
-   taken over. The empty red area at the top right of the header gets the gear
-   icon that already exists in the old icon sprite (`img/user-menu.png`); it
-   lets the visitor fix a background. By default the background is random and
-   changes daily, never showing the same image as on the day before. The choice
-   is saved in the browser.
+   taken over. The empty red area at the top right of the header gets a new
+   picture icon in the style and with the hover effect of the old icons
+   (`img/user-menu.png`); it lets the visitor fix a background. By default the
+   background is random and changes daily, never showing the same image as on
+   the day before. It is derived from the visitor's local date and only chosen
+   when the page loads, never in an open tab. The choice is saved in the
+   browser.
+
+   Clicking the icon opens a list in the style of the select menus with "random
+   (changes daily)", "Ecos 1–5" and "Tycoons 1–2". Pointing at an entry or
+   moving to it with the arrow keys previews it, once the image has loaded. A
+   click or Enter saves the choice; Escape or a click elsewhere restores the
+   saved one.
+
+5. **Quirks of the old site.** The misspelled English title is corrected to
+   "Commodity chains". The menu marks the info page with `current` like any
+   other page instead of `info`. "Reset" also sets the hidden upgrade levels
+   back to the maximum instead of only moving the sliders. Efficiencies outside
+   1 to 100 % get the class of the nearest step (`red`, `green`) instead of
+   `undefined`.
+6. **Background fill for large windows.** The images keep their 1920 × 1200 px
+   and their position at the top center. Every image has a base color taken from
+   its edges, which replaces the black. In windows larger than the images, a
+   copy of the image scaled to cover the window and blurred with CSS `blur()`
+   fills the rest, and the image's left, right and bottom edges fade into it
+   over 80 px. Smaller windows get neither blur nor fade, so the image looks as
+   before.
 
 ### Later
 
@@ -98,6 +118,12 @@ Each as a separate, traceable step:
   (about 32 KB with gzip, mostly zod).
 - Credit the "Prototype" font and its authors visibly on the site, in the way
   its `Prototype.txt` asks for.
+- Look at browser support for older systems. The build target `es2022` and the
+  top-level `await` in `src/main.ts` need browsers from about 2021; older ones
+  probably show an empty page, while the old jQuery site still worked there.
+  Options are a lower build target or a notice instead of the empty page. If the
+  target gets much lower, the background fill needs `@supports`, because
+  browsers without `blur()` would show the scaled image without blur.
 - Add analytics with the Umami instance on SRVKIST
   (`https://trk.srvkist.net/trk.js`, own website id).
 
@@ -244,19 +270,19 @@ Verification
   a bug once it is substantiated there.
 - The reference data and the comparison tooling are only needed for the rebuild
   and are kept outside this repository.
-- Phase 2 must change the expected values for the target-TPM bug deliberately.
+- Phase 2 changes results deliberately. 176 of the 726 recorded chains differ
+  from the live site, exactly those requesting a count without a target for a
+  building whose productivity is not 100 %. 16 population scenarios differ only
+  by the class `red` instead of `undefined`, which is hidden on buildings
+  without demand. All others still match. The screenshot comparison was not
+  repeated for phase 2.
 
 ## Next steps
 
 Where the work stands and what follows, in this order:
 
-1. **Phase 2** (decided, not started). For the background chooser, the open
-   detail is its interface; proposal: clicking the gear opens a small list in
-   the style of the select menus with "random (changes daily)" and the seven
-   images, and pointing at an entry previews it. Phase 2 deliberately changes
-   the expected values for the target-TPM bug in the tests.
-2. **Optimizations and modernization**, see [Later](#later).
-3. **Release:** SRVKIST site block, deployment service with webhook and release
+1. **Optimizations and modernization**, see [Later](#later).
+2. **Release:** SRVKIST site block, deployment service with webhook and release
    workflow, final image ZIP with a setup script, DNS move, push, `v2.0.0`, then
    the Uberspace cleanup. The old PHP code is removed then. The reCAPTCHA key in
    `conf/site.ini` is public in the Git history and should be revoked by the
@@ -272,4 +298,6 @@ Working material outside the repository:
   `pnpm exec vitest run --config ../Anno2070Rechner-verify/vitest.config.ts`
   from the repository). Throwaway once the rebuild is released.
 - `img/` in the repository is a local link to the exported images (ignored by
-  Git).
+  Git). `user-menu.png` there now also holds the picture icon of the background
+  menu and has to go into the final ZIP; the old file is kept as
+  `user-menu.original.png` in the export folder.
