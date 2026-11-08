@@ -37,7 +37,7 @@
       "    dd 10053 count=1 mult=1 tpm=0.5 need=0.5 icon_27_30.png Brennelementefabrik eff=100/green prod=100 bc=600,2500001:icon_27_1.png:Werkzeug:14,2500010:icon_27_34.png:Stahl:8,2500014:icon_27_211.png:Bauzellen:5,2500016:icon_27_151.png:Beton:4 mc=-60 / -30|-4 / -2|-6 / -3",
       "    dt icon_27_22.png Uran tpm 0.5",
       "      dd 10052 count=1 mult=1 tpm=0.5 need=0.5 icon_27_22.png Uranmine eff=100/green prod=100 bc=1000,2500001:icon_27_1.png:Werkzeug:12,2500010:icon_27_34.png:Stahl:2,2500014:icon_27_211.png:Bauzellen:7,2500016:icon_27_151.png:Beton:8 mc=-50 / -25|-4 / -2|-6 / -3",
-      "      dd 10208 count=1 mult=0.16666666666667 tpm=3 need=0.5 icon_27_187.png Black Smoker Uran-Sammelstelle eff=17/red prod=100 bc=4000,2500001:icon_27_1.png:Werkzeug:30,2500014:icon_27_211.png:Bauzellen:50 mc=-200 / -0|-25 / -12|0 / 0"
+      "      dd 10208 count=1 mult=0.5 tpm=1 need=0.5 icon_27_187.png Black Smoker Uran-Sammelstelle eff=50/yellow prod=100 bc=4000,2500001:icon_27_1.png:Werkzeug:30,2500014:icon_27_211.png:Bauzellen:50 mc=-200 / -100|-25 / -12|0 / 0"
     ]
   },
   "eco-building": {

@@ -336,7 +336,7 @@
       },
       "type": "farm",
       "product": 2500000,
-      "productionTime": 45000,
+      "productionTime": 60000,
       "productionCount": 1000,
       "raw1": null,
       "raw2": null
@@ -1282,15 +1282,15 @@
       "buildCosts": [
         [
           2500000,
-          12000
+          20000
         ],
         [
           2500001,
-          2000
+          40000
         ],
         [
           2500015,
-          12000
+          25000
         ]
       ],
       "maintenance": {
@@ -2598,8 +2598,8 @@
         ]
       ],
       "maintenance": {
-        "activeCost": 50,
-        "inactiveCost": 25,
+        "activeCost": 40,
+        "inactiveCost": 20,
         "activeEco": 0,
         "inactiveEco": 0,
         "activeEnergy": 24576,
@@ -2634,8 +2634,8 @@
         ]
       ],
       "maintenance": {
-        "activeCost": 70,
-        "inactiveCost": 35,
+        "activeCost": 40,
+        "inactiveCost": 20,
         "activeEco": -12288,
         "inactiveEco": -4096,
         "activeEnergy": 12288,
@@ -2667,8 +2667,8 @@
         ]
       ],
       "maintenance": {
-        "activeCost": 90,
-        "inactiveCost": 45,
+        "activeCost": 60,
+        "inactiveCost": 30,
         "activeEco": -16384,
         "inactiveEco": -8192,
         "activeEnergy": 24576,
@@ -2857,7 +2857,7 @@
       ],
       "maintenance": {
         "activeCost": 150,
-        "inactiveCost": 0,
+        "inactiveCost": 75,
         "activeEco": 0,
         "inactiveEco": 0,
         "activeEnergy": 102400,
@@ -2886,7 +2886,7 @@
       ],
       "maintenance": {
         "activeCost": 100,
-        "inactiveCost": 0,
+        "inactiveCost": 50,
         "activeEco": 0,
         "inactiveEco": 0,
         "activeEnergy": 102400,
@@ -2915,7 +2915,7 @@
       ],
       "maintenance": {
         "activeCost": 200,
-        "inactiveCost": 0,
+        "inactiveCost": 100,
         "activeEco": 0,
         "inactiveEco": 0,
         "activeEnergy": 102400,
@@ -2923,7 +2923,7 @@
       },
       "type": "farm",
       "product": 2500011,
-      "productionTime": 20000,
+      "productionTime": 60000,
       "productionCount": 1000,
       "raw1": null,
       "raw2": null
@@ -3063,7 +3063,7 @@
       ],
       "maintenance": {
         "activeCost": 100,
-        "inactiveCost": 0,
+        "inactiveCost": 50,
         "activeEco": 0,
         "inactiveEco": 0,
         "activeEnergy": 102400,
@@ -3196,15 +3196,15 @@
     {
       "guid": 10033,
       "icon": "icon_27_25.png",
-      "credits": 400,
+      "credits": 600,
       "buildCosts": [
         [
           2500001,
-          2000
+          4000
         ],
         [
           2500014,
-          3000
+          8000
         ]
       ],
       "maintenance": {
@@ -3295,8 +3295,8 @@
         ]
       ],
       "maintenance": {
-        "activeCost": 15,
-        "inactiveCost": 15,
+        "activeCost": 20,
+        "inactiveCost": 20,
         "activeEco": 0,
         "inactiveEco": 0,
         "activeEnergy": 0,
@@ -3318,8 +3318,8 @@
         ]
       ],
       "maintenance": {
-        "activeCost": 20,
-        "inactiveCost": 20,
+        "activeCost": 30,
+        "inactiveCost": 30,
         "activeEco": 0,
         "inactiveEco": 0,
         "activeEnergy": 0,
@@ -3341,8 +3341,8 @@
         ]
       ],
       "maintenance": {
-        "activeCost": 20,
-        "inactiveCost": 20,
+        "activeCost": 10,
+        "inactiveCost": 10,
         "activeEco": 0,
         "inactiveEco": 0,
         "activeEnergy": 4096,
@@ -3364,8 +3364,8 @@
         ]
       ],
       "maintenance": {
-        "activeCost": 30,
-        "inactiveCost": 30,
+        "activeCost": 15,
+        "inactiveCost": 15,
         "activeEco": 0,
         "inactiveEco": 0,
         "activeEnergy": 4096,
@@ -3375,7 +3375,7 @@
     {
       "guid": 10067,
       "icon": "icon_27_25.png",
-      "credits": 600,
+      "credits": 800,
       "buildCosts": [
         [
           2500001,
@@ -3633,19 +3633,19 @@
     {
       "guid": 10101,
       "icon": "icon_27_68.png",
-      "credits": 600,
+      "credits": 800,
       "buildCosts": [
         [
           2500001,
-          3000
+          5000
         ],
         [
           2500014,
-          2000
+          8000
         ],
         [
           2500062,
-          4000
+          5000
         ]
       ],
       "maintenance": {
@@ -3660,7 +3660,7 @@
     {
       "guid": 10109,
       "icon": "icon_27_178.png",
-      "credits": 2000,
+      "credits": 1000,
       "buildCosts": [
         [
           2500001,
@@ -3668,11 +3668,11 @@
         ],
         [
           2500014,
-          15000
+          5000
         ]
       ],
       "maintenance": {
-        "activeCost": 100,
+        "activeCost": 60,
         "inactiveCost": 0,
         "activeEco": -8192,
         "inactiveEco": -4096,
@@ -4077,7 +4077,7 @@
         ]
       ],
       "maintenance": {
-        "activeCost": 30,
+        "activeCost": 20,
         "inactiveCost": 0,
         "activeEco": -16384,
         "inactiveEco": -8192,
@@ -4329,11 +4329,11 @@
       ],
       "maintenance": {
         "activeCost": 1000,
-        "inactiveCost": 500,
+        "inactiveCost": 1000,
         "activeEco": -163840,
-        "inactiveEco": -81920,
+        "inactiveEco": -163840,
         "activeEnergy": 1228800,
-        "inactiveEnergy": 614400
+        "inactiveEnergy": 1228800
       }
     },
     {
@@ -4453,11 +4453,11 @@
       ],
       "maintenance": {
         "activeCost": 1000,
-        "inactiveCost": 500,
+        "inactiveCost": 1000,
         "activeEco": -245760,
-        "inactiveEco": -122880,
+        "inactiveEco": -245760,
         "activeEnergy": 1228800,
-        "inactiveEnergy": 614400
+        "inactiveEnergy": 1228800
       }
     },
     {
@@ -4578,11 +4578,11 @@
       "buildCosts": [
         [
           2500001,
-          6000
+          4000
         ],
         [
           2500014,
-          12000
+          8000
         ]
       ],
       "maintenance": {
@@ -4590,8 +4590,8 @@
         "inactiveCost": 20,
         "activeEco": 0,
         "inactiveEco": 0,
-        "activeEnergy": 0,
-        "inactiveEnergy": 0
+        "activeEnergy": 12288,
+        "inactiveEnergy": 4096
       }
     },
     {
@@ -4685,15 +4685,15 @@
     {
       "product": 2500018,
       "amounts": {
-        "ecos3": 200,
-        "ecos4": 125
+        "ecos3": 150,
+        "ecos4": 110
       }
     },
     {
       "product": 2500023,
       "amounts": {
-        "ecos3": 185,
-        "ecos4": 200
+        "ecos3": 150,
+        "ecos4": 110
       }
     },
     {
@@ -4728,35 +4728,35 @@
     {
       "product": 2500026,
       "amounts": {
-        "tycoons2": 350,
-        "tycoons3": 250,
-        "tycoons4": 160
+        "tycoons2": 300,
+        "tycoons3": 200,
+        "tycoons4": 120
       }
     },
     {
       "product": 2500021,
       "amounts": {
-        "tycoons3": 130,
+        "tycoons3": 120,
         "tycoons4": 90
       }
     },
     {
       "product": 2500024,
       "amounts": {
-        "tycoons3": 185,
-        "tycoons4": 125
+        "tycoons3": 120,
+        "tycoons4": 90
       }
     },
     {
       "product": 2500027,
       "amounts": {
-        "tycoons4": 250
+        "tycoons4": 200
       }
     },
     {
       "product": 2500028,
       "amounts": {
-        "tycoons4": 200
+        "tycoons4": 175
       }
     },
     {

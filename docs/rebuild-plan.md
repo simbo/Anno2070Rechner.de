@@ -123,7 +123,7 @@ Agreed on 2026-11-08 after the calculator comparison. Each as a separate,
 traceable step:
 
 1. **Game data** from `patch8.rda`, see
-   [Differences to the final game data](game-data.md#differences-to-the-final-game-data).
+   [Update to the final game data](game-data.md#update-to-the-final-game-data).
 2. **Game version in the header:** small text in a lighter gold (`#ecd07a`), to
    the right of the logo: "für Spielversion 3.0.8051", "for Game Version
    3.0.8051".
@@ -250,8 +250,8 @@ Game data
 - The game data is converted once from the export of the old MySQL database and
   stored as JSON in this repository. No extraction tooling is kept; how the data
   originally came from the game files is documented in
-  [game-data.md](game-data.md). It is from before the game's first patch and is
-  to be updated before the release, see [Next steps](#next-steps).
+  [game-data.md](game-data.md). It was updated to the final game version in
+  phase 3.
 - All values together are about 6 KB per language with gzip, so the data is not
   split by page:
   - `game-data.json`: language-independent values

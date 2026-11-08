@@ -11,9 +11,9 @@ planned.
 **State:** the comparison with other calculators and the check against the game
 files of version 3.0.8051 are done, see
 [Comparison results](#comparison-results) and
-[What the game files show](#what-the-game-files-show). Two game mechanics stay
-open. The fixes happen before `v2.0.0`; nothing in the calculator or its data
-has been changed yet.
+[What the game files show](#what-the-game-files-show). The game data has since
+been updated to `patch8.rda`, so the results below describe the state before
+that. Two game mechanics stay open, see [game-tests.md](game-tests.md).
 
 First findings
 ---
@@ -57,7 +57,7 @@ already noticed the difference for jewelry and pharmaceuticals
 ([thread](<https://web.archive.org/web/20130101041512/http://forums-de.ubi.com:80/showthread.php/118567-Anno-2070-(-Tiefsee)-Warenrechner-Forums>)).
 
 **Other differences to the final game data**, listed value by value in
-[game-data.md](game-data.md#differences-to-the-final-game-data):
+[game-data.md](game-data.md#update-to-the-final-game-data):
 
 | Value                | Buildings                                                                                                                                              |
 | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |

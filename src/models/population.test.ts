@@ -69,24 +69,24 @@ describe('residentsFromHouses', () => {
 });
 
 describe('calculateDemands and formatDemand', () => {
-  it('match the live calculator', () => {
+  it('match the live calculator with the final game data', () => {
     const demands = calculateDemands(catalogs.de, allGroups, false);
     expect([...demands.values()].map(demand => formatDemand(demand, 'de'))).toEqual([
       '40,4',
       '15,6',
       '17,5',
       '11,8',
-      '6',
-      '7,2',
+      '4,8',
+      '4,8',
       '3,8',
       '2,9',
       '14,6',
       '14,7',
-      '8,5',
-      '2,9',
-      '4,1',
-      '3,4',
+      '6,8',
+      '2,8',
+      '2,8',
       '2,7',
+      '2,4',
       '4,9',
       '6,3',
     ]);
@@ -106,8 +106,8 @@ describe('calculateDemands and formatDemand', () => {
       '7.5',
       '8.3',
       '4.8',
-      '2.9',
-      '3.4',
+      '2.3',
+      '2.3',
       '1.5',
       '1.1',
       '0',
@@ -130,15 +130,15 @@ describe('calculateProduction', () => {
     expect(rows).toHaveLength(catalogs.de.demands.length);
   });
 
-  it('match the live calculator', () => {
+  it('match the live calculator with the final game data', () => {
     const results = rows.slice(0, 6).map(row => calculateProduction(row, required(demands.get(row.product)), '100'));
     expect(results.map(r => [r.count, r.percent, r.efficiencyClass])).toEqual([
       [21, 96, 'green'],
       [11, 95, 'green'],
       [6, 97, 'green'],
       [6, 98, 'green'],
-      [6, 100, 'green'],
-      [6, 96, 'green'],
+      [5, 96, 'green'],
+      [4, 96, 'green'],
     ]);
   });
 

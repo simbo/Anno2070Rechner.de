@@ -12,15 +12,16 @@ Git history after the PHP application is removed.
 Source files
 ---
 
-The data was extracted around December 2011 to February 2012 from the game files
-of Anno 2070 (Ubisoft / Related Designs). The game stores its files in `.rda`
-archives, which were unpacked with a third-party RDA tool. Which tool was used
-is not recorded.
+The data was first extracted around December 2011 to February 2012 from the game
+files of Anno 2070 (Ubisoft / Related Designs). The game stores its files in
+`.rda` archives, which were unpacked with a third-party RDA tool. Which tool was
+used is not recorded.
 
-The importer names `patch1.rda` as the source, but the values in use do not come
-from there. A comparison with the installed game in November 2026 showed that
-all our building values and demands equal `Data1.rda`, dated September 2011, the
-state before the first patch. The paths below are as the importer recorded them.
+The importer names `patch1.rda` as the source, but the values it imported came
+from `Data1.rda`, dated September 2011. In November 2026 the values were updated
+to `patch8.rda`, the final state of the game data, see
+[Update to the final game data](#update-to-the-final-game-data). The paths below
+are as the importer recorded them.
 
 | File in the archive                          | Used for                          |
 | -------------------------------------------- | --------------------------------- |
@@ -130,36 +131,37 @@ content is in `data/config/dlc_01` to `dlc_04`.
 Item effects are in `data/config/features/items.xml`, and information channels
 in `data/config/features/features.xml`.
 
-Differences to the final game data
+Update to the final game data
 ---
 
-These are the values of our data that differ from `patch8.rda`. Raw material
-needs, all other production times, residents per house and ascension rates are
-the same. The base game has no additional production buildings. See
+In November 2026 these values were changed from `Data1.rda` to `patch8.rda`. Raw
+material needs, all other production times, residents per house and ascension
+rates were already the same. The base game has no additional production
+buildings. See
 [calculator-comparison.md](calculator-comparison.md#what-changed-between-versions)
-for the version in which each change was made. The data has not been updated
-yet.
+for the version in which each change was made. The update was applied by a
+script kept outside this repository, which also checked every old value.
 
 Demands in kilograms per 100 residents and minute:
 
-| Good            | Level    | Ours | Game |
-| --------------- | -------- | ---- | ---- |
-| ComfortFood     | Ecos3    | 200  | 150  |
-| ComfortFood     | Ecos4    | 125  | 110  |
-| HealthDrink     | Ecos3    | 185  | 150  |
-| HealthDrink     | Ecos4    | 200  | 110  |
-| Toys            | Tycoons2 | 350  | 300  |
-| Toys            | Tycoons3 | 250  | 200  |
-| Toys            | Tycoons4 | 160  | 120  |
-| LuxuryMeal      | Tycoons3 | 130  | 120  |
-| Champagne       | Tycoons3 | 185  | 120  |
-| Champagne       | Tycoons4 | 125  | 90   |
-| Jewelry         | Tycoons4 | 250  | 200  |
-| Pharmaceuticals | Tycoons4 | 200  | 175  |
+| Good            | Level    | Before | Now |
+| --------------- | -------- | ------ | --- |
+| ComfortFood     | Ecos3    | 200    | 150 |
+| ComfortFood     | Ecos4    | 125    | 110 |
+| HealthDrink     | Ecos3    | 185    | 150 |
+| HealthDrink     | Ecos4    | 200    | 110 |
+| Toys            | Tycoons2 | 350    | 300 |
+| Toys            | Tycoons3 | 250    | 200 |
+| Toys            | Tycoons4 | 160    | 120 |
+| LuxuryMeal      | Tycoons3 | 130    | 120 |
+| Champagne       | Tycoons3 | 185    | 120 |
+| Champagne       | Tycoons4 | 125    | 90  |
+| Jewelry         | Tycoons4 | 250    | 200 |
+| Pharmaceuticals | Tycoons4 | 200    | 175 |
 
 Buildings, in the units of the game files:
 
-| Building                           | GUID  | Value                             | Ours            | Game    |
+| Building                           | GUID  | Value                             | Before          | Now     |
 | ---------------------------------- | ----- | --------------------------------- | --------------- | ------- |
 | Sawmill                            | 10037 | Production time (ms)              | 45000           | 60000   |
 | River sewage treatment plant       | 10123 | Build cost: glass (kg)            | 12000           | 25000   |

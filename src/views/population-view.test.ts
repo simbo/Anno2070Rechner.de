@@ -96,7 +96,7 @@ describe('population calculator', () => {
       '48',
     ]);
     expect(['ecos0i', 'tycoons0i', 'techs0i'].map(name => value(wrapper, name))).toEqual(['5320', '3818', '1800']);
-    expect(demandTexts(wrapper).slice(0, 5)).toEqual(['40,4', '15,6', '17,5', '11,8', '6']);
+    expect(demandTexts(wrapper).slice(0, 5)).toEqual(['40,4', '15,6', '17,5', '11,8', '4,8']);
     const first = wrapper.find('#production-fieldset li');
     expect(first.find('.count span').text()).toBe('21');
     expect(first.find('.efficiency').classes()).toEqual(['efficiency', 'green']);

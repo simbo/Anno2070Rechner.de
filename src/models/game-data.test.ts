@@ -36,6 +36,26 @@ describe('catalog', () => {
   });
 });
 
+describe('final game data', () => {
+  const demand = (product: number): Record<string, number> =>
+    required(catalogs.de.demands.find(entry => entry.product === product)).amounts;
+
+  it('uses the demands of the final game version', () => {
+    expect(demand(2_500_023)).toMatchObject({ ecos3: 150, ecos4: 110 });
+  });
+
+  it('uses the production times of the final game version', () => {
+    expect(building(10_037).productionTime).toBe(60_000);
+    expect(building(10_208).productionTime).toBe(60_000);
+  });
+
+  it('uses the costs of the final game version', () => {
+    expect(building(10_194).maintenance).toMatchObject({ activeCost: 40, inactiveCost: 20 });
+    expect(building(10_208).maintenance.inactiveCost).toBe(100);
+    expect(building(10_123).buildCosts).toContainEqual([2_500_001, 40_000]);
+  });
+});
+
 describe('tons per minute', () => {
   it('derives output from production cycles', () => {
     expect(tonsPerMinute(building(10_045))).toBe(2);
