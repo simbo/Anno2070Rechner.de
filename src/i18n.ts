@@ -33,10 +33,10 @@ const english: Record<string, string> = {
   'für Version': 'for Version',
   'Gespeicherte Spiele': 'Saved games',
   'Automatisch im Browser gespeichert.': 'Automatically saved in your browser.',
-  'Dieser Browser erlaubt kein Speichern. Deine Eingaben gehen beim Schließen verloren. Erlaube Website-Daten für diese Seite, um sie zu behalten.':
-    'This browser does not allow saving. Your inputs will be lost when you close it. Allow site data for this site to keep them.',
-  'Deine Spiele wurden mit einer neueren Version der Seite gespeichert. Lade die Seite neu, damit deine Eingaben wieder gespeichert werden.':
-    'Your games were saved by a newer version of the site. Reload the page so that your inputs are saved again.',
+  'Dieser Browser erlaubt kein Speichern. Deine Eingaben gehen beim Schließen verloren.\nErlaube Website-Daten für diese Seite, um sie zu behalten.':
+    'This browser does not allow saving. Your inputs will be lost when you close it.\nAllow site data for this site to keep them.',
+  'Deine Spiele wurden mit einer neueren Version der Seite gespeichert.\nLade die Seite neu, damit deine Eingaben wieder gespeichert werden.':
+    'Your games were saved by a newer version of the site.\nReload the page so that your inputs are saved again.',
   'Neu laden': 'Reload',
   'Neues Spiel': 'New game',
   Umbenennen: 'Rename',
@@ -124,8 +124,8 @@ const english: Record<string, string> = {
   'Die Überschriften verwenden die Schrift „Prototype“ von Justin Callaghan, siehe <a href="%s">Prototype.txt</a>.':
     'The headings use the font “Prototype” by Justin Callaghan, see <a href="%s">Prototype.txt</a>.',
   Datenschutz: 'Privacy',
-  'Deine Eingaben werden nur in deinem Browser gespeichert. Es gibt keine Cookies. Eine anonyme Besucherstatistik läuft auf meinem eigenen Server, Details im <a href="%s">Datenschutzhinweis</a>.':
-    'Your inputs are only stored in your browser. There are no cookies. An anonymous visitor statistic runs on my own server, details in the <a href="%s">privacy notice</a>.',
+  'Deine Eingaben werden nur in deinem Browser gespeichert. Es gibt keine Cookies.<br />Eine anonyme Besucherstatistik läuft auf meinem eigenen Server, Details im <a href="%s">Datenschutzhinweis</a>.':
+    'Your inputs are only stored in your browser. There are no cookies.<br />An anonymous visitor statistic runs on my own server, details in the <a href="%s">privacy notice</a>.',
 };
 
 /**

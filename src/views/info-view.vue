@@ -82,7 +82,7 @@ const licenseUrl = 'https://simbo.mit-license.org/@2011/';
       v-html="
         fill(
           t(
-            'Deine Eingaben werden nur in deinem Browser gespeichert. Es gibt keine Cookies. Eine anonyme Besucherstatistik läuft auf meinem eigenen Server, Details im <a href=&quot;%s&quot;>Datenschutzhinweis</a>.',
+            'Deine Eingaben werden nur in deinem Browser gespeichert. Es gibt keine Cookies.<br />Eine anonyme Besucherstatistik läuft auf meinem eigenen Server, Details im <a href=&quot;%s&quot;>Datenschutzhinweis</a>.',
           ),
           `${privacyUrl(language)}#analytics`,
         )

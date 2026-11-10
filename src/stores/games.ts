@@ -36,9 +36,9 @@ export type StorageError = 'blocked' | 'newer';
  */
 export const storageErrorTexts: Record<StorageError, string> = {
   blocked:
-    'Dieser Browser erlaubt kein Speichern. Deine Eingaben gehen beim Schließen verloren. Erlaube Website-Daten für diese Seite, um sie zu behalten.',
+    'Dieser Browser erlaubt kein Speichern. Deine Eingaben gehen beim Schließen verloren.\nErlaube Website-Daten für diese Seite, um sie zu behalten.',
   newer:
-    'Deine Spiele wurden mit einer neueren Version der Seite gespeichert. Lade die Seite neu, damit deine Eingaben wieder gespeichert werden.',
+    'Deine Spiele wurden mit einer neueren Version der Seite gespeichert.\nLade die Seite neu, damit deine Eingaben wieder gespeichert werden.',
 };
 
 /**
