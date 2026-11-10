@@ -513,8 +513,10 @@ Working material outside the repository:
 
 - `~/projects/private/Anno2070Rechner-export`: the Uberspace export (code,
   images, database dump), the current image ZIP and the original header
-  `bg-header.original.png`; private. `game-files-latest` there holds the
-  unpacked files of game version 3.0.8051.
+  `bg-header.original.png`; private. `anno2070rechner-images.2026-11-08.zip` is
+  the previous ZIP; its PNGs are losslessly optimized versions of the same
+  images, useful when the icons get optimized. `game-files-latest` there holds
+  the unpacked files of game version 3.0.8051.
 - `~/projects/private/Anno2070Rechner-verify`: recorded live reference data and
   the comparison tooling (`capture.py`, `live-capture.mjs`, `compare.mjs`,
   parity tests run with
