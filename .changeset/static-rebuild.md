@@ -20,15 +20,15 @@ and accounts were replaced by saved games in the browser.
 
 #### Before and now
 
-|             | Old site                                           | Since 2.0                                                 |
-| ----------- | -------------------------------------------------- | --------------------------------------------------------- |
-| Application | PHP, pages generated on the server                 | Vue and TypeScript, built once into static files          |
-| Game data   | MySQL database                                     | JSON files, converted once from that database             |
-| Chains      | Calculated on the server for every request         | Calculated in the browser                                 |
-| Controls    | jQuery and jQuery UI from 2011                     | Small Vue components with the same markup and class names |
-| Your inputs | Cookie, or an account                              | Saved games in your browser's local storage               |
-| Accounts    | Login and registration with reCAPTCHA              | None                                                      |
-| Third party | jQuery from Google, reCAPTCHA, an analytics script | Nothing is loaded from other servers                      |
+|             | Old site                                           | Since 2.0                                                  |
+| ----------- | -------------------------------------------------- | ---------------------------------------------------------- |
+| Application | PHP, pages generated on the server                 | Vue and TypeScript, built once into static files           |
+| Game data   | MySQL database                                     | JSON files, converted once from that database              |
+| Chains      | Calculated on the server for every request         | Calculated in the browser                                  |
+| Controls    | jQuery and jQuery UI from 2011                     | Small Vue components with the same markup and class names  |
+| Your inputs | Cookie, or an account                              | Saved games in your browser's local storage                |
+| Accounts    | Login and registration with reCAPTCHA              | None                                                       |
+| Third party | jQuery from Google, reCAPTCHA, an analytics script | Only an anonymous visitor statistic on the author's server |
 
 #### The same site, on purpose
 
@@ -61,8 +61,15 @@ including shared links to commodity chains, keep working.
   longer be closed.
 - **Faster navigation.** Pages and languages change without reloading the whole
   page.
-- **No tracking and no external requests.** The old analytics script is removed,
-  and no cookies are set.
+- **Anonymous statistics only.** The old analytics script is replaced by a
+  self-hosted visitor statistic without cookies. Nothing else is loaded from
+  other servers.
+- **New info page.** A short note on the story of the site, the legal notes and
+  a link to the source code replace the outdated forum and support links.
+  Imprint and privacy notice are linked below every page.
+- **A little larger text.** The base font grows from 13 to 14 px.
+- **Smaller backgrounds.** Current browsers load the backgrounds as AVIF or
+  WebP, about half the size; older ones keep the JPG files.
 - **Better link previews.** Facebook-only tags are replaced by general preview
   tags.
 - **Cleaner header.** The "Under Development" ring in the logo is removed.
@@ -153,16 +160,15 @@ browsers get a short notice instead of an empty page.
 
 None of this is promised, and the site stays usable as it is without any of it:
 
-- Moving to a new server, which you should not notice. The old server and its
-  database will then be deleted, including all accounts and their e-mail
-  addresses.
+- Moving to a new server, which you should not notice.
+- Deleting the database of the old site, including all accounts and their e-mail
+  addresses. This is planned right after the release.
 - Support for Deep Ocean.
 - Exact fractions of buildings, a global productivity control, the senate
   ascension bonus, or a total across all chains.
-- Technical optimizations such as modern image formats.
+- Technical optimizations such as smaller icons.
 - A responsive layout and other modernization, once there is a reason to change
   a site that is meant to stay as it is.
-- Visitor statistics with a self-hosted Umami instance.
 
 #### For developers
 
@@ -170,5 +176,11 @@ None of this is promised, and the site stays usable as it is without any of it:
   terms.
 - The old PHP code is removed from the repository and stays available in the Git
   history.
-- Interface images and game icons are not part of the repository or the release
-  for copyright reasons, so a build needs its own copy of them in `img/`.
+- Images are not part of the repository or the release for copyright reasons.
+  `images.txt` lists them with checksums; the development server downloads
+  missing ones from the live site, and `version.txt` in every build names its
+  release.
+- The red tab at the top right of the header grows with its icons, and the game
+  version sits on the baseline of the logo.
+- What a web server has to do is described in `docs/hosting.md`, with guides for
+  Apache and Caddy.

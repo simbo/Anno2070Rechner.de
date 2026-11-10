@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright © 2011–2026 Simon Lepel <simbo@simbo.de> (https://simbo.de)
+Copyright © 2011 Simon Lepel <simbo@simbo.de> (https://simbo.de)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in

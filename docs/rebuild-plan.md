@@ -2,12 +2,13 @@ Rebuild plan: static frontend
 ===
 
 Anno2070Rechner.de currently runs as a PHP application with a MySQL database. It
-is rebuilt as a purely static frontend without any server-side code and moved to
-SRVKIST. This document records the agreed plan and its state.
+is rebuilt as a purely static frontend without any server-side code. The static
+site first replaces the PHP version on Uberspace and moves to SRVKIST later.
+This document records the agreed plan and its state.
 
-**State:** phases 1 and 2 are implemented and verified on the branch
-`static-rebuild` (see [Verification](#verification)). Phase 3, the release
-automation, the image ZIP, `v2.0.0` and hosting on SRVKIST are still open, see
+**State:** phases 1 to 3, the release automation and the review round of
+2026-11-10 are implemented and verified on the branch `static-rebuild` (see
+[Verification](#verification)). What `v2.0.0` still waits for is listed in
 [Next steps](#next-steps).
 
 Goals
@@ -125,8 +126,8 @@ traceable step:
 1. **Game data** from `patch8.rda`, see
    [Update to the final game data](game-data.md#update-to-the-final-game-data).
 2. **Game version in the header:** small text in a lighter gold (`#ecd07a`), to
-   the right of the logo: "für Spielversion 3.0.8051", "for Game Version
-   3.0.8051".
+   the right of the logo at the bottom of the header, its baseline on the one of
+   "RECHNER.DE": "für Version 3.0.8051", "for Version 3.0.8051".
 3. **Search engines:** `robots.txt` allows everything and names the sitemap.
    `sitemap.xml` lists the pages in both languages, generated from the route
    table, without any query parameters.
@@ -143,6 +144,44 @@ traceable step:
    history entry. Changing the menu item or the language adds a new one.
    Parameters survive a language change.
 8. **Saved games**, see [Saved games](#saved-games).
+9. **Review round** of 2026-11-10, see [Review round](#review-round).
+
+### Review round
+
+Agreed with the author while reviewing phase 3:
+
+- **Header tab:** the red tab at the top right is no longer part of
+  `bg-header.png`. A strip of four slices of the original draws it: the plain
+  panel edge, the tab's left curve, a red middle and the right corner. The tab
+  grows with its icons, and its curve always starts next to the leftmost one.
+  With three icons it matches the original header exactly. The save and
+  background menus hang directly from the tab's red edge.
+- **Typography:** the base font size is 14 px instead of 13 px, also for inputs
+  and buttons, and the main menu 15 px. The labels of the search forms got 10 px
+  more room for it. Running text on the info page has a line height of 1.4.
+- **Info page:** two sentences about the site, a personal note by the author in
+  a card, signed and linked to simbo.de, and a "Legal" section with the imprint,
+  the source code (MIT license linked as `simbo.mit-license.org/@2011/`, the
+  repository with a GitHub icon in the site's icon style), the Anno 2070
+  trademark, the "Prototype" font by Justin Callaghan with a link to
+  `Prototype.txt`, and privacy. Anno 2070 and Ubisoft link to Wikipedia in the
+  page language. Support, forum, source and contact sections and the email
+  address are gone.
+- **Imprint and privacy notice** are shared pages on simbo.de. Every page links
+  them below the page frame, in the style of the language selection; the links
+  stay at the bottom of the window as long as the page is shorter.
+- **Save menu:** the explanation fits on one line: "Automatisch im Browser
+  gespeichert." / "Automatically saved in your browser."
+- **Game ids** are 32 hex digits from `crypto.getRandomValues`. Older ids stay
+  valid.
+- **Backgrounds** come as AVIF and WebP, about 60 and 50 % smaller than the JPG
+  files, which stay as the fallback. The app checks once before it starts which
+  format the browser decodes and marks it on `<html>` for the stylesheet, so
+  only one version is loaded.
+- **Images** come from the live site in the normal setup, see [Images](#images).
+- **Visitor statistics:** Umami on SRVKIST, only in production builds, without
+  the recorder and without `data-do-not-track`. `src/index.html` is a Nunjucks
+  template again for that.
 
 ### Saved games
 
@@ -164,9 +203,9 @@ There is always exactly one current game, saved automatically in the browser.
   game leaves an empty one.
 - Two small icons in the bottom right corner export the current game as text and
   import such a text. Only the current game can be exported. Games have unique
-  ids: an import with an unknown id adds a game, the same id and content only
-  opens it, and the same id with other content asks whether to overwrite it, add
-  a copy or cancel. Invalid texts change nothing.
+  random ids: an import with an unknown id adds a game, the same id and content
+  only opens it, and the same id with other content asks whether to overwrite
+  it, add a copy or cancel. Invalid texts change nothing.
 - New interface elements and icons follow the style of the existing ones.
 
 ### Browser support
@@ -181,7 +220,8 @@ Older browsers get a short notice instead of an empty page.
   The ESLint rules asking for newer APIs are off for `src/`, with a comment.
 - The background works without CSS custom properties, `event.key` is normalized
   for browsers with other key names, and the background fill sits behind
-  `@supports`.
+  `@supports`. Browsers without AVIF and WebP get the JPG backgrounds; the
+  footer links use flexbox, which all of them support.
 
 ### Later
 
@@ -189,9 +229,12 @@ Older browsers get a short notice instead of an empty page.
   fractions, a global productivity control, the senate ascension bonus, a total
   across all chains.
 - Other optimizations and modernization, see [Goals](#goals), for example
-  serving the background images as WebP or AVIF.
-- Add analytics with the Umami instance on SRVKIST
-  (`https://trk.srvkist.net/trk.js`, own website id).
+  optimizing the icons losslessly.
+- Importing the old Umami statistics (website id of this site
+  `4c2e9006-f449-4c9f-aec7-897bcceb1168`) is SRVKIST work and paused until
+  SRVKIST is fixed, see
+  `~/projects/private/srvkist/.local/handoffs/2026-11-10-0251-umami-legacy-import.md`.
+- Hosting on SRVKIST, see [Later on SRVKIST](#later-on-srvkist).
 
 Stack
 ---
@@ -203,8 +246,10 @@ Modeled on the author's projects `etikettomat` (Vue setup) and `magawa`
 - Vite, TypeScript, Vue 3
 - Pinia for shared state, VueUse, zod for validating stored data
 - `vue-router` (see [Routing](#routing))
-- `@simbo/vite-plugin-html-minifier`, and a small own plugin
-  (`route-pages.plugin.ts`) for the generated HTML pages
+- `@simbo/vite-plugin-html-minifier`, `@simbo/vite-plugin-nunjucks` for parts of
+  `index.html` that only production builds get, and a small own plugin
+  (`route-pages.plugin.ts`) for the generated HTML pages, `sitemap.xml`,
+  `robots.txt` and `version.txt`
 - `@simbo/eslint-config` extended with `eslint-plugin-vue` and
   `vue-eslint-parser`, type checks with `vue-tsc`
 - `@simbo/prettier-config`, `@simbo/tsconfig`, `@simbo/cspell-config`,
@@ -242,7 +287,8 @@ All existing URLs keep working:
   rendered by the client app.
 - One route table is the single source for the router, the generated pages and
   the navigation.
-- Redirects and the 404 handling are done by Caddy on SRVKIST.
+- Redirects and the 404 handling are done by the web server, see
+  [hosting.md](hosting.md).
 
 Game data
 ---
@@ -262,16 +308,32 @@ Game data
 Images
 ---
 
-Interface images and game icons stay out of this repository for copyright
-reasons. They are static archive material and are kept in a private ZIP file.
+The images stay out of this repository for copyright reasons. All of them count
+as game graphics, including the author's own icons and the header slices, which
+use elements of the game graphics. Ubisoft declined to permit their use, and fan
+sites are tolerated, but a public repository would spread them beyond the site
+and could not take them back.
 
-- For development, the ZIP is unpacked into the working copy (ignored by Git).
+- `images.txt` lists every image the site uses with size and SHA-256 checksum.
+  `pnpm images:list` writes it from the local `img/` folder; a test makes sure
+  that it contains exactly the images the code and the game data refer to.
+- `pnpm dev` compares `img/` with the list before it starts, by existence and
+  size only, which takes milliseconds. Missing images are downloaded from the
+  live site, never replacing an existing file, and only if every file matches
+  its checksum. Images with another size only cause a warning, because they may
+  have been changed on purpose. Downloading needs a live site from `v2.0.0` on,
+  which the build marks with `version.txt`; before that, or if an image is
+  wrong, the start stops with instructions for the ZIP.
+- The private ZIP `anno2070rechner-images.zip` is the backup and the way in
+  before `v2.0.0` is live. `scripts/setup-images.sh` unpacks it and checks every
+  checksum, and `--pack` builds it from `img/` by the list.
+- When images change: edit them in `img/`, run `pnpm images:list`, pack the ZIP
+  and upload the images to the server before or with the release, see
+  [hosting.md](hosting.md).
 - Build results and release artifacts never contain the images. On the server
-  they are stored once, separately from the releases (see
-  [Hosting](#hosting-on-srvkist)).
-- The ZIP is rebuilt once the rebuild is finished and contains exactly the
-  images the new site uses.
-- Later, the icons can be optimized losslessly (about 4 KB per file today).
+  they are stored once, separately from the releases.
+- The site does not handle missing images; a missing image is an error to fix.
+- The original header is kept in the export folder as `bg-header.original.png`.
 
 The font "Prototype" (`fonts/`) is kept and taken over unchanged in phase 1. It
 is only used for headings. According to its `Prototype.txt` it is free for
@@ -279,8 +341,25 @@ personal use, and that file must accompany any redistribution. This
 non-commercial fan site is treated as personal use, and `Prototype.txt` is
 always shipped with the font.
 
-Hosting on SRVKIST
+Hosting
 ---
+
+The site does not depend on a particular host. [hosting.md](hosting.md) lists
+what a web server has to do and has short guides for Apache with `.htaccess`
+(Uberspace) and for Caddy (SRVKIST). The `.htaccess` is not part of the build.
+
+- **First on Uberspace:** `v2.0.0` replaces the PHP version in the existing web
+  folder on Uberspace, uploaded by hand from the release ZIP and the image ZIP.
+  The `.htaccess` was tested on 2026-11-10 in a temporary folder for
+  `simbo.uber.space`: all routes, redirects, 404 pages per language, caching and
+  compression behaved as intended. The existing redirect of
+  `www.anno2070rechner.de` drops the path and uses `http`; the guide replaces
+  it.
+- **Cleanup:** once the static site is live, `scripts/uberspace-cleanup.sh`
+  removes the old database from Uberspace, after checking that the server serves
+  `v2.0.0` or later.
+
+### Later on SRVKIST
 
 The site moves from Uberspace to SRVKIST, where Caddy serves it directly. The
 server side is implemented in the SRVKIST repository; this repository only
@@ -309,10 +388,8 @@ provides the build and the release artifact.
   This depends on the deployment service in SRVKIST, which does not exist yet.
 
 - **Move:** point the A and AAAA records of `anno2070rechner.de` to SRVKIST. The
-  MX record stays with Uberspace, which keeps handling the mail.
-- **Cleanup:** afterwards, `scripts/uberspace-cleanup.sh` removes the old site,
-  database and domains from Uberspace. It refuses to run while the domain still
-  points to Uberspace.
+  MX record stays with Uberspace, which keeps handling the mail. Afterwards the
+  web folder and web domains on Uberspace are removed by hand.
 
 Release automation
 ---
@@ -334,7 +411,7 @@ icons and the actions they use, and only adapted where this repository differs:
   GitHub release with the notes from `CHANGELOG.md` and `anno2070rechner.zip`.
   The ZIP holds the build without images. The GitHub Pages step of the other
   projects is left out; a notification of SRVKIST (see
-  [Hosting](#hosting-on-srvkist)) follows once its counterpart exists.
+  [Later on SRVKIST](#later-on-srvkist)) follows once its counterpart exists.
 - **Repository setup:** the secrets `SIMBO_GITHUB_APP_ID` and
   `SIMBO_GITHUB_APP_PRIVATE_KEY` and the GitHub App installation are needed
   before the push. The other settings of those projects follow once `v2.0.0` has
@@ -380,6 +457,16 @@ Verification
 - Phase 3 changes results deliberately through the final game data. Against the
   recorded references, 174 more cases differ: 152 chains, all of which contain a
   changed building, 8 population scenarios and 14 database views.
+- The author reviewed phase 3 on 2026-11-10 and accepted saved games, export and
+  import, the shareable URLs, the population boxes, the save menu and the
+  release workflows. The simulation of old browsers is accepted as evidence; a
+  real old browser is not needed. References to PHP in the code are intended,
+  they describe number handling taken over from the old site.
+- Review round: with three icons, the header tab matches the original header
+  within 1 of 255 per color channel. All pages were compared at 13 and 14 px for
+  new line breaks and overflows; only the search form labels needed more room.
+  The format check loads exactly one background version. Downloading images from
+  the current live site stops with the ZIP instructions, as intended.
 - Phase 2 changes results deliberately. 176 of the 726 recorded chains differ
   from the live site, exactly those requesting a count without a target for a
   building whose productivity is not 100 %. 16 population scenarios differ only
@@ -388,41 +475,51 @@ Verification
 
 ## Next steps
 
-Where the work stands and what follows, in this order:
+Where the work stands and what follows. Deep Ocean stays out of scope.
 
-1. **Phase 3**, see [Phase 3](#phase-3-before-v200), with the browser support
-   and the removal of the old PHP code. Deep Ocean stays out of scope.
-2. **Release automation**, prepared locally, see
-   [Release automation](#release-automation).
-3. **Image ZIP:** built outside the repository for the author to review. It
-   contains exactly the images the site uses, including the new icons in
-   `user-menu.png`. It gets a setup script and is stored in the cloud by the
-   author.
-4. **By the author, before `v2.0.0`:**
-   - **Info page:** a new text by the author, removing the dead links, and
-     crediting the "Prototype" font with a link to `Prototype.txt`. That file
-     only asks to be included with any redistribution, so the credit is a
-     courtesy.
+1. **Public credentials, by the author, now:** `conf/mysql.ini` with the
+   database name, user and password, and the private reCAPTCHA key in
+   `conf/site.ini` were in the public Git history since `0723dc1` (1 January
+   2012), which is part of `origin/main` and three forks. Treat them as
+   compromised and make them useless on the servers: change the password of the
+   MySQL user on Uberspace or remove user and database, check whether the
+   password was used anywhere else, and revoke the reCAPTCHA key. Rewriting the
+   history would not help with forks and copies and would break the
+   fast-forward, so it stays as it is.
+2. **Before `v2.0.0`:**
+   - **simbo.de** provides the imprint (`https://simbo.de/imprint`) and the
+     shared privacy notice. Its address is not decided yet; `privacyUrl` in
+     `src/routes.ts` is a placeholder until then. The privacy block of the info
+     page then becomes: "Deine Eingaben werden nur in deinem Browser
+     gespeichert. Es gibt keine Cookies. Eine anonyme Besucherstatistik läuft
+     auf meinem eigenen Server, Details im [Datenschutzhinweis](…)." / "Your
+     inputs are only stored in your browser. There are no cookies. An anonymous
+     visitor statistic runs on my own server, details in the
+     [privacy notice](…)."
    - **Investigate in the game**, on the Windows PC, the correct raw material
      need of chains below 100 % productivity, and whether eco and item bonuses
-     multiply, see [game-tests.md](game-tests.md). How to handle both is decided
+     multiply, see [game-tests.md](game-tests.md). How and what exactly to test
+     is discussed in detail first; how to handle the results is decided
      afterwards. The decision that raw materials follow productivity bonuses
      stands, see
      [Productivity and raw materials](calculator-comparison.md#productivity-and-raw-materials).
-5. **`v2.0.0`**, when the author decides: set up the secrets and the GitHub App,
+   - **Image ZIP:** the author reviews the new `anno2070rechner-images.zip` and
+     stores it in the cloud.
+3. **`v2.0.0`**, when the author decides: set up the secrets and the GitHub App,
    merge `static-rebuild` into `main` locally as a fast-forward and push `main`.
    After a successful release, activate the remaining repository settings and
    close issue #2 (broken umlauts).
-6. **Hosting:** SRVKIST site block, deployment service with webhook and the
-   notification from `Publish 🚛`, DNS move, then the Uberspace cleanup. The
-   reCAPTCHA key in `conf/site.ini` is public in the Git history and should be
-   revoked by the author.
+4. **Hosting on Uberspace**, by the author, following [hosting.md](hosting.md):
+   upload the release and the images, add the `.htaccess`, fix the `www.`
+   redirect, then run `scripts/uberspace-cleanup.sh`.
+5. **Later:** SRVKIST and the import of the old statistics, see [Later](#later).
 
 Working material outside the repository:
 
 - `~/projects/private/Anno2070Rechner-export`: the Uberspace export (code,
-  images, database dump) and the current image ZIP; private. `game-files-latest`
-  there holds the unpacked files of game version 3.0.8051.
+  images, database dump), the current image ZIP and the original header
+  `bg-header.original.png`; private. `game-files-latest` there holds the
+  unpacked files of game version 3.0.8051.
 - `~/projects/private/Anno2070Rechner-verify`: recorded live reference data and
   the comparison tooling (`capture.py`, `live-capture.mjs`, `compare.mjs`,
   parity tests run with
@@ -431,9 +528,9 @@ Working material outside the repository:
   scripts of the comparison with other calculators. Throwaway once the rebuild
   is released.
 - `img/` in the repository is a local link to the exported images (ignored by
-  Git). `user-menu.png` there also holds the picture icon of the background
-  menu, and `save-menu.png` holds the icons of the save menu; both are in the
-  new `anno2070rechner-images.zip` in the export folder. The old `user-menu.png`
-  is kept there as `user-menu.original.png`.
+  Git), which also holds the images added since. `user-menu.png` there also
+  holds the picture icon of the background menu, and `save-menu.png` holds the
+  icons of the save menu. The old `user-menu.png` is kept in the export folder
+  as `user-menu.original.png`.
 
-<!-- cspell:ignore für vom -->
+<!-- cspell:ignore für vom Automatisch gespeichert Deine Eingaben werden nur deinem gibt keine Eine anonyme Besucherstatistik läuft meinem eigenen Datenschutzhinweis -->
