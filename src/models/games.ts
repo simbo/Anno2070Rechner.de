@@ -239,14 +239,19 @@ export function gameName(game: Pick<Game, 'name' | 'startedAt' | 'number'>, lang
   return `${language === 'de' ? 'Spiel vom' : 'Game from'} ${day}${suffix}`;
 }
 
-const ID_RADIX = 36;
+const ID_BYTES = 16;
+const HEX = 16;
+const BYTE_OFFSET = 256;
 
 /**
- * A new unique id.
+ * A new unique id: 16 random bytes from the browser's cryptographic random source as hex.
  *
- * @returns The id.
+ * @returns The id with 32 hex digits.
  */
-const uniqueId = (): string => `${Date.now().toString(ID_RADIX)}${Math.random().toString(ID_RADIX).slice(2)}`;
+const uniqueId = (): string =>
+  Array.from(globalThis.crypto.getRandomValues(new Uint8Array(ID_BYTES)), byte =>
+    (byte + BYTE_OFFSET).toString(HEX).slice(1),
+  ).join('');
 
 const nextNumber = (games: readonly Game[], day: string): number =>
   Math.max(0, ...games.filter(game => game.startedAt === day).map(game => game.number)) + 1;

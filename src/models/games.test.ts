@@ -79,6 +79,16 @@ describe('inputsFingerprint', () => {
   });
 });
 
+describe('ids', () => {
+  it('are 32 random hex digits that differ per game', () => {
+    const first = createGame([], now);
+    const second = createGame([first], now);
+    expect(first.id).toMatch(/^[0-9a-f]{32}$/);
+    expect(second.id).toMatch(/^[0-9a-f]{32}$/);
+    expect(second.id).not.toBe(first.id);
+  });
+});
+
 describe('names', () => {
   it('follow the start date and the language', () => {
     const game = createGame([], now);
