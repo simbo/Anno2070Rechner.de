@@ -167,9 +167,13 @@ Agreed with the author while reviewing phase 3:
   `Prototype.txt`, and privacy. Anno 2070 and Ubisoft link to Wikipedia in the
   page language. Support, forum, source and contact sections and the email
   address are gone.
-- **Imprint and privacy notice** are shared pages on simbo.de. Every page links
-  them below the page frame, in the style of the language selection; the links
-  stay at the bottom of the window as long as the page is shorter.
+- **Imprint and privacy notice** are shared pages on simbo.de
+  (`https://simbo.de/imprint/`, `https://simbo.de/privacy/`, English under
+  `en/`; GitHub Pages needs the trailing slash). Every page links them in its
+  language below the page frame, in the style of the language selection; the
+  links stay at the bottom of the window as long as the page is shorter. The
+  privacy block of the info page mentions the visitor statistics and links the
+  section `#analytics` of the privacy notice.
 - **Save menu:** the explanation fits on one line: "Automatisch im Browser
   gespeichert." / "Automatically saved in your browser."
 - **Game ids** are 32 hex digits from `crypto.getRandomValues`. Older ids stay
@@ -487,15 +491,6 @@ Where the work stands and what follows. Deep Ocean stays out of scope.
    history would not help with forks and copies and would break the
    fast-forward, so it stays as it is.
 2. **Before `v2.0.0`:**
-   - **simbo.de** provides the imprint (`https://simbo.de/imprint`) and the
-     shared privacy notice. Its address is not decided yet; `privacyUrl` in
-     `src/routes.ts` is a placeholder until then. The privacy block of the info
-     page then becomes: "Deine Eingaben werden nur in deinem Browser
-     gespeichert. Es gibt keine Cookies. Eine anonyme Besucherstatistik läuft
-     auf meinem eigenen Server, Details im [Datenschutzhinweis](…)." / "Your
-     inputs are only stored in your browser. There are no cookies. An anonymous
-     visitor statistic runs on my own server, details in the
-     [privacy notice](…)."
    - **Investigate in the game**, on the Windows PC, the correct raw material
      need of chains below 100 % productivity, and whether eco and item bonuses
      multiply, see [game-tests.md](game-tests.md). How and what exactly to test
@@ -533,4 +528,4 @@ Working material outside the repository:
   icons of the save menu. The old `user-menu.png` is kept in the export folder
   as `user-menu.original.png`.
 
-<!-- cspell:ignore für vom Automatisch gespeichert Deine Eingaben werden nur deinem gibt keine Eine anonyme Besucherstatistik läuft meinem eigenen Datenschutzhinweis -->
+<!-- cspell:ignore für vom Automatisch gespeichert -->

@@ -58,15 +58,32 @@ export const siteTitle = 'Anno 2070 Rechner';
 export const siteUrl = 'https://anno2070rechner.de';
 
 /**
- * Imprint of the author, shared by all of the author's sites.
+ * Address of a page on simbo.de in a language. GitHub Pages serves these folders only with a
+ * trailing slash.
+ *
+ * @param page - The folder of the page.
+ * @param language - The language of the page.
+ * @returns The address.
  */
-export const imprintUrl = 'https://simbo.de/imprint';
+const simboPage = (page: string, language: Language): string =>
+  `https://simbo.de/${page}/${language === defaultLanguage ? '' : `${language}/`}`;
 
 /**
- * Privacy notice of the author, shared by all of the author's sites. A placeholder until its final
- * address is decided.
+ * Imprint of the author, shared by all of the author's sites.
+ *
+ * @param language - The language of the page.
+ * @returns The address.
  */
-export const privacyUrl = 'https://simbo.de/privacy';
+export const imprintUrl = (language: Language): string => simboPage('imprint', language);
+
+/**
+ * Privacy notice of the author, shared by all of the author's sites. Its section `#analytics`
+ * describes the visitor statistics.
+ *
+ * @param language - The language of the page.
+ * @returns The address.
+ */
+export const privacyUrl = (language: Language): string => simboPage('privacy', language);
 
 /**
  * Short description for search engines and link previews.

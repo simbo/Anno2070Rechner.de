@@ -23,14 +23,23 @@ describe('info page', () => {
     expect(english.wrapper.find('h3').text()).toBe('Legal');
   });
 
-  it('links the imprint, the license with the year of creation and the repository', async () => {
-    const { wrapper } = await mountPage('/info');
-    const links = wrapper.findAll('.info-legal a').map(link => link.attributes('href'));
-    expect(links).toEqual([
-      'https://simbo.de/imprint',
+  it('links imprint, license with the year of creation, repository, font and the statistics', async () => {
+    const links = async (path: string): Promise<(string | undefined)[]> =>
+      (await mountPage(path)).wrapper.findAll('.info-legal a').map(link => link.attributes('href'));
+    const shared = [
       'https://simbo.mit-license.org/@2011/',
       'https://github.com/simbo/Anno2070Rechner.de',
       '/fonts/Prototype.txt',
+    ];
+    expect(await links('/info')).toEqual([
+      'https://simbo.de/imprint/',
+      ...shared,
+      'https://simbo.de/privacy/#analytics',
+    ]);
+    expect(await links('/info/en')).toEqual([
+      'https://simbo.de/imprint/en/',
+      ...shared,
+      'https://simbo.de/privacy/en/#analytics',
     ]);
   });
 });

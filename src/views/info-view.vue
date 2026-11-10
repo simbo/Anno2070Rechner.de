@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from '../i18n';
-import { imprintUrl } from '../routes';
+import { imprintUrl, privacyUrl } from '../routes';
 
 /**
  * The info page: what the site is, a personal note by its author and the legal notes.
@@ -50,7 +50,7 @@ const licenseUrl = 'https://simbo.mit-license.org/@2011/';
   <h3>{{ t('Rechtliches') }}</h3>
   <div class="info-legal">
     <h4>
-      <a :href="imprintUrl">{{ t('Impressum') }}</a>
+      <a :href="imprintUrl(language)">{{ t('Impressum') }}</a>
     </h4>
     <h4>{{ t('Quelltext') }}</h4>
     <p>
@@ -78,6 +78,15 @@ const licenseUrl = 'https://simbo.mit-license.org/@2011/';
       "
     ></p>
     <h4>{{ t('Datenschutz') }}</h4>
-    <p>{{ t('Deine Eingaben werden nur in deinem Browser gespeichert. Es gibt keine Cookies.') }}</p>
+    <p
+      v-html="
+        fill(
+          t(
+            'Deine Eingaben werden nur in deinem Browser gespeichert. Es gibt keine Cookies. Eine anonyme Besucherstatistik läuft auf meinem eigenen Server, Details im <a href=&quot;%s&quot;>Datenschutzhinweis</a>.',
+          ),
+          `${privacyUrl(language)}#analytics`,
+        )
+      "
+    ></p>
   </div>
 </template>

@@ -121,8 +121,8 @@ const english: Record<string, string> = {
   'Die Überschriften verwenden die Schrift „Prototype“ von Justin Callaghan, siehe <a href="%s">Prototype.txt</a>.':
     'The headings use the font “Prototype” by Justin Callaghan, see <a href="%s">Prototype.txt</a>.',
   Datenschutz: 'Privacy',
-  'Deine Eingaben werden nur in deinem Browser gespeichert. Es gibt keine Cookies.':
-    'Your inputs are only stored in your browser. There are no cookies.',
+  'Deine Eingaben werden nur in deinem Browser gespeichert. Es gibt keine Cookies. Eine anonyme Besucherstatistik läuft auf meinem eigenen Server, Details im <a href="%s">Datenschutzhinweis</a>.':
+    'Your inputs are only stored in your browser. There are no cookies. An anonymous visitor statistic runs on my own server, details in the <a href="%s">privacy notice</a>.',
 };
 
 /**

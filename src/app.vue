@@ -74,10 +74,10 @@ const languageLinks = computed(() =>
   </div>
   <ul id="legal-links">
     <li>
-      <a :href="imprintUrl">{{ t('Impressum') }}</a>
+      <a :href="imprintUrl(language)">{{ t('Impressum') }}</a>
     </li>
     <li>
-      <a :href="privacyUrl">{{ t('Datenschutz') }}</a>
+      <a :href="privacyUrl(language)">{{ t('Datenschutz') }}</a>
     </li>
   </ul>
   <ul id="lang-select">

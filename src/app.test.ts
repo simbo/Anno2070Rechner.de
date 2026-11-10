@@ -59,6 +59,13 @@ describe('page frame', () => {
     expect(english.wrapper.find('small#game-version').text()).toBe('for Version 3.0.8051');
   });
 
+  it('links imprint and privacy notice on simbo.de in the page language, with the trailing slash', async () => {
+    const links = async (path: string): Promise<(string | undefined)[]> =>
+      (await mountPage(path)).wrapper.findAll('#legal-links a').map(link => link.attributes('href'));
+    expect(await links('/database')).toEqual(['https://simbo.de/imprint/', 'https://simbo.de/privacy/']);
+    expect(await links('/database/en')).toEqual(['https://simbo.de/imprint/en/', 'https://simbo.de/privacy/en/']);
+  });
+
   it('keeps the parameters of a page when changing the language', async () => {
     const { wrapper } = await mountPage('/commoditychains?pb_guid=10045&count=3');
     await flushPromises();
