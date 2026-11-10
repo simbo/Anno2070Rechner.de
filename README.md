@@ -48,8 +48,8 @@ the images under `/img/`; builds never contain them.
   it was extracted from the game files
 - [docs/calculator-comparison.md](docs/calculator-comparison.md): comparison
   with other Anno 2070 calculators and the final game data
-- [docs/game-tests.md](docs/game-tests.md): open questions to test in the
-  running game
+- [docs/game-tests.md](docs/game-tests.md): tests in the running game, not run,
+  kept as an outline
 
 ## License
 

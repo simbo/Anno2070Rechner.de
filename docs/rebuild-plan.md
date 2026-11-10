@@ -491,13 +491,12 @@ Where the work stands and what follows. Deep Ocean stays out of scope.
    history would not help with forks and copies and would break the
    fast-forward, so it stays as it is.
 2. **Before `v2.0.0`:**
-   - **Investigate in the game**, on the Windows PC, the correct raw material
-     need of chains below 100 % productivity, and whether eco and item bonuses
-     multiply, see [game-tests.md](game-tests.md). How and what exactly to test
-     is discussed in detail first; how to handle the results is decided
-     afterwards. The decision that raw materials follow productivity bonuses
-     stands, see
-     [Productivity and raw materials](calculator-comparison.md#productivity-and-raw-materials).
+   - **Productivity below 100 % and eco with items:** decided without a test in
+     the game: a slower cycle uses less raw material, and eco and item bonuses
+     multiply, see
+     [Below 100 % and eco with items](calculator-comparison.md#below-100--and-eco-with-items).
+     Still to decide is whether and when the calculator is changed, see
+     [What the calculator would need](calculator-comparison.md#what-the-calculator-would-need).
    - **Image ZIP:** the author reviews the new `anno2070rechner-images.zip` and
      stores it in the cloud.
 3. **`v2.0.0`**, when the author decides: set up the secrets and the GitHub App,

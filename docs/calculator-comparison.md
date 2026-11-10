@@ -13,7 +13,9 @@ files of version 3.0.8051 are done, see
 [Comparison results](#comparison-results) and
 [What the game files show](#what-the-game-files-show). The game data has since
 been updated to `patch8.rda`, so the results below describe the state before
-that. Two game mechanics stay open, see [game-tests.md](game-tests.md).
+that. The two game mechanics that only a test in the game could prove are
+decided without one, see
+[Below 100 % and eco with items](#below-100--and-eco-with-items).
 
 First findings
 ---
@@ -138,8 +140,10 @@ Nothing is decided by this section unless stated.
 - Our demand data is outdated and verifiably too high: 12 values of 7 goods, so
   we suggest up to 82 % more buildings for these goods.
 - Our handling of productivity in chains is taken as correct for items, see
-  [Productivity and raw materials](#productivity-and-raw-materials). Whether our
-  chains are right below 100 % is still to be investigated.
+  [Productivity and raw materials](#productivity-and-raw-materials). Below 100 %
+  our chains show too many raw material buildings, and eco and item bonuses
+  multiply, see
+  [Below 100 % and eco with items](#below-100--and-eco-with-items).
 - We lead with chains, alternatives, costs, database, languages and links.
   Others lead with Deep Ocean, exact fractions, senate bonus, materials and
   planning.
@@ -287,22 +291,70 @@ and none changes raw material needs. One caveat is the field description of
 also be read as per ton of output. The files therefore support the decision but
 do not prove it.
 
-Two related points remain open:
+### Below 100 % and eco with items
 
-- **Below 100 %: to be investigated.** The game has both kinds of penalty: items
-  that lower the yield by 5 or 10 %, and effects that slow the cycle, such as
-  senate effects of up to 25 %, an energy shortage or, on farms, a poor
-  ecobalance. According to the DOE readme, a slower cycle uses raw materials
-  more slowly too, while a lower yield would not. Our chain treats both like a
-  lower yield: at 50 % it shows twice the buildings and twice the raw materials.
-  Only DOE distinguishes the cases, by treating everything below 100 % as a
-  slower cycle. The correct behavior has to be established before anything is
-  changed.
-- **Eco and items combined: to be tested.** The wiki and the DOE readme both say
-  the bonuses multiply, while the game shows their sum. A farm shown at 200 %
-  (175 % eco, +25 % item) would actually deliver 219 %. The separate fields in
-  the game files fit this. Only DOE models it, with a separate calculator. How
-  to handle it is decided after a test in the game.
+**Decision (2026-11-10):** Two further assumptions are taken as correct without
+a test in the game. A test was planned in [game-tests.md](game-tests.md) and
+dropped, because building the setups in the game would take hours and the
+sources already agree.
+
+All of this rests on one model, which the DOE readme and the wiki describe and
+the game files support: a building's output per minute is its rate of cycles
+times its yield per cycle. Items and some senate effects change the yield
+(`ProductionCount` in `items.xml`), while the eco balance and an energy shortage
+change the rate. Raw materials are used per cycle.
+
+- **Below 100 %, a slower cycle uses less raw material.** A building slowed down
+  by an energy shortage or, on farms, a poor eco balance uses its raw materials
+  more slowly too, so the chain needs no more raw material for the same output.
+  For this speaks:
+  - The DOE readme says so, and DOE is the only calculator that distinguishes
+    the cases.
+  - In `properties.xml` of `patch8.rda`, an energy shortage lowers productivity
+    down to 25 % (`ShortageMaxProductivityFactor`) and explicitly lengthens the
+    production time up to 500 % (`ShortageMaxProductionTimeFactor`) once the
+    supply falls to 30 % (`MaxEffectLevel`).
+  - The eco balance changes the fertility of farms (`FertilityCorruption`), not
+    a yield. Farms have no raw materials, so for raw materials only the energy
+    shortage matters.
+
+  Lower yields also exist: items that lower `ProductionCount` by 5 or 10 % and
+  senate effects. With them the raw material need per building stays the same.
+  They are rare and small, so treating everything below 100 % as a slower cycle,
+  as DOE does, is the closer approximation.
+
+- **Eco balance and items multiply.** A farm shown at 200 % (175 % eco, +25 %
+  item) delivers 175 % × 125 % ≈ 219 %. For this speaks:
+  - The wiki and the DOE readme both say so; the wiki marks it as tested.
+  - The model above: the eco balance changes the rate, the item the yield per
+    cycle, in separate fields of the game files.
+  - The eco curve in `properties.xml` (`EcoFertility`) reaches 125 % at an eco
+    balance of 50 and 175 % at 500, so the difference is only relevant for Eco
+    farms with a high eco balance.
+
+### What the calculator would need
+
+Neither change has been made yet.
+
+1. **Below 100 %:** `getCommodityChain()` in
+   [commodity-chain.ts](../src/models/commodity-chain.ts) derives the raw
+   material need from the number of buildings, so a building at 50 % needs twice
+   the raw materials. Instead, only the part of the productivity above 100 %
+   should reduce the raw material need: the need becomes the output divided by
+   the output of one building at `max(productivity, 100 %)`, times the raw
+   material of one building. Building counts stay as they are. The chain tests
+   compared with the old site (`src/tests/live-chains.json`) use productivities
+   below 100 % and get new expected values, as a deliberate deviation from the
+   old site. Separate inputs for rate and yield would be exact but need new
+   inputs, URL parameters and saved-game fields, which the rare yield penalties
+   do not justify.
+2. **Eco and items:** Farms have no raw materials, so only the number of farms
+   is affected, by up to about 9 % too many. The productivity input takes one
+   value; whoever enters the sum shown in the game gets too many farms. The
+   smallest fix is a hint at the productivity of farms to enter eco × item, for
+   example 219 % for 175 % and +25 %. Two inputs for farms, multiplied, would
+   need new inputs, URL parameters, saved-game fields and texts in both
+   languages.
 
 ### Feature overview
 
@@ -382,11 +434,13 @@ Follows from the game files, to be done before `v2.0.0`:
 1. Update the 12 demand values, the two production times, and the maintenance
    and build costs to `patch8.rda`, and correct the source in
    [game-data.md](game-data.md). Done.
-2. Investigate the correct raw material need of chains below 100 % productivity,
-   see [game-tests.md](game-tests.md).
+2. Reduce the raw material need of chains below 100 % productivity. Decided
+   without a game test; whether and when to change the calculator is open, see
+   [What the calculator would need](#what-the-calculator-would-need).
 3. Name the game version on the site. Done.
-4. Test in the game whether eco and item bonuses multiply, then decide how to
-   handle it, see [game-tests.md](game-tests.md).
+4. Handle multiplying eco and item bonuses on farms. Decided without a game
+   test; how to handle it is open, see
+   [What the calculator would need](#what-the-calculator-would-need).
 
 Worth considering independently of the data, left for later in
 [rebuild-plan.md](rebuild-plan.md#later):
@@ -556,8 +610,8 @@ would not fit this project's MIT license.
 ### 6. Check against the real game data
 
 Done for the data, see [What the game files show](#what-the-game-files-show).
-Still to be tested in the running game: whether eco and item bonuses multiply,
-and how raw material use behaves below 100 %.
+The tests in the running game were dropped, see
+[Below 100 % and eco with items](#below-100--and-eco-with-items).
 
 ### 7. Fix what has to be fixed
 
