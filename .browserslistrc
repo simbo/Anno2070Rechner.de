@@ -1,5 +1,5 @@
 # Oldest browsers the site supports: Vue 3 needs Proxy, which they all have.
-# See docs/rebuild-plan.md#browser-support. Older browsers get a notice instead.
+# See docs/decisions.md#browser-support. Older browsers get a notice instead.
 chrome >= 49
 edge >= 12
 firefox >= 42

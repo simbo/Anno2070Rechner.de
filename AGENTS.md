@@ -11,8 +11,9 @@ tool, configuration or test can enforce to that tool.
   publish without explicit authorization.
 - When the user is discussing a solution, investigate and explain before
   implementing. A discussion is not permission to start the work.
-- Agreed decisions live in `docs/rebuild-plan.md`. Follow it, keep it current
-  when a decision changes, and do not repeat its content here.
+- Agreed decisions live in `docs/decisions.md` and open work in `docs/todo.md`.
+  Follow them, keep them current when something changes, and do not repeat their
+  content here. `docs/rebuild-plan.md` tracks the rebuild until it is complete.
 
 ## Private material
 

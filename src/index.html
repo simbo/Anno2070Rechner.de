@@ -13,7 +13,7 @@
     <div id="app">
       <noscript>Bitte aktiviere JavaScript. / Please enable JavaScript.</noscript>
     </div>
-    <!-- Browsers without Proxy cannot run the app, see docs/rebuild-plan.md#browser-support. -->
+    <!-- Browsers without Proxy cannot run the app, see docs/decisions.md#browser-support. -->
     <script>
       if (typeof Proxy === 'undefined') {
         document.getElementById('app').innerHTML = /\/en$/.test(location.pathname)

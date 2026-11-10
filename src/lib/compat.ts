@@ -1,6 +1,6 @@
 /**
  * Small replacements for array and object helpers that are newer than the oldest browsers
- * this site supports, see the browser support section of `docs/rebuild-plan.md`.
+ * this site supports, see the browser support section of `docs/decisions.md`.
  */
 
 /**

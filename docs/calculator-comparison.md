@@ -444,7 +444,7 @@ Follows from the game files, to be done before `v2.0.0`:
    [What the calculator does with it](#what-the-calculator-does-with-it).
 
 Worth considering independently of the data, left for later in
-[rebuild-plan.md](rebuild-plan.md#later):
+[todo.md](todo.md#calculator):
 
 5. Show exact fractions as well, for example in a tooltip.
 6. Add a global productivity control.
@@ -602,7 +602,7 @@ rather than taken from descriptions:
 Tables and conclusions go into this document, with date and version. Captured
 pages and raw outputs stay outside the repository like the rebuild's reference
 data. The result is a list of proposed changes; each becomes a decision in
-[rebuild-plan.md](rebuild-plan.md) only when agreed.
+[decisions.md](decisions.md) only when agreed.
 
 No data or code from other calculators is copied into this repository without
 checking its license, since most state none and The4thLaw's AGPL and CC-BY-SA
@@ -617,8 +617,7 @@ The tests in the running game were dropped, see
 ### 7. Fix what has to be fixed
 
 Only now, and still before `v2.0.0`, the agreed changes are made, see
-[Proposed changes](#proposed-changes) and
-[rebuild-plan.md](rebuild-plan.md#next-steps).
+[Proposed changes](#proposed-changes) and [decisions.md](decisions.md).
 
 Open questions
 ---

@@ -33,7 +33,7 @@ export default defineConfig([
         extraFileExtensions: ['.vue'],
       },
     },
-    // The app supports old browsers, see docs/rebuild-plan.md#browser-support, and its code stays
+    // The app supports old browsers, see docs/decisions.md#browser-support, and its code stays
     // at ES2018. These rules ask for newer APIs, or for APIs the modern bundle would have to add.
     rules: {
       'unicorn/no-array-sort': 'off',

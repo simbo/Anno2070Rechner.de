@@ -12,9 +12,9 @@ Requirements
       or together with a release that needs them.
 - [ ] `/population` serves `/population/index.html`; the same for every page and
       `/<page>/en`.
-- [ ] Redirects as in [Routing](rebuild-plan.md#routing): `/` and `/en` with
-      307, `/<page>/`, `/<page>/de` and the removed pages with 301. Query
-      parameters survive, except on removed pages.
+- [ ] Redirects as in [Routing](decisions.md#routing): `/` and `/en` with 307,
+      `/<page>/`, `/<page>/de` and the removed pages with 301. Query parameters
+      survive, except on removed pages.
 - [ ] Unknown addresses get `404.html`, or `404.en.html` for English addresses,
       with status 404. Folders are never listed.
 - [ ] `www.` redirects to the domain without it, keeping path and query.

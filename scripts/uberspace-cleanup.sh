@@ -83,4 +83,3 @@ ssh "$HOST" "mysql -e 'DROP DATABASE $DB'"
 
 step "Fertig"
 echo "Die Datenbank $DB ist von $HOST entfernt. Der Export bleibt in $EXPORT_DIR."
-echo "Den MySQL-Zugang der alten Seite trotzdem ändern, siehe docs/rebuild-plan.md#next-steps."
