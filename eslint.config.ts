@@ -12,7 +12,7 @@ import vueParser from 'vue-eslint-parser';
 export default defineConfig([
   globalIgnores(['**/dist/', '**/coverage/', 'img/']),
   {
-    files: ['*.ts'],
+    files: ['*.ts', 'scripts/**/*.ts'],
     extends: [configs.node.recommended],
     languageOptions: {
       globals: { ...globals.node },

@@ -3,6 +3,8 @@ import: '@simbo/cspell-config'
 ignorePaths:
   # Third-party readme of the Prototype font, shipped unchanged.
   - '**/Prototype.txt'
+  # Generated list of image checksums and file names.
+  - images.txt
 
 words:
   - Ecos

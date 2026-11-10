@@ -61,7 +61,7 @@ describe('routePagesPlugin', () => {
     return { emitted, index };
   }
 
-  it('emits one page per route and language plus 404 pages', () => {
+  it('emits one page per route and language plus 404 pages and the release version', () => {
     const { emitted, index } = run(`<html lang="de"><head>${headMarker}</head><body></body></html>`);
     const files = emitted.map(file => file.fileName).toSorted((a, b) => a.localeCompare(b));
     expect(files).toEqual([
@@ -77,7 +77,9 @@ describe('routePagesPlugin', () => {
       'population/index.html',
       'robots.txt',
       'sitemap.xml',
+      'version.txt',
     ]);
+    expect(required(emitted.find(file => file.fileName === 'version.txt')).source).toMatch(/^\d+\.\d+\.\d+\n$/);
     const english = required(emitted.find(file => file.fileName === 'database/en/index.html')).source;
     expect(english).toContain('<html lang="en"');
     expect(english).toContain('<title>Database « Anno 2070 Rechner</title>');

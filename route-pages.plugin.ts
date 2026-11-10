@@ -1,5 +1,6 @@
 import type { Plugin } from 'vite';
 
+import packageJson from './package.json' with { type: 'json' };
 import {
   documentTitle,
   languages,
@@ -157,6 +158,8 @@ export function routePagesPlugin(): Plugin {
         }
         emit('sitemap.xml', renderSitemap());
         emit('robots.txt', renderRobots());
+        // Tells a deployment and the image download which release a server runs.
+        emit('version.txt', `${packageJson.version}\n`);
         // The start page is a redirect on the server; keep a German population page as a fallback.
         index.source = buildPage(template, renderHead(pages[0].title.de, 'de', pagePaths(pages[0])), 'de');
       },

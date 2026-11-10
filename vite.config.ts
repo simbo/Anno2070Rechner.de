@@ -1,19 +1,24 @@
 import { createReadStream, existsSync, statSync } from 'node:fs';
 import { extname, resolve, sep } from 'node:path';
+import process from 'node:process';
 
 import htmlMinifierPlugin from '@simbo/vite-plugin-html-minifier';
+import nunjucksPlugin from '@simbo/vite-plugin-nunjucks';
 import legacy from '@vitejs/plugin-legacy';
 import vue from '@vitejs/plugin-vue';
 import { createLogger, defineConfig, type Connect, type Plugin } from 'vite';
 
 import { routePagesPlugin } from './route-pages.plugin.ts';
+import { changedMessage, checkImages, fetchImages, ImagesUnavailableError } from './scripts/images.ts';
 
 const imageRoot = resolve(import.meta.dirname, 'img');
 
 const imageTypes: Record<string, string> = {
+  '.avif': 'image/avif',
   '.gif': 'image/gif',
   '.jpg': 'image/jpeg',
   '.png': 'image/png',
+  '.webp': 'image/webp',
 };
 
 /**
@@ -47,6 +52,36 @@ function archiveImagesPlugin(): Plugin {
   };
 }
 
+/**
+ * Checks the local images against `images.txt` before the development server starts, by
+ * existence and size only. Missing images are downloaded from the live site; images with
+ * another size only cause a warning, because they may have been changed on purpose.
+ *
+ * @returns The Vite plugin.
+ */
+function imageCheckPlugin(): Plugin {
+  return {
+    name: 'image-check',
+    apply: 'serve',
+    configureServer: async server => {
+      // Tests run without images.
+      if (process.env.VITEST) return;
+      const { logger: log } = server.config;
+      const { missing, changed } = checkImages();
+      if (changed.length > 0) log.warn(changedMessage(changed));
+      if (missing.length === 0) return;
+      log.info(`Downloading ${missing.length} missing images…`);
+      try {
+        await fetchImages(missing);
+      } catch (error) {
+        if (!(error instanceof ImagesUnavailableError)) throw error;
+        log.error(error.message);
+        throw new Error('Images are missing, see above.', { cause: error });
+      }
+    },
+  };
+}
+
 // The archive images are resolved at runtime by design; do not warn about each of them.
 const logger = createLogger();
 const isImageWarning = (message: string): boolean => /^\/img\/.* didn't resolve at build time/.test(message);
@@ -59,7 +94,11 @@ logger.warnOnce = (message, options) => {
   if (!isImageWarning(message)) warnOnce(message, options);
 };
 
-export default defineConfig({
+/**
+ * Builds the Vite configuration. `src/index.html` is a Nunjucks template; `APP_IS_PROD` keeps
+ * the visitor statistics out of development.
+ */
+export default defineConfig(({ command }) => ({
   customLogger: logger,
   root: 'src',
   base: '/',
@@ -71,6 +110,8 @@ export default defineConfig({
     legacy({
       modernPolyfills: ['es.array.flat-map', 'es.global-this', 'es.object.from-entries', 'es.object.has-own'],
     }),
+    nunjucksPlugin({ locals: { APP_IS_PROD: command === 'build' } }),
+    imageCheckPlugin(),
     archiveImagesPlugin(),
     htmlMinifierPlugin(),
     routePagesPlugin(),
@@ -81,4 +122,4 @@ export default defineConfig({
     outDir: '../dist',
     emptyOutDir: true,
   },
-});
+}));
