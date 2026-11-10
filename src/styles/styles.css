@@ -543,16 +543,16 @@ a:focus {
 /* Its baseline lines up with "RECHNER.DE" in the logo. */
 #game-version {
   position: absolute;
-  top: 144px;
-  left: 234px;
+  top: 147px;
+  left: 229px;
   color: #ecd07a;
   white-space: nowrap;
 }
 
 /* Both dropdowns hang from the red edge of the tab, aligned with their icon. */
 #background-menu {
-  top: 30px;
-  right: 9px;
+  top: 28px;
+  right: 8px;
   margin: 0;
   z-index: 1000;
 }
@@ -2299,8 +2299,8 @@ a.display-hide:hover {
 }
 
 #save-menu {
-  top: 30px;
-  right: 9px;
+  top: 28px;
+  right: 8px;
   z-index: 1000;
   width: 300px;
   margin: 0;
