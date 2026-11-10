@@ -84,7 +84,7 @@ function imageCheckPlugin(): Plugin {
 
 // The archive images are resolved at runtime by design; do not warn about each of them.
 const logger = createLogger();
-const isImageWarning = (message: string): boolean => /^\/img\/.* didn't resolve at build time/.test(message);
+const isImageWarning = (message: string): boolean => /^\s*\/img\/.* didn't resolve at build time/.test(message);
 const warn = logger.warn.bind(logger);
 const warnOnce = logger.warnOnce.bind(logger);
 logger.warn = (message, options) => {
