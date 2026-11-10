@@ -33,8 +33,11 @@ const english: Record<string, string> = {
   'für Version': 'for Version',
   'Gespeicherte Spiele': 'Saved games',
   'Automatisch im Browser gespeichert.': 'Automatically saved in your browser.',
-  'Dieser Browser erlaubt kein Speichern. Deine Eingaben gehen beim Schließen verloren.':
-    'This browser does not allow saving. Your inputs will be lost when you close it.',
+  'Dieser Browser erlaubt kein Speichern. Deine Eingaben gehen beim Schließen verloren. Erlaube Website-Daten für diese Seite, um sie zu behalten.':
+    'This browser does not allow saving. Your inputs will be lost when you close it. Allow site data for this site to keep them.',
+  'Deine Spiele wurden mit einer neueren Version der Seite gespeichert. Lade die Seite neu, damit deine Eingaben wieder gespeichert werden.':
+    'Your games were saved by a newer version of the site. Reload the page so that your inputs are saved again.',
+  'Neu laden': 'Reload',
   'Neues Spiel': 'New game',
   Umbenennen: 'Rename',
   Löschen: 'Delete',

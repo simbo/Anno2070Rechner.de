@@ -2239,6 +2239,48 @@ a.display-hide:hover {
   background: transparent url('/img/icon-valid.png') 0 0 / 18px 15px no-repeat;
 }
 
+/* The red cross instead while nothing is saved. */
+.user-menu li.save.unsaved a::after {
+  content: '';
+  position: absolute;
+  right: -3px;
+  bottom: 0;
+  width: 14px;
+  height: 12px;
+  background: transparent url('/img/icon-invalid.png') 0 0 / 18px 15px no-repeat;
+}
+
+/* The notice above the page content while nothing is saved, in the style of the save menu. */
+#storage-notice {
+  display: flex;
+  align-items: center;
+  clear: both;
+  margin: 0 30px 15px;
+  text-align: left;
+  border: 1px solid #1e3650;
+  border-top-color: #2a4866;
+  border-left: 6px solid #a31e1f;
+  background: #0e1f29 url('/img/bg-gradient-darkblue.png') 0 0 repeat-x;
+}
+
+#storage-notice p {
+  flex: 1;
+  margin: 0;
+  padding: 10px 10px 10px 40px;
+  background: transparent url('/img/icon-invalid.png') 10px center no-repeat;
+  line-height: 1.4;
+}
+
+.storage-notice-buttons {
+  padding: 8px 10px;
+  white-space: nowrap;
+}
+
+.storage-notice-buttons input {
+  width: auto;
+  margin-left: 4px;
+}
+
 .reset-confirm {
   position: absolute;
   right: 30px;

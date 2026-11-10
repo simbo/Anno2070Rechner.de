@@ -10,11 +10,14 @@ import {
   gamesByUse,
   inputsFingerprint,
   isDefaultInputs,
+  isNewerStorage,
   overwriteWithImport,
   parseGames,
   parseImport,
   planImport,
   removeGame,
+  serializeGames,
+  STORAGE_VERSION,
   type Game,
   type GamesState,
 } from './games';
@@ -122,7 +125,14 @@ describe('gamesByUse', () => {
 
 describe('parseGames', () => {
   it('starts a new game without valid data', () => {
-    for (const raw of [null, 'not json', '{}', '{"games":"x"}', '{"games":[{"id":"x"}]}']) {
+    for (const raw of [
+      null,
+      'not json',
+      'null',
+      '{}',
+      '{"version":1,"games":"x"}',
+      '{"version":1,"games":[{"id":"x"}]}',
+    ]) {
       const state = parseGames(raw, now);
       expect(state.games).toHaveLength(1);
       expect(state.currentId).toBe(state.games[0].id);
@@ -133,20 +143,38 @@ describe('parseGames', () => {
     const state = stateWith(2);
     state.currentId = state.games[1].id;
     state.games[1].inputs.residences.ecos[1] = '7';
-    expect(parseGames(JSON.stringify(state), now)).toEqual(state);
+    expect(parseGames(serializeGames(state), now)).toEqual(state);
+  });
+
+  it('leaves out games without the current format version', () => {
+    const state = stateWith(2);
+    for (const version of [undefined, 0, STORAGE_VERSION + 1]) {
+      const parsed = parseGames(JSON.stringify({ ...state, version }), now);
+      expect(parsed.games).toHaveLength(1);
+      expect(parsed.games[0].id).not.toBe(state.games[0].id);
+    }
   });
 
   it('leaves out damaged games and keeps the others', () => {
     const state = stateWith(2);
     const stored = { ...state, games: [state.games[0], { ...state.games[1], inputs: {} }] };
-    const parsed = parseGames(JSON.stringify(stored), now);
+    const parsed = parseGames(serializeGames(stored as GamesState), now);
     expect(parsed.games.map(game => game.id)).toEqual([state.games[0].id]);
   });
 
   it('opens the most recently used game if the current one is gone', () => {
     const state = stateWith(2);
-    const parsed = parseGames(JSON.stringify({ ...state, currentId: 'gone' }), now);
+    const parsed = parseGames(serializeGames({ ...state, currentId: 'gone' }), now);
     expect(parsed.currentId).toBe(state.games[1].id);
+  });
+});
+
+describe('isNewerStorage', () => {
+  it('recognizes only a newer format version', () => {
+    const state = stateWith(1);
+    expect(isNewerStorage(JSON.stringify({ ...state, version: STORAGE_VERSION + 1 }))).toBe(true);
+    expect(isNewerStorage(serializeGames(state))).toBe(false);
+    for (const raw of [null, 'not json', '{}', '{"version":"2"}']) expect(isNewerStorage(raw)).toBe(false);
   });
 });
 

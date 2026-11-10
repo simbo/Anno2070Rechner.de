@@ -1,7 +1,8 @@
 import { flushPromises, type VueWrapper } from '@vue/test-utils';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { useGamesStore } from '../stores/games';
+import { STORAGE_VERSION } from '../models/games';
+import { gamesStorageKey, useGamesStore } from '../stores/games';
 import { mountPage } from '../tests/mount-page';
 import { required } from '../tests/required';
 
@@ -265,5 +266,75 @@ describe('storage', () => {
     first.wrapper.unmount();
     const { wrapper } = await mountPage('/population');
     expect(wrapper.find('input[name="ecos0r"]').element).toHaveProperty('value', '42');
+  });
+});
+
+describe('storage errors', () => {
+  const notice = (wrapper: VueWrapper): ReturnType<VueWrapper['find']> => wrapper.find('#storage-notice');
+  const newerGames = JSON.stringify({ version: STORAGE_VERSION + 1, games: 'other' });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('show neither a cross nor a notice while saving works', async () => {
+    const { wrapper } = await mountPage('/population');
+    expect(wrapper.find('li.save').classes()).not.toContain('unsaved');
+    expect(notice(wrapper).exists()).toBe(false);
+    const stored = required(localStorage.getItem(gamesStorageKey));
+    expect(JSON.parse(stored)).toMatchObject({ version: STORAGE_VERSION });
+  });
+
+  it('show a cross and a notice if the browser does not allow saving', async () => {
+    vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+      throw new Error('blocked');
+    });
+    const { wrapper } = await mountPage('/population');
+    expect(wrapper.find('li.save').classes()).toContain('unsaved');
+    expect(wrapper.find('li.save').classes()).not.toContain('saved');
+    expect(notice(wrapper).text()).toContain('Dieser Browser erlaubt kein Speichern.');
+    expect(notice(wrapper).findAll('input')).toHaveLength(1);
+    await icon(wrapper).trigger('click');
+    expect(wrapper.find('#save-menu p').text()).toContain('Erlaube Website-Daten');
+  });
+
+  it('close the notice for the rest of the page view', async () => {
+    vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+      throw new Error('blocked');
+    });
+    const { wrapper, router } = await mountPage('/population');
+    await notice(wrapper).find('input').trigger('click');
+    expect(notice(wrapper).exists()).toBe(false);
+    await router.push('/database');
+    useGamesStore().current.inputs.residences.ecos[1] = '3';
+    await flushPromises();
+    expect(notice(wrapper).exists()).toBe(false);
+    expect(wrapper.find('li.save').classes()).toContain('unsaved');
+  });
+
+  it('leave games of a newer version alone and offer to reload', async () => {
+    localStorage.setItem(gamesStorageKey, newerGames);
+    const { wrapper } = await mountPage('/population/en');
+    useGamesStore().current.inputs.residences.ecos[1] = '3';
+    await flushPromises();
+    expect(localStorage.getItem(gamesStorageKey)).toBe(newerGames);
+    expect(wrapper.find('li.save').classes()).toContain('unsaved');
+    expect(notice(wrapper).text()).toContain('Your games were saved by a newer version of the site.');
+    expect(
+      notice(wrapper)
+        .findAll('input')
+        .map(button => button.element.value),
+    ).toEqual(['Reload', 'Close']);
+  });
+
+  it('stop saving once another tab saves a newer version', async () => {
+    const { wrapper } = await mountPage('/population');
+    localStorage.setItem(gamesStorageKey, newerGames);
+    // eslint-disable-next-line unicorn/no-keyword-prefix -- The name is given by the browser API.
+    globalThis.dispatchEvent(new StorageEvent('storage', { key: gamesStorageKey, newValue: newerGames }));
+    useGamesStore().current.inputs.residences.ecos[1] = '3';
+    await flushPromises();
+    expect(localStorage.getItem(gamesStorageKey)).toBe(newerGames);
+    expect(notice(wrapper).exists()).toBe(true);
   });
 });

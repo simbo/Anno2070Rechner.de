@@ -5,14 +5,15 @@ import { useRoute } from 'vue-router';
 import AppLink from './components/app-link.vue';
 import BackgroundMenu from './components/background-menu.vue';
 import SaveMenu from './components/save-menu.vue';
+import StorageNotice from './components/storage-notice.vue';
 import { useI18n } from './i18n';
 import { gameVersion } from './models/game-data';
 import { imprintUrl, languages, pagePath, pages, privacyUrl, siteTitle } from './routes';
 import { useGamesStore } from './stores/games';
 
 /**
- * Page frame of the old site: header with logo, save and background menus and navigation, content,
- * footer, the links to imprint and privacy notice and the language selection. Login, registration
+ * Page frame of the old site: header with logo, save and background menus and navigation, content
+ * with a notice while games are not saved, footer, the links to imprint and privacy notice and the language selection. Login, registration
  * and the "Under Development" badge are gone.
  */
 const route = useRoute();
@@ -64,6 +65,7 @@ const languageLinks = computed(() =>
       </div>
     </div>
     <div id="content">
+      <StorageNotice />
       <div class="section">
         <RouterView :key="viewKey" />
       </div>

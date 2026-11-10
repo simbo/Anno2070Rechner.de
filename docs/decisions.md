@@ -152,6 +152,15 @@ There is always exactly one current game, saved automatically in the browser's
   page language until the visitor renames the game.
 - Deleting the current game opens the most recently used one; deleting the only
   game leaves an empty one.
+- The stored games carry a format version, starting with 1 in `v2.0.0`. Stored
+  data without it, damaged data and invalid games are discarded. Games of a
+  newer version are left alone: that tab stops saving, for example when it was
+  opened before a deployment. A release that changes the format therefore must
+  not be rolled back, unless the version before it can read the new format.
+- While nothing is saved, a red cross replaces the green check, and a notice
+  above the page says why: the browser does not allow saving, or the games come
+  from a newer version and the page needs a reload. Once closed, the notice
+  stays closed for the rest of the page view.
 - Two small icons in the bottom right corner export the current game as text and
   import such a text. Only the current game can be exported. Games have random
   ids of 32 hex digits from `crypto.getRandomValues`; older ids stay valid. An

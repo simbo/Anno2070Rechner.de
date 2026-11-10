@@ -7,12 +7,14 @@ import {
   exportGame,
   inputsFingerprint,
   isDefaultInputs,
+  isNewerStorage,
   maxNameLength,
   overwriteWithImport,
   parseGames,
   parseImport,
   planImport,
   removeGame,
+  serializeGames,
   type Game,
   type GamesState,
   type ImportPlan,
@@ -22,6 +24,22 @@ import {
  * Storage key in the visitor's browser.
  */
 export const gamesStorageKey = 'anno2070rechner:games';
+
+/**
+ * Why games are not saved: `blocked` if the browser does not allow it, `newer` if the stored
+ * games come from a newer version of the site.
+ */
+export type StorageError = 'blocked' | 'newer';
+
+/**
+ * What the visitor is told about each storage error, as German texts to translate.
+ */
+export const storageErrorTexts: Record<StorageError, string> = {
+  blocked:
+    'Dieser Browser erlaubt kein Speichern. Deine Eingaben gehen beim Schließen verloren. Erlaube Website-Daten für diese Seite, um sie zu behalten.',
+  newer:
+    'Deine Spiele wurden mit einer neueren Version der Seite gespeichert. Lade die Seite neu, damit deine Eingaben wieder gespeichert werden.',
+};
 
 /**
  * The outcome of an import that the visitor may have to decide on.
@@ -47,12 +65,19 @@ function readStored(): string | undefined {
  * changes are saved automatically in the browser.
  */
 export const useGamesStore = defineStore('games', () => {
-  const state = ref<GamesState>(parseGames(readStored(), new Date()));
+  const stored = readStored();
+  const state = ref<GamesState>(parseGames(stored, new Date()));
 
   /**
-   * Whether the browser accepted the last change.
+   * Why the games are not saved: the browser does not allow it, or the stored games come from
+   * a newer version of the site, which this one must not overwrite.
    */
-  const storageWorks = ref(true);
+  const storageError = ref<StorageError | undefined>(isNewerStorage(stored) ? 'newer' : undefined);
+
+  /**
+   * Whether changes are saved.
+   */
+  const storageWorks = computed(() => storageError.value === undefined);
 
   /**
    * Changes when the current game was replaced, so that the calculator starts over with it.
@@ -65,14 +90,15 @@ export const useGamesStore = defineStore('games', () => {
    * Saves the games if they changed.
    */
   function persist(): void {
-    const text = JSON.stringify(state.value);
+    if (storageError.value === 'newer') return;
+    const text = serializeGames(state.value);
     if (text === written) return;
     written = text;
     try {
       globalThis.localStorage.setItem(gamesStorageKey, text);
-      storageWorks.value = true;
+      storageError.value = undefined;
     } catch {
-      storageWorks.value = false;
+      storageError.value = 'blocked';
     }
   }
   persist();
@@ -95,9 +121,15 @@ export const useGamesStore = defineStore('games', () => {
     },
   );
 
-  // Other tabs follow the same games.
+  // Other tabs follow the same games. A tab of a newer version keeps them in its format, which
+  // this one leaves alone.
   globalThis.addEventListener('storage', event => {
     if (event.key !== gamesStorageKey) return;
+    if (isNewerStorage(event.newValue)) {
+      storageError.value = 'newer';
+      return;
+    }
+    if (storageError.value === 'newer') storageError.value = undefined;
     state.value = parseGames(event.newValue, new Date());
     written = event.newValue ?? '';
     revision.value++;
@@ -201,6 +233,7 @@ export const useGamesStore = defineStore('games', () => {
 
   return {
     state,
+    storageError,
     storageWorks,
     revision,
     current,

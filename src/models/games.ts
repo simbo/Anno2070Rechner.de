@@ -284,29 +284,56 @@ export function createGame(games: readonly Game[], now: Date): Game {
 export const gamesByUse = (games: readonly Game[]): Game[] => [...games].sort((a, b) => b.usedAt - a.usedAt);
 
 /**
+ * Version of the stored format. A change that older versions of the site cannot read raises it,
+ * so that they leave the stored games alone instead of discarding them.
+ */
+export const STORAGE_VERSION = 1;
+
+/**
+ * Writes the games for the browser's storage, with the version of the format.
+ *
+ * @param state - The games.
+ * @returns The text.
+ */
+export const serializeGames = (state: GamesState): string => JSON.stringify({ version: STORAGE_VERSION, ...state });
+
+/**
  * Reads the outer structure of stored games. Damaged data counts as none.
  *
  * @param raw - The stored text.
  * @returns What it contains.
  */
-function parseStored(raw: string | null | undefined): { currentId?: unknown; games?: unknown } {
+function parseStored(raw: string | null | undefined): { version?: unknown; currentId?: unknown; games?: unknown } {
   try {
-    return (JSON.parse(raw ?? '{}') ?? {}) as { currentId?: unknown; games?: unknown };
+    const parsed: unknown = JSON.parse(raw ?? '{}');
+    return typeof parsed === 'object' && parsed !== null ? parsed : {};
   } catch {
     return {};
   }
 }
 
 /**
- * Reads stored games. Invalid games are left out; without any game, a new one starts.
+ * Whether stored games come from a newer version of the site, which this one cannot read.
+ *
+ * @param raw - The stored text.
+ * @returns True for a newer format.
+ */
+export function isNewerStorage(raw: string | null | undefined): boolean {
+  const { version } = parseStored(raw);
+  return typeof version === 'number' && version > STORAGE_VERSION;
+}
+
+/**
+ * Reads stored games. Data of another format version and invalid games are left out; without
+ * any game, a new one starts.
  *
  * @param raw - The stored text.
  * @param now - The current time.
  * @returns The state.
  */
 export function parseGames(raw: string | null | undefined, now: Date): GamesState {
-  const { currentId, games: list } = parseStored(raw);
-  const games = (Array.isArray(list) ? list : []).reduce<Game[]>((valid, entry) => {
+  const { version, currentId, games: list } = parseStored(raw);
+  const games = (version === STORAGE_VERSION && Array.isArray(list) ? list : []).reduce<Game[]>((valid, entry) => {
     const result = gameSchema.safeParse(entry);
     return result.success ? [...valid, result.data] : valid;
   }, []);

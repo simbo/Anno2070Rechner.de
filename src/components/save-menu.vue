@@ -6,11 +6,11 @@ import { useI18n } from '../i18n';
 import { keyName } from '../lib/keys';
 import { dayOf, formatDay, gameName, gamesByUse, maxNameLength, type Game } from '../models/games';
 import { pagePath } from '../routes';
-import { useGamesStore } from '../stores/games';
+import { storageErrorTexts, useGamesStore } from '../stores/games';
 
 /**
  * The disk icon in the header and its menu of saved games. The icon gets a green check once
- * the current game has inputs. The menu switches, renames and deletes games, starts new ones
+ * the current game has inputs, and a red cross while nothing is saved. The menu switches, renames and deletes games, starts new ones
  * and carries the current game to other browsers as text.
  */
 const games = useGamesStore();
@@ -268,7 +268,7 @@ onBeforeUnmount(() => {
 <template>
   <div id="save-chooser" ref="root" @click="clickedInside = true" @keydown="onKeyDown">
     <ul class="user-menu">
-      <li class="save" :class="{ saved: games.hasInputs && games.storageWorks }">
+      <li class="save" :class="{ saved: games.hasInputs && games.storageWorks, unsaved: !games.storageWorks }">
         <a
           href="#"
           :title="t('Gespeicherte Spiele')"
@@ -284,9 +284,7 @@ onBeforeUnmount(() => {
         <template v-if="panel === 'list'">
           <p>
             {{
-              games.storageWorks
-                ? t('Automatisch im Browser gespeichert.')
-                : t('Dieser Browser erlaubt kein Speichern. Deine Eingaben gehen beim Schließen verloren.')
+              games.storageError ? t(storageErrorTexts[games.storageError]) : t('Automatisch im Browser gespeichert.')
             }}
           </p>
           <ul>

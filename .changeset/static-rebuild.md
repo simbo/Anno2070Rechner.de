@@ -55,7 +55,9 @@ including shared links to commodity chains, keep working.
 - **Saved games in the browser.** The disk icon from the old header is back, for
   everyone. There is always a current game, saved automatically. Its menu keeps
   several games, switches, renames and deletes them, and exports or imports a
-  game as text to take it to another browser.
+  game as text to take it to another browser. If the browser does not allow
+  saving, or the games were saved by a newer version of the site, a red cross
+  replaces the check and a notice says what to do.
 - **Enter your inputs once more.** Inputs saved by the old site cannot be taken
   over, because its cookie is not readable by the page.
 - **Shareable pages.** Commodity chains and the database keep their whole state
