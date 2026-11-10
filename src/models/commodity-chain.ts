@@ -48,7 +48,8 @@ export type Productivities = Partial<Record<number, number>>;
 /**
  * Calculates a commodity chain recursively like the old `GameData::getCommodityChain()`.
  * For every raw material, all buildings producing it are listed; a preferred building
- * moves to the front, otherwise the order of the game data applies.
+ * moves to the front, otherwise the order of the game data applies. Unlike the old site,
+ * a productivity below 100 % does not raise the raw material need.
  *
  * @param catalog - The game data.
  * @param building - The building at the top of the chain.
@@ -71,12 +72,15 @@ export function getCommodityChain(
   const tpm = tonsPerMinute(building);
   const targetTpm = target ?? tpm * factor * Math.trunc(count);
   const multiplier = targetTpm / (tpm * factor);
+  // A bonus raises the yield per cycle, while a productivity below 100 % slows the cycle
+  // and uses raw materials as slowly, see docs/calculator-comparison.md.
+  const rawMultiplier = targetTpm / (tpm * Math.max(factor, 1));
   const node: ChainNode = { building, multiplier, target: targetTpm, productivity: factor, raw1: [], raw2: [] };
   for (const key of ['raw1', 'raw2'] as const) {
     const raw = building[key];
     if (!raw) continue;
     const producers = preferFirst(catalog.productionBuildingsByProduct.get(raw.product) ?? [], preferred);
-    const needed = rawTonsPerMinute(building, raw) * multiplier;
+    const needed = rawTonsPerMinute(building, raw) * rawMultiplier;
     node[key] = producers.map(producer => getCommodityChain(catalog, producer, 1, needed, productivity, preferred));
   }
   return node;

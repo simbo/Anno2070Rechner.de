@@ -141,8 +141,8 @@ Nothing is decided by this section unless stated.
   we suggest up to 82 % more buildings for these goods.
 - Our handling of productivity in chains is taken as correct for items, see
   [Productivity and raw materials](#productivity-and-raw-materials). Below 100 %
-  our chains show too many raw material buildings, and eco and item bonuses
-  multiply, see
+  our chains showed too many raw material buildings, which is fixed, and eco and
+  item bonuses multiply, see
   [Below 100 % and eco with items](#below-100--and-eco-with-items).
 - We lead with chains, alternatives, costs, database, languages and links.
   Others lead with Deep Ocean, exact fractions, senate bonus, materials and
@@ -317,6 +317,15 @@ change the rate. Raw materials are used per cycle.
   - The eco balance changes the fertility of farms (`FertilityCorruption`), not
     a yield. Farms have no raw materials, so for raw materials only the energy
     shortage matters.
+  - The [Production](https://anno2070.fandom.com/wiki/Production) page of the
+    Anno wiki describes the same model of rate and yield, but does not say which
+    of the two an energy shortage changes.
+
+  A web search on 2026-11-10 in the Anno wiki, AnnoZone, the Ubisoft forum,
+  Steam and GameFAQs found no further source on raw material use under an energy
+  shortage, neither for nor against. The sources only say that productivity
+  falls in proportion to the energy deficit. All calculators except DOE
+  calculate like ours, but none of them explains why.
 
   Lower yields also exist: items that lower `ProductionCount` by 5 or 10 % and
   senate effects. With them the raw material need per building stays the same.
@@ -332,29 +341,22 @@ change the rate. Raw materials are used per cycle.
     balance of 50 and 175 % at 500, so the difference is only relevant for Eco
     farms with a high eco balance.
 
-### What the calculator would need
+### What the calculator does with it
 
-Neither change has been made yet.
-
-1. **Below 100 %:** `getCommodityChain()` in
-   [commodity-chain.ts](../src/models/commodity-chain.ts) derives the raw
-   material need from the number of buildings, so a building at 50 % needs twice
-   the raw materials. Instead, only the part of the productivity above 100 %
-   should reduce the raw material need: the need becomes the output divided by
-   the output of one building at `max(productivity, 100 %)`, times the raw
-   material of one building. Building counts stay as they are. The chain tests
-   compared with the old site (`src/tests/live-chains.json`) use productivities
-   below 100 % and get new expected values, as a deliberate deviation from the
-   old site. Separate inputs for rate and yield would be exact but need new
-   inputs, URL parameters and saved-game fields, which the rare yield penalties
-   do not justify.
-2. **Eco and items:** Farms have no raw materials, so only the number of farms
-   is affected, by up to about 9 % too many. The productivity input takes one
-   value; whoever enters the sum shown in the game gets too many farms. The
-   smallest fix is a hint at the productivity of farms to enter eco × item, for
-   example 219 % for 175 % and +25 %. Two inputs for farms, multiplied, would
-   need new inputs, URL parameters, saved-game fields and texts in both
-   languages.
+1. **Below 100 %: changed (2026-11-10).** `getCommodityChain()` in
+   [commodity-chain.ts](../src/models/commodity-chain.ts) used to derive the raw
+   material need from the number of buildings, so a building at 50 % needed
+   twice the raw materials. Now only the part of the productivity above 100 %
+   reduces the raw material need; below 100 % it stays as at 100 %. Building
+   counts are unchanged. This deliberately deviates from the old site and from
+   all other calculators except DOE. Separate inputs for rate and yield would be
+   exact for the rare yield penalties, but are not worth new inputs, URL
+   parameters and saved-game fields.
+2. **Eco and items: no change (decided 2026-11-10).** Farms have no raw
+   materials, so only the number of farms is affected: whoever enters the sum
+   shown in the game gets up to about 9 % too many farms. The calculator itself
+   computes correctly with the productivity entered, so it stays as it is,
+   without a hint.
 
 ### Feature overview
 
@@ -435,12 +437,11 @@ Follows from the game files, to be done before `v2.0.0`:
    and build costs to `patch8.rda`, and correct the source in
    [game-data.md](game-data.md). Done.
 2. Reduce the raw material need of chains below 100 % productivity. Decided
-   without a game test; whether and when to change the calculator is open, see
-   [What the calculator would need](#what-the-calculator-would-need).
+   without a game test and done, see
+   [What the calculator does with it](#what-the-calculator-does-with-it).
 3. Name the game version on the site. Done.
-4. Handle multiplying eco and item bonuses on farms. Decided without a game
-   test; how to handle it is open, see
-   [What the calculator would need](#what-the-calculator-would-need).
+4. Handle multiplying eco and item bonuses on farms. Decided: no change, see
+   [What the calculator does with it](#what-the-calculator-does-with-it).
 
 Worth considering independently of the data, left for later in
 [rebuild-plan.md](rebuild-plan.md#later):

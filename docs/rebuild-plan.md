@@ -476,6 +476,10 @@ Verification
   building whose productivity is not 100 %. 16 population scenarios differ only
   by the class `red` instead of `undefined`, which is hidden on buildings
   without demand. All others still match.
+- The raw material need below 100 % changes results deliberately (2026-11-10): a
+  production building with raw materials below 100 % no longer raises the need
+  of the buildings supplying it. The recorded references were not compared
+  again; a unit test covers the new behavior.
 
 ## Next steps
 
@@ -491,12 +495,6 @@ Where the work stands and what follows. Deep Ocean stays out of scope.
    history would not help with forks and copies and would break the
    fast-forward, so it stays as it is.
 2. **Before `v2.0.0`:**
-   - **Productivity below 100 % and eco with items:** decided without a test in
-     the game: a slower cycle uses less raw material, and eco and item bonuses
-     multiply, see
-     [Below 100 % and eco with items](calculator-comparison.md#below-100--and-eco-with-items).
-     Still to decide is whether and when the calculator is changed, see
-     [What the calculator would need](calculator-comparison.md#what-the-calculator-would-need).
    - **Image ZIP:** the author reviews the new `anno2070rechner-images.zip` and
      stores it in the cloud.
 3. **`v2.0.0`**, when the author decides: set up the secrets and the GitHub App,

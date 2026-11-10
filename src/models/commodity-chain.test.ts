@@ -88,6 +88,24 @@ describe('commodity chains', () => {
     }
   });
 
+  it('need less raw material above 100 %, but not more below, unlike the live site', () => {
+    // Tool factories need iron; below 100 % they run slower and use their iron as slowly.
+    const iron = (percent: number): number => {
+      const chain = required(
+        requestCommodityChain(catalogs.de, { pbGuid: '10056', tpmNeeded: 4, productivity: { 10_056: percent } }),
+      );
+      return required(chain.raw1[0]).target;
+    };
+    expect(iron(50)).toBe(iron(100));
+    expect(iron(200)).toBe(iron(100) / 2);
+    const slow = required(
+      requestCommodityChain(catalogs.de, { pbGuid: '10056', tpmNeeded: 4, productivity: { 10_056: 50 } }),
+    );
+    expect(slow.multiplier).toBe(
+      2 * required(requestCommodityChain(catalogs.de, { pbGuid: '10056', tpmNeeded: 4 })).multiplier,
+    );
+  });
+
   it('do not count a rounding error as a building', () => {
     // 6 × 3.88 t/min divided by 3.88 t/min comes out as 6.000000000000001.
     const request = { pbGuid: '10045', productivity: { 10_045: 194 } };

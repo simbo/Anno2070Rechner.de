@@ -134,6 +134,12 @@ as before.
   building and 4 t/min instead of ×2 and 8 t/min. **This changes results
   compared with the old site:** 176 of the 726 recorded chains differ, exactly
   those with a building count, no target and a productivity other than 100 %.
+- **Raw materials below 100 %.** A building below 100 %, for example from an
+  energy shortage, works more slowly and uses its raw materials as slowly. Its
+  chain therefore no longer asks for more raw material buildings: 2 tool
+  factories at 50 % need as much iron as 1 at 100 %, not twice as much. Like
+  most other calculators, the old site did not tell the two apart. **This
+  changes results compared with the old site.**
 - **No building too many.** Rounding errors no longer add a building: 23.28
   t/min at 3.88 t/min per building are 6 buildings, not 7.
 - **Broken umlauts.** Names such as "ErdÃ¶lraffinerie" in the database view are
