@@ -176,7 +176,7 @@ body {
 }
 
 body {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.231;
   font-family: Arial, sans-serif;
   color: #fff;
@@ -338,6 +338,13 @@ a:focus {
   display: none;
 }
 
+/* A column, so that the imprint and privacy links can sit at the bottom of the window. */
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 #wrap {
   width: 960px;
   margin: 0 auto;
@@ -355,7 +362,7 @@ a:focus {
 #footer {
   min-height: 70px;
   background: transparent url('/img/bg-footer.png') no-repeat left bottom;
-  margin: 0 0 40px 0;
+  margin: 0 0 12px 0;
 }
 
 .section {
@@ -404,36 +411,83 @@ a:focus {
   opacity: 0.6;
 }
 
-/* Stays a float, so that the main menu clears it like the old user menu. */
-#background-chooser {
-  position: relative;
-  float: right;
+/* The red tab at the top right grows with its icons. bg-header.png leaves the top 52 rows
+   from x = 300 empty; this strip draws them: the plain panel edge, the tab's left curve, the
+   red middle and the right corner. Each pixel comes from exactly one piece, because the pieces
+   carry the panel's shadow, and the pattern repeats every 24 px. With three icons the strip
+   matches the original header exactly. */
+#header-tab {
+  position: absolute;
+  top: 0;
+  left: 270px;
+  right: -30px;
+  display: flex;
+  height: 52px;
 }
 
+.header-tab-fill {
+  flex: 1 1 auto;
+  background: transparent url('/img/bg-header-tab-fill.png') 0 0 repeat-x;
+}
+
+.header-tab-left {
+  flex: none;
+  width: 66px;
+  background: transparent url('/img/bg-header-tab-left.png') 0 0 no-repeat;
+}
+
+/* The icons start 9 px inside the left curve and end 24 px inside the right corner, so the
+   red middle between the two pieces is 33 px narrower than the icons. */
+.header-tab-middle {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: none;
+  margin: 0 -24px 0 -9px;
+  padding: 20px 0 0 0;
+}
+
+.header-tab-middle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 24px;
+  bottom: 0;
+  left: 9px;
+  z-index: -1;
+  background: transparent url('/img/bg-header-tab-middle.png') right top repeat-x;
+}
+
+.header-tab-right {
+  flex: none;
+  width: 60px;
+  background: transparent url('/img/bg-header-tab-right.png') 0 0 no-repeat;
+}
+
+#background-chooser,
 #save-chooser {
   position: relative;
-  float: right;
 }
 
+/* Its baseline lines up with "RECHNER.DE" in the logo. */
 #game-version {
   position: absolute;
-  top: 30px;
-  left: 222px;
+  top: 144px;
+  left: 234px;
   color: #ecd07a;
   white-space: nowrap;
 }
 
+/* Both dropdowns hang from the red edge of the tab, aligned with their icon. */
 #background-menu {
-  top: 32px;
-  right: 15px;
+  top: 30px;
+  right: 9px;
   margin: 0;
   z-index: 1000;
 }
 
 .user-menu {
-  float: right;
   height: 30px;
-  margin: 0 6px 0 0;
 }
 
 .user-menu li {
@@ -485,7 +539,7 @@ a:focus {
 #menu {
   clear: right;
   float: right;
-  margin: 86px 10px 0 0;
+  margin: 116px 10px 0 0;
 }
 
 #menu li {
@@ -496,7 +550,7 @@ a:focus {
   display: block;
   line-height: 30px;
   padding: 0 12px;
-  font-size: 13px;
+  font-size: 15px;
   letter-spacing: 1px;
   color: #fff;
   border-bottom: 5px transparent solid;
@@ -589,6 +643,60 @@ a:focus {
   padding: 0 0 15px 0;
 }
 
+body.info #content p {
+  line-height: 1.4;
+}
+
+/* A card in the colour of the content's separator lines, the page pattern shows through. */
+#content .info-note {
+  margin: 10px 30px 40px 30px;
+  padding: 18px 0 4px 0;
+  background: rgba(238, 238, 255, 0.1);
+  border: 1px solid rgba(238, 238, 255, 0.2);
+  border-radius: 6px;
+}
+
+#content .info-note p {
+  margin: 0 20px;
+}
+
+/* Subheadings sit close to their text and keep a clear distance to the block before. */
+#content .info-legal {
+  padding-bottom: 15px;
+}
+
+#content .info-legal h4 {
+  margin: 20px 30px 8px 30px;
+  font-weight: bold;
+}
+
+#content .info-legal h4:first-child {
+  margin-top: 0;
+}
+
+#content .info-legal p {
+  padding-bottom: 0;
+}
+
+#content .info-legal p + p {
+  padding-top: 6px;
+}
+
+.github-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  vertical-align: text-bottom;
+  background: transparent url('/img/icon-github.png') 0 0 no-repeat;
+  opacity: 0.8;
+}
+
+a:hover .github-icon,
+a:focus .github-icon {
+  opacity: 1;
+}
+
 #content ul.checklist {
   margin: 0 30px;
   padding: 0 0 30px 0;
@@ -629,6 +737,37 @@ a:focus {
   text-transform: uppercase;
   opacity: 0.6;
   font-size: 10px;
+}
+
+/* Below the page frame, in the style of the language selection text. */
+/* Sticks to the bottom of the window as long as the page is shorter. */
+#legal-links {
+  margin: auto 0 0 0;
+  padding: 0 0 16px 0;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+#legal-links li {
+  display: inline;
+}
+
+#legal-links li + li::before {
+  content: '•';
+  margin: 0 8px;
+  opacity: 0.6;
+}
+
+#legal-links a {
+  color: #fff;
+  opacity: 0.6;
+}
+
+#legal-links a:hover,
+#legal-links a:focus {
+  opacity: 1;
+  text-decoration: none;
 }
 
 #lang-select li {
@@ -672,7 +811,7 @@ form.fright {
 }
 
 form dt {
-  width: 120px;
+  width: 130px;
   float: left;
   min-height: 2em;
   clear: both;
@@ -680,7 +819,7 @@ form dt {
 
 form dd {
   min-height: 2em;
-  margin: 0 0 10px 140px;
+  margin: 0 0 10px 150px;
 }
 
 form dd span.error {
@@ -724,7 +863,7 @@ label {
 select,
 input,
 textarea {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.231;
   font-family: Arial, sans-serif;
   box-sizing: border-box;
@@ -779,7 +918,7 @@ button {
   text-shadow: 0px 0px 2px #0d1723;
   background: #0b1d29 url('/img/bg-gradient-darkblue-short.png') 0 0 repeat-x;
   font-family: Arial, serif;
-  font-size: 13px;
+  font-size: 14px;
   border: 1px solid #1e3650;
   border-top-color: #2a4866;
   border-left: 6px solid #a31e1f;
@@ -2047,8 +2186,8 @@ a.display-hide:hover {
 }
 
 #save-menu {
-  top: 32px;
-  right: 15px;
+  top: 30px;
+  right: 9px;
   z-index: 1000;
   width: 300px;
   margin: 0;

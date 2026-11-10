@@ -58,6 +58,17 @@ export const siteTitle = 'Anno 2070 Rechner';
 export const siteUrl = 'https://anno2070rechner.de';
 
 /**
+ * Imprint of the author, shared by all of the author's sites.
+ */
+export const imprintUrl = 'https://simbo.de/imprint';
+
+/**
+ * Privacy notice of the author, shared by all of the author's sites. A placeholder until its final
+ * address is decided.
+ */
+export const privacyUrl = 'https://simbo.de/privacy';
+
+/**
  * Short description for search engines and link previews.
  */
 export const siteDescription: Record<Language, string> = {

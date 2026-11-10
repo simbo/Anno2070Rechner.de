@@ -7,13 +7,13 @@ import BackgroundMenu from './components/background-menu.vue';
 import SaveMenu from './components/save-menu.vue';
 import { useI18n } from './i18n';
 import { gameVersion } from './models/game-data';
-import { languages, pagePath, pages, siteTitle } from './routes';
+import { imprintUrl, languages, pagePath, pages, privacyUrl, siteTitle } from './routes';
 import { useGamesStore } from './stores/games';
 
 /**
  * Page frame of the old site: header with logo, save and background menus and navigation, content,
- * footer and the language selection. Login, registration and the "Under Development" badge
- * are gone.
+ * footer, the links to imprint and privacy notice and the language selection. Login, registration
+ * and the "Under Development" badge are gone.
  */
 const route = useRoute();
 const { language, t } = useI18n();
@@ -46,9 +46,16 @@ const languageLinks = computed(() =>
       <div class="section">
         <AppLink id="home-link" :to="pagePath('population', language)" :title="`${siteTitle} » ${t('Startseite')}`" />
         <h1 id="site-title">{{ siteTitle }}</h1>
-        <small id="game-version">{{ t('für Spielversion') }} {{ gameVersion }}</small>
-        <BackgroundMenu />
-        <SaveMenu />
+        <small id="game-version">{{ t('für Version') }} {{ gameVersion }}</small>
+        <div id="header-tab">
+          <div class="header-tab-fill"></div>
+          <div class="header-tab-left"></div>
+          <div class="header-tab-middle">
+            <SaveMenu />
+            <BackgroundMenu />
+          </div>
+          <div class="header-tab-right"></div>
+        </div>
         <ul id="menu">
           <li v-for="page in pages" :key="page.id" :class="menuClass(page.id)">
             <AppLink :to="pagePath(page.id, language)" title="">{{ t(page.title.de) }}</AppLink>
@@ -65,6 +72,14 @@ const languageLinks = computed(() =>
       <div class="section"></div>
     </div>
   </div>
+  <ul id="legal-links">
+    <li>
+      <a :href="imprintUrl">{{ t('Impressum') }}</a>
+    </li>
+    <li>
+      <a :href="privacyUrl">{{ t('Datenschutz') }}</a>
+    </li>
+  </ul>
   <ul id="lang-select">
     <li class="text">wähle deine Sprache&nbsp;&nbsp;/&nbsp;&nbsp;choose your language</li>
     <li v-for="link in languageLinks" :key="link.code">

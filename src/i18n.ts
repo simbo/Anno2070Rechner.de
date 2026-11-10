@@ -30,10 +30,9 @@ const english: Record<string, string> = {
   'Wirklich zurücksetzen?': 'Really reset?',
   Ja: 'Yes',
   Nein: 'No',
-  'für Spielversion': 'for Game Version',
+  'für Version': 'for Version',
   'Gespeicherte Spiele': 'Saved games',
-  'Deine Eingaben werden automatisch in diesem Browser gespeichert.':
-    'Your inputs are saved automatically in this browser.',
+  'Automatisch im Browser gespeichert.': 'Automatically saved in your browser.',
   'Dieser Browser erlaubt kein Speichern. Deine Eingaben gehen beim Schließen verloren.':
     'This browser does not allow saving. Your inputs will be lost when you close it.',
   'Neues Spiel': 'New game',
@@ -99,23 +98,31 @@ const english: Record<string, string> = {
   'produziert von': 'produced by',
   'Oops, da ist etwas total schiefgelaufen…': 'Oops, something went totally wrong here…',
   'Das von dir angeforderte Dokument konnte nicht gefunden werden.': 'The document you requested could not be found.',
-  Support: 'Support',
-  'Thema im deutschen Anno 2070 Forum': 'Topic in the german Anno 2070 forums',
-  'Thema im englischen Anno 2070 Forum': 'Topic in the english Anno 2070 forums',
-  'Issue Tracker von Anno2070Rechner.de auf Github': 'Issue Tracker of Anno2070Rechner.de at Github',
-  Quelltexte: 'Sources',
-  'Alle Quelltexte stehen auf Github zur Verfügung. Du bist herzlich eingeladen mitzuwirken.':
-    'All sources are available at Github. You are invited to contribute.',
-  'Anno2070Rechner.de auf Github': 'Anno2070Rechner.de at Github',
-  'Entwickler und Betreiber': 'Developer and carrier',
-  'Die Website ist rein zum privaten Gebrauch und dient keinem kommerziellen Zweck.':
-    'The website is only for private use and does not serve any commercial purpose.',
   'Anno2070Rechner.de ist eine Fansite und ein Online-Tool für das Spiel <a href="%s" title="Anno 2070">Anno 2070</a> von <a href="%s" title="Ubisoft">Ubisoft</a>.':
-    'Anno2070Rechner.de is a fansite and a online tool for the game <a href="%s" title="Anno 2070">Anno 2070</a> by <a href="%s" title="Ubisoft">Ubisoft</a>.',
-  'Für volle Funktionalität und beste Darstellung ist ein moderner Browser, wie <a href="%s" title="Mozilla Firefox">Mozilla Firefox</a> oder <a href="%s" title="Google Chrome">Google Chrome</a>, erforderlich.':
-    'For full functionality and best presentation, a modern browser like <a href="%s" title="Mozilla Firefox">Mozilla Firefox</a> or <a href="%s" title="Google Chrome">Google Chrome</a> is necessary.',
-  '<em>Bitte</em> benutzt den Issue Tracker des Projekts auf Github um auf Fehler, Verbesserungsvorschläge und ähnliches aufmerksam zu machen:':
-    "<em>Please</em> use the project's issue tracker on Github to report errors, suggestions or anything similar:",
+    'Anno2070Rechner.de is a fansite and an online tool for the game <a href="%s" title="Anno 2070">Anno 2070</a> by <a href="%s" title="Ubisoft">Ubisoft</a>.',
+  'Die Website ist rein zum privaten Gebrauch und verfolgt keine kommerziellen Zwecke.':
+    'The website is purely for private use and has no commercial purpose.',
+  'Zu Anno gehörte für mich immer auch ein Rechner. Ende 2011 erschien Anno 2070, und ich habe diesen hier gebaut – mit derselben Begeisterung, mit der ich es gespielt habe. Als mich das Spiel nicht mehr packte, ging es dem Rechner genauso: Die Erweiterung „Die Tiefsee“ kam nie dazu, und Feedback blieb unbeantwortet. Danke an alle, die Fehler gemeldet, Ideen geschickt oder selbst weitergebaut haben.':
+    'Anno has always come with a calculator for me. Anno 2070 came out at the end of 2011, and I built this one – with the same enthusiasm I played it with. When the game lost its grip on me, so did the calculator: the “Deep Ocean” expansion never made it in, and feedback went unanswered. Thanks to everyone who reported bugs, sent ideas or built on it themselves.',
+  '15 Jahre lief der Rechner mit PHP und MySQL auf dem Server und wurde über Updates und Umzüge hinweg gepflegt. 2026 ließ ich ihn mit Hilfe von KI in eine Version ohne Server und Datenbank übertragen. Die neue, hoffentlich zukunftssichere Version wurde intensiv geprüft und getestet, Fehler wurden behoben und die Spieldaten auf die letzte Spielversion gebracht. Möge er noch lange laufen, wie er ist.':
+    'For 15 years the calculator ran on a server with PHP and MySQL and was kept alive through updates and moves. In 2026 I had it ported with the help of AI into a version without a server or database. The new, hopefully future-proof version was thoroughly checked and tested, bugs were fixed and the game data was brought up to the final game version. May it keep running just as it is for a long time.',
+  'Entwickler und Betreiber': 'developer and operator',
+  Rechtliches: 'Legal',
+  Impressum: 'Imprint',
+  'Anno 2070 ist eine Marke von Ubisoft. Diese Seite ist kein offizielles Angebot von Ubisoft.':
+    'Anno 2070 is a trademark of Ubisoft. This site is not an official Ubisoft offering.',
+  'Grafiken und Spieldaten stammen aus dem Spiel und gehören ihren Rechteinhabern.':
+    'Graphics and game data come from the game and belong to their rights holders.',
+  Quelltext: 'Source code',
+  'Der Quelltext steht unter der <a href="%s">MIT-Lizenz</a>.':
+    'The source code is licensed under the <a href="%s">MIT License</a>.',
+  'Ausgenommen sind die Grafiken aus dem Spiel.': 'The graphics from the game are excluded.',
+  Schrift: 'Font',
+  'Die Überschriften verwenden die Schrift „Prototype“ von Justin Callaghan, siehe <a href="%s">Prototype.txt</a>.':
+    'The headings use the font “Prototype” by Justin Callaghan, see <a href="%s">Prototype.txt</a>.',
+  Datenschutz: 'Privacy',
+  'Deine Eingaben werden nur in deinem Browser gespeichert. Es gibt keine Cookies.':
+    'Your inputs are only stored in your browser. There are no cookies.',
 };
 
 /**

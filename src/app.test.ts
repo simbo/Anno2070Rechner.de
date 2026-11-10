@@ -36,7 +36,7 @@ describe('page frame', () => {
     const items = wrapper.findAll('#menu li');
     expect(items.map(item => item.text())).toEqual(['Bevölkerung', 'Produktionsketten', 'Datenbank', 'Info']);
     expect(items.map(item => item.classes())).toEqual([[], [], ['current'], []]);
-    expect(wrapper.findAll('.user-menu li').map(item => item.classes())).toEqual([['background'], ['save']]);
+    expect(wrapper.findAll('.user-menu li').map(item => item.classes())).toEqual([['save'], ['background']]);
     expect(wrapper.find('#under-development').exists()).toBe(false);
   });
 
@@ -54,9 +54,9 @@ describe('page frame', () => {
 
   it('names the game version in both languages', async () => {
     const german = await mountPage('/info');
-    expect(german.wrapper.find('small#game-version').text()).toBe('für Spielversion 3.0.8051');
+    expect(german.wrapper.find('small#game-version').text()).toBe('für Version 3.0.8051');
     const english = await mountPage('/info/en');
-    expect(english.wrapper.find('small#game-version').text()).toBe('for Game Version 3.0.8051');
+    expect(english.wrapper.find('small#game-version').text()).toBe('for Version 3.0.8051');
   });
 
   it('keeps the parameters of a page when changing the language', async () => {

@@ -285,7 +285,7 @@ onBeforeUnmount(() => {
           <p>
             {{
               games.storageWorks
-                ? t('Deine Eingaben werden automatisch in diesem Browser gespeichert.')
+                ? t('Automatisch im Browser gespeichert.')
                 : t('Dieser Browser erlaubt kein Speichern. Deine Eingaben gehen beim Schließen verloren.')
             }}
           </p>

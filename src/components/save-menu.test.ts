@@ -82,7 +82,7 @@ describe('save icon', () => {
 describe('save menu', () => {
   it('explains itself and marks the current game', async () => {
     const { wrapper } = await openMenu();
-    expect(wrapper.find('#save-menu p').text()).toContain('automatisch in diesem Browser');
+    expect(wrapper.find('#save-menu p').text()).toBe('Automatisch im Browser gespeichert.');
     expect(rows(wrapper)).toHaveLength(1);
     expect(rows(wrapper)[0].classes()).toContain('ui-selectmenu-item-selected');
     expect(rows(wrapper)[0].find('a').text()).toMatch(/^Spiel vom \d{2}\.\d{2}\.\d{4}$/);
