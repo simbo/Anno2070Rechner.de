@@ -1,3 +1,5 @@
+import { imageFormat, type ImageFormat } from '../lib/image-format';
+
 /**
  * The background images of the site.
  */
@@ -82,9 +84,11 @@ export function dailyBackground(date: Date): Background {
 export const backgroundClass = (background: Background): string => `bg-${background}`;
 
 /**
- * The address of an image.
+ * The address of an image in the best format the browser supports.
  *
  * @param background - The image.
+ * @param format - The file format.
  * @returns The address.
  */
-export const backgroundUrl = (background: Background): string => `/img/bg-body-${background}.jpg`;
+export const backgroundUrl = (background: Background, format: ImageFormat = imageFormat()): string =>
+  `/img/bg-body-${background}.${format}`;

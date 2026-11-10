@@ -287,6 +287,77 @@ body.bg-tycoon2::after {
   background-image: url('/img/bg-body-tycoon2.jpg');
 }
 
+/* Smaller versions for browsers that support them, see src/lib/image-format.ts. */
+.img-webp body.bg-eco1::before,
+.img-webp body.bg-eco1::after {
+  background-image: url('/img/bg-body-eco1.webp');
+}
+
+.img-webp body.bg-eco2::before,
+.img-webp body.bg-eco2::after {
+  background-image: url('/img/bg-body-eco2.webp');
+}
+
+.img-webp body.bg-eco3::before,
+.img-webp body.bg-eco3::after {
+  background-image: url('/img/bg-body-eco3.webp');
+}
+
+.img-webp body.bg-eco4::before,
+.img-webp body.bg-eco4::after {
+  background-image: url('/img/bg-body-eco4.webp');
+}
+
+.img-webp body.bg-eco5::before,
+.img-webp body.bg-eco5::after {
+  background-image: url('/img/bg-body-eco5.webp');
+}
+
+.img-webp body.bg-tycoon1::before,
+.img-webp body.bg-tycoon1::after {
+  background-image: url('/img/bg-body-tycoon1.webp');
+}
+
+.img-webp body.bg-tycoon2::before,
+.img-webp body.bg-tycoon2::after {
+  background-image: url('/img/bg-body-tycoon2.webp');
+}
+
+.img-avif body.bg-eco1::before,
+.img-avif body.bg-eco1::after {
+  background-image: url('/img/bg-body-eco1.avif');
+}
+
+.img-avif body.bg-eco2::before,
+.img-avif body.bg-eco2::after {
+  background-image: url('/img/bg-body-eco2.avif');
+}
+
+.img-avif body.bg-eco3::before,
+.img-avif body.bg-eco3::after {
+  background-image: url('/img/bg-body-eco3.avif');
+}
+
+.img-avif body.bg-eco4::before,
+.img-avif body.bg-eco4::after {
+  background-image: url('/img/bg-body-eco4.avif');
+}
+
+.img-avif body.bg-eco5::before,
+.img-avif body.bg-eco5::after {
+  background-image: url('/img/bg-body-eco5.avif');
+}
+
+.img-avif body.bg-tycoon1::before,
+.img-avif body.bg-tycoon1::after {
+  background-image: url('/img/bg-body-tycoon1.avif');
+}
+
+.img-avif body.bg-tycoon2::before,
+.img-avif body.bg-tycoon2::after {
+  background-image: url('/img/bg-body-tycoon2.avif');
+}
+
 a,
 a:link,
 a:active,
